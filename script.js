@@ -237,7 +237,7 @@ function initFilters() {
  * Filter Products
  */
 function filterProducts() {
-    const products = document.querySelectorAll('.product-card');
+    const products = document.querySelectorAll('.product-card, .product-card-v2');
     const noResults = document.getElementById('noResults');
     const productsGrid = document.getElementById('productsGrid');
     let visibleCount = 0;
@@ -303,17 +303,18 @@ function initViewToggle() {
  * Variant Selection & Price Update
  */
 function initVariantSelection() {
-    const variants = document.querySelectorAll('.variant[data-price]');
+    // Support both old and new card variants
+    const variants = document.querySelectorAll('.variant[data-price], .card-variant[data-price]');
     
     variants.forEach(variant => {
         variant.addEventListener('click', () => {
-            const card = variant.closest('.product-card');
-            const variantsContainer = variant.closest('.product-variants');
+            const card = variant.closest('.product-card, .product-card-v2');
+            const variantsContainer = variant.closest('.product-variants, .card-variants');
             const priceElement = card.querySelector('.price-value');
             const price = variant.dataset.price;
             
             // Remove selected from siblings
-            variantsContainer.querySelectorAll('.variant').forEach(v => {
+            variantsContainer.querySelectorAll('.variant, .card-variant').forEach(v => {
                 v.classList.remove('selected');
             });
             
@@ -361,7 +362,7 @@ function formatPrice(number) {
 
 // Initial count update
 setTimeout(() => {
-    const count = document.querySelectorAll('.product-card:not(.hidden)').length;
+    const count = document.querySelectorAll('.product-card:not(.hidden), .product-card-v2:not(.hidden)').length;
     const resultsCount = document.getElementById('resultsCount');
     if (resultsCount) resultsCount.textContent = count;
 }, 100);
@@ -370,7 +371,7 @@ setTimeout(() => {
  * Lightbox for Product Images
  */
 function initLightbox() {
-    const productImages = document.querySelectorAll('.product-image');
+    const productImages = document.querySelectorAll('.product-image, .card-image');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
@@ -380,8 +381,8 @@ function initLightbox() {
     productImages.forEach(imageContainer => {
         imageContainer.addEventListener('click', () => {
             const img = imageContainer.querySelector('img');
-            const card = imageContainer.closest('.product-card');
-            const productName = card.querySelector('.product-name')?.textContent || '';
+            const card = imageContainer.closest('.product-card, .product-card-v2');
+            const productName = card.querySelector('.product-name, .card-title')?.textContent || '';
             
             if (img) {
                 lightboxImg.src = img.src;
