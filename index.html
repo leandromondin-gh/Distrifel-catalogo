@@ -16,20 +16,26 @@
             <a href="#inicio" class="nav-logo">
                 <img src="logo.png" alt="Distrifel" class="nav-logo-img">
             </a>
-            <ul class="nav-menu">
-                <li><a href="#inicio" class="nav-link">Inicio</a></li>
-                <li><a href="https://wa.me/5491164639441?text=Hola!%20Quiero%20consultar%20por%20productos" target="_blank" class="nav-link nav-link-cta">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+
+            <div class="nav-actions">
+                <div class="nav-corredor" id="navCorredor">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" aria-hidden="true">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
                     </svg>
-                    Contacto
-                </a></li>
-            </ul>
-            <button class="nav-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+                    <span class="nav-corredor-name" id="navCorrName"></span>
+                </div>
+
+                <button class="nav-cart-btn" id="cartFloatBtn" aria-label="Ver pedido">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="nav-btn-text">Pedido</span>
+                    <span class="nav-cart-badge" id="cartFloatBadge" style="display:none">0</span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -86,7 +92,26 @@
                     <h2 class="catalog-title">Catálogo de Productos</h2>
                     <p class="catalog-subtitle">Explorá nuestra línea completa de conexiones y reguladores</p>
                 </div>
-                
+
+                <div class="category-chips" id="categoryChips">
+                    <button class="chip active" data-category="all" type="button">
+                        <span class="chip-icon">✨</span>
+                        <span>Todas</span>
+                    </button>
+                    <button class="chip" data-category="agua" type="button">
+                        <span class="chip-icon">💧</span>
+                        <span>Agua</span>
+                    </button>
+                    <button class="chip" data-category="gas" type="button">
+                        <span class="chip-icon">🔥</span>
+                        <span>Gas</span>
+                    </button>
+                    <button class="chip" data-category="reguladores" type="button">
+                        <span class="chip-icon">⚙️</span>
+                        <span>Reguladores</span>
+                    </button>
+                </div>
+
                 <div class="search-box">
                     <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="11" cy="11" r="8"/>
@@ -102,23 +127,6 @@
                 </div>
                 
                 <div class="filters-row">
-                    <!-- Filtro Categoría -->
-                    <div class="filter-dropdown">
-                        <button class="filter-btn" data-filter="category">
-                            <span class="filter-label">Categoría</span>
-                            <span class="filter-value">Todas</span>
-                            <svg class="filter-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6,9 12,15 18,9"/>
-                            </svg>
-                        </button>
-                        <div class="filter-menu" data-menu="category">
-                            <button class="filter-option active" data-value="all">Todas las categorías</button>
-                            <button class="filter-option" data-value="agua">💧 Conexiones para Agua</button>
-                            <button class="filter-option" data-value="gas">🔥 Conexiones para Gas</button>
-                            <button class="filter-option" data-value="reguladores">⚙️ Reguladores</button>
-                        </div>
-                    </div>
-                    
                     <!-- Filtro Marca -->
                     <div class="filter-dropdown">
                         <button class="filter-btn" data-filter="brand">
@@ -702,6 +710,124 @@
             </div>
         </div>
     </footer>
+
+    <!-- ===================== NAME POPUP ===================== -->
+    <div class="name-popup-overlay" id="namePopupOverlay">
+        <div class="name-popup">
+            <img src="logo.png" alt="Distrifel" class="popup-logo-img" onerror="this.style.display='none'">
+            <h2 class="popup-title">Bienvenido</h2>
+            <p class="popup-subtitle">Ingresá tu nombre para comenzar a armar tu pedido</p>
+            <div class="popup-input-wrap">
+                <input type="text" id="salesRepName" class="popup-input" placeholder="Tu nombre completo..." autocomplete="name" maxlength="50">
+            </div>
+            <button class="popup-enter-btn" id="popupEnterBtn">
+                Ingresar al catálogo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- ===================== CART OVERLAY ===================== -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- ===================== CART DRAWER ===================== -->
+    <aside class="cart-drawer" id="cartDrawer" aria-label="Carrito de pedido">
+        <div class="cart-drawer-header">
+            <div>
+                <h3 class="cart-drawer-title">Tu Pedido</h3>
+                <p class="cart-drawer-rep" id="cartRepName">Corredor: —</p>
+            </div>
+            <button class="cart-drawer-close" id="cartClose" aria-label="Cerrar carrito">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="cart-items-container" id="cartItemsContainer">
+            <div class="cart-empty-state" id="cartEmptyState">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="60" height="60">
+                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <path d="M16 10a4 4 0 01-8 0"/>
+                </svg>
+                <p>Tu pedido está vacío</p>
+                <span>Agregá productos desde el catálogo</span>
+            </div>
+            <ul class="cart-items-list" id="cartItemsList" style="display:none"></ul>
+        </div>
+
+        <div class="cart-drawer-footer" id="cartDrawerFooter" style="display:none">
+            <div class="cart-total-row">
+                <span class="cart-total-label">Total estimado</span>
+                <span class="cart-total-value" id="cartTotalValue">$0</span>
+            </div>
+            <button class="cart-whatsapp-btn" id="cartSendWhatsApp">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Enviar pedido por WhatsApp
+            </button>
+            <button class="cart-clear-btn" id="cartClearBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+                    <path d="M10 11v6M14 11v6"/>
+                    <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
+                </svg>
+                Limpiar pedido
+            </button>
+        </div>
+    </aside>
+
+    <!-- ===================== CLIENT INFO POPUP (before WhatsApp send) ===================== -->
+    <div class="client-popup-overlay" id="clientPopupOverlay">
+        <div class="client-popup">
+            <button class="client-popup-close" id="clientPopupClose" aria-label="Cancelar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <div class="client-popup-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="32" height="32">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+            </div>
+            <h2 class="client-popup-title">Datos del cliente</h2>
+            <p class="client-popup-subtitle">Completá la información antes de enviar el pedido</p>
+
+            <div class="client-field">
+                <label for="clientName" class="client-label">
+                    Nombre del cliente <span class="client-required">*</span>
+                </label>
+                <input type="text" id="clientName" class="client-input" placeholder="Ej: Ferretería López" maxlength="80" autocomplete="off">
+            </div>
+
+            <div class="client-field">
+                <label for="clientNotes" class="client-label">
+                    Comentarios <span class="client-optional">(opcional)</span>
+                </label>
+                <textarea id="clientNotes" class="client-textarea" placeholder="Notas para el pedido... Ej: entregar en la mañana, paga en efectivo" rows="3" maxlength="300"></textarea>
+            </div>
+
+            <div class="client-popup-actions">
+                <button class="client-btn-cancel" id="clientBtnCancel">Cancelar</button>
+                <button class="client-btn-send" id="clientBtnSend">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    Enviar pedido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== TOAST NOTIFICATIONS ===================== -->
+    <div class="toast-container" id="toastContainer"></div>
 
     <script src="script.js"></script>
 </body>
