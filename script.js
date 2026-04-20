@@ -4,6 +4,8 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.body.dataset.mode = APP_MODE;
+    initPromoBanner();
     loadCartFromStorage();
     initNavigation();
     initMobileMenu();
@@ -35,6 +37,9 @@ const state = {
 const cart = {
     items: [] // { id, name, variant, price, qty }
 };
+
+// App mode: 'corredor' (URL has ?corredores=1) or 'cliente' (default)
+const APP_MODE = new URLSearchParams(location.search).has('corredores') ? 'corredor' : 'cliente';
 
 /**
  * Navigation Scroll Effect
@@ -454,16 +459,7 @@ function initNamePopup() {
 
     if (!overlay) return;
 
-    const savedName = localStorage.getItem('distrifel_corredor');
-    if (savedName) {
-        applyCorrName(savedName);
-        overlay.remove();
-        return;
-    }
-
-    requestAnimationFrame(() => overlay.classList.add('visible'));
-    setTimeout(() => input && input.focus(), 350);
-
+    // ALWAYS wire the enter button — works for both first entry and future edits
     const handleEnter = () => {
         const name = input.value.trim();
         if (!name) {
@@ -476,14 +472,134 @@ function initNamePopup() {
             input.focus();
             return;
         }
-        localStorage.setItem('distrifel_corredor', name);
+        const key = APP_MODE === 'corredor' ? 'distrifel_corredor' : 'distrifel_cliente';
+        localStorage.setItem(key, name);
         applyCorrName(name);
-        overlay.classList.add('hiding');
-        setTimeout(() => overlay.remove(), 350);
+        hideNamePopup();
+        wireNameEdit();
     };
 
     enterBtn.addEventListener('click', handleEnter);
     input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleEnter(); });
+
+    const storageKey = APP_MODE === 'corredor' ? 'distrifel_corredor' : 'distrifel_cliente';
+    const savedName = localStorage.getItem(storageKey);
+
+    // Cliente mode: never show the initial popup (user identifies when sending)
+    if (APP_MODE === 'cliente') {
+        if (savedName) applyCorrName(savedName);
+        hideNamePopup();
+        wireNameEdit();
+        return;
+    }
+
+    // Corredor mode: show popup only if no name saved
+    if (savedName) {
+        applyCorrName(savedName);
+        hideNamePopup();
+        wireNameEdit();
+        return;
+    }
+
+    // First-time corredor: adapt texts and show popup
+    const title = overlay.querySelector('.popup-title');
+    const subtitle = overlay.querySelector('.popup-subtitle');
+    if (title) title.innerHTML = '🚚 Modo Corredor';
+    if (subtitle) subtitle.textContent = 'Ingresá tu nombre para iniciar tu jornada';
+    if (input) input.placeholder = 'Tu nombre (ej: Leandro M.)';
+
+    overlay.style.display = 'flex';
+    requestAnimationFrame(() => overlay.classList.add('visible'));
+    setTimeout(() => input && input.focus(), 350);
+
+    wireNameEdit();
+}
+
+function hideNamePopup() {
+    const overlay = document.getElementById('namePopupOverlay');
+    if (!overlay) return;
+    overlay.classList.add('hiding');
+    setTimeout(() => {
+        overlay.classList.remove('visible', 'hiding');
+        overlay.style.display = 'none';
+    }, 350);
+    document.body.classList.remove('name-popup-open');
+}
+
+function wireNameEdit() {
+    const navCorredor = document.getElementById('navCorredor');
+    const closeBtn = document.getElementById('namePopupClose');
+
+    if (navCorredor && !navCorredor.dataset.editWired) {
+        // Add pencil icon next to name (once)
+        const existingEdit = navCorredor.querySelector('.nav-corredor-edit');
+        if (!existingEdit) {
+            const pencil = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            pencil.setAttribute('class', 'nav-corredor-edit');
+            pencil.setAttribute('viewBox', '0 0 24 24');
+            pencil.setAttribute('fill', 'none');
+            pencil.setAttribute('stroke', 'currentColor');
+            pencil.setAttribute('stroke-width', '2');
+            pencil.setAttribute('width', '12');
+            pencil.setAttribute('height', '12');
+            pencil.setAttribute('aria-hidden', 'true');
+            pencil.innerHTML = '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4L16.5 3.5z"/>';
+            navCorredor.appendChild(pencil);
+        }
+
+        navCorredor.addEventListener('click', openEditNamePopup);
+        navCorredor.title = 'Click para editar tu nombre';
+        navCorredor.dataset.editWired = '1';
+    }
+
+    if (closeBtn && !closeBtn.dataset.wired) {
+        closeBtn.addEventListener('click', hideNamePopup);
+        closeBtn.dataset.wired = '1';
+    }
+
+    // Click outside to close (only when editing)
+    const overlay = document.getElementById('namePopupOverlay');
+    if (overlay && !overlay.dataset.outsideWired) {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay && overlay.dataset.mode === 'edit') {
+                hideNamePopup();
+            }
+        });
+        overlay.dataset.outsideWired = '1';
+    }
+}
+
+function openEditNamePopup() {
+    const overlay = document.getElementById('namePopupOverlay');
+    if (!overlay) return;
+
+    const input = document.getElementById('salesRepName');
+    const title = overlay.querySelector('.popup-title');
+    const subtitle = overlay.querySelector('.popup-subtitle');
+    const enterText = overlay.querySelector('.popup-enter-text');
+    const closeBtn = document.getElementById('namePopupClose');
+
+    const key = APP_MODE === 'corredor' ? 'distrifel_corredor' : 'distrifel_cliente';
+    const currentName = localStorage.getItem(key) || '';
+
+    if (input) input.value = currentName;
+    if (title) title.innerHTML = '✏️ Cambiar nombre';
+    if (subtitle) {
+        subtitle.textContent = APP_MODE === 'corredor'
+            ? 'Actualizá tu nombre de corredor'
+            : 'Actualizá tu nombre';
+    }
+    if (enterText) enterText.textContent = 'Guardar';
+    if (closeBtn) closeBtn.style.display = 'flex';
+
+    overlay.dataset.mode = 'edit';
+    overlay.style.display = 'flex';
+    document.body.classList.add('name-popup-open');
+    requestAnimationFrame(() => overlay.classList.add('visible'));
+    setTimeout(() => {
+        input?.focus();
+        input?.select();
+    }, 300);
 }
 
 function applyCorrName(name) {
@@ -493,7 +609,19 @@ function applyCorrName(name) {
 
     if (navName) navName.textContent = name;
     if (navCorredor) navCorredor.classList.add('visible');
-    if (cartRep) cartRep.textContent = `Corredor: ${name}`;
+
+    if (APP_MODE === 'corredor') {
+        // Swap user icon for truck icon
+        const svg = navCorredor?.querySelector('svg');
+        if (svg && !svg.dataset.truckified) {
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.innerHTML = '<path d="M1 3h13v13H1z"/><path d="M14 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/>';
+            svg.dataset.truckified = '1';
+        }
+        if (cartRep) cartRep.textContent = `🚚 Corredor: ${name}`;
+    } else {
+        if (cartRep) cartRep.textContent = `Cliente: ${name}`;
+    }
 }
 
 /* ============================================================
@@ -607,16 +735,30 @@ function addToCart(card, btn, qty = 1) {
     showToast(name, qty, variantText);
     bumpCart();
 
-    // Visual feedback on button
+    // Visual feedback on button: pulse + icon swap (cart → check), no color change
     if (btn) {
         btn.classList.add('added');
         const span = btn.querySelector('span');
-        const prev = span ? span.textContent : '';
-        if (span) span.textContent = '¡Agregado!';
+        const svg = btn.querySelector('svg');
+        const prevText = span ? span.textContent : '';
+        const prevSvg = svg ? svg.innerHTML : '';
+
+        if (span) {
+            span.dataset.addedState = '1';
+            span.textContent = '¡Agregado!';
+        }
+        if (svg) svg.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
+
         setTimeout(() => {
             btn.classList.remove('added');
-            if (span) span.textContent = prev;
-        }, 1400);
+            if (span) {
+                delete span.dataset.addedState;
+                span.textContent = prevText;
+            }
+            if (svg) svg.innerHTML = prevSvg;
+            // Re-sync button label with in-cart state after animation
+            updateInCartBadges();
+        }, 1100);
     }
 }
 
@@ -699,34 +841,50 @@ function updateInCartBadges() {
     // Aggregate qty per card (by data-name attribute)
     const qtyByCard = {};
     cart.items.forEach(item => {
-        const key = item.cardKey || item.id.split('-').slice(0, -1).join('-');
+        const key = item.cardKey || (item.id || '').split('__')[0];
         qtyByCard[key] = (qtyByCard[key] || 0) + item.qty;
     });
 
     document.querySelectorAll('.product-card-v2').forEach(card => {
         const key = (card.dataset.name || '').replace(/\s+/g, '-');
         const qty = qtyByCard[key] || 0;
-        const existingBadge = card.querySelector('.card-in-cart-badge');
+
+        // Remove legacy floating badge if present
+        const legacyBadge = card.querySelector('.card-in-cart-badge');
+        if (legacyBadge) legacyBadge.remove();
+
+        // Get or create inline indicator inside card-price
+        const cardPrice = card.querySelector('.card-price');
+        let inlineTag = card.querySelector('.card-in-cart-qty');
 
         if (qty > 0) {
             card.classList.add('in-cart');
-            if (!existingBadge) {
-                const badge = document.createElement('div');
-                badge.className = 'card-in-cart-badge';
-                badge.innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" width="11" height="11">
+
+            if (!inlineTag && cardPrice) {
+                inlineTag = document.createElement('div');
+                inlineTag.className = 'card-in-cart-qty';
+                inlineTag.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12">
                         <polyline points="20 6 9 17 4 12"/>
                     </svg>
-                    <span>En pedido · x<span class="badge-qty">${qty}</span></span>
+                    <span><strong class="inline-qty">${qty}</strong> en tu pedido</span>
                 `;
-                card.appendChild(badge);
-            } else {
-                const qtyEl = existingBadge.querySelector('.badge-qty');
+                cardPrice.appendChild(inlineTag);
+            } else if (inlineTag) {
+                const qtyEl = inlineTag.querySelector('.inline-qty');
                 if (qtyEl) qtyEl.textContent = qty;
             }
+
+            // Update button label to "Agregar más"
+            const btn = card.querySelector('.btn-add-cart span');
+            if (btn && !btn.dataset.addedState) btn.textContent = 'Agregar más';
         } else {
             card.classList.remove('in-cart');
-            if (existingBadge) existingBadge.remove();
+            if (inlineTag) inlineTag.remove();
+
+            // Reset button label
+            const btn = card.querySelector('.btn-add-cart span');
+            if (btn && !btn.dataset.addedState) btn.textContent = 'Agregar al pedido';
         }
     });
 }
@@ -805,8 +963,12 @@ function initClientPopup() {
 
     sendBtn?.addEventListener('click', () => {
         const clientName = nameInput.value.trim();
-        const notes = document.getElementById('clientNotes').value;
+        const phoneInput = document.getElementById('clientPhone');
+        const notesInput = document.getElementById('clientNotes');
+        const phone = phoneInput?.value.trim() || '';
+        const notes = notesInput?.value || '';
 
+        // Validate name (required both modes)
         if (!clientName) {
             nameInput.classList.add('error');
             nameInput.focus();
@@ -814,12 +976,29 @@ function initClientPopup() {
             return;
         }
 
-        const msg = buildWhatsAppMessage(clientName, notes);
+        // Validate phone (required in cliente mode)
+        if (APP_MODE === 'cliente' && !phone) {
+            phoneInput.classList.add('error');
+            phoneInput.focus();
+            setTimeout(() => phoneInput.classList.remove('error'), 1500);
+            return;
+        }
+
+        // Persist cliente info for next visit + show in navbar
+        if (APP_MODE === 'cliente') {
+            localStorage.setItem('distrifel_cliente', clientName);
+            if (phone) localStorage.setItem('distrifel_cliente_phone', phone);
+            applyCorrName(clientName);
+        }
+
+        const msg = APP_MODE === 'cliente'
+            ? buildClienteMessage(clientName, phone, notes)
+            : buildCorredorMessage(clientName, notes);
+
         window.open(`https://wa.me/5491164639441?text=${encodeURIComponent(msg)}`, '_blank');
 
-        // Clear client fields (not cart — cart persists until "Limpiar pedido")
-        nameInput.value = '';
-        document.getElementById('clientNotes').value = '';
+        // Clear only the "notes" field (keep name+phone pre-filled for next time)
+        if (notesInput) notesInput.value = '';
         close();
         closeCart();
     });
@@ -828,6 +1007,51 @@ function initClientPopup() {
 function openClientPopup() {
     const overlay = document.getElementById('clientPopupOverlay');
     if (!overlay) return;
+
+    const title = overlay.querySelector('.client-popup-title');
+    const subtitle = overlay.querySelector('.client-popup-subtitle');
+    const nameLabel = overlay.querySelector('label[for="clientName"]');
+    const nameInput = document.getElementById('clientName');
+    const phoneField = document.getElementById('clientPhoneField');
+    const phoneInput = document.getElementById('clientPhone');
+    const notesLabel = overlay.querySelector('label[for="clientNotes"]');
+    const notesInput = document.getElementById('clientNotes');
+
+    if (APP_MODE === 'corredor') {
+        // Corredor: identifies the visited client
+        if (title) title.textContent = 'Datos del cliente';
+        if (subtitle) subtitle.textContent = 'Completá la información antes de enviar el pedido al depósito';
+        if (nameLabel) nameLabel.innerHTML = 'Nombre del cliente <span class="client-required">*</span>';
+        if (nameInput) {
+            nameInput.placeholder = 'Ej: Ferretería López';
+            nameInput.inputMode = 'text';
+            nameInput.autocomplete = 'off';
+        }
+        if (phoneField) phoneField.style.display = 'none';
+        if (notesLabel) notesLabel.innerHTML = 'Comentarios <span class="client-optional">(opcional)</span>';
+        if (notesInput) notesInput.placeholder = 'Ej: entregar en la mañana, traer caja cerrada';
+    } else {
+        // Cliente: identifies themselves for delivery
+        if (title) title.textContent = 'Finalizar pedido';
+        if (subtitle) subtitle.textContent = 'Completá tus datos para coordinar la entrega';
+        if (nameLabel) nameLabel.innerHTML = 'Tu nombre <span class="client-required">*</span>';
+        if (nameInput) {
+            nameInput.placeholder = 'Ej: Juan Pérez';
+            nameInput.inputMode = 'text';
+            nameInput.autocomplete = 'name';
+            // Pre-fill if we know them from a previous order
+            const saved = localStorage.getItem('distrifel_cliente');
+            if (saved && !nameInput.value) nameInput.value = saved;
+        }
+        if (phoneField) phoneField.style.display = '';
+        if (phoneInput) {
+            const savedPhone = localStorage.getItem('distrifel_cliente_phone');
+            if (savedPhone && !phoneInput.value) phoneInput.value = savedPhone;
+        }
+        if (notesLabel) notesLabel.innerHTML = 'Dirección o comentarios <span class="client-optional">(opcional)</span>';
+        if (notesInput) notesInput.placeholder = 'Ej: Av. Siempre Viva 742, timbre 3';
+    }
+
     overlay.classList.add('visible');
     document.body.classList.add('client-popup-open');
     setTimeout(() => document.getElementById('clientName')?.focus(), 300);
@@ -904,6 +1128,56 @@ function initOfflineDetection() {
 /* ============================================================
    SERVICE WORKER (offline support)
    ============================================================ */
+
+/* ============================================================
+   PROMO BANNER
+   ============================================================ */
+
+function initPromoBanner() {
+    const banner = document.getElementById('promoBanner');
+    if (!banner) return;
+
+    const promoId = banner.dataset.promoId || 'default';
+    const dismissedKey = `distrifel_promo_dismissed_${promoId}`;
+
+    // Honor previous dismissal
+    if (localStorage.getItem(dismissedKey) === '1') {
+        document.body.classList.remove('has-promo');
+        banner.remove();
+        return;
+    }
+
+    // "Ver más" → apply category filter + smooth scroll to catalog
+    const link = document.getElementById('promoLink');
+    link?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const category = banner.dataset.promoCategory;
+        if (category && typeof setCategory === 'function') {
+            setCategory(category);
+        }
+        const catalog = document.getElementById('catalogo');
+        if (catalog) {
+            const promoHeight = banner.offsetHeight || 40;
+            const navHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+            const offset = promoHeight + navHeight + 8;
+            const top = catalog.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+        }
+    });
+
+    // Close button → dismiss + persist
+    const closeBtn = document.getElementById('promoClose');
+    closeBtn?.addEventListener('click', () => {
+        localStorage.setItem(dismissedKey, '1');
+        banner.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+        banner.style.transform = 'translateY(-100%)';
+        banner.style.opacity = '0';
+        setTimeout(() => {
+            document.body.classList.remove('has-promo');
+            banner.remove();
+        }, 300);
+    });
+}
 
 function registerServiceWorker() {
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
@@ -1016,12 +1290,40 @@ function sendCartWhatsApp() {
     openClientPopup();
 }
 
-function buildWhatsAppMessage(clientName, notes) {
+function buildWhatsAppMessage(fieldValue, notes) {
+    if (APP_MODE === 'corredor') {
+        return buildCorredorMessage(fieldValue, notes);
+    }
+    return buildClienteMessage(fieldValue, notes);
+}
+
+function buildCorredorMessage(clientName, notes) {
     const corredor = localStorage.getItem('distrifel_corredor') || 'Corredor';
 
-    let msg = `Hola! Soy *${corredor}*.\n`;
-    msg += `Paso el siguiente pedido de:\n`;
-    msg += `👤 *Cliente:* ${clientName}\n\n`;
+    let msg = `🚚 *PEDIDO PARA DEPÓSITO*\n`;
+    msg += `─────────────────────\n`;
+    msg += `👤 Corredor: *${corredor}*\n`;
+    msg += `🏪 Cliente: *${clientName}*\n`;
+    msg += `🕐 ${formatTimestamp()}\n\n`;
+
+    cart.items.forEach(item => {
+        const v = item.variant ? ` (${item.variant})` : '';
+        msg += `▪️ ${item.name}${v} — *x${item.qty}*\n`;
+    });
+
+    const totalQty = cart.items.reduce((s, i) => s + i.qty, 0);
+    msg += `─────────────────────\n`;
+    msg += `📦 *Total: ${totalQty} ${totalQty === 1 ? 'unidad' : 'unidades'}*`;
+
+    if (notes && notes.trim()) {
+        msg += `\n\n📝 *Comentarios:*\n${notes.trim()}`;
+    }
+
+    return msg;
+}
+
+function buildClienteMessage(clientName, phone, addressOrNotes) {
+    let msg = `Hola! Soy *${clientName}* y quiero hacer el siguiente pedido:\n\n`;
     msg += `📦 *PEDIDO DISTRIFEL*\n`;
     msg += `─────────────────────\n`;
 
@@ -1032,11 +1334,21 @@ function buildWhatsAppMessage(clientName, notes) {
 
     const total = cart.items.reduce((s, i) => s + i.price * i.qty, 0);
     msg += `─────────────────────\n`;
-    msg += `💰 *Total estimado: ${formatPrice(total)}*`;
+    msg += `💰 *Total estimado: ${formatPrice(total)}*\n`;
+    msg += `📞 Teléfono: ${phone}`;
 
-    if (notes && notes.trim()) {
-        msg += `\n\n📝 *Comentarios:*\n${notes.trim()}`;
+    if (addressOrNotes && addressOrNotes.trim()) {
+        msg += `\n\n📍 *Dirección / comentarios:*\n${addressOrNotes.trim()}`;
     }
 
     return msg;
+}
+
+function formatTimestamp() {
+    const now = new Date();
+    const d = String(now.getDate()).padStart(2, '0');
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const h = String(now.getHours()).padStart(2, '0');
+    const min = String(now.getMinutes()).padStart(2, '0');
+    return `${d}/${m} ${h}:${min}`;
 }

@@ -892,8 +892,9 @@ ul { list-style: none; }
 
 .products-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: var(--space-lg);
+    align-items: stretch;
 }
 
 .products-container.view-list {
@@ -1432,12 +1433,15 @@ ul { list-style: none; }
 
 .product-card-v2 {
     background: linear-gradient(165deg, #ffffff 0%, #f0fdf9 40%, #e6f7f3 100%);
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(108, 203, 183, 0.15);
     border: 1px solid rgba(108, 203, 183, 0.2);
     transition: all 0.3s ease;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .product-card-v2:hover {
@@ -1454,8 +1458,9 @@ ul { list-style: none; }
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: var(--space-md) var(--space-md) var(--space-md);
-    margin-bottom: var(--space-sm);
+    padding: var(--space-sm) var(--space-md) 0;
+    margin-bottom: 0;
+    flex-shrink: 0;
 }
 
 .card-tag {
@@ -1493,34 +1498,39 @@ ul { list-style: none; }
 }
 
 .card-content {
-    padding: 0 var(--space-lg) var(--space-lg);
+    padding: var(--space-sm) var(--space-md) var(--space-md);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
 }
 
 .card-title {
     font-family: var(--font-display);
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--color-gray-900);
-    margin-top: var(--space-md);
-    margin-bottom: 4px;
-    line-height: 1.3;
+    margin-top: var(--space-sm);
+    margin-bottom: 2px;
+    line-height: 1.25;
 }
 
 .card-subtitle {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--color-gray-500);
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
 }
 
 .card-image {
     width: 100%;
-    height: 180px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
     cursor: zoom-in;
+    flex-shrink: 0;
 }
 
 .card-image img {
@@ -1539,8 +1549,16 @@ ul { list-style: none; }
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 6px;
-    margin-bottom: var(--space-md);
+    gap: 5px;
+    margin-bottom: var(--space-sm);
+    min-height: 30px;
+}
+
+.card-info-col {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
 }
 
 .card-variant {
@@ -1569,13 +1587,16 @@ ul { list-style: none; }
 }
 
 .card-price {
-    padding-top: var(--space-md);
+    padding-top: var(--space-sm);
     border-top: 1px solid rgba(108, 203, 183, 0.2);
+    position: relative;
+    margin-top: auto;
+    flex-shrink: 0;
 }
 
 .card-price .price-value {
     font-family: var(--font-brand);
-    font-size: 1.75rem;
+    font-size: 1.55rem;
     font-weight: 800;
     color: #2d8a78;
     letter-spacing: -0.02em;
@@ -1895,6 +1916,24 @@ ul { list-style: none; }
     border: 1px solid rgba(108, 203, 183, 0.3);
     border-radius: var(--radius-full);
     transition: all var(--transition-fast);
+    cursor: pointer;
+    user-select: none;
+}
+
+.nav-corredor:hover {
+    background: rgba(108, 203, 183, 0.22);
+    border-color: rgba(108, 203, 183, 0.55);
+}
+
+.nav-corredor:hover .nav-corredor-edit {
+    opacity: 1;
+}
+
+.nav-corredor-edit {
+    opacity: 0.5;
+    transition: opacity 0.15s ease;
+    stroke: var(--color-primary-accent);
+    flex-shrink: 0;
 }
 
 .nav-corredor.visible {
@@ -2065,6 +2104,7 @@ ul { list-style: none; }
 }
 
 .name-popup {
+    position: relative;
     background: var(--color-white);
     border-radius: var(--radius-xl);
     padding: var(--space-2xl) var(--space-2xl);
@@ -2074,6 +2114,30 @@ ul { list-style: none; }
     box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
     transform: translateY(28px) scale(0.96);
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.name-popup-close {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--color-gray-100);
+    color: var(--color-gray-600);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    z-index: 2;
+}
+
+.name-popup-close:hover {
+    background: var(--color-gray-200);
+    color: var(--color-gray-900);
+    transform: rotate(90deg);
 }
 
 .name-popup-overlay.visible .name-popup {
@@ -2177,17 +2241,18 @@ ul { list-style: none; }
     gap: 7px;
     width: 100%;
     margin-top: var(--space-sm);
-    padding: 11px var(--space-md);
+    padding: 10px var(--space-md);
     background: linear-gradient(135deg, var(--color-secondary-dark) 0%, var(--color-secondary) 100%);
     color: white;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     font-weight: 700;
     font-family: var(--font-body);
     border-radius: var(--radius-md);
     border: none;
     cursor: pointer;
     transition: all var(--transition-fast);
-    min-height: 46px;
+    min-height: 42px;
+    flex-shrink: 0;
 }
 
 .btn-add-cart:hover {
@@ -2201,8 +2266,13 @@ ul { list-style: none; }
 }
 
 .btn-add-cart.added {
-    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
-    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
+    animation: addedPulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes addedPulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.04); box-shadow: 0 8px 26px rgba(74, 159, 142, 0.55); }
+    100% { transform: scale(1); }
 }
 
 .btn-add-cart svg {
@@ -2236,14 +2306,15 @@ ul { list-style: none; }
     margin-right: auto;
     background: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    flex-shrink: 0;
 }
 
 .card-qty-btn {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
     background: white;
     border: none;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--color-gray-700);
     cursor: pointer;
@@ -2263,10 +2334,10 @@ ul { list-style: none; }
 }
 
 .card-qty-value {
-    min-width: 44px;
+    min-width: 38px;
     text-align: center;
     font-weight: 800;
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--color-gray-900);
     user-select: none;
     padding: 0 4px;
@@ -2744,47 +2815,186 @@ body.client-popup-open {
 }
 
 /* ========================================
-   IN-CART INDICATOR ON PRODUCT CARDS
+   PROMO BANNER (top of page)
+   ======================================== */
+
+.promo-banner {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+    height: 40px;
+    padding: 0 44px 0 16px;
+    background: linear-gradient(to right, var(--color-secondary-dark) 0%, var(--color-secondary) 55%, var(--color-primary-accent) 100%);
+    color: white;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    box-shadow: 0 2px 12px rgba(74, 159, 142, 0.35);
+    letter-spacing: 0.01em;
+}
+
+body.has-promo .promo-banner {
+    display: flex;
+}
+
+body.has-promo .navbar {
+    top: 40px;
+}
+
+/* Hide promo in corredor mode (B2B tool, no marketing) */
+body[data-mode="corredor"] .promo-banner {
+    display: none !important;
+}
+
+body[data-mode="corredor"] .navbar {
+    top: 0 !important;
+}
+
+body[data-mode="corredor"].has-promo .catalog-section {
+    padding-top: 120px !important;
+}
+
+.promo-icon {
+    font-size: 1.1rem;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+
+.promo-text {
+    text-align: center;
+}
+
+.promo-text strong {
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.promo-expiry {
+    opacity: 0.75;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.promo-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 14px;
+    background: white;
+    border-radius: var(--radius-full);
+    color: var(--color-secondary-dark);
+    font-weight: 800;
+    font-size: 0.82rem;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+}
+
+.promo-link:hover {
+    background: #fff;
+    transform: translateX(3px);
+    color: var(--color-primary-dark);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.promo-close {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.promo-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.promo-close svg {
+    stroke: white;
+}
+
+@media (max-width: 640px) {
+    .promo-banner {
+        height: auto;
+        min-height: 40px;
+        padding: 8px 40px 8px 12px;
+        font-size: 0.78rem;
+        gap: 8px;
+    }
+
+    .promo-link {
+        font-size: 0.72rem;
+        padding: 3px 10px;
+    }
+
+    .promo-expiry {
+        display: none;
+    }
+}
+
+/* ========================================
+   IN-CART INDICATOR ON PRODUCT CARDS (redesigned)
    ======================================== */
 
 .product-card-v2.in-cart {
     border-color: var(--color-secondary);
-    box-shadow: 0 8px 30px rgba(108, 203, 183, 0.35);
-    background: linear-gradient(165deg, #ffffff 0%, #e6f7f3 40%, #d4f0e9 100%);
+    border-left: 4px solid var(--color-secondary-dark);
+    box-shadow: 0 10px 32px rgba(108, 203, 183, 0.28), 0 0 0 1px rgba(108, 203, 183, 0.1);
 }
 
-.card-in-cart-badge {
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: inline-flex;
+/* "In pedido" chip — stacked below price, centered, always block-level */
+.card-in-cart-qty {
+    display: none;
     align-items: center;
-    gap: 5px;
-    padding: 5px 14px;
-    background: linear-gradient(135deg, var(--color-secondary-dark) 0%, var(--color-secondary) 100%);
-    color: white;
-    font-size: 0.72rem;
-    font-weight: 800;
-    font-family: var(--font-brand);
-    letter-spacing: 0.03em;
+    justify-content: center;
+    gap: 4px;
+    padding: 3px 10px;
+    margin: 6px auto 0;
+    background: rgba(108, 203, 183, 0.18);
+    color: var(--color-secondary-dark);
+    border: 1px solid rgba(108, 203, 183, 0.35);
     border-radius: var(--radius-full);
-    border: 2px solid white;
-    box-shadow: 0 4px 14px rgba(74, 159, 142, 0.4);
-    z-index: 15;
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: var(--font-body);
+    letter-spacing: 0.01em;
     white-space: nowrap;
-    text-transform: uppercase;
-    animation: inCartPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: fit-content;
+    animation: inCartTagPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.card-in-cart-badge svg {
-    stroke: white;
+.product-card-v2.in-cart .card-in-cart-qty {
+    display: flex;
+}
+
+.card-in-cart-qty svg {
+    stroke: var(--color-secondary-dark);
     flex-shrink: 0;
 }
 
-@keyframes inCartPop {
-    0% { transform: translateX(-50%) scale(0); opacity: 0; }
-    100% { transform: translateX(-50%) scale(1); opacity: 1; }
+@keyframes inCartTagPop {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Remove the old floating badge if still exists */
+.card-in-cart-badge {
+    display: none !important;
 }
 
 /* ========================================
@@ -3237,4 +3447,47 @@ body.client-popup-open {
 
 .offline-banner.visible {
     transform: translateY(0);
+}
+
+/* ========================================
+   MODE: CORREDOR (skip hero, more compact)
+   ======================================== */
+
+body[data-mode="corredor"] .hero {
+    display: none;
+}
+
+body[data-mode="corredor"] .catalog-section {
+    padding-top: 120px;
+    min-height: 100vh;
+}
+
+body.has-promo[data-mode="corredor"] .catalog-section {
+    padding-top: 160px;
+}
+
+body[data-mode="corredor"] .nav-corredor {
+    background: rgba(240, 147, 38, 0.18);
+    border-color: rgba(240, 147, 38, 0.45);
+}
+
+body[data-mode="corredor"] .nav-corredor svg {
+    stroke: #f59e0b;
+    fill: #f59e0b;
+}
+
+body[data-mode="corredor"] .nav-corredor::before {
+    content: '🚚';
+    margin-right: 2px;
+    font-size: 0.85rem;
+}
+
+body[data-mode="corredor"] .nav-corredor svg {
+    display: none;
+}
+
+@media (max-width: 640px) {
+    body[data-mode="corredor"] .catalog-section {
+        padding-top: 110px;
+    }
 }

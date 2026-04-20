@@ -9,7 +9,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@300;400;500;600&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="has-promo">
+    <!-- Promo Banner (editá el texto, categoría o vigencia acá. Eliminá class "has-promo" del body para ocultar) -->
+    <div class="promo-banner" id="promoBanner" data-promo-category="reguladores" data-promo-id="abril-reguladores-15">
+        <span class="promo-icon" aria-hidden="true">🎁</span>
+        <span class="promo-text"><strong>Promo Abril:</strong> 15% OFF en Reguladores · <span class="promo-expiry">hasta 30/04</span></span>
+        <a href="#catalogo" class="promo-link" id="promoLink">Ver más →</a>
+        <button class="promo-close" id="promoClose" aria-label="Cerrar promoción">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -714,6 +726,11 @@
     <!-- ===================== NAME POPUP ===================== -->
     <div class="name-popup-overlay" id="namePopupOverlay">
         <div class="name-popup">
+            <button class="name-popup-close" id="namePopupClose" style="display:none" aria-label="Cancelar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
             <img src="logo.png" alt="Distrifel" class="popup-logo-img" onerror="this.style.display='none'">
             <h2 class="popup-title">Bienvenido</h2>
             <p class="popup-subtitle">Ingresá tu nombre para comenzar a armar tu pedido</p>
@@ -721,7 +738,7 @@
                 <input type="text" id="salesRepName" class="popup-input" placeholder="Tu nombre completo..." autocomplete="name" maxlength="50">
             </div>
             <button class="popup-enter-btn" id="popupEnterBtn">
-                Ingresar al catálogo
+                <span class="popup-enter-text">Ingresar al catálogo</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
@@ -805,6 +822,13 @@
                     Nombre del cliente <span class="client-required">*</span>
                 </label>
                 <input type="text" id="clientName" class="client-input" placeholder="Ej: Ferretería López" maxlength="80" autocomplete="off">
+            </div>
+
+            <div class="client-field" id="clientPhoneField" style="display:none">
+                <label for="clientPhone" class="client-label">
+                    Teléfono de contacto <span class="client-required">*</span>
+                </label>
+                <input type="tel" id="clientPhone" class="client-input" placeholder="Ej: 11 1234-5678" maxlength="20" autocomplete="tel" inputmode="tel">
             </div>
 
             <div class="client-field">
