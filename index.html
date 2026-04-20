@@ -74,25 +74,27 @@
         <!-- Brands Carousel -->
         <div class="brands-carousel">
             <div class="brands-track">
-                <div class="brands-slide">
-                    <img src="Brands-icons/alarsa.png" alt="Alarsa">
-                    <img src="Brands-icons/latyn-flex.png" alt="Latynflex">
-                    <img src="Brands-icons/paz.png" alt="Paz">
-                    <img src="Brands-icons/duke.png" alt="Duke">
-                    <img src="Brands-icons/alarsa.png" alt="Alarsa">
-                    <img src="Brands-icons/latyn-flex.png" alt="Latynflex">
-                    <img src="Brands-icons/paz.png" alt="Paz">
-                    <img src="Brands-icons/duke.png" alt="Duke">
+                <div class="brands-slide" id="brandsSlide1">
+                    <button class="brand-btn" data-brand="alarsa" type="button" aria-label="Filtrar por Alarsa"><img src="Brands-icons/alarsa.png" alt="Alarsa"></button>
+                    <button class="brand-btn" data-brand="latyn" type="button" aria-label="Filtrar por Latynflex"><img src="Brands-icons/latyn-flex.png" alt="Latynflex"></button>
+                    <button class="brand-btn" data-brand="paz" type="button" aria-label="Filtrar por PAZ"><img src="Brands-icons/paz.png" alt="PAZ"></button>
+                    <button class="brand-btn" data-brand="duke" type="button" aria-label="Filtrar por Duke"><img src="Brands-icons/duke.png" alt="Duke"></button>
+                    <button class="brand-btn" data-brand="canplast" type="button" aria-label="Filtrar por Canplast"><img src="Brands-icons/canplast.png" alt="Canplast"></button>
+                    <button class="brand-btn" data-brand="salustri" type="button" aria-label="Filtrar por Salustri"><img src="Brands-icons/salustri.png" alt="Salustri"></button>
+                    <button class="brand-btn" data-brand="smartfix" type="button" aria-label="Filtrar por Smart-Fix"><img src="Brands-icons/smartfix.webp" alt="Smart-Fix"></button>
+                    <button class="brand-btn" data-brand="covertex" type="button" aria-label="Filtrar por Covertex"><img src="Brands-icons/covertex.png" alt="Covertex"></button>
+                    <button class="brand-btn" data-brand="aislatech" type="button" aria-label="Filtrar por Aislatech"><img src="Brands-icons/aislatech.jpg" alt="Aislatech"></button>
                 </div>
-                <div class="brands-slide">
-                    <img src="Brands-icons/alarsa.png" alt="Alarsa">
-                    <img src="Brands-icons/latyn-flex.png" alt="Latynflex">
-                    <img src="Brands-icons/paz.png" alt="Paz">
-                    <img src="Brands-icons/duke.png" alt="Duke">
-                    <img src="Brands-icons/alarsa.png" alt="Alarsa">
-                    <img src="Brands-icons/latyn-flex.png" alt="Latynflex">
-                    <img src="Brands-icons/paz.png" alt="Paz">
-                    <img src="Brands-icons/duke.png" alt="Duke">
+                <div class="brands-slide" id="brandsSlide2">
+                    <button class="brand-btn" data-brand="alarsa" type="button" aria-label="Filtrar por Alarsa"><img src="Brands-icons/alarsa.png" alt="Alarsa"></button>
+                    <button class="brand-btn" data-brand="latyn" type="button" aria-label="Filtrar por Latynflex"><img src="Brands-icons/latyn-flex.png" alt="Latynflex"></button>
+                    <button class="brand-btn" data-brand="paz" type="button" aria-label="Filtrar por PAZ"><img src="Brands-icons/paz.png" alt="PAZ"></button>
+                    <button class="brand-btn" data-brand="duke" type="button" aria-label="Filtrar por Duke"><img src="Brands-icons/duke.png" alt="Duke"></button>
+                    <button class="brand-btn" data-brand="canplast" type="button" aria-label="Filtrar por Canplast"><img src="Brands-icons/canplast.png" alt="Canplast"></button>
+                    <button class="brand-btn" data-brand="salustri" type="button" aria-label="Filtrar por Salustri"><img src="Brands-icons/salustri.png" alt="Salustri"></button>
+                    <button class="brand-btn" data-brand="smartfix" type="button" aria-label="Filtrar por Smart-Fix"><img src="Brands-icons/smartfix.webp" alt="Smart-Fix"></button>
+                    <button class="brand-btn" data-brand="covertex" type="button" aria-label="Filtrar por Covertex"><img src="Brands-icons/covertex.png" alt="Covertex"></button>
+                    <button class="brand-btn" data-brand="aislatech" type="button" aria-label="Filtrar por Aislatech"><img src="Brands-icons/aislatech.jpg" alt="Aislatech"></button>
                 </div>
             </div>
         </div>
@@ -398,6 +400,26 @@
                     </svg>
                     Enviar pedido
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== CONFIRM MODAL ===================== -->
+    <div class="confirm-overlay" id="confirmOverlay">
+        <div class="confirm-modal">
+            <div class="confirm-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="32" height="32">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+                    <path d="M10 11v6M14 11v6"/>
+                    <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
+                </svg>
+            </div>
+            <h2 class="confirm-title">¿Limpiar pedido?</h2>
+            <p class="confirm-subtitle">Se van a eliminar todos los productos del carrito. Esta acción no se puede deshacer.</p>
+            <div class="confirm-actions">
+                <button class="confirm-btn-cancel" id="confirmCancel">Cancelar</button>
+                <button class="confirm-btn-ok" id="confirmOk">Sí, limpiar</button>
             </div>
         </div>
     </div>

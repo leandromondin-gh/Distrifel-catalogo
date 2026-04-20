@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCart();
     initClientPopup();
     initOfflineDetection();
+    initBrandCarousel();
     registerServiceWorker();
 });
 
@@ -697,10 +698,10 @@ function initCart() {
 
     document.getElementById('cartClearBtn')?.addEventListener('click', () => {
         if (cart.items.length === 0) return;
-        if (confirm('¿Limpiar todo el pedido?')) {
+        openConfirm(() => {
             cart.items = [];
             updateCartUI();
-        }
+        });
     });
 
     document.getElementById('cartSendWhatsApp')?.addEventListener('click', sendCartWhatsApp);
@@ -1287,6 +1288,94 @@ function initPromoBanner() {
             banner.remove();
         }, 300);
     });
+}
+
+/* ============================================================
+   CONFIRM MODAL
+   ============================================================ */
+
+function openConfirm(onOk) {
+    const overlay = document.getElementById('confirmOverlay');
+    if (!overlay) { if (onOk) onOk(); return; }
+
+    overlay.style.display = 'flex';
+    requestAnimationFrame(() => overlay.classList.add('visible'));
+
+    const close = () => {
+        overlay.classList.remove('visible');
+        setTimeout(() => { overlay.style.display = 'none'; }, 250);
+    };
+
+    const okBtn = document.getElementById('confirmOk');
+    const cancelBtn = document.getElementById('confirmCancel');
+
+    const handleOk = () => {
+        close();
+        cleanup();
+        if (onOk) onOk();
+    };
+
+    const handleCancel = () => {
+        close();
+        cleanup();
+    };
+
+    const handleKey = (e) => {
+        if (e.key === 'Escape') handleCancel();
+        if (e.key === 'Enter') handleOk();
+    };
+
+    // Use one-time listeners
+    okBtn.addEventListener('click', handleOk, { once: true });
+    cancelBtn.addEventListener('click', handleCancel, { once: true });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) handleCancel(); }, { once: true });
+    document.addEventListener('keydown', handleKey, { once: true });
+
+    const cleanup = () => document.removeEventListener('keydown', handleKey);
+
+    setTimeout(() => okBtn.focus(), 200);
+}
+
+/* ============================================================
+   BRAND CAROUSEL — click to filter
+   ============================================================ */
+
+function initBrandCarousel() {
+    document.querySelectorAll('.brand-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            setBrandFilter(btn.dataset.brand);
+        });
+    });
+}
+
+function setBrandFilter(brand) {
+    state.filters.brand = brand;
+
+    // Sync dropdown options
+    document.querySelectorAll('[data-menu="brand"] .filter-option').forEach(opt => {
+        opt.classList.toggle('active', opt.dataset.value === brand);
+    });
+
+    // Sync dropdown button label
+    const filterBtn = document.querySelector('[data-filter="brand"]');
+    if (filterBtn) {
+        const valueEl = filterBtn.querySelector('.filter-value');
+        const activeOpt = document.querySelector(`[data-menu="brand"] [data-value="${brand}"]`);
+        if (valueEl) {
+            valueEl.textContent = brand === 'all' ? 'Todas'
+                : (activeOpt ? activeOpt.textContent.trim() : brand);
+        }
+    }
+
+    filterProducts();
+
+    // Smooth scroll to catalog
+    const catalog = document.getElementById('catalogo');
+    if (catalog) {
+        const navH = document.querySelector('.navbar')?.offsetHeight || 80;
+        const top = catalog.getBoundingClientRect().top + window.pageYOffset - navH - 10;
+        window.scrollTo({ top, behavior: 'smooth' });
+    }
 }
 
 function registerServiceWorker() {
