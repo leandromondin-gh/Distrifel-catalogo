@@ -1,4 +1,5 @@
-const CACHE_NAME = 'distrifel-v1';
+// v2: switched to network-first strategy to avoid serving stale content
+const CACHE_NAME = 'distrifel-v2';
 const ASSETS = [
     './',
     './index.html',
@@ -29,21 +30,18 @@ self.addEventListener('activate', (event) => {
     );
 });
 
+// Network-first: always try network, fall back to cache only when offline
 self.addEventListener('fetch', (event) => {
     const req = event.request;
     if (req.method !== 'GET') return;
 
     event.respondWith(
-        caches.match(req).then(cached => {
-            const network = fetch(req).then(resp => {
-                if (resp && resp.status === 200 && resp.type === 'basic') {
-                    const copy = resp.clone();
-                    caches.open(CACHE_NAME).then(c => c.put(req, copy));
-                }
-                return resp;
-            }).catch(() => cached);
-
-            return cached || network;
-        })
+        fetch(req).then(resp => {
+            if (resp && resp.status === 200 && resp.type === 'basic') {
+                const copy = resp.clone();
+                caches.open(CACHE_NAME).then(c => c.put(req, copy));
+            }
+            return resp;
+        }).catch(() => caches.match(req))
     );
 });
