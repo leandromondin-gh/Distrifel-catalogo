@@ -9,8 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@300;400;500;600&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="has-promo">
-    <!-- Promo Banner (editá el texto, categoría o vigencia acá. Eliminá class "has-promo" del body para ocultar) -->
+<body>
+    <!-- Promo Banner — para reactivarlo: agregá class="has-promo" al body y descomentá este bloque, editando texto/categoría/id -->
+    <!--
     <div class="promo-banner" id="promoBanner" data-promo-category="reguladores" data-promo-id="abril-reguladores-15">
         <span class="promo-icon" aria-hidden="true">🎁</span>
         <span class="promo-text"><strong>Promo Abril:</strong> 15% OFF en Reguladores · <span class="promo-expiry">hasta 30/04</span></span>
@@ -21,6 +22,8 @@
             </svg>
         </button>
     </div>
+    -->
+
 
     <!-- Navigation -->
     <nav class="navbar">
@@ -122,6 +125,10 @@
                         <span class="chip-icon">⚙️</span>
                         <span>Reguladores</span>
                     </button>
+                    <button class="chip" data-category="otros" type="button">
+                        <span class="chip-icon">🧰</span>
+                        <span>Otros</span>
+                    </button>
                 </div>
 
                 <div class="search-box">
@@ -150,11 +157,18 @@
                         </button>
                         <div class="filter-menu" data-menu="brand">
                             <button class="filter-option active" data-value="all">Todas las marcas</button>
-                            <button class="filter-option" data-value="latynflex">Latynflex</button>
                             <button class="filter-option" data-value="alarsa">Alarsa</button>
                             <button class="filter-option" data-value="canplast">Canplast</button>
                             <button class="filter-option" data-value="salustri">Salustri</button>
                             <button class="filter-option" data-value="paz">PAZ</button>
+                            <button class="filter-option" data-value="duke">Duke</button>
+                            <button class="filter-option" data-value="latyn">Latynflex</button>
+                            <button class="filter-option" data-value="tcoat">T-Coat</button>
+                            <button class="filter-option" data-value="covertex">Covertex</button>
+                            <button class="filter-option" data-value="aislatech">Aislatech</button>
+                            <button class="filter-option" data-value="cirino">Cirino</button>
+                            <button class="filter-option" data-value="espumafoam">Espuma Foam</button>
+                            <button class="filter-option" data-value="smartfix">Smart-Fix</button>
                         </div>
                     </div>
                     
@@ -169,6 +183,7 @@
                         </button>
                         <div class="filter-menu" data-menu="type">
                             <button class="filter-option active" data-value="all">Todos los tipos</button>
+                            <button class="filter-option" data-value="flexible">Flexible</button>
                             <button class="filter-option" data-value="mallado">Mallado</button>
                             <button class="filter-option" data-value="cobre">Cobre</button>
                             <button class="filter-option" data-value="extensible">Extensible</button>
@@ -190,7 +205,7 @@
                 <div class="results-info">
                     <span class="results-count"><strong id="resultsCount">20</strong> productos encontrados</span>
                     <div class="view-toggle">
-                        <button class="view-btn active" data-view="grid" aria-label="Vista grilla">
+                        <button class="view-btn" data-view="grid" aria-label="Vista grilla">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <rect x="3" y="3" width="7" height="7" rx="1"/>
                                 <rect x="14" y="3" width="7" height="7" rx="1"/>
@@ -198,7 +213,7 @@
                                 <rect x="14" y="14" width="7" height="7" rx="1"/>
                             </svg>
                         </button>
-                        <button class="view-btn" data-view="list" aria-label="Vista lista">
+                        <button class="view-btn active" data-view="list" aria-label="Vista lista">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <line x1="8" y1="6" x2="21" y2="6"/>
                                 <line x1="8" y1="12" x2="21" y2="12"/>
@@ -213,470 +228,7 @@
             </div>
 
             <!-- Grid de Productos -->
-            <div class="products-container" id="productsGrid">
-                
-                <!-- CONEXIONES PARA AGUA -->
-                
-                <!-- Mallado 1/2 Latynflex -->
-                <article class="product-card-v2" data-category="agua" data-brand="latynflex" data-type="mallado" data-name="mallado 1/2 latynflex acero inoxidable">
-                    <div class="card-header">
-                        <span class="card-tag tag-agua">Agua</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/latyn-flex.png" alt="Latynflex">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="imagenes-productos/latynflex/flexible-agua.jpg" alt="Conexión flexible para agua Mallado 1/2 Latynflex" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Conexión flexible para agua Mallado 1/2"</h3>
-                        <p class="card-subtitle">Acero inoxidable trenzado</p>
-                        <div class="card-variants">
-                            <span class="card-variant selected" data-price="2450">20cm</span>
-                            <span class="card-variant" data-price="2650">25cm</span>
-                            <span class="card-variant" data-price="2890">30cm</span>
-                            <span class="card-variant" data-price="3150">35cm</span>
-                            <span class="card-variant" data-price="3450">40cm</span>
-                            <span class="card-variant" data-price="3890">50cm</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-value">$2.450</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Mallado 3/4 Latynflex -->
-                <article class="product-card-v2" data-category="agua" data-brand="latynflex" data-type="mallado" data-name="mallado 3/4 latynflex industrial alta presion">
-                    <div class="card-header">
-                        <span class="card-tag tag-agua">Agua</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/latyn-flex.png" alt="Latynflex">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="imagenes-productos/latynflex/flexible-agua.jpg" alt="Conexión flexible para agua Mallado 3/4 Latynflex" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Conexión flexible para agua Mallado 3/4"</h3>
-                        <p class="card-subtitle">Alta presión - Industrial</p>
-                        <div class="card-variants">
-                            <span class="card-variant selected" data-price="3180">20cm</span>
-                            <span class="card-variant" data-price="3450">25cm</span>
-                            <span class="card-variant" data-price="3790">30cm</span>
-                            <span class="card-variant" data-price="4150">35cm</span>
-                            <span class="card-variant" data-price="4580">40cm</span>
-                            <span class="card-variant" data-price="5290">50cm</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-value">$3.180</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Cobre 1/2 Alarsa -->
-                <article class="product-card-v2" data-category="agua" data-brand="alarsa" data-type="cobre" data-name="cobre 1/2 alarsa premium bronce">
-                    <div class="card-header">
-                        <span class="card-tag tag-agua">Agua</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/alarsa.png" alt="Alarsa">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Cobre+1/2%22" alt="Cobre 1/2 Alarsa" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Cobre 1/2"</h3>
-                        <p class="card-subtitle">La nobleza del bronce</p>
-                        <div class="card-variants">
-                            <span class="card-variant selected" data-price="4890">20cm</span>
-                            <span class="card-variant" data-price="5290">25cm</span>
-                            <span class="card-variant" data-price="5750">30cm</span>
-                            <span class="card-variant" data-price="6280">35cm</span>
-                            <span class="card-variant" data-price="6890">40cm</span>
-                            <span class="card-variant" data-price="7650">50cm</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-value">$4.890</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Cobre 3/4 Alarsa -->
-                <article class="product-card-v2" data-category="agua" data-brand="alarsa" data-type="cobre" data-name="cobre 3/4 alarsa premium calidad">
-                    <div class="card-header">
-                        <span class="card-tag tag-agua">Agua</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/alarsa.png" alt="Alarsa">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Cobre+3/4%22" alt="Cobre 3/4 Alarsa" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Cobre 3/4"</h3>
-                        <p class="card-subtitle">Máxima calidad garantizada</p>
-                        <div class="card-variants">
-                            <span class="card-variant selected" data-price="5650">20cm</span>
-                            <span class="card-variant" data-price="6150">25cm</span>
-                            <span class="card-variant" data-price="6780">30cm</span>
-                            <span class="card-variant" data-price="7450">35cm</span>
-                            <span class="card-variant" data-price="8290">40cm</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-value">$5.650</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Monocomando -->
-                <article class="product-card-v2" data-category="agua" data-brand="latynflex" data-type="accesorio" data-name="monocomando hembra pico corto griferia">
-                    <div class="card-header">
-                        <span class="card-tag tag-agua">Agua</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/latyn-flex.png" alt="Latynflex">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Monocomando" alt="Monocomando" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Monocomando</h3>
-                        <p class="card-subtitle">40cm Hembra pico corto</p>
-                        <div class="card-price">
-                            <span class="price-value">$3.990</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Monocomando Largo -->
-                <article class="product-card-v2" data-category="agua" data-brand="latynflex" data-type="accesorio" data-name="monocomando largo hembra pico largo griferia">
-                    <div class="card-header">
-                        <span class="card-tag tag-agua">Agua</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/latyn-flex.png" alt="Latynflex">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Monocomando+Largo" alt="Monocomando Largo" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Monocomando Largo</h3>
-                        <p class="card-subtitle">40cm Hembra pico largo</p>
-                        <div class="card-price">
-                            <span class="price-value">$4.250</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Lluvia Bidet -->
-                <article class="product-card-v2" data-category="agua" data-brand="latynflex" data-type="accesorio" data-name="lluvia bidet sanitario baño">
-                    <div class="card-header">
-                        <span class="card-tag tag-agua">Agua</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/latyn-flex.png" alt="Latynflex">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Lluvia+Bidet" alt="Lluvia Bidet" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Lluvia Bidet</h3>
-                        <p class="card-subtitle">Disponible en 1/2" y 3/8"</p>
-                        <div class="card-variants">
-                            <span class="card-variant">1/2"</span>
-                            <span class="card-variant">3/8"</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-from">desde</span>
-                            <span class="price-value">$2.890</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- CONEXIONES PARA GAS - APROBADOS -->
-
-                <!-- Extensible Alarsa -->
-                <article class="product-card-v2" data-category="gas" data-brand="alarsa" data-type="extensible" data-name="extensible alarsa gas aprobado certificado acero">
-                    <div class="card-header">
-                        <span class="card-tag tag-gas">Gas</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/alarsa.png" alt="Alarsa">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Extensible+Gas" alt="Extensible Alarsa" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Extensible Gas</h3>
-                        <p class="card-subtitle">Acero inoxidable certificado</p>
-                        <div class="card-variants">
-                            <span class="card-variant selected" data-price="8750">1/2" 20-45cm</span>
-                            <span class="card-variant" data-price="10890">3/4" 20-45cm</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-value">$8.750</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- No Extensible Alarsa -->
-                <article class="product-card-v2" data-category="gas" data-brand="alarsa" data-type="extensible" data-name="no extensible fijo alarsa gas aprobado certificado">
-                    <div class="card-header">
-                        <span class="card-tag tag-gas">Gas</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/alarsa.png" alt="Alarsa">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=No+Extensible" alt="No Extensible Alarsa" loading="lazy">
-                        </div>
-                        <h3 class="card-title">No Extensible Gas</h3>
-                        <p class="card-subtitle">Longitud fija certificada</p>
-                        <div class="card-variants">
-                            <span class="card-variant selected" data-price="7990">1/2" 40-99cm</span>
-                            <span class="card-variant" data-price="9850">3/4" 40-99cm</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-value">$7.990</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Check Gas -->
-                <article class="product-card-v2" data-category="gas" data-brand="alarsa" data-type="accesorio" data-name="check gas valvula seguridad pilar">
-                    <div class="card-header">
-                        <span class="card-tag tag-gas">Gas</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/alarsa.png" alt="Alarsa">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Check+Gas" alt="Check Gas" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Check Gas</h3>
-                        <p class="card-subtitle">Válvula de seguridad</p>
-                        <div class="card-variants">
-                            <span class="card-variant selected" data-price="12500">Con pilar 1 1/4"</span>
-                            <span class="card-variant" data-price="11890">Con pilar 1 1/8"</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-value">$12.500</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- GAS NO APROBADOS -->
-
-                <!-- Mallado Gas -->
-                <article class="product-card-v2" data-category="gas" data-brand="latynflex" data-type="mallado" data-name="mallado gas no aprobado flexible">
-                    <div class="card-header">
-                        <span class="card-tag tag-gas">Gas</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/latyn-flex.png" alt="Latynflex">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Mallado+Gas" alt="Mallado Gas" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Mallado Gas</h3>
-                        <p class="card-subtitle">Uso bajo responsabilidad</p>
-                        <div class="card-variants">
-                            <span class="card-variant">1/2 x 30</span>
-                            <span class="card-variant">1/2 x 40</span>
-                            <span class="card-variant">1/2 x 50</span>
-                            <span class="card-variant">1/2 x 60</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-from">desde</span>
-                            <span class="price-value">$3.450</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Cobre Gas -->
-                <article class="product-card-v2" data-category="gas" data-brand="latynflex" data-type="cobre" data-name="cobre gas no aprobado flexible">
-                    <div class="card-header">
-                        <span class="card-tag tag-gas">Gas</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/latyn-flex.png" alt="Latynflex">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Cobre+Gas" alt="Cobre Gas" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Cobre Gas</h3>
-                        <p class="card-subtitle">Uso bajo responsabilidad</p>
-                        <div class="card-variants">
-                            <span class="card-variant">1/2 x 80</span>
-                            <span class="card-variant">1/2 x 100</span>
-                            <span class="card-variant">1/2 x 120</span>
-                            <span class="card-variant">1/2 x 150</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-from">desde</span>
-                            <span class="price-value">$4.890</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- REGULADORES GAS NATURAL -->
-
-                <!-- Canplast -->
-                <article class="product-card-v2" data-category="reguladores" data-brand="canplast" data-type="regulador" data-name="regulador canplast gas natural certificado">
-                    <div class="card-header">
-                        <span class="card-tag tag-regulador">Regulador</span>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Regulador+Canplast" alt="Regulador Canplast" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Regulador Canplast</h3>
-                        <p class="card-subtitle">Gas Natural - Certificado</p>
-                        <div class="card-variants">
-                            <span class="card-variant">6 Mts</span>
-                            <span class="card-variant">10 Mts</span>
-                            <span class="card-variant">12 Mts</span>
-                            <span class="card-variant">16 Mts</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-from">desde</span>
-                            <span class="price-value">$18.900</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Salustri -->
-                <article class="product-card-v2" data-category="reguladores" data-brand="salustri" data-type="regulador" data-name="regulador salustri gas natural certificado premium">
-                    <div class="card-header">
-                        <span class="card-tag tag-regulador">Regulador</span>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Regulador+Salustri" alt="Regulador Salustri" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Regulador Salustri</h3>
-                        <p class="card-subtitle">Gas Natural - Premium</p>
-                        <div class="card-variants">
-                            <span class="card-variant">6 Mts</span>
-                            <span class="card-variant">10 Mts</span>
-                            <span class="card-variant">25 Mts</span>
-                            <span class="card-variant">50 Mts</span>
-                            <span class="card-variant">100 Mts</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-from">desde</span>
-                            <span class="price-value">$19.500</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- PAZ -->
-                <article class="product-card-v2" data-category="reguladores" data-brand="paz" data-type="regulador" data-name="regulador paz gas natural directo flexible">
-                    <div class="card-header">
-                        <span class="card-tag tag-regulador">Regulador</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/paz.png" alt="PAZ">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Regulador+PAZ" alt="Regulador PAZ" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Regulador PAZ</h3>
-                        <p class="card-subtitle">Gas Natural - Directo / C/Flex</p>
-                        <div class="card-variants">
-                            <span class="card-variant">8,5 Mts</span>
-                            <span class="card-variant">12 Mts</span>
-                            <span class="card-variant">20 Mts</span>
-                            <span class="card-variant">32 Mts</span>
-                            <span class="card-variant">50 Mts</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-from">desde</span>
-                            <span class="price-value">$21.900</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- GAS ENVASADO -->
-
-                <!-- Super Gas -->
-                <article class="product-card-v2" data-category="reguladores" data-brand="paz" data-type="regulador" data-name="super gas kit completo regulador flexible garrafa envasado">
-                    <div class="card-header">
-                        <span class="card-tag tag-regulador">Regulador</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/paz.png" alt="PAZ">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Super+Gas" alt="Super Gas" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Super Gas</h3>
-                        <p class="card-subtitle">Regulador con flexible incluido</p>
-                        <div class="card-variants">
-                            <span class="card-variant">1 Flexible</span>
-                            <span class="card-variant">2 Flexibles</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-from">desde</span>
-                            <span class="price-value">$15.900</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Regulador Garrafa -->
-                <article class="product-card-v2" data-category="reguladores" data-brand="paz" data-type="regulador" data-name="regulador garrafa paz certificado envasado">
-                    <div class="card-header">
-                        <span class="card-tag tag-regulador">Regulador</span>
-                        <div class="card-brand">
-                            <img src="Brands-icons/paz.png" alt="PAZ">
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Regulador+Garrafa" alt="Regulador Garrafa" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Regulador Garrafa</h3>
-                        <p class="card-subtitle">Marca PAZ - Certificado</p>
-                        <div class="card-variants">
-                            <span class="card-variant">0,80 cm</span>
-                            <span class="card-variant">1,50 Mts</span>
-                            <span class="card-variant">2,00 Mts</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-from">desde</span>
-                            <span class="price-value">$8.900</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Cabezal Garrafa -->
-                <article class="product-card-v2" data-category="reguladores" data-brand="paz" data-type="accesorio" data-name="cabezal garrafa compatible 10kg 3kg envasado">
-                    <div class="card-header">
-                        <span class="card-tag tag-regulador">Accesorio</span>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://placehold.co/400x300/f8f9fa/495057?text=Cabezal+Garrafa" alt="Cabezal Garrafa" loading="lazy">
-                        </div>
-                        <h3 class="card-title">Cabezal Garrafa</h3>
-                        <p class="card-subtitle">Compatible con todas las garrafas</p>
-                        <div class="card-variants">
-                            <span class="card-variant">10 KG</span>
-                            <span class="card-variant">3 KG</span>
-                        </div>
-                        <div class="card-price">
-                            <span class="price-from">desde</span>
-                            <span class="price-value">$5.900</span>
-                        </div>
-                    </div>
-                </article>
-
+            <div class="products-container view-list" id="productsGrid">
             </div>
 
             <!-- No Results Message -->
@@ -853,6 +405,7 @@
     <!-- ===================== TOAST NOTIFICATIONS ===================== -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <script src="products.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

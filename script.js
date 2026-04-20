@@ -5,6 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     document.body.dataset.mode = APP_MODE;
+    renderProducts();
     initPromoBanner();
     loadCartFromStorage();
     initNavigation();
@@ -1128,6 +1129,115 @@ function initOfflineDetection() {
 /* ============================================================
    SERVICE WORKER (offline support)
    ============================================================ */
+
+/* ============================================================
+   PRODUCT RENDERING (from window.DISTRIFEL_PRODUCTS)
+   ============================================================ */
+
+const BRAND_LOGOS = {
+    alarsa: 'Brands-icons/alarsa.png',
+    latyn: 'Brands-icons/latyn-flex.png',
+    paz: 'Brands-icons/paz.png',
+    duke: 'Brands-icons/duke.png'
+};
+
+const CATEGORY_LABELS = {
+    agua: 'Agua',
+    gas: 'Gas',
+    reguladores: 'Regulador',
+    otros: 'Otros'
+};
+
+const CATEGORY_TAG_CLASS = {
+    agua: 'tag-agua',
+    gas: 'tag-gas',
+    reguladores: 'tag-regulador',
+    otros: 'tag-otros'
+};
+
+function escapeHtml(str) {
+    return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function placeholderImg(title) {
+    const txt = encodeURIComponent((title || 'Producto').slice(0, 20));
+    return `https://placehold.co/400x300/f0fdf9/2d8a78?text=${txt}`;
+}
+
+function renderProducts() {
+    const container = document.getElementById('productsGrid');
+    const products = window.DISTRIFEL_PRODUCTS;
+    if (!container || !Array.isArray(products)) return;
+
+    container.innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
+    for (const p of products) {
+        const card = document.createElement('article');
+        card.className = 'product-card-v2';
+        card.dataset.category = p.category || 'otros';
+        card.dataset.brand = p.brand || '';
+        card.dataset.type = p.type || '';
+        card.dataset.name = p.searchName || p.title.toLowerCase();
+
+        // Prices
+        const prices = p.variants.map(v => v.price).filter(n => n > 0);
+        const firstPrice = p.variants[0]?.price || 0;
+        const minPrice = prices.length ? Math.min(...prices) : 0;
+        const maxPrice = prices.length ? Math.max(...prices) : 0;
+        const showDesde = prices.length > 1 && minPrice !== maxPrice;
+
+        // Variants (only show if multiple OR if single with a desc)
+        let variantsHtml = '';
+        if (p.variants.length > 1) {
+            const vItems = p.variants.map((v, idx) => {
+                const label = v.desc || v.code || 'Único';
+                return `<span class="card-variant${idx === 0 ? ' selected' : ''}" data-price="${v.price || 0}" data-code="${escapeHtml(v.code)}">${escapeHtml(label)}</span>`;
+            }).join('');
+            variantsHtml = `<div class="card-variants">${vItems}</div>`;
+        }
+
+        // Image
+        const imgSrc = p.image || placeholderImg(p.title);
+        const fallback = placeholderImg(p.title);
+
+        // Category tag
+        const tagClass = CATEGORY_TAG_CLASS[p.category] || 'tag-otros';
+        const tagLabel = CATEGORY_LABELS[p.category] || 'Otros';
+
+        // Brand (only show logo if we have it locally)
+        const brandHtml = (p.brand && BRAND_LOGOS[p.brand])
+            ? `<div class="card-brand"><img src="${BRAND_LOGOS[p.brand]}" alt="${escapeHtml(p.brand)}"></div>`
+            : '';
+
+        card.innerHTML = `
+            <div class="card-header">
+                <span class="card-tag ${tagClass}">${tagLabel}</span>
+                ${brandHtml}
+            </div>
+            <div class="card-content">
+                <div class="card-image">
+                    <img src="${imgSrc}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.onerror=null;this.src='${fallback}';">
+                </div>
+                <h3 class="card-title">${escapeHtml(p.title)}</h3>
+                ${p.subtitle ? `<p class="card-subtitle">${escapeHtml(p.subtitle)}</p>` : ''}
+                ${variantsHtml}
+                <div class="card-price">
+                    ${showDesde ? '<span class="price-from">desde</span>' : ''}
+                    <span class="price-value">${formatPrice(firstPrice)}</span>
+                </div>
+            </div>
+        `;
+
+        fragment.appendChild(card);
+    }
+
+    container.appendChild(fragment);
+
+    // Update initial results count
+    const resultsCount = document.getElementById('resultsCount');
+    if (resultsCount) resultsCount.textContent = products.length;
+}
 
 /* ============================================================
    PROMO BANNER
