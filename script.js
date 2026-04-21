@@ -792,15 +792,21 @@ function initCart() {
             qtyValue.textContent = '1';
         });
 
-        // Wrap price + qty + button in a single action panel
+        // Wrap price + (qty+btn row) in action panel
         const cardPrice = cardContent.querySelector('.card-price');
         if (cardPrice) {
             const actionPanel = document.createElement('div');
             actionPanel.className = 'card-action-panel';
+
+            // Qty + btn in a dedicated row div
+            const qtyBtnRow = document.createElement('div');
+            qtyBtnRow.className = 'card-qty-btn-row';
+            qtyBtnRow.appendChild(qtyControl);
+            qtyBtnRow.appendChild(btn);
+
             cardContent.insertBefore(actionPanel, cardPrice);
             actionPanel.appendChild(cardPrice);
-            actionPanel.appendChild(qtyControl);
-            actionPanel.appendChild(btn);
+            actionPanel.appendChild(qtyBtnRow);
         } else {
             cardContent.appendChild(qtyControl);
             cardContent.appendChild(btn);
