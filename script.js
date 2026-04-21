@@ -3,6 +3,10 @@
  * Navigation, Search, Filter & View functionality
  */
 
+// Siempre empezar desde arriba al cargar/refrescar
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 document.addEventListener('DOMContentLoaded', () => {
     document.body.dataset.mode = APP_MODE;
     renderProducts();
@@ -13,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initSearch();
     initFilters();
     initCategoryChips();
+    initFilterSidebar();
+    initAccordion();
     initViewToggle();
     initVariantSelection();
     initSmoothScroll();
@@ -49,16 +55,60 @@ const APP_MODE = new URLSearchParams(location.search).has('corredores') ? 'corre
 function initNavigation() {
     const navbar = document.querySelector('.navbar');
     if (!navbar) return;
-    
-    let lastScroll = 0;
-    
+
     window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY;
-        
-        // Add scrolled class
-        navbar.classList.toggle('scrolled', currentScroll > 100);
-        
-        lastScroll = currentScroll;
+        navbar.classList.toggle('scrolled', window.scrollY > 100);
+    });
+
+    const hero = document.querySelector('.hero');
+    const homeBtn = document.getElementById('navHomeBtn');
+    if (!hero) return;
+
+    let heroHidden = false;
+    let savedHeroHeight = 0;
+
+    const hideHero = () => {
+        if (heroHidden) return;
+        heroHidden = true;
+        savedHeroHeight = hero.offsetHeight;
+        const curY = window.scrollY;
+        hero.style.display = 'none';
+        // Compensar: el catálogo sube en el DOM, ajustar scroll para que el usuario
+        // vea exactamente el mismo contenido que antes
+        window.scrollTo({ top: curY - savedHeroHeight, behavior: 'instant' });
+        document.body.classList.add('past-hero');
+    };
+
+    const showHero = () => {
+        const scrollBeforeShow = window.scrollY; // capturar ANTES del layout change
+        heroHidden = false;
+        hero.style.display = '';
+        document.body.classList.remove('past-hero');
+        // Compensar: hero volvió, el contenido bajó savedHeroHeight → ajustar para mismo punto visual
+        window.scrollTo({ top: scrollBeforeShow + savedHeroHeight, behavior: 'instant' });
+        // Luego scroll suave al tope
+        requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    };
+
+    // Ocultar cuando el hero fue completamente scrolleado fuera del viewport
+    window.addEventListener('scroll', () => {
+        if (!heroHidden && window.scrollY >= hero.offsetTop + hero.offsetHeight) {
+            hideHero();
+        }
+    }, { passive: true });
+
+    // Ocultar también al click en "Ver Catálogo" o en una marca del carousel
+    document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('a[href="#catalogo"], .brand-btn');
+        if (trigger && !heroHidden) {
+            // Pequeño delay para que el scroll empiece antes de ocultar
+            setTimeout(hideHero, 200);
+        }
+    });
+
+    homeBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        showHero();
     });
 }
 
@@ -163,105 +213,124 @@ function initSearch() {
 }
 
 /**
- * Filter Dropdowns
+ * Filter Sidebar — always-visible lists (no dropdowns)
  */
 function initFilters() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
     const clearFiltersBtn = document.getElementById('clearFilters');
     const resetFiltersBtn = document.getElementById('resetFilters');
-    
-    // Toggle dropdown menus
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const filterType = btn.dataset.filter;
-            const menu = document.querySelector(`[data-menu="${filterType}"]`);
-            
-            // Close other menus
-            document.querySelectorAll('.filter-menu.open').forEach(m => {
-                if (m !== menu) m.classList.remove('open');
-            });
-            document.querySelectorAll('.filter-btn.active').forEach(b => {
-                if (b !== btn) b.classList.remove('active');
-            });
-            
-            // Toggle current menu
-            menu.classList.toggle('open');
-            btn.classList.toggle('active');
-        });
-    });
-    
-    // Filter option selection
+
     document.querySelectorAll('.filter-option').forEach(option => {
         option.addEventListener('click', () => {
             const menu = option.closest('.filter-menu');
             const filterType = menu.dataset.menu;
             const value = option.dataset.value;
-            const btn = document.querySelector(`[data-filter="${filterType}"]`);
-            
-            // Update state
+
             state.filters[filterType] = value;
-
-            // Sync category chips if category changed via dropdown
-            if (filterType === 'category') {
-                document.querySelectorAll('.category-chips .chip').forEach(c => {
-                    c.classList.toggle('active', c.dataset.category === value);
-                });
-            }
-
-            // Update UI
             menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
             option.classList.add('active');
-            
-            // Update button text
-            let displayValue = value === 'all' ? (filterType === 'type' ? 'Todos' : 'Todas') : option.textContent.replace(/[💧🔥⚙️]/g, '').trim();
-            btn.querySelector('.filter-value').textContent = displayValue;
-            
-            // Close menu
-            menu.classList.remove('open');
-            btn.classList.remove('active');
-            
-            // Apply filter
+            updateAccordionBadge(filterType, value, option.textContent.trim());
             filterProducts();
         });
     });
-    
-    // Close menus on outside click
-    document.addEventListener('click', () => {
-        document.querySelectorAll('.filter-menu.open').forEach(m => m.classList.remove('open'));
-        document.querySelectorAll('.filter-btn.active').forEach(b => b.classList.remove('active'));
-    });
-    
-    // Clear all filters
+
     const clearAll = () => {
         state.search = '';
         state.filters = { category: 'all', brand: 'all', type: 'all' };
-        
-        // Reset UI
+
         const searchInput = document.getElementById('searchInput');
         const searchClear = document.getElementById('searchClear');
-        
         if (searchInput) searchInput.value = '';
         if (searchClear) searchClear.classList.remove('visible');
-        
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.querySelector('.filter-value').textContent = btn.dataset.filter === 'type' ? 'Todos' : 'Todas';
-        });
-        
+
         document.querySelectorAll('.filter-option').forEach(opt => {
             opt.classList.toggle('active', opt.dataset.value === 'all');
         });
 
-        // Reset category chips
         document.querySelectorAll('.category-chips .chip').forEach(c => {
             c.classList.toggle('active', c.dataset.category === 'all');
         });
 
+        // Reset accordion badges a "Todas"/"Todos"
+        ['brand', 'type', 'category'].forEach(t => updateAccordionBadge(t, 'all', ''));
+
         filterProducts();
     };
-    
+
     if (clearFiltersBtn) clearFiltersBtn.addEventListener('click', clearAll);
     if (resetFiltersBtn) resetFiltersBtn.addEventListener('click', clearAll);
+}
+
+/**
+ * Filter Sidebar — toggle en desktop + drawer en mobile
+ */
+function initFilterSidebar() {
+    const layout = document.querySelector('.catalog-layout');
+    const sidebar = document.getElementById('filterSidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const toggleBtn = document.getElementById('filterToggleBtn');
+    const closeBtn = document.getElementById('sidebarClose');
+
+    const isMobile = () => window.innerWidth < 1024;
+
+    const open = () => {
+        if (isMobile()) {
+            sidebar?.classList.add('open');
+            overlay?.classList.add('visible');
+            document.body.classList.add('sidebar-open');
+        } else {
+            layout?.classList.remove('sidebar-collapsed');
+        }
+    };
+
+    const close = () => {
+        if (isMobile()) {
+            sidebar?.classList.remove('open');
+            overlay?.classList.remove('visible');
+            document.body.classList.remove('sidebar-open');
+        } else {
+            layout?.classList.add('sidebar-collapsed');
+        }
+    };
+
+    const toggle = () => {
+        if (isMobile()) {
+            sidebar?.classList.contains('open') ? close() : open();
+        } else {
+            layout?.classList.contains('sidebar-collapsed') ? open() : close();
+        }
+    };
+
+    toggleBtn?.addEventListener('click', toggle);
+    closeBtn?.addEventListener('click', close);
+    overlay?.addEventListener('click', close);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && (sidebar?.classList.contains('open') || layout?.classList.contains('sidebar-collapsed') === false)) {
+            close();
+        }
+    });
+}
+
+/**
+ * Sidebar accordion — toggle + badge con filtro activo
+ */
+function initAccordion() {
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            header.closest('.accordion-section')?.classList.toggle('expanded');
+        });
+    });
+}
+
+const ACCORDION_DEFAULTS = { category: 'Todas', brand: 'Todas', type: 'Todos' };
+
+function updateAccordionBadge(filterType, value, label) {
+    const badge = document.querySelector(`.accordion-badge[data-section="${filterType}"]`);
+    if (!badge) return;
+    badge.textContent = (value === 'all' || !value)
+        ? ACCORDION_DEFAULTS[filterType]
+        : label;
+    badge.classList.add('active');
 }
 
 /**
@@ -636,15 +705,51 @@ function initCart() {
         const cardContent = card.querySelector('.card-content');
         if (!cardContent) return;
 
-        // Wrap info elements in .card-info-col for proper list-view layout
+        // "···" → dropdown toggle
+        const moreBtn = card.querySelector('.variant-more-btn');
+        if (moreBtn) {
+            const dropdown = moreBtn.nextElementSibling; // .variants-dropdown
+            moreBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = dropdown.classList.toggle('open');
+                moreBtn.classList.toggle('active', isOpen);
+                // Cerrar otros dropdowns abiertos
+                document.querySelectorAll('.variants-dropdown.open').forEach(d => {
+                    if (d !== dropdown) {
+                        d.classList.remove('open');
+                        d.previousElementSibling?.classList.remove('active');
+                    }
+                });
+            });
+
+            // Cerrar al click fuera
+            document.addEventListener('click', () => {
+                dropdown.classList.remove('open');
+                moreBtn.classList.remove('active');
+            });
+
+            // Al seleccionar una opción del dropdown → cerrar
+            dropdown.querySelectorAll('.card-variant').forEach(v => {
+                v.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dropdown.classList.remove('open');
+                    moreBtn.classList.remove('active');
+                    // La selección y update de precio la maneja initVariantSelection (es hermano en .card-variants)
+                });
+            });
+        }
+
+        // Wrap info elements in .card-info-col (includes card-list-meta for list view)
         if (!cardContent.querySelector('.card-info-col')) {
+            const meta = cardContent.querySelector('.card-list-meta');
             const title = cardContent.querySelector('.card-title');
             const subtitle = cardContent.querySelector('.card-subtitle');
             const variants = cardContent.querySelector('.card-variants');
             if (title) {
                 const wrapper = document.createElement('div');
                 wrapper.className = 'card-info-col';
-                title.parentNode.insertBefore(wrapper, title);
+                title.parentNode.insertBefore(wrapper, meta || title);
+                if (meta) wrapper.appendChild(meta);
                 wrapper.appendChild(title);
                 if (subtitle) wrapper.appendChild(subtitle);
                 if (variants) wrapper.appendChild(variants);
@@ -675,11 +780,10 @@ function initCart() {
         btn.className = 'btn-add-cart';
         btn.innerHTML = `
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16" aria-hidden="true">
-                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-                <line x1="3" y1="6" x2="21" y2="6"/>
-                <path d="M16 10a4 4 0 01-8 0"/>
+                <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
             </svg>
-            <span>Agregar al pedido</span>
+            <span>Agregar</span>
         `;
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -688,8 +792,19 @@ function initCart() {
             qtyValue.textContent = '1';
         });
 
-        cardContent.appendChild(qtyControl);
-        cardContent.appendChild(btn);
+        // Wrap price + qty + button in a single action panel
+        const cardPrice = cardContent.querySelector('.card-price');
+        if (cardPrice) {
+            const actionPanel = document.createElement('div');
+            actionPanel.className = 'card-action-panel';
+            cardContent.insertBefore(actionPanel, cardPrice);
+            actionPanel.appendChild(cardPrice);
+            actionPanel.appendChild(qtyControl);
+            actionPanel.appendChild(btn);
+        } else {
+            cardContent.appendChild(qtyControl);
+            cardContent.appendChild(btn);
+        }
     });
 
     document.getElementById('cartFloatBtn')?.addEventListener('click', openCart);
@@ -855,38 +970,37 @@ function updateInCartBadges() {
         const legacyBadge = card.querySelector('.card-in-cart-badge');
         if (legacyBadge) legacyBadge.remove();
 
-        // Get or create inline indicator inside card-price
-        const cardPrice = card.querySelector('.card-price');
-        let inlineTag = card.querySelector('.card-in-cart-qty');
+        // Badge carrito top-right del card
+        let badge = card.querySelector('.card-in-cart-qty');
 
         if (qty > 0) {
             card.classList.add('in-cart');
 
-            if (!inlineTag && cardPrice) {
-                inlineTag = document.createElement('div');
-                inlineTag.className = 'card-in-cart-qty';
-                inlineTag.innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12">
-                        <polyline points="20 6 9 17 4 12"/>
+            if (!badge) {
+                badge = document.createElement('div');
+                badge.className = 'card-in-cart-qty';
+                badge.innerHTML = `
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14" aria-hidden="true">
+                        <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
                     </svg>
-                    <span><strong class="inline-qty">${qty}</strong> en tu pedido</span>
+                    <span class="inline-qty">${qty}</span>
                 `;
-                cardPrice.appendChild(inlineTag);
-            } else if (inlineTag) {
-                const qtyEl = inlineTag.querySelector('.inline-qty');
+                card.appendChild(badge);
+            } else {
+                const qtyEl = badge.querySelector('.inline-qty');
                 if (qtyEl) qtyEl.textContent = qty;
             }
 
             // Update button label to "Agregar más"
             const btn = card.querySelector('.btn-add-cart span');
-            if (btn && !btn.dataset.addedState) btn.textContent = 'Agregar más';
+            if (btn && !btn.dataset.addedState) btn.textContent = 'Agregar';
         } else {
             card.classList.remove('in-cart');
-            if (inlineTag) inlineTag.remove();
+            if (badge) badge.remove();
 
             // Reset button label
             const btn = card.querySelector('.btn-add-cart span');
-            if (btn && !btn.dataset.addedState) btn.textContent = 'Agregar al pedido';
+            if (btn && !btn.dataset.addedState) btn.textContent = 'Agregar';
         }
     });
 }
@@ -896,13 +1010,20 @@ function updateInCartBadges() {
    ============================================================ */
 
 function initCategoryChips() {
+    // Badges iniciales
+    updateAccordionBadge('category', 'all', '');
+    updateAccordionBadge('brand', 'all', '');
+    updateAccordionBadge('type', 'all', '');
+
     const chips = document.querySelectorAll('.category-chips .chip');
     if (!chips.length) return;
 
     chips.forEach(chip => {
         chip.addEventListener('click', () => {
             const category = chip.dataset.category;
+            const label = chip.querySelector('span:last-child')?.textContent.trim() || '';
             setCategory(category);
+            updateAccordionBadge('category', category, label);
         });
     });
 }
@@ -964,13 +1085,14 @@ function initClientPopup() {
     });
 
     sendBtn?.addEventListener('click', () => {
-        const clientName = nameInput.value.trim();
-        const phoneInput = document.getElementById('clientPhone');
-        const notesInput = document.getElementById('clientNotes');
-        const phone = phoneInput?.value.trim() || '';
-        const notes = notesInput?.value || '';
+        const clientName   = nameInput.value.trim();
+        const phone        = document.getElementById('clientPhone')?.value.trim() || '';
+        const email        = document.getElementById('clientEmail')?.value.trim() || '';
+        const business     = document.getElementById('clientBusiness')?.value.trim() || '';
+        const localidad    = document.getElementById('clientLocalidad')?.value.trim() || '';
+        const notes        = document.getElementById('clientNotes')?.value.trim() || '';
 
-        // Validate name (required both modes)
+        // Solo nombre es requerido
         if (!clientName) {
             nameInput.classList.add('error');
             nameInput.focus();
@@ -978,15 +1100,7 @@ function initClientPopup() {
             return;
         }
 
-        // Validate phone (required in cliente mode)
-        if (APP_MODE === 'cliente' && !phone) {
-            phoneInput.classList.add('error');
-            phoneInput.focus();
-            setTimeout(() => phoneInput.classList.remove('error'), 1500);
-            return;
-        }
-
-        // Persist cliente info for next visit + show in navbar
+        // Persist cliente info
         if (APP_MODE === 'cliente') {
             localStorage.setItem('distrifel_cliente', clientName);
             if (phone) localStorage.setItem('distrifel_cliente_phone', phone);
@@ -994,7 +1108,7 @@ function initClientPopup() {
         }
 
         const msg = APP_MODE === 'cliente'
-            ? buildClienteMessage(clientName, phone, notes)
+            ? buildClienteMessage(clientName, phone, email, business, localidad, notes)
             : buildCorredorMessage(clientName, notes);
 
         window.open(`https://wa.me/5491164639441?text=${encodeURIComponent(msg)}`, '_blank');
@@ -1019,39 +1133,34 @@ function openClientPopup() {
     const notesLabel = overlay.querySelector('label[for="clientNotes"]');
     const notesInput = document.getElementById('clientNotes');
 
+    const phoneEmailRow       = overlay.querySelector('#clientPhoneEmailRow');
+    const businessLocalidadRow = overlay.querySelector('#clientBusinessLocalidadRow');
+
     if (APP_MODE === 'corredor') {
-        // Corredor: identifies the visited client
         if (title) title.textContent = 'Datos del cliente';
         if (subtitle) subtitle.textContent = 'Completá la información antes de enviar el pedido al depósito';
         if (nameLabel) nameLabel.innerHTML = 'Nombre del cliente <span class="client-required">*</span>';
-        if (nameInput) {
-            nameInput.placeholder = 'Ej: Ferretería López';
-            nameInput.inputMode = 'text';
-            nameInput.autocomplete = 'off';
-        }
-        if (phoneField) phoneField.style.display = 'none';
-        if (notesLabel) notesLabel.innerHTML = 'Comentarios <span class="client-optional">(opcional)</span>';
+        if (nameInput) { nameInput.placeholder = 'Ej: Ferretería López'; nameInput.autocomplete = 'off'; }
+        if (phoneEmailRow) phoneEmailRow.style.display = 'none';
+        if (businessLocalidadRow) businessLocalidadRow.style.display = 'none';
         if (notesInput) notesInput.placeholder = 'Ej: entregar en la mañana, traer caja cerrada';
     } else {
-        // Cliente: identifies themselves for delivery
         if (title) title.textContent = 'Finalizar pedido';
         if (subtitle) subtitle.textContent = 'Completá tus datos para coordinar la entrega';
-        if (nameLabel) nameLabel.innerHTML = 'Tu nombre <span class="client-required">*</span>';
+        if (nameLabel) nameLabel.innerHTML = 'Nombre <span class="client-required">*</span>';
         if (nameInput) {
-            nameInput.placeholder = 'Ej: Juan Pérez';
-            nameInput.inputMode = 'text';
+            nameInput.placeholder = 'Ej: Juan García';
             nameInput.autocomplete = 'name';
-            // Pre-fill if we know them from a previous order
             const saved = localStorage.getItem('distrifel_cliente');
             if (saved && !nameInput.value) nameInput.value = saved;
         }
-        if (phoneField) phoneField.style.display = '';
+        if (phoneEmailRow) phoneEmailRow.style.display = 'grid';
         if (phoneInput) {
             const savedPhone = localStorage.getItem('distrifel_cliente_phone');
             if (savedPhone && !phoneInput.value) phoneInput.value = savedPhone;
         }
-        if (notesLabel) notesLabel.innerHTML = 'Dirección o comentarios <span class="client-optional">(opcional)</span>';
-        if (notesInput) notesInput.placeholder = 'Ej: Av. Siempre Viva 742, timbre 3';
+        if (businessLocalidadRow) businessLocalidadRow.style.display = 'grid';
+        if (notesInput) notesInput.placeholder = 'Ej: entregar a la mañana, paga en efectivo';
     }
 
     overlay.classList.add('visible');
@@ -1136,10 +1245,18 @@ function initOfflineDetection() {
    ============================================================ */
 
 const BRAND_LOGOS = {
-    alarsa: 'Brands-icons/alarsa.png',
-    latyn: 'Brands-icons/latyn-flex.png',
-    paz: 'Brands-icons/paz.png',
-    duke: 'Brands-icons/duke.png'
+    alarsa:   'Brands-icons/alarsa.png',
+    latyn:    'Brands-icons/latyn-flex.png',
+    paz:      'Brands-icons/paz.png',
+    duke:     'Brands-icons/duke.png',
+    canplast: 'Brands-icons/canplast.png'
+};
+
+const BRAND_NAMES = {
+    alarsa: 'Alarsa', latyn: 'Latynflex', canplast: 'Canplast',
+    salustri: 'Salustri', paz: 'PAZ', duke: 'Duke', tcoat: 'T-Coat',
+    covertex: 'Covertex', aislatech: 'Aislatech', cirino: 'Cirino',
+    espumafoam: 'Espuma Foam', smartfix: 'Smart-Fix'
 };
 
 const CATEGORY_LABELS = {
@@ -1188,14 +1305,29 @@ function renderProducts() {
         const maxPrice = prices.length ? Math.max(...prices) : 0;
         const showDesde = prices.length > 1 && minPrice !== maxPrice;
 
-        // Variants (only show if multiple OR if single with a desc)
+        // Primeras 3 variantes + "···" dropdown si hay más
+        const MAX_VISIBLE = 3;
         let variantsHtml = '';
         if (p.variants.length > 1) {
-            const vItems = p.variants.map((v, idx) => {
+            const visible = p.variants.slice(0, MAX_VISIBLE);
+            const hidden  = p.variants.slice(MAX_VISIBLE);
+
+            const vItems = visible.map((v, idx) => {
                 const label = v.desc || v.code || 'Único';
                 return `<span class="card-variant${idx === 0 ? ' selected' : ''}" data-price="${v.price || 0}" data-code="${escapeHtml(v.code)}">${escapeHtml(label)}</span>`;
             }).join('');
-            variantsHtml = `<div class="card-variants">${vItems}</div>`;
+
+            // Los items ocultos van DENTRO de .card-variants para que initVariantSelection los encuentre como hermanos
+            const dropdownItems = hidden.map(v => {
+                const label = v.desc || v.code || 'Único';
+                return `<span class="card-variant" data-price="${v.price || 0}" data-code="${escapeHtml(v.code)}">${escapeHtml(label)}</span>`;
+            }).join('');
+
+            const dropdownHtml = hidden.length > 0
+                ? `<button class="variant-more-btn" type="button">···</button><div class="variants-dropdown">${dropdownItems}</div>`
+                : '';
+
+            variantsHtml = `<div class="card-variants">${vItems}${dropdownHtml}</div>`;
         }
 
         // Image
@@ -1211,17 +1343,20 @@ function renderProducts() {
             ? `<div class="card-brand"><img src="${BRAND_LOGOS[p.brand]}" alt="${escapeHtml(p.brand)}"></div>`
             : '';
 
+        const brandName = p.brand ? (BRAND_NAMES[p.brand] || p.brand) : '';
+
         card.innerHTML = `
             <div class="card-header">
-                <span class="card-tag ${tagClass}">${tagLabel}</span>
                 ${brandHtml}
             </div>
             <div class="card-content">
                 <div class="card-image">
                     <img src="${imgSrc}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.onerror=null;this.src='${fallback}';">
                 </div>
+                <div class="card-list-meta">
+                    ${brandName ? `<span class="card-brand-name">${escapeHtml(brandName)}</span>` : ''}
+                </div>
                 <h3 class="card-title">${escapeHtml(p.title)}</h3>
-                ${p.subtitle ? `<p class="card-subtitle">${escapeHtml(p.subtitle)}</p>` : ''}
                 ${variantsHtml}
                 <div class="card-price">
                     ${showDesde ? '<span class="price-from">desde</span>' : ''}
@@ -1355,6 +1490,10 @@ function setBrandFilter(brand) {
     document.querySelectorAll('[data-menu="brand"] .filter-option').forEach(opt => {
         opt.classList.toggle('active', opt.dataset.value === brand);
     });
+
+    // Actualizar badge del acordeón
+    const activeOpt = document.querySelector(`[data-menu="brand"] [data-value="${brand}"]`);
+    updateAccordionBadge('brand', brand, activeOpt?.textContent.trim() || brand);
 
     // Sync dropdown button label
     const filterBtn = document.querySelector('[data-filter="brand"]');
@@ -1521,8 +1660,15 @@ function buildCorredorMessage(clientName, notes) {
     return msg;
 }
 
-function buildClienteMessage(clientName, phone, addressOrNotes) {
+function buildClienteMessage(clientName, phone, email, business, localidad, notes) {
     let msg = `Hola! Soy *${clientName}* y quiero hacer el siguiente pedido:\n\n`;
+
+    if (business)  msg += `🏪 *Comercio:* ${business}\n`;
+    if (localidad) msg += `📍 *Localidad:* ${localidad}\n`;
+    if (phone)     msg += `📞 *Teléfono:* ${phone}\n`;
+    if (email)     msg += `✉️ *Email:* ${email}\n`;
+    if (business || localidad || phone || email) msg += `\n`;
+
     msg += `📦 *PEDIDO DISTRIFEL*\n`;
     msg += `─────────────────────\n`;
 
@@ -1533,12 +1679,9 @@ function buildClienteMessage(clientName, phone, addressOrNotes) {
 
     const total = cart.items.reduce((s, i) => s + i.price * i.qty, 0);
     msg += `─────────────────────\n`;
-    msg += `💰 *Total estimado: ${formatPrice(total)}*\n`;
-    msg += `📞 Teléfono: ${phone}`;
+    msg += `💰 *Total estimado: ${formatPrice(total)}*`;
 
-    if (addressOrNotes && addressOrNotes.trim()) {
-        msg += `\n\n📍 *Dirección / comentarios:*\n${addressOrNotes.trim()}`;
-    }
+    if (notes) msg += `\n\n📝 *Comentarios:*\n${notes}`;
 
     return msg;
 }

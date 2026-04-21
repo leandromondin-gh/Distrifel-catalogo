@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Distribuidora Distrifel | Artículos de Ferretería y Sanitarios</title>
+    <title>Distribuidora Distrifel</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%235ab8a5'/><circle cx='50' cy='50' r='34' fill='none' stroke='white' stroke-width='10'/><circle cx='50' cy='50' r='18' fill='white'/></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,6 +34,13 @@
             </a>
 
             <div class="nav-actions">
+                <a href="#inicio" class="nav-home-btn" id="navHomeBtn" aria-label="Volver al inicio">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    <span>Inicio</span>
+                </a>
                 <div class="nav-corredor" id="navCorredor">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" aria-hidden="true">
                         <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
@@ -64,10 +71,6 @@
                 <span class="hero-title-main">DISTRIFEL</span>
             </h1>
             <p class="hero-tagline">Artículos de Ferretería y Sanitarios</p>
-            <p class="hero-description">
-                Más de 20 años proveyendo productos de calidad para profesionales y hogares. 
-                Encontrá todo lo que necesitás en conexiones flexibles, reguladores y más.
-            </p>
             <div class="hero-buttons">
                 <a href="#catalogo" class="btn btn-primary">Ver Catálogo</a>
             </div>
@@ -106,146 +109,172 @@
     <!-- Catálogo Section -->
     <section id="catalogo" class="catalog-section">
         <div class="container">
-            <!-- Barra de Búsqueda y Filtros -->
-            <div class="catalog-toolbar">
-                <div class="toolbar-header">
-                    <h2 class="catalog-title">Catálogo de Productos</h2>
-                    <p class="catalog-subtitle">Explorá nuestra línea completa de conexiones y reguladores</p>
-                </div>
+            <div class="catalog-layout">
 
-                <div class="category-chips" id="categoryChips">
-                    <button class="chip active" data-category="all" type="button">
-                        <span class="chip-icon">✨</span>
-                        <span>Todas</span>
-                    </button>
-                    <button class="chip" data-category="agua" type="button">
-                        <span class="chip-icon">💧</span>
-                        <span>Agua</span>
-                    </button>
-                    <button class="chip" data-category="gas" type="button">
-                        <span class="chip-icon">🔥</span>
-                        <span>Gas</span>
-                    </button>
-                    <button class="chip" data-category="reguladores" type="button">
-                        <span class="chip-icon">⚙️</span>
-                        <span>Reguladores</span>
-                    </button>
-                    <button class="chip" data-category="otros" type="button">
-                        <span class="chip-icon">🧰</span>
-                        <span>Otros</span>
-                    </button>
-                </div>
+                <!-- ===== FILTER SIDEBAR ===== -->
+                <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-                <div class="search-box">
-                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"/>
-                        <path d="m21 21-4.35-4.35"/>
-                    </svg>
-                    <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos..." autocomplete="off">
-                    <button class="search-clear" id="searchClear" aria-label="Limpiar búsqueda">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="18" y1="6" x2="6" y2="18"/>
-                            <line x1="6" y1="6" x2="18" y2="18"/>
-                        </svg>
-                    </button>
-                </div>
-                
-                <div class="filters-row">
-                    <!-- Filtro Marca -->
-                    <div class="filter-dropdown">
-                        <button class="filter-btn" data-filter="brand">
-                            <span class="filter-label">Marca</span>
-                            <span class="filter-value">Todas</span>
-                            <svg class="filter-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6,9 12,15 18,9"/>
+                <aside class="filter-sidebar" id="filterSidebar">
+
+                    <!-- Header: título + limpiar + cerrar -->
+                    <div class="sidebar-header">
+                        <span class="sidebar-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                <line x1="4" y1="6" x2="20" y2="6"/>
+                                <line x1="8" y1="12" x2="20" y2="12"/>
+                                <line x1="12" y1="18" x2="20" y2="18"/>
                             </svg>
-                        </button>
-                        <div class="filter-menu" data-menu="brand">
-                            <button class="filter-option active" data-value="all">Todas las marcas</button>
-                            <button class="filter-option" data-value="alarsa">Alarsa</button>
-                            <button class="filter-option" data-value="canplast">Canplast</button>
-                            <button class="filter-option" data-value="salustri">Salustri</button>
-                            <button class="filter-option" data-value="paz">PAZ</button>
-                            <button class="filter-option" data-value="duke">Duke</button>
-                            <button class="filter-option" data-value="latyn">Latynflex</button>
-                            <button class="filter-option" data-value="tcoat">T-Coat</button>
-                            <button class="filter-option" data-value="covertex">Covertex</button>
-                            <button class="filter-option" data-value="aislatech">Aislatech</button>
-                            <button class="filter-option" data-value="cirino">Cirino</button>
-                            <button class="filter-option" data-value="espumafoam">Espuma Foam</button>
-                            <button class="filter-option" data-value="smartfix">Smart-Fix</button>
+                            Filtros
+                        </span>
+                        <div class="sidebar-header-actions">
+                            <button class="clear-filters sidebar-clear-top" id="clearFilters" title="Limpiar filtros">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+                                    <path d="M3 6h18M6 6v14c0 1 1 2 2 2h8c1 0 2-1 2-2V6M9 6V4c0-1 1-2 2-2h2c1 0 2 1 2 2v2"/>
+                                </svg>
+                                Limpiar
+                            </button>
+                            <button class="sidebar-close-btn" id="sidebarClose" aria-label="Cerrar filtros">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
-                    
-                    <!-- Filtro Tipo -->
-                    <div class="filter-dropdown">
-                        <button class="filter-btn" data-filter="type">
-                            <span class="filter-label">Tipo</span>
-                            <span class="filter-value">Todos</span>
-                            <svg class="filter-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6,9 12,15 18,9"/>
+
+                    <div class="sidebar-body">
+
+                        <!-- Categoría (acordeón) -->
+                        <div class="accordion-section">
+                            <button class="accordion-header" type="button">
+                                <div class="accordion-header-left">
+                                    <span class="accordion-label">Categoría</span>
+                                    <span class="accordion-badge" data-section="category"></span>
+                                </div>
+                                <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14">
+                                    <polyline points="6,9 12,15 18,9"/>
+                                </svg>
+                            </button>
+                            <div class="accordion-body">
+                                <div class="category-chips" id="categoryChips">
+                                    <button class="chip active" data-category="all" type="button"><span class="chip-icon">✨</span><span>Todas</span></button>
+                                    <button class="chip" data-category="agua" type="button"><span class="chip-icon">💧</span><span>Agua</span></button>
+                                    <button class="chip" data-category="gas" type="button"><span class="chip-icon">🔥</span><span>Gas</span></button>
+                                    <button class="chip" data-category="reguladores" type="button"><span class="chip-icon">⚙️</span><span>Reguladores</span></button>
+                                    <button class="chip" data-category="otros" type="button"><span class="chip-icon">🧰</span><span>Otros</span></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Marca (acordeón) -->
+                        <div class="accordion-section">
+                            <button class="accordion-header" type="button">
+                                <div class="accordion-header-left">
+                                    <span class="accordion-label">Marca</span>
+                                    <span class="accordion-badge" data-section="brand"></span>
+                                </div>
+                                <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14">
+                                    <polyline points="6,9 12,15 18,9"/>
+                                </svg>
+                            </button>
+                            <div class="accordion-body">
+                                <div class="filter-menu" data-menu="brand">
+                                    <button class="filter-option active" data-value="all">Todas</button>
+                                    <button class="filter-option" data-value="alarsa">Alarsa</button>
+                                    <button class="filter-option" data-value="canplast">Canplast</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tipo (acordeón) -->
+                        <div class="accordion-section">
+                            <button class="accordion-header" type="button">
+                                <div class="accordion-header-left">
+                                    <span class="accordion-label">Tipo</span>
+                                    <span class="accordion-badge" data-section="type"></span>
+                                </div>
+                                <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14">
+                                    <polyline points="6,9 12,15 18,9"/>
+                                </svg>
+                            </button>
+                            <div class="accordion-body">
+                                <div class="filter-menu" data-menu="type">
+                                    <button class="filter-option active" data-value="all">Todos</button>
+                                    <button class="filter-option" data-value="flexible">Flexible</button>
+                                    <button class="filter-option" data-value="mallado">Mallado</button>
+                                    <button class="filter-option" data-value="cobre">Cobre</button>
+                                    <button class="filter-option" data-value="extensible">Extensible</button>
+                                    <button class="filter-option" data-value="regulador">Regulador</button>
+                                    <button class="filter-option" data-value="accesorio">Accesorio</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </aside>
+
+                <!-- ===== MAIN CATALOG ===== -->
+                <div class="catalog-main">
+                    <div class="catalog-main-header">
+                        <button class="filter-toggle-btn" id="filterToggleBtn" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                <line x1="4" y1="6" x2="20" y2="6"/>
+                                <line x1="8" y1="12" x2="20" y2="12"/>
+                                <line x1="12" y1="18" x2="20" y2="18"/>
                             </svg>
+                            Filtros
                         </button>
-                        <div class="filter-menu" data-menu="type">
-                            <button class="filter-option active" data-value="all">Todos los tipos</button>
-                            <button class="filter-option" data-value="flexible">Flexible</button>
-                            <button class="filter-option" data-value="mallado">Mallado</button>
-                            <button class="filter-option" data-value="cobre">Cobre</button>
-                            <button class="filter-option" data-value="extensible">Extensible</button>
-                            <button class="filter-option" data-value="regulador">Regulador</button>
-                            <button class="filter-option" data-value="accesorio">Accesorio</button>
+
+                        <div class="search-box header-search">
+                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                            </svg>
+                            <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos..." autocomplete="off">
+                            <button class="search-clear" id="searchClear" aria-label="Limpiar búsqueda">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="header-right">
+                            <span class="header-results"><strong id="resultsCount">71</strong> productos</span>
+                            <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid" aria-label="Vista grilla">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <rect x="3" y="3" width="7" height="7" rx="1"/>
+                                    <rect x="14" y="3" width="7" height="7" rx="1"/>
+                                    <rect x="3" y="14" width="7" height="7" rx="1"/>
+                                    <rect x="14" y="14" width="7" height="7" rx="1"/>
+                                </svg>
+                            </button>
+                            <button class="view-btn" data-view="list" aria-label="Vista lista">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="8" y1="6" x2="21" y2="6"/>
+                                    <line x1="8" y1="12" x2="21" y2="12"/>
+                                    <line x1="8" y1="18" x2="21" y2="18"/>
+                                    <line x1="3" y1="6" x2="3.01" y2="6"/>
+                                    <line x1="3" y1="12" x2="3.01" y2="12"/>
+                                    <line x1="3" y1="18" x2="3.01" y2="18"/>
+                                </svg>
+                            </button>
+                            </div>
                         </div>
                     </div>
-                    
-                    <!-- Botón Limpiar Filtros -->
-                    <button class="clear-filters" id="clearFilters">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 6h18M6 6v14c0 1 1 2 2 2h8c1 0 2-1 2-2V6M9 6V4c0-1 1-2 2-2h2c1 0 2 1 2 2v2"/>
+
+                    <div class="products-container" id="productsGrid"></div>
+
+                    <div class="no-results" id="noResults">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                            <path d="M8 8l6 6M14 8l-6 6"/>
                         </svg>
-                        Limpiar
-                    </button>
-                </div>
-                
-                <!-- Resultados Counter -->
-                <div class="results-info">
-                    <span class="results-count"><strong id="resultsCount">20</strong> productos encontrados</span>
-                    <div class="view-toggle">
-                        <button class="view-btn" data-view="grid" aria-label="Vista grilla">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <rect x="3" y="3" width="7" height="7" rx="1"/>
-                                <rect x="14" y="3" width="7" height="7" rx="1"/>
-                                <rect x="3" y="14" width="7" height="7" rx="1"/>
-                                <rect x="14" y="14" width="7" height="7" rx="1"/>
-                            </svg>
-                        </button>
-                        <button class="view-btn active" data-view="list" aria-label="Vista lista">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="8" y1="6" x2="21" y2="6"/>
-                                <line x1="8" y1="12" x2="21" y2="12"/>
-                                <line x1="8" y1="18" x2="21" y2="18"/>
-                                <line x1="3" y1="6" x2="3.01" y2="6"/>
-                                <line x1="3" y1="12" x2="3.01" y2="12"/>
-                                <line x1="3" y1="18" x2="3.01" y2="18"/>
-                            </svg>
-                        </button>
+                        <h3>No se encontraron productos</h3>
+                        <p>Probá ajustando los filtros o buscando con otras palabras</p>
+                        <button class="btn-reset" id="resetFilters">Limpiar filtros</button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Grid de Productos -->
-            <div class="products-container view-list" id="productsGrid">
-            </div>
-
-            <!-- No Results Message -->
-            <div class="no-results" id="noResults">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <circle cx="11" cy="11" r="8"/>
-                    <path d="m21 21-4.35-4.35"/>
-                    <path d="M8 8l6 6M14 8l-6 6"/>
-                </svg>
-                <h3>No se encontraron productos</h3>
-                <p>Probá ajustando los filtros o buscando con otras palabras</p>
-                <button class="btn-reset" id="resetFilters">Limpiar filtros</button>
             </div>
         </div>
     </section>
@@ -273,7 +302,7 @@
                 
                 <div class="footer-disclaimer">
                     <p>Los precios publicados son de referencia y pueden variar sin previo aviso.</p>
-                    <p class="footer-list"><strong>Lista 114</strong> • Actualizada: 31/01/2026</p>
+                    <p class="footer-list"><strong>Lista 115</strong> • Actualizada: 20/04/2026</p>
                 </div>
                 
             </div>
@@ -288,7 +317,6 @@
                     <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>
             </button>
-            <img src="logo.png" alt="Distrifel" class="popup-logo-img" onerror="this.style.display='none'">
             <h2 class="popup-title">Bienvenido</h2>
             <p class="popup-subtitle">Ingresá tu nombre para comenzar a armar tu pedido</p>
             <div class="popup-input-wrap">
@@ -374,25 +402,40 @@
             <h2 class="client-popup-title">Datos del cliente</h2>
             <p class="client-popup-subtitle">Completá la información antes de enviar el pedido</p>
 
+            <!-- Nombre (fila completa) -->
             <div class="client-field">
-                <label for="clientName" class="client-label">
-                    Nombre del cliente <span class="client-required">*</span>
-                </label>
-                <input type="text" id="clientName" class="client-input" placeholder="Ej: Ferretería López" maxlength="80" autocomplete="off">
+                <label for="clientName" class="client-label">Nombre <span class="client-required">*</span></label>
+                <input type="text" id="clientName" class="client-input" placeholder="Ej: Juan García" maxlength="80" autocomplete="off">
             </div>
 
-            <div class="client-field" id="clientPhoneField" style="display:none">
-                <label for="clientPhone" class="client-label">
-                    Teléfono de contacto <span class="client-required">*</span>
-                </label>
-                <input type="tel" id="clientPhone" class="client-input" placeholder="Ej: 11 1234-5678" maxlength="20" autocomplete="tel" inputmode="tel">
+            <!-- Teléfono + Email (2 columnas) -->
+            <div class="client-row" id="clientPhoneEmailRow" style="display:none">
+                <div class="client-field">
+                    <label for="clientPhone" class="client-label">Teléfono <span class="client-optional">(opcional)</span></label>
+                    <input type="tel" id="clientPhone" class="client-input" placeholder="11 1234-5678" maxlength="20" autocomplete="tel" inputmode="tel">
+                </div>
+                <div class="client-field">
+                    <label for="clientEmail" class="client-label">Email <span class="client-optional">(opcional)</span></label>
+                    <input type="email" id="clientEmail" class="client-input" placeholder="juan@correo.com" maxlength="100" autocomplete="email">
+                </div>
             </div>
 
+            <!-- Comercio + Localidad (2 columnas) -->
+            <div class="client-row" id="clientBusinessLocalidadRow" style="display:none">
+                <div class="client-field">
+                    <label for="clientBusiness" class="client-label">Comercio <span class="client-optional">(opcional)</span></label>
+                    <input type="text" id="clientBusiness" class="client-input" placeholder="Ferretería López" maxlength="80" autocomplete="off">
+                </div>
+                <div class="client-field">
+                    <label for="clientLocalidad" class="client-label">Localidad <span class="client-optional">(opcional)</span></label>
+                    <input type="text" id="clientLocalidad" class="client-input" placeholder="Palermo, CABA" maxlength="60" autocomplete="off">
+                </div>
+            </div>
+
+            <!-- Comentarios (fila completa) -->
             <div class="client-field">
-                <label for="clientNotes" class="client-label">
-                    Comentarios <span class="client-optional">(opcional)</span>
-                </label>
-                <textarea id="clientNotes" class="client-textarea" placeholder="Notas para el pedido... Ej: entregar en la mañana, paga en efectivo" rows="3" maxlength="300"></textarea>
+                <label for="clientNotes" class="client-label">Comentarios <span class="client-optional">(opcional)</span></label>
+                <textarea id="clientNotes" class="client-textarea" placeholder="Ej: entregar a la mañana, paga en efectivo" rows="2" maxlength="300"></textarea>
             </div>
 
             <div class="client-popup-actions">
