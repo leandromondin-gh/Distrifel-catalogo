@@ -700,6 +700,12 @@ function applyCorrName(name) {
    ============================================================ */
 
 function initCart() {
+    // Set initial cart drawer label based on mode
+    const cartRep = document.getElementById('cartRepName');
+    if (cartRep) {
+        cartRep.textContent = APP_MODE === 'corredor' ? '🚚 Corredor: —' : 'Cliente: —';
+    }
+
     // Add qty selector + "Agregar" button to every product card
     document.querySelectorAll('.product-card-v2').forEach(card => {
         const cardContent = card.querySelector('.card-content');
