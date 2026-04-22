@@ -711,40 +711,6 @@ function initCart() {
         const cardContent = card.querySelector('.card-content');
         if (!cardContent) return;
 
-        // "···" → dropdown toggle
-        const moreBtn = card.querySelector('.variant-more-btn');
-        if (moreBtn) {
-            const dropdown = moreBtn.nextElementSibling; // .variants-dropdown
-            moreBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const isOpen = dropdown.classList.toggle('open');
-                moreBtn.classList.toggle('active', isOpen);
-                // Cerrar otros dropdowns abiertos
-                document.querySelectorAll('.variants-dropdown.open').forEach(d => {
-                    if (d !== dropdown) {
-                        d.classList.remove('open');
-                        d.previousElementSibling?.classList.remove('active');
-                    }
-                });
-            });
-
-            // Cerrar al click fuera
-            document.addEventListener('click', () => {
-                dropdown.classList.remove('open');
-                moreBtn.classList.remove('active');
-            });
-
-            // Al seleccionar una opción del dropdown → cerrar
-            dropdown.querySelectorAll('.card-variant').forEach(v => {
-                v.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    dropdown.classList.remove('open');
-                    moreBtn.classList.remove('active');
-                    // La selección y update de precio la maneja initVariantSelection (es hermano en .card-variants)
-                });
-            });
-        }
-
         // Wrap info elements in .card-info-col (includes card-list-meta for list view)
         if (!cardContent.querySelector('.card-info-col')) {
             const meta = cardContent.querySelector('.card-list-meta');
@@ -1317,29 +1283,15 @@ function renderProducts() {
         const maxPrice = prices.length ? Math.max(...prices) : 0;
         const showDesde = prices.length > 1 && minPrice !== maxPrice;
 
-        // Primeras 3 variantes + "···" dropdown si hay más
-        const MAX_VISIBLE = 3;
+        // Mostrar todas las variantes (sin truncar con "···")
         let variantsHtml = '';
         if (p.variants.length > 1) {
-            const visible = p.variants.slice(0, MAX_VISIBLE);
-            const hidden  = p.variants.slice(MAX_VISIBLE);
-
-            const vItems = visible.map((v, idx) => {
+            const vItems = p.variants.map((v, idx) => {
                 const label = v.desc || v.code || 'Único';
                 return `<span class="card-variant${idx === 0 ? ' selected' : ''}" data-price="${v.price || 0}" data-code="${escapeHtml(v.code)}">${escapeHtml(label)}</span>`;
             }).join('');
 
-            // Los items ocultos van DENTRO de .card-variants para que initVariantSelection los encuentre como hermanos
-            const dropdownItems = hidden.map(v => {
-                const label = v.desc || v.code || 'Único';
-                return `<span class="card-variant" data-price="${v.price || 0}" data-code="${escapeHtml(v.code)}">${escapeHtml(label)}</span>`;
-            }).join('');
-
-            const dropdownHtml = hidden.length > 0
-                ? `<button class="variant-more-btn" type="button">···</button><div class="variants-dropdown">${dropdownItems}</div>`
-                : '';
-
-            variantsHtml = `<div class="card-variants">${vItems}${dropdownHtml}</div>`;
+            variantsHtml = `<div class="card-variants">${vItems}</div>`;
         }
 
         // Image

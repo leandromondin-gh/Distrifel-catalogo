@@ -2155,7 +2155,9 @@ body.past-hero .catalog-section {
     opacity: 1;
 }
 
-/* Variant overflow "Â·Â·Â·" button */
+/* Variant overflow "···" button — DESACTIVADO (todas las variantes visibles como chips)
+   Descomentar si se vuelve al dropdown para productos con muchas variantes
+
 .card-variants {
     position: relative;
 }
@@ -2183,7 +2185,6 @@ body.past-hero .catalog-section {
     color: white;
 }
 
-/* Dropdown flotante */
 .variants-dropdown {
     position: absolute;
     top: calc(100% + 6px);
@@ -2212,6 +2213,7 @@ body.past-hero .catalog-section {
     from { opacity: 0; transform: translateX(-50%) scale(0.92) translateY(-4px); }
     to   { opacity: 1; transform: translateX(-50%) scale(1)    translateY(0);    }
 }
+*/
 
 .card-brand img {
     width: 100%;
@@ -2550,7 +2552,7 @@ body.past-hero .catalog-section {
     font-weight: 700;
 }
 
-/* List view: mostrar todas las variantes, ocultar el botón ··· */
+/* List view: ocultar botón ··· y dropdown (desactivados) — descomentar si se reactiva el dropdown
 .products-container.view-list .variant-more-btn {
     display: none !important;
 }
@@ -2570,6 +2572,7 @@ body.past-hero .catalog-section {
     max-width: none;
     justify-content: flex-start;
 }
+*/
 
 
 

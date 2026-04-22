@@ -192,8 +192,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "soda caustica limpieza",
     "image": "https://dcdn-us.mitiendanube.com/stores/002/897/767/products/soda-caustica-1kg1-4f6fccdec73599ded816842467326588-1024-1024.png",
     "variants": [
-      { "code": "SC1",  "desc": "1 kg",   "price": 800  },
-      { "code": "SC12", "desc": "1/2 kg", "price": 1020 }
+      { "code": "SC12", "desc": "1/2 kg", "price": 800  },
+      { "code": "SC1",  "desc": "1 kg",   "price": 1020 }
     ]
   },
   {
