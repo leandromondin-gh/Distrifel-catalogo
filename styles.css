@@ -270,7 +270,7 @@ body.past-hero .nav-home-btn:hover {
     align-items: center;
     gap: 7px;
     padding: 9px 18px;
-    background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+    background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%);
     color: white;
     font-size: 0.9rem;
     font-weight: 700;
@@ -278,19 +278,19 @@ body.past-hero .nav-home-btn:hover {
     border: none;
     cursor: pointer;
     transition: all var(--transition-fast);
-    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
     animation: offersPulse 2.5s ease-in-out infinite;
 }
 .nav-offers-btn:hover {
     transform: translateY(-1px) scale(1.04);
-    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.6);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.65);
     animation: none;
 }
 .nav-offers-btn svg { stroke: white; flex-shrink: 0; }
 
 @keyframes offersPulse {
-    0%, 100% { box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4); }
-    50%       { box-shadow: 0 4px 24px rgba(249, 115, 22, 0.75); }
+    0%, 100% { box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45); }
+    50%       { box-shadow: 0 4px 24px rgba(37, 99, 235, 0.75); }
 }
 
 /* Modal Ofertas */
@@ -329,7 +329,7 @@ body.past-hero .nav-home-btn:hover {
     align-items: center;
     justify-content: space-between;
     padding: 22px 28px 18px;
-    background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+    background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%);
 }
 .offers-modal-title {
     display: flex;
@@ -384,8 +384,8 @@ body.past-hero .nav-home-btn:hover {
 }
 .offer-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 28px rgba(0,0,0,0.12);
-    border-color: #f59e0b;
+    box-shadow: 0 8px 28px rgba(37, 99, 235, 0.15);
+    border-color: #2563EB;
 }
 
 /* Image area */
@@ -411,7 +411,7 @@ body.past-hero .nav-home-btn:hover {
     position: absolute;
     top: 12px;
     right: -4px;
-    background: linear-gradient(135deg, #f59e0b, #f97316);
+    background: linear-gradient(135deg, #1D4ED8, #2563EB);
     color: white;
     font-size: 0.85rem;
     font-weight: 900;
@@ -425,7 +425,7 @@ body.past-hero .nav-home-btn:hover {
     position: absolute;
     right: 0;
     bottom: -5px;
-    border-left: 4px solid #c2410c;
+    border-left: 4px solid #1e3a8a;
     border-bottom: 5px solid transparent;
 }
 
