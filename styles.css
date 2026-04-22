@@ -1223,51 +1223,6 @@ body.past-hero .catalog-section {
     padding-bottom: 0;
 }
 
-/* Filter options â€” con jerarquÃ­a visual clara */
-.filter-sidebar .filter-menu {
-    position: static !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-    box-shadow: none;
-    border: none;
-    border-radius: 0;
-    padding: 4px 0 8px;
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-}
-
-.filter-sidebar .filter-option {
-    border-radius: 0;
-    padding: 8px var(--space-md) 8px calc(var(--space-md) + 24px);
-    font-size: 0.875rem;
-    text-align: left;
-    position: relative;
-    border-left: 3px solid transparent;
-    transition: all 0.15s ease;
-    color: var(--color-gray-600);
-    font-family: var(--font-body);
-    width: 100%;
-    background: transparent;
-    border-top: none;
-    border-right: none;
-    border-bottom: none;
-}
-
-.filter-sidebar .filter-option:hover {
-    background: var(--color-gray-50);
-    color: var(--color-gray-900);
-    border-left-color: var(--color-gray-300);
-}
-
-.filter-sidebar .filter-option.active {
-    border-left-color: var(--color-secondary);
-    color: var(--color-secondary-dark);
-    background: rgba(108, 203, 183, 0.08);
-    font-weight: 700;
-}
 
 /* Ocultar Ã­conos en sidebar */
 .filter-sidebar .chip-icon {
@@ -1593,6 +1548,39 @@ body.past-hero .catalog-section {
 @media (max-width: 640px) {
     .filter-sidebar {
         width: 100vw;
+        overflow-y: auto;   /* iOS fix: permite scroll en el drawer */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* sidebar-body ocupa el espacio restante */
+    .filter-sidebar .sidebar-body {
+        flex: 1;
+        overflow-y: visible; /* el scroll lo maneja el padre en mobile */
+    }
+
+    /* accordion headers más altos y fáciles de tocar */
+    .filter-sidebar .accordion-header {
+        padding: 16px var(--space-md);
+        min-height: 52px;
+    }
+
+    .filter-sidebar .accordion-label {
+        font-size: 0.8rem;
+        color: var(--color-gray-700);
+    }
+
+    /* brand grid: 3 columnas en mobile para no ocupar tanta altura */
+    .filter-sidebar .brand-filter-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+
+    .filter-sidebar .filter-option--logo {
+        height: 44px;
+    }
+
+    .filter-sidebar .filter-option--logo img {
+        max-height: 22px;
     }
 
     .catalog-title {
