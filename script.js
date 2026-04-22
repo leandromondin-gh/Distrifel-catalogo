@@ -1476,6 +1476,12 @@ function setBrandFilter(brand) {
 
     filterProducts();
 
+    // Abrir acordeón de marca en el sidebar
+    const brandMenu = document.querySelector('[data-menu="brand"]');
+    if (brandMenu) {
+        brandMenu.closest('.accordion-section')?.classList.add('expanded');
+    }
+
     // Smooth scroll to catalog
     const catalog = document.getElementById('catalogo');
     if (catalog) {
