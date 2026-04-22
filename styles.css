@@ -522,6 +522,37 @@ body.past-hero .nav-home-btn:hover {
 }
 .offer-add-btn svg { stroke: white; flex-shrink: 0; }
 
+/* ── Responsive: Ofertas ─────────────────────────── */
+@media (max-width: 640px) {
+    /* Navbar: ocultar texto del botón, dejar solo el ícono */
+    .nav-offers-btn span { display: none; }
+    .nav-offers-btn { padding: 9px 12px; }
+
+    /* Modal: 1 columna, padding reducido */
+    .offers-overlay { padding: 12px; }
+    .offers-modal { border-radius: 18px; }
+    .offers-modal-header { padding: 18px 18px 14px; }
+    .offers-modal-title { font-size: 1rem; }
+    .offers-modal-subtitle { font-size: 0.72rem; }
+
+    .offers-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 14px 14px 18px;
+    }
+
+    .offer-card-img-wrap { height: 180px; }
+
+    .offer-card-body { padding: 12px 14px 14px; }
+    .offer-card-final { font-size: 1.3rem; }
+}
+
+@media (max-width: 380px) {
+    /* En teléfonos muy chicos el botón de Ofertas desaparece del centro
+       para no pisar el logo ni los botones de la derecha */
+    .nav-center { display: none; }
+}
+
 .nav-cart-badge {
     position: absolute;
     top: -6px;
@@ -564,6 +595,16 @@ body.past-hero .nav-home-btn:hover {
     .nav-cart-btn, .nav-contact-btn { padding: 10px 12px; }
     .nav-corredor { padding: 6px 10px; }
     .nav-corredor-name { max-width: 80px; font-size: 0.78rem; }
+
+    /* Sacar el absolute del botón central para que no tape nada */
+    .nav-center {
+        position: static;
+        transform: none;
+    }
+    .nav-container {
+        justify-content: space-between;
+        gap: 8px;
+    }
 }
 
 @media (max-width: 380px) {
