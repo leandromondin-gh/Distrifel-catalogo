@@ -212,3 +212,26 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   }
 ];
+
+window.DISTRIFEL_OFFERS = [
+  {
+    title:         'Reguladores Gas Natural',
+    variant:       '6 Mts',
+    image:         'https://www.canplast.com.ar/img/9PL-B.jpg',
+    brand:         'canplast',
+    originalPrice: 58673,
+    discount:      10,
+    boxQty:        12,
+    condition:     'caja cerrada'
+  },
+  {
+    title:         'Reguladores Gas Natural',
+    variant:       '10 Mts',
+    image:         'https://www.canplast.com.ar/img/9PL-B.jpg',
+    brand:         'canplast',
+    originalPrice: 64384,
+    discount:      10,
+    boxQty:        12,
+    condition:     'caja cerrada'
+  }
+];

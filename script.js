@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initClientPopup();
     initOfflineDetection();
     initBrandCarousel();
+    initOffersModal();
     registerServiceWorker();
 });
 
@@ -1489,6 +1490,90 @@ function setBrandFilter(brand) {
         const top = catalog.getBoundingClientRect().top + window.pageYOffset - navH - 10;
         window.scrollTo({ top, behavior: 'smooth' });
     }
+}
+
+function initOffersModal() {
+    const overlay  = document.getElementById('offersOverlay');
+    const closeBtn = document.getElementById('offersClose');
+    const openBtn  = document.getElementById('offersBtn');
+    const grid     = document.getElementById('offersGrid');
+    if (!overlay || !openBtn || !grid) return;
+
+    const offers = window.DISTRIFEL_OFFERS || [];
+
+    grid.innerHTML = offers.map((o, idx) => {
+        const finalPrice = Math.round(o.originalPrice * (1 - o.discount / 100));
+        const logoSrc    = BRAND_LOGOS[o.brand] || '';
+        const brandHtml  = logoSrc
+            ? `<div class="offer-card-brand"><img src="${logoSrc}" alt="${escapeHtml(o.brand)}"></div>`
+            : '';
+        return `
+        <div class="offer-card">
+            <div class="offer-card-img-wrap">
+                <img class="offer-card-img" src="${escapeHtml(o.image)}" alt="${escapeHtml(o.title)}"
+                     onerror="this.style.opacity='0'">
+                <div class="offer-card-ribbon">-${o.discount}%</div>
+                ${brandHtml}
+            </div>
+            <div class="offer-card-body">
+                <div class="offer-card-name">${escapeHtml(o.title)}</div>
+                <span class="offer-card-variant">${escapeHtml(o.variant)}</span>
+                <div class="offer-card-prices">
+                    <span class="offer-card-original">$ ${o.originalPrice.toLocaleString('es-AR')}</span>
+                    <span class="offer-card-final">$ ${finalPrice.toLocaleString('es-AR')}</span>
+                </div>
+                <div class="offer-card-condition">${escapeHtml(o.condition)} · ${o.boxQty} u.</div>
+                <div class="offer-card-actions">
+                    <button class="offer-add-btn" data-idx="${idx}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13">
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <path d="M16 10a4 4 0 01-8 0"/>
+                        </svg>
+                        <span>Agregar caja (${o.boxQty} u.)</span>
+                    </button>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+
+    grid.addEventListener('click', e => {
+        const addBtn = e.target.closest('.offer-add-btn');
+        if (addBtn) {
+            const idx        = addBtn.dataset.idx;
+            const offer      = offers[idx];
+            const qty        = offer.boxQty;
+            const finalPrice = Math.round(offer.originalPrice * (1 - offer.discount / 100));
+            const itemId = `oferta__${offer.title}__${offer.variant}`.replace(/\s+/g, '-').toLowerCase();
+            const existing = cart.items.find(i => i.id === itemId);
+            if (existing) {
+                existing.qty += qty;
+            } else {
+                cart.items.push({ id: itemId, cardKey: itemId, name: offer.title, variant: offer.variant, price: finalPrice, qty });
+            }
+            updateCartUI();
+            showToast(offer.title, qty, offer.variant);
+            bumpCart();
+
+            // Feedback visual
+            const span = addBtn.querySelector('span');
+            const svg  = addBtn.querySelector('svg');
+            const prevSvg = svg.innerHTML;
+            span.textContent = '¡Agregado!';
+            svg.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
+            addBtn.classList.add('added');
+            setTimeout(() => {
+                span.textContent = 'Agregar';
+                svg.innerHTML = prevSvg;
+                addBtn.classList.remove('added');
+            }, 1100);
+        }
+    });
+
+    openBtn.addEventListener('click', () => overlay.classList.add('open'));
+    closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') overlay.classList.remove('open'); });
 }
 
 function registerServiceWorker() {
