@@ -1548,6 +1548,7 @@ body.past-hero .catalog-section {
 @media (max-width: 640px) {
     .filter-sidebar {
         width: 100vw;
+        left: -100vw;  /* cuando está cerrado, el ancho completo queda fuera */
         overflow-y: auto;   /* iOS fix: permite scroll en el drawer */
         -webkit-overflow-scrolling: touch;
     }
