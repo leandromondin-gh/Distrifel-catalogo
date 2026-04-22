@@ -843,7 +843,7 @@ body.past-hero .catalog-section {
     align-items: center;
     justify-content: space-between;
     gap: var(--space-sm);
-    padding: 11px var(--space-md);
+    padding: 14px var(--space-md);
     background: transparent;
     border: none;
     cursor: pointer;
@@ -903,16 +903,18 @@ body.past-hero .catalog-section {
     transform: rotate(-90deg);
 }
 
-/* Cuerpo del acordeÃ³n */
+/* Cuerpo del acordeón */
 .accordion-body {
     overflow: hidden;
     max-height: 600px;
     transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    padding-left: var(--space-md);
+    padding: 0 var(--space-md) var(--space-md);
 }
 
 .accordion-section:not(.expanded) .accordion-body {
     max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 /* Filter options â€” con jerarquÃ­a visual clara */
@@ -1029,6 +1031,80 @@ body.past-hero .catalog-section {
     background: rgba(108, 203, 183, 0.12);
     color: var(--color-secondary-dark);
     font-weight: 700;
+}
+
+/* Brand filter: grilla de tiles */
+/* Brand filter: grilla de tiles */
+.filter-sidebar .brand-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    flex-direction: unset;
+}
+
+.filter-sidebar .brand-filter-all {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 5px;
+}
+
+.filter-sidebar .filter-option--logo {
+    padding: 6px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    border: 1.5px solid var(--color-gray-200);
+    border-radius: 7px;
+    background: white;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.filter-sidebar .filter-option--logo img {
+    max-height: 20px;
+    max-width: 88%;
+    object-fit: contain;
+    display: block;
+}
+
+.filter-sidebar .filter-option--logo:hover {
+    border-color: var(--color-primary-accent);
+    background: rgba(108, 203, 183, 0.06);
+}
+
+.filter-sidebar .filter-option--logo.active {
+    border-color: var(--color-primary-accent);
+    background: rgba(108, 203, 183, 0.12);
+    box-shadow: 0 0 0 1px var(--color-primary-accent);
+}
+
+.filter-sidebar .filter-option--text-tile {
+    padding: 6px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    border: 1.5px solid var(--color-gray-200);
+    border-radius: 7px;
+    background: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.filter-sidebar .filter-option--text-tile:hover {
+    border-color: var(--color-primary-accent);
+    background: rgba(108, 203, 183, 0.06);
+}
+
+.filter-sidebar .filter-option--text-tile.active {
+    border-color: var(--color-primary-accent);
+    background: rgba(108, 203, 183, 0.12);
+    color: var(--color-secondary-dark);
+    box-shadow: 0 0 0 1px var(--color-primary-accent);
 }
 
 /* Sidebar footer */

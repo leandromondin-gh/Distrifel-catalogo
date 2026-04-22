@@ -228,7 +228,7 @@ function initFilters() {
             state.filters[filterType] = value;
             menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
             option.classList.add('active');
-            updateAccordionBadge(filterType, value, option.textContent.trim());
+            updateAccordionBadge(filterType, value, option.dataset.label || option.textContent.trim());
             filterProducts();
         });
     });
@@ -1223,11 +1223,16 @@ function initOfflineDetection() {
    ============================================================ */
 
 const BRAND_LOGOS = {
-    alarsa:   'Brands-icons/alarsa.png',
-    latyn:    'Brands-icons/latyn-flex.png',
-    paz:      'Brands-icons/paz.png',
-    duke:     'Brands-icons/duke.png',
-    canplast: 'Brands-icons/canplast.png'
+    alarsa:     'Brands-icons/alarsa.png',
+    latyn:      'Brands-icons/latyn-flex.png',
+    paz:        'Brands-icons/paz.png',
+    duke:       'Brands-icons/duke.png',
+    canplast:   'Brands-icons/canplast.png',
+    aislatech:  'Brands-icons/aislatech.jpg',
+    covertex:   'Brands-icons/covertex.png',
+    salustri:   'Brands-icons/salustri.png',
+    smartfix:   'Brands-icons/smartfix.webp',
+    tcoat:      'Brands-icons/t-coat.png'
 };
 
 const BRAND_NAMES = {
@@ -1457,16 +1462,15 @@ function setBrandFilter(brand) {
 
     // Actualizar badge del acordeón
     const activeOpt = document.querySelector(`[data-menu="brand"] [data-value="${brand}"]`);
-    updateAccordionBadge('brand', brand, activeOpt?.textContent.trim() || brand);
+    const activeLabel = activeOpt?.dataset.label || activeOpt?.textContent.trim() || brand;
+    updateAccordionBadge('brand', brand, activeLabel);
 
     // Sync dropdown button label
     const filterBtn = document.querySelector('[data-filter="brand"]');
     if (filterBtn) {
         const valueEl = filterBtn.querySelector('.filter-value');
-        const activeOpt = document.querySelector(`[data-menu="brand"] [data-value="${brand}"]`);
         if (valueEl) {
-            valueEl.textContent = brand === 'all' ? 'Todas'
-                : (activeOpt ? activeOpt.textContent.trim() : brand);
+            valueEl.textContent = brand === 'all' ? 'Todas' : activeLabel;
         }
     }
 
