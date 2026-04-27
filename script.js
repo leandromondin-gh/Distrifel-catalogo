@@ -1543,94 +1543,157 @@ function setBrandFilter(brand) {
     }
 }
 
+function offerGroupBlockHtml(g, groupIdx) {
+    const first      = g.items[0].o;
+    const firstFinal = Math.round(first.originalPrice * (1 - first.discount / 100));
+
+    const chips = g.items.map(({ o, idx }, i) => {
+        const final = Math.round(o.originalPrice * (1 - o.discount / 100));
+        return `<span class="offer-chip${i === 0 ? ' selected' : ''}"
+            data-idx="${idx}"
+            data-original="${o.originalPrice}"
+            data-final="${final}"
+            data-boxqty="${o.boxQty}"
+            data-condition="${escapeHtml(o.condition)}">${escapeHtml(o.variant)}</span>`;
+    }).join('');
+
+    return `
+    <div class="offer-variant-block" data-group="${groupIdx}">
+        <div class="offer-chips">${chips}</div>
+        <div class="offer-variant-prices">
+            <span class="offer-variant-original">$ ${first.originalPrice.toLocaleString('es-AR')}</span>
+            <span class="offer-variant-final">$ ${firstFinal.toLocaleString('es-AR')}</span>
+        </div>
+        <span class="offer-variant-condition">${escapeHtml(first.condition)} · ${first.boxQty} u.</span>
+        <button class="offer-add-btn" data-idx="${g.items[0].idx}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 01-8 0"/>
+            </svg>
+            <span>Agregar (${first.boxQty} u.)</span>
+        </button>
+    </div>`;
+}
+
 function initOffersModal() {
-    const overlay  = document.getElementById('offersOverlay');
-    const closeBtn = document.getElementById('offersClose');
-    const openBtn  = document.getElementById('offersBtn');
-    const grid     = document.getElementById('offersGrid');
-    if (!overlay || !openBtn || !grid) return;
+    const overlay   = document.getElementById('offersOverlay');
+    const closeBtn  = document.getElementById('offersClose');
+    const openBtn   = document.getElementById('offersBtn');
+    const carousel  = document.getElementById('offersCarousel');
+    const dotsWrap  = document.getElementById('offersDots');
+    const prevBtn   = document.getElementById('offersPrev');
+    const nextBtn   = document.getElementById('offersNext');
+    if (!overlay || !openBtn || !carousel) return;
 
     const offers = window.DISTRIFEL_OFFERS || [];
 
-    grid.innerHTML = offers.map((o, idx) => {
-        const finalPrice = Math.round(o.originalPrice * (1 - o.discount / 100));
-        const logoSrc    = BRAND_LOGOS[o.brand] || '';
-        const brandHtml  = logoSrc
-            ? `<div class="offer-card-brand"><img src="${logoSrc}" alt="${escapeHtml(o.brand)}"></div>`
+    // Agrupar por título de producto
+    const groups = [];
+    const seen   = {};
+    offers.forEach((o, idx) => {
+        if (!seen[o.title]) { seen[o.title] = []; groups.push({ title: o.title, items: seen[o.title] }); }
+        seen[o.title].push({ o, idx });
+    });
+
+    // Render slides — imagen única + bloques de variante
+    carousel.innerHTML = groups.map((g, gi) => {
+        const first    = g.items[0].o;
+        const logoSrc  = BRAND_LOGOS[first.brand] || '';
+        const brandHtml = logoSrc
+            ? `<div class="offer-slide-hero-brand"><img src="${logoSrc}" alt="${escapeHtml(first.brand)}"></div>`
             : '';
+        const blocks = offerGroupBlockHtml(g, gi);
         return `
-        <div class="offer-card">
-            <div class="offer-card-img-wrap">
-                <img class="offer-card-img" src="${escapeHtml(o.image)}" alt="${escapeHtml(o.title)}"
-                     onerror="this.style.opacity='0'">
-                <div class="offer-card-ribbon">-${o.discount}%</div>
-                ${brandHtml}
-            </div>
-            <div class="offer-card-body">
-                <div class="offer-card-name">${escapeHtml(o.title)}</div>
-                <span class="offer-card-variant">${escapeHtml(o.variant)}</span>
-                <div class="offer-card-prices">
-                    <span class="offer-card-original">$ ${o.originalPrice.toLocaleString('es-AR')}</span>
-                    <span class="offer-card-final">$ ${finalPrice.toLocaleString('es-AR')}</span>
+        <div class="offers-slide">
+            <div class="offer-slide-hero">
+                <div class="offer-slide-hero-img-wrap">
+                    <img class="offer-slide-hero-img" src="${escapeHtml(first.image)}" alt="${escapeHtml(g.title)}" onerror="this.style.opacity='0'">
+                    ${brandHtml}
                 </div>
-                <div class="offer-card-condition">${escapeHtml(o.condition)} · ${o.boxQty} u.</div>
-                <div class="offer-card-actions">
-                    <button class="offer-add-btn" data-idx="${idx}">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13">
-                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-                            <line x1="3" y1="6" x2="21" y2="6"/>
-                            <path d="M16 10a4 4 0 01-8 0"/>
-                        </svg>
-                        <span>Agregar caja (${o.boxQty} u.)</span>
-                    </button>
+                <div class="offer-slide-hero-info">
+                    <div class="offer-slide-hero-name">${escapeHtml(g.title)}</div>
+                    <span class="offer-slide-hero-discount">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                        -${first.discount}% por caja cerrada
+                    </span>
                 </div>
             </div>
+            <div class="offer-variants-grid">${blocks}</div>
         </div>`;
     }).join('');
 
-    grid.addEventListener('click', e => {
-        const addBtn = e.target.closest('.offer-add-btn');
-        if (addBtn) {
-            const idx        = addBtn.dataset.idx;
-            const offer      = offers[idx];
-            const qty        = offer.boxQty;
-            const finalPrice = Math.round(offer.originalPrice * (1 - offer.discount / 100));
-            const itemId = `oferta__${offer.title}__${offer.variant}`.replace(/\s+/g, '-').toLowerCase();
-            const existing = cart.items.find(i => i.id === itemId);
-            if (existing) {
-                existing.qty += qty;
-                existing.price = existing.qty >= offer.boxQty ? finalPrice : offer.originalPrice;
-            } else {
-                cart.items.push({
-                    id: itemId, cardKey: itemId,
-                    name: offer.title, variant: offer.variant,
-                    price: finalPrice, qty,
-                    isOffer: true,
-                    originalPrice: offer.originalPrice,
-                    discountedPrice: finalPrice,
-                    boxQty: offer.boxQty
-                });
-            }
-            updateCartUI();
-            showToast(offer.title, qty, offer.variant);
-            bumpCart();
+    // Dots
+    let current = 0;
+    dotsWrap.innerHTML = groups.map((_, i) =>
+        `<button class="offers-dot${i === 0 ? ' active' : ''}" data-i="${i}"></button>`
+    ).join('');
 
-            // Feedback visual
-            const span = addBtn.querySelector('span');
-            const svg  = addBtn.querySelector('svg');
-            const prevSvg = svg.innerHTML;
-            span.textContent = '¡Agregado!';
-            svg.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
-            addBtn.classList.add('added');
-            setTimeout(() => {
-                span.textContent = 'Agregar';
-                svg.innerHTML = prevSvg;
-                addBtn.classList.remove('added');
-            }, 1100);
+    function goTo(i) {
+        current = Math.max(0, Math.min(i, groups.length - 1));
+        carousel.style.transform = `translateX(-${current * 100}%)`;
+        dotsWrap.querySelectorAll('.offers-dot').forEach((d, idx) => d.classList.toggle('active', idx === current));
+        if (prevBtn) prevBtn.disabled = current === 0;
+        if (nextBtn) nextBtn.disabled = current === groups.length - 1;
+    }
+    goTo(0);
+
+    prevBtn?.addEventListener('click', () => goTo(current - 1));
+    nextBtn?.addEventListener('click', () => goTo(current + 1));
+    dotsWrap.addEventListener('click', e => {
+        const dot = e.target.closest('.offers-dot');
+        if (dot) goTo(parseInt(dot.dataset.i));
+    });
+
+    // Chip click → actualizar precio y botón
+    carousel.addEventListener('click', e => {
+        const chip = e.target.closest('.offer-chip');
+        if (chip) {
+            const block = chip.closest('.offer-variant-block');
+            block.querySelectorAll('.offer-chip').forEach(c => c.classList.remove('selected'));
+            chip.classList.add('selected');
+            const original = parseInt(chip.dataset.original);
+            const final    = parseInt(chip.dataset.final);
+            const boxQty   = parseInt(chip.dataset.boxqty);
+            block.querySelector('.offer-variant-original').textContent = `$ ${original.toLocaleString('es-AR')}`;
+            block.querySelector('.offer-variant-final').textContent    = `$ ${final.toLocaleString('es-AR')}`;
+            block.querySelector('.offer-variant-condition').textContent = `${chip.dataset.condition} · ${boxQty} u.`;
+            block.querySelector('.offer-add-btn').dataset.idx           = chip.dataset.idx;
+            block.querySelector('.offer-add-btn span').textContent      = `Agregar (${boxQty} u.)`;
         }
     });
 
-    openBtn.addEventListener('click', () => overlay.classList.add('open'));
+    // Agregar al carrito
+    carousel.addEventListener('click', e => {
+        const addBtn = e.target.closest('.offer-add-btn');
+        if (!addBtn) return;
+        const idx        = addBtn.dataset.idx;
+        const offer      = offers[idx];
+        const qty        = offer.boxQty;
+        const finalPrice = Math.round(offer.originalPrice * (1 - offer.discount / 100));
+        const itemId     = `oferta__${offer.title}__${offer.variant}`.replace(/\s+/g, '-').toLowerCase();
+        const existing   = cart.items.find(i => i.id === itemId);
+        if (existing) {
+            existing.qty += qty;
+            existing.price = existing.qty >= offer.boxQty ? finalPrice : offer.originalPrice;
+        } else {
+            cart.items.push({ id: itemId, cardKey: itemId, name: offer.title, variant: offer.variant,
+                price: finalPrice, qty, isOffer: true, originalPrice: offer.originalPrice,
+                discountedPrice: finalPrice, boxQty: offer.boxQty });
+        }
+        updateCartUI();
+        showToast(offer.title, qty, offer.variant);
+        bumpCart();
+        const span = addBtn.querySelector('span');
+        const svg  = addBtn.querySelector('svg');
+        const prevSvg = svg.innerHTML;
+        span.textContent = '¡Agregado!';
+        svg.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
+        addBtn.classList.add('added');
+        setTimeout(() => { span.textContent = `Agregar caja (${offer.boxQty} u.)`; svg.innerHTML = prevSvg; addBtn.classList.remove('added'); }, 1100);
+    });
+
+    openBtn.addEventListener('click', () => { goTo(0); overlay.classList.add('open'); });
     closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
     overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') overlay.classList.remove('open'); });
