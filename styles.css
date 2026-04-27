@@ -880,7 +880,7 @@ body.past-hero .nav-home-btn:hover {
     .nav-offers-btn { padding: 9px 12px; }
 
     /* Modal */
-    .offers-overlay { padding: 8px; align-items: flex-end; }
+    .offers-overlay { padding: 8px; align-items: center; }
     .offers-modal { border-radius: 18px 18px 12px 12px; max-height: 92vh; overflow-y: auto; }
     .offers-modal-header { padding: 14px 16px 10px; }
     .offers-modal-title { font-size: 0.95rem; }
