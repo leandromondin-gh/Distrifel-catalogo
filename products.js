@@ -235,3 +235,9 @@ window.DISTRIFEL_OFFERS = [
     condition:     'caja cerrada'
   }
 ];
+
+// Markup aplicado a todos los precios para visitantes sin descuento
+window.PRICE_MARKUP = 1.20;
+
+// Clientes que ven el precio real (sin markup) — case-insensitive
+window.DISCOUNT_CLIENTS = ['lucas', 'petra', 'lean', 'monzo'];

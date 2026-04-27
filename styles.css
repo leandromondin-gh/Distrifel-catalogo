@@ -238,6 +238,36 @@ body.past-hero .nav-home-btn:hover {
     white-space: nowrap;
 }
 
+.discount-badge {
+    background: #16a34a;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+    flex-shrink: 0;
+}
+
+/* Banner cliente premium en el carrito */
+.cart-premium-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    border-bottom: 1px solid #bbf7d0;
+    padding: 10px 20px;
+    color: #15803d;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.cart-premium-banner svg {
+    stroke: #16a34a;
+    fill: #16a34a;
+    flex-shrink: 0;
+}
+
 .nav-cart-btn {
     display: flex;
     align-items: center;

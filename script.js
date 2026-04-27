@@ -39,8 +39,30 @@ const state = {
         category: 'all',
         brand: 'all',
         type: 'all'
-    }
+    },
+    discountActive: false
 };
+
+const PRICE_MARKUP = window.PRICE_MARKUP || 1.20;
+
+function getDisplayPrice(rawPrice) {
+    return state.discountActive ? rawPrice : Math.round(rawPrice * PRICE_MARKUP);
+}
+
+function checkClientDiscount(name) {
+    const clients = window.DISCOUNT_CLIENTS || [];
+    return clients.some(c => c === name.toLowerCase().trim());
+}
+
+function refreshAllPrices() {
+    document.querySelectorAll('.product-card-v2').forEach(card => {
+        const priceEl  = card.querySelector('.price-value');
+        if (!priceEl) return;
+        const raw = parseInt(priceEl.dataset.rawPrice);
+        if (!raw) return;
+        priceEl.textContent = formatPrice(getDisplayPrice(raw));
+    });
+}
 
 // Cart state
 const cart = {
@@ -423,9 +445,11 @@ function initVariantSelection() {
             variant.classList.add('selected');
             
             // Update price with animation
+            const rawPrice = parseInt(price);
+            priceElement.dataset.rawPrice = rawPrice;
             priceElement.style.transform = 'scale(1.1)';
             priceElement.style.color = '#5ab8a5';
-            priceElement.textContent = formatPrice(parseInt(price));
+            priceElement.textContent = formatPrice(getDisplayPrice(rawPrice));
             
             setTimeout(() => {
                 priceElement.style.transform = 'scale(1)';
@@ -682,8 +706,33 @@ function applyCorrName(name) {
     if (navName) navName.textContent = name;
     if (navCorredor) navCorredor.classList.add('visible');
 
+    // Descuento por cliente
+    const wasActive = state.discountActive;
+    state.discountActive = checkClientDiscount(name);
+    if (state.discountActive !== wasActive) refreshAllPrices();
+
+    // Banner premium en el carrito
+    const banner = document.getElementById('cartPremiumBanner');
+    const bannerText = document.getElementById('cartPremiumText');
+    if (banner) {
+        banner.style.display = state.discountActive ? 'flex' : 'none';
+        if (bannerText && state.discountActive) {
+            bannerText.textContent = `${name} · Cliente Premium — -20% aplicado`;
+        }
+    }
+
+    // Badge de descuento activo en el nav
+    const existingBadge = navCorredor?.querySelector('.discount-badge');
+    if (state.discountActive && navCorredor && !existingBadge) {
+        const badge = document.createElement('span');
+        badge.className = 'discount-badge';
+        badge.textContent = '-20%';
+        navCorredor.appendChild(badge);
+    } else if (!state.discountActive && existingBadge) {
+        existingBadge.remove();
+    }
+
     if (APP_MODE === 'corredor') {
-        // Swap user icon for truck icon
         const svg = navCorredor?.querySelector('svg');
         if (svg && !svg.dataset.truckified) {
             svg.setAttribute('viewBox', '0 0 24 24');
@@ -1332,7 +1381,7 @@ function renderProducts() {
                 ${variantsHtml}
                 <div class="card-price">
                     ${showDesde ? '<span class="price-from">desde</span>' : ''}
-                    <span class="price-value">${formatPrice(firstPrice)}</span>
+                    <span class="price-value" data-raw-price="${firstPrice}">${formatPrice(getDisplayPrice(firstPrice))}</span>
                 </div>
             </div>
         `;
