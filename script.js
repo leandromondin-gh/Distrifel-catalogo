@@ -788,7 +788,9 @@ function initCart() {
 
     document.getElementById('cartFloatBtn')?.addEventListener('click', openCart);
     document.getElementById('cartOverlay')?.addEventListener('click', closeCart);
+    document.getElementById('cartOverlay')?.addEventListener('touchend', closeCart);
     document.getElementById('cartClose')?.addEventListener('click', closeCart);
+    document.getElementById('cartClose')?.addEventListener('touchend', closeCart);
 
     document.getElementById('cartClearBtn')?.addEventListener('click', () => {
         if (cart.items.length === 0) return;

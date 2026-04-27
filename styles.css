@@ -3713,6 +3713,22 @@ body.client-popup-open {
     .cart-drawer {
         width: 100vw;
     }
+
+    /* Touch target mínimo 44px + scroll iOS */
+    .cart-drawer-close {
+        width: 44px;
+        height: 44px;
+        -webkit-tap-highlight-color: rgba(255,255,255,0.2);
+    }
+
+    .cart-items-container {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Header padding más cómodo en mobile */
+    .cart-drawer-header {
+        padding: var(--space-md) var(--space-lg);
+    }
 }
 
 /* ========================================
