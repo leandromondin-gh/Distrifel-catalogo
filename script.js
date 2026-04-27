@@ -1550,8 +1550,17 @@ function initOffersModal() {
             const existing = cart.items.find(i => i.id === itemId);
             if (existing) {
                 existing.qty += qty;
+                existing.price = existing.qty >= offer.boxQty ? finalPrice : offer.originalPrice;
             } else {
-                cart.items.push({ id: itemId, cardKey: itemId, name: offer.title, variant: offer.variant, price: finalPrice, qty });
+                cart.items.push({
+                    id: itemId, cardKey: itemId,
+                    name: offer.title, variant: offer.variant,
+                    price: finalPrice, qty,
+                    isOffer: true,
+                    originalPrice: offer.originalPrice,
+                    discountedPrice: finalPrice,
+                    boxQty: offer.boxQty
+                });
             }
             updateCartUI();
             showToast(offer.title, qty, offer.variant);
@@ -1597,6 +1606,9 @@ function changeItemQty(id, delta) {
     const item = cart.items.find(i => i.id === id);
     if (!item) return;
     item.qty = Math.max(1, item.qty + delta);
+    if (item.isOffer) {
+        item.price = item.qty >= item.boxQty ? item.discountedPrice : item.originalPrice;
+    }
     updateCartUI();
 }
 
@@ -1630,12 +1642,21 @@ function updateCartUI() {
 
     // Render items
     if (itemsList) {
-        itemsList.innerHTML = cart.items.map(item => `
+        itemsList.innerHTML = cart.items.map(item => {
+            const discountActive = item.isOffer && item.qty >= item.boxQty;
+            const discountLost   = item.isOffer && item.qty < item.boxQty;
+            const offerBadge = discountActive
+                ? `<span class="cart-offer-badge cart-offer-badge--on">-${Math.round((1 - item.discountedPrice / item.originalPrice) * 100)}% aplicado</span>`
+                : discountLost
+                    ? `<span class="cart-offer-badge cart-offer-badge--off">Necesitás ${item.boxQty} u. para el descuento</span>`
+                    : '';
+            return `
             <li class="cart-item" data-id="${item.id}">
                 <div class="cart-item-info">
                     <span class="cart-item-name">${item.name}</span>
                     ${item.variant ? `<span class="cart-item-variant">${item.variant}</span>` : ''}
                     <span class="cart-item-price">${formatPrice(item.price)} c/u</span>
+                    ${offerBadge}
                 </div>
                 <div class="cart-item-controls">
                     <button class="cart-qty-btn" data-action="dec" data-id="${item.id}" aria-label="Reducir">−</button>
@@ -1650,7 +1671,7 @@ function updateCartUI() {
                 </div>
                 <div class="cart-item-subtotal">${formatPrice(item.price * item.qty)}</div>
             </li>
-        `).join('');
+        `}).join('');
 
         itemsList.querySelectorAll('.cart-qty-btn').forEach(btn => {
             btn.addEventListener('click', () => {
