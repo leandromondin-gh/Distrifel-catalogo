@@ -345,7 +345,7 @@ body.past-hero .nav-home-btn:hover {
     background: #f8f9fa;
     border-radius: 24px;
     width: 100%;
-    max-width: 860px;
+    max-width: 1030px;
     box-shadow: 0 24px 80px rgba(0,0,0,0.25);
     overflow: hidden;
     transform: translateY(20px) scale(0.96);
@@ -451,7 +451,7 @@ body.past-hero .nav-home-btn:hover {
     top: 50%;
     left: 4%;
     transform: translateY(-50%);
-    width: 44%;
+    width: 46%;
     background: rgba(255,255,255,0.93);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -460,7 +460,7 @@ body.past-hero .nav-home-btn:hover {
     box-shadow: 0 6px 24px rgba(0,0,0,0.14);
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 22px;
 }
 
 /* Overlay para banners oscuros */
@@ -470,6 +470,11 @@ body.past-hero .nav-home-btn:hover {
 }
 
 /* Info izquierda: chips + precio + condición */
+/* Chips en una línea dentro del banner overlay */
+.offer-slide-banner-overlay .offer-chips {
+    flex-wrap: nowrap;
+}
+
 .offer-slide-banner-overlay .offer-variant-block {
     background: transparent;
     border: none;
@@ -652,6 +657,7 @@ body.past-hero .nav-home-btn:hover {
     cursor: pointer;
     transition: all 0.15s;
     user-select: none;
+    white-space: nowrap;
 }
 .offer-chip:hover {
     border-color: var(--color-primary-accent);
