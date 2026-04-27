@@ -1666,7 +1666,7 @@ function initOffersModal() {
             : '';
         const blocks = offerGroupBlockHtml(g, gi);
         const heroHtml = first.banner
-            ? `<div class="offer-slide-banner-wrap">
+            ? `<div class="offer-slide-banner-wrap${first.darkBanner ? ' offer-slide-banner-wrap--dark' : ''}">
                 <img class="offer-slide-banner" src="${escapeHtml(first.banner)}" alt="${escapeHtml(g.title)}" onerror="this.style.display='none'">
                 <div class="offer-slide-banner-overlay">
                     ${offerGroupBlockHtml(g, gi, true)}
@@ -1739,9 +1739,13 @@ function initOffersModal() {
                 block.querySelector('.offer-add-btn').dataset.idx = chip.dataset.idx;
                 block.querySelector('.offer-add-btn span').textContent = `Agregar (${boxQty} u.)`;
             }
-            // Botón lateral (banner)
+            // Botón lateral (banner) — actualiza idx y texto con la qty correcta
             const sideBtn = block.closest('.offer-slide-banner-overlay')?.querySelector('.offer-add-btn-side');
-            if (sideBtn) { sideBtn.dataset.idx = chip.dataset.idx; sideBtn.lastChild.textContent = ` Agregar (${boxQty} u.)`; }
+            if (sideBtn) {
+                sideBtn.dataset.idx = chip.dataset.idx;
+                const sideSpan = sideBtn.querySelector('span');
+                if (sideSpan) sideSpan.textContent = `Agregar (${boxQty} u.)`;
+            }
         }
     });
 

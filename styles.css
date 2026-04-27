@@ -453,6 +453,12 @@ body.past-hero .nav-home-btn:hover {
     gap: 14px;
 }
 
+/* Overlay para banners oscuros */
+.offer-slide-banner-wrap--dark .offer-slide-banner-overlay {
+    background: rgba(255,255,255,0.96);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.35);
+}
+
 /* Info izquierda: chips + precio + condición */
 .offer-slide-banner-overlay .offer-variant-block {
     background: transparent;
