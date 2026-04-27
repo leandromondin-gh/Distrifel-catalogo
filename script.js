@@ -10,6 +10,7 @@ window.scrollTo(0, 0);
 document.addEventListener('DOMContentLoaded', () => {
     document.body.dataset.mode = APP_MODE;
     renderProducts();
+    buildTypeFilter('all');
     initPromoBanner();
     loadCartFromStorage();
     initNavigation();
@@ -1078,9 +1079,12 @@ function setCategory(category) {
         const valueEl = filterBtn.querySelector('.filter-value');
         const activeOpt = document.querySelector(`[data-menu="category"] [data-value="${category}"]`);
         if (valueEl && activeOpt) {
-            valueEl.textContent = category === 'all' ? 'Todas' : activeOpt.textContent.replace(/[💧🔥⚙️✨]/g, '').trim();
+            valueEl.textContent = category === 'all' ? 'Todas' : activeOpt.textContent.replace(/[💧🔥⚙️✨🧰]/g, '').trim();
         }
     }
+
+    // Actualizar filtro de tipo según la categoría seleccionada
+    buildTypeFilter(category);
 
     filterProducts();
 }
@@ -1295,18 +1299,74 @@ const BRAND_NAMES = {
 };
 
 const CATEGORY_LABELS = {
-    agua: 'Agua',
-    gas: 'Gas',
-    reguladores: 'Regulador',
-    otros: 'Otros'
+    agua: 'Agua', gas: 'Gas', otros: 'Otros'
 };
 
 const CATEGORY_TAG_CLASS = {
-    agua: 'tag-agua',
-    gas: 'tag-gas',
-    reguladores: 'tag-regulador',
-    otros: 'tag-otros'
+    agua: 'tag-agua', gas: 'tag-gas', otros: 'tag-otros'
 };
+
+const TYPE_LABELS = {
+    flexible:      'Flexible',
+    regulador:     'Regulador',
+    accesorio:     'Accesorio',
+    membrana:      'Membrana',
+    aislante:      'Aislante',
+    'bronce-roscado': 'Bronce Roscado',
+    canilla:       'Canilla',
+    fasion:        'Fasión',
+    flotante:      'Flotante',
+    fuelle:        'Fuelle',
+    gabinete:      'Gabinete',
+    'hidro-bronce':'Hidro Bronce',
+    'llave-gas':   'Llave de Gas',
+    montura:       'Montura',
+    puerta:        'Puerta',
+    pilar:         'Pilar',
+    reja:          'Reja',
+    sopapa:        'Sopapa',
+    tapa:          'Tapa',
+    terraja:       'Terraja',
+    tubo:          'Tubo',
+    valvula:       'Válvula',
+};
+
+function buildTypeFilter(category) {
+    const menu = document.getElementById('typeFilterMenu');
+    if (!menu) return;
+
+    const products = window.DISTRIFEL_PRODUCTS || [];
+
+    // Tipos disponibles para la categoría seleccionada
+    const types = [...new Set(
+        products
+            .filter(p => category === 'all' || p.category === category)
+            .map(p => p.type)
+            .filter(Boolean)
+    )].sort((a, b) => (TYPE_LABELS[a] || a).localeCompare(TYPE_LABELS[b] || b));
+
+    menu.innerHTML = `<button class="filter-option active" data-value="all" data-label="Todos">Todos</button>` +
+        types.map(t =>
+            `<button class="filter-option" data-value="${escapeHtml(t)}" data-label="${escapeHtml(TYPE_LABELS[t] || t)}">${escapeHtml(TYPE_LABELS[t] || t)}</button>`
+        ).join('');
+
+    // Re-registrar click handlers
+    menu.querySelectorAll('.filter-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+            menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
+            opt.classList.add('active');
+            state.filters.type = opt.dataset.value;
+            updateAccordionBadge('type', opt.dataset.value, opt.dataset.label || opt.textContent.trim());
+            filterProducts();
+        });
+    });
+
+    // Resetear tipo activo si ya no existe en la nueva lista
+    if (state.filters.type !== 'all' && !types.includes(state.filters.type)) {
+        state.filters.type = 'all';
+        updateAccordionBadge('type', 'all', '');
+    }
+}
 
 function escapeHtml(str) {
     return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
