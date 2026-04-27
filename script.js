@@ -1619,6 +1619,7 @@ function offerGroupBlockHtml(g, groupIdx, hideAddBtn = false) {
 
     return `
     <div class="offer-variant-block" data-group="${groupIdx}">
+        <div class="offer-variant-name">${escapeHtml(g.title)}</div>
         <div class="offer-chips">${chips}</div>
         <div class="offer-variant-prices">
             <span class="offer-variant-original">$ ${first.originalPrice.toLocaleString('es-AR')}</span>
@@ -1707,19 +1708,43 @@ function initOffersModal() {
     ).join('');
 
     function goTo(i) {
-        current = Math.max(0, Math.min(i, groups.length - 1));
+        current = ((i % groups.length) + groups.length) % groups.length;
         carousel.style.transform = `translateX(-${current * 100}%)`;
         dotsWrap.querySelectorAll('.offers-dot').forEach((d, idx) => d.classList.toggle('active', idx === current));
-        if (prevBtn) prevBtn.disabled = current === 0;
-        if (nextBtn) nextBtn.disabled = current === groups.length - 1;
+        if (prevBtn) prevBtn.disabled = false;
+        if (nextBtn) nextBtn.disabled = false;
     }
     goTo(0);
 
-    prevBtn?.addEventListener('click', () => goTo(current - 1));
-    nextBtn?.addEventListener('click', () => goTo(current + 1));
+    // Autoplay — pausa si el usuario interactúa
+    let autoplay = null;
+    function startAutoplay() {
+        stopAutoplay();
+        autoplay = setInterval(() => goTo(current + 1), 3000);
+    }
+    function stopAutoplay() {
+        if (autoplay) { clearInterval(autoplay); autoplay = null; }
+    }
+
+    prevBtn?.addEventListener('click', () => { goTo(current - 1); stopAutoplay(); });
+    nextBtn?.addEventListener('click', () => { goTo(current + 1); stopAutoplay(); });
+    dotsWrap.addEventListener('click', e => { if (e.target.closest('.offers-dot')) stopAutoplay(); });
     dotsWrap.addEventListener('click', e => {
         const dot = e.target.closest('.offers-dot');
         if (dot) goTo(parseInt(dot.dataset.i));
+    });
+
+    // Wireup directo para chips del banner overlay (más confiable que delegation)
+    carousel.querySelectorAll('.offer-slide-banner-overlay .offer-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const overlay = chip.closest('.offer-slide-banner-overlay');
+            const sideBtn = overlay?.querySelector('.offer-add-btn-side');
+            if (!sideBtn) return;
+            const boxQty  = parseInt(chip.dataset.boxqty) || 0;
+            const span    = sideBtn.querySelector('span');
+            if (span) span.textContent = `Agregar (${boxQty} u.)`;
+            sideBtn.dataset.idx = chip.dataset.idx;
+        });
     });
 
     // Chip click → actualizar precio y botón
@@ -1739,8 +1764,9 @@ function initOffersModal() {
                 block.querySelector('.offer-add-btn').dataset.idx = chip.dataset.idx;
                 block.querySelector('.offer-add-btn span').textContent = `Agregar (${boxQty} u.)`;
             }
-            // Botón lateral (banner) — actualiza idx y texto con la qty correcta
-            const sideBtn = block.closest('.offer-slide-banner-overlay')?.querySelector('.offer-add-btn-side');
+            // Botón lateral (banner) — buscar desde el slide padre
+            const slide   = chip.closest('.offers-slide');
+            const sideBtn = slide?.querySelector('.offer-add-btn-side');
             if (sideBtn) {
                 sideBtn.dataset.idx = chip.dataset.idx;
                 const sideSpan = sideBtn.querySelector('span');
@@ -1794,10 +1820,10 @@ function initOffersModal() {
         }, 1100);
     });
 
-    openBtn.addEventListener('click', () => { goTo(0); overlay.classList.add('open'); });
-    closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
-    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') overlay.classList.remove('open'); });
+    openBtn.addEventListener('click', () => { goTo(0); overlay.classList.add('open'); startAutoplay(); });
+    closeBtn.addEventListener('click', () => { overlay.classList.remove('open'); stopAutoplay(); });
+    overlay.addEventListener('click', e => { if (e.target === overlay) { overlay.classList.remove('open'); stopAutoplay(); } });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { overlay.classList.remove('open'); stopAutoplay(); } });
 }
 
 function registerServiceWorker() {
