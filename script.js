@@ -1603,7 +1603,7 @@ function setBrandFilter(brand) {
     }
 }
 
-function offerGroupBlockHtml(g, groupIdx) {
+function offerGroupBlockHtml(g, groupIdx, hideAddBtn = false) {
     const first      = g.items[0].o;
     const firstFinal = Math.round(first.originalPrice * (1 - first.discount / 100));
 
@@ -1624,7 +1624,8 @@ function offerGroupBlockHtml(g, groupIdx) {
             <span class="offer-variant-original">$ ${first.originalPrice.toLocaleString('es-AR')}</span>
             <span class="offer-variant-final">$ ${firstFinal.toLocaleString('es-AR')}</span>
         </div>
-        <span class="offer-variant-condition">${escapeHtml(first.condition)} · ${first.boxQty} u.</span>
+        ${!hideAddBtn ? `<span class="offer-variant-condition">${escapeHtml(first.condition)} · ${first.boxQty} u.</span>` : ''}
+        ${!hideAddBtn ? `
         <button class="offer-add-btn" data-idx="${g.items[0].idx}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12">
                 <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
@@ -1632,7 +1633,7 @@ function offerGroupBlockHtml(g, groupIdx) {
                 <path d="M16 10a4 4 0 01-8 0"/>
             </svg>
             <span>Agregar (${first.boxQty} u.)</span>
-        </button>
+        </button>` : ''}
     </div>`;
 }
 
@@ -1664,9 +1665,22 @@ function initOffersModal() {
             ? `<div class="offer-slide-hero-brand"><img src="${logoSrc}" alt="${escapeHtml(first.brand)}"></div>`
             : '';
         const blocks = offerGroupBlockHtml(g, gi);
-        return `
-        <div class="offers-slide">
-            <div class="offer-slide-hero">
+        const heroHtml = first.banner
+            ? `<div class="offer-slide-banner-wrap">
+                <img class="offer-slide-banner" src="${escapeHtml(first.banner)}" alt="${escapeHtml(g.title)}" onerror="this.style.display='none'">
+                <div class="offer-slide-banner-overlay">
+                    ${offerGroupBlockHtml(g, gi, true)}
+                    <button class="offer-add-btn-side" data-idx="${g.items[0].idx}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <path d="M16 10a4 4 0 01-8 0"/>
+                        </svg>
+                        <span>Agregar (${first.boxQty} u.)</span>
+                    </button>
+                </div>
+               </div>`
+            : `<div class="offer-slide-hero">
                 <div class="offer-slide-hero-img-wrap">
                     <img class="offer-slide-hero-img" src="${escapeHtml(first.image)}" alt="${escapeHtml(g.title)}" onerror="this.style.opacity='0'">
                     ${brandHtml}
@@ -1678,8 +1692,11 @@ function initOffersModal() {
                         -${first.discount}% por caja cerrada
                     </span>
                 </div>
-            </div>
-            <div class="offer-variants-grid">${blocks}</div>
+            </div>`;
+        return `
+        <div class="offers-slide${first.banner ? ' offers-slide--banner' : ''}">
+            ${heroHtml}
+            ${!first.banner ? `<div class="offer-variants-grid">${blocks}</div>` : ''}
         </div>`;
     }).join('');
 
@@ -1718,16 +1735,27 @@ function initOffersModal() {
             block.querySelector('.offer-variant-original').textContent = `$ ${original.toLocaleString('es-AR')}`;
             block.querySelector('.offer-variant-final').textContent    = `$ ${final.toLocaleString('es-AR')}`;
             block.querySelector('.offer-variant-condition').textContent = `${chip.dataset.condition} · ${boxQty} u.`;
-            block.querySelector('.offer-add-btn').dataset.idx           = chip.dataset.idx;
-            block.querySelector('.offer-add-btn span').textContent      = `Agregar (${boxQty} u.)`;
+            if (block.querySelector('.offer-add-btn')) {
+                block.querySelector('.offer-add-btn').dataset.idx = chip.dataset.idx;
+                block.querySelector('.offer-add-btn span').textContent = `Agregar (${boxQty} u.)`;
+            }
+            // Botón lateral (banner)
+            const sideBtn = block.closest('.offer-slide-banner-overlay')?.querySelector('.offer-add-btn-side');
+            if (sideBtn) { sideBtn.dataset.idx = chip.dataset.idx; sideBtn.lastChild.textContent = ` Agregar (${boxQty} u.)`; }
         }
     });
 
     // Agregar al carrito
     carousel.addEventListener('click', e => {
-        const addBtn = e.target.closest('.offer-add-btn');
+        const addBtn = e.target.closest('.offer-add-btn, .offer-add-btn-side');
         if (!addBtn) return;
-        const idx        = addBtn.dataset.idx;
+        // Si es el botón lateral del banner, leer el chip seleccionado
+        let idx = addBtn.dataset.idx;
+        if (addBtn.classList.contains('offer-add-btn-side')) {
+            const overlay = addBtn.closest('.offer-slide-banner-overlay');
+            const selectedChip = overlay?.querySelector('.offer-chip.selected');
+            if (selectedChip) idx = selectedChip.dataset.idx;
+        }
         const offer      = offers[idx];
         const qty        = offer.boxQty;
         const finalPrice = Math.round(offer.originalPrice * (1 - offer.discount / 100));
@@ -1744,13 +1772,22 @@ function initOffersModal() {
         updateCartUI();
         showToast(offer.title, qty, offer.variant);
         bumpCart();
-        const span = addBtn.querySelector('span');
-        const svg  = addBtn.querySelector('svg');
+        const span    = addBtn.querySelector('span');
+        const svg     = addBtn.querySelector('svg');
         const prevSvg = svg.innerHTML;
+        const isSide  = addBtn.classList.contains('offer-add-btn-side');
+        const prevText = span.textContent;
+        // Fijar ancho para que no cambie al cambiar el texto
+        addBtn.style.width = addBtn.offsetWidth + 'px';
         span.textContent = '¡Agregado!';
         svg.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
         addBtn.classList.add('added');
-        setTimeout(() => { span.textContent = `Agregar caja (${offer.boxQty} u.)`; svg.innerHTML = prevSvg; addBtn.classList.remove('added'); }, 1100);
+        setTimeout(() => {
+            span.textContent = isSide ? prevText : `Agregar caja (${offer.boxQty} u.)`;
+            svg.innerHTML = prevSvg;
+            addBtn.classList.remove('added');
+            addBtn.style.width = '';
+        }, 1100);
     });
 
     openBtn.addEventListener('click', () => { goTo(0); overlay.classList.add('open'); });
