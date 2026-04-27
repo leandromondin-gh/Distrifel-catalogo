@@ -919,9 +919,9 @@ body.past-hero .nav-home-btn:hover {
 }
 
 @media (max-width: 380px) {
-    /* En teléfonos muy chicos el botón de Ofertas desaparece del centro
-       para no pisar el logo ni los botones de la derecha */
-    .nav-center { display: none; }
+    /* En ultra-small: el botón de ofertas queda solo como ícono (texto ya oculto desde 640px) */
+    .nav-center { display: flex; }
+    .nav-offers-btn { padding: 8px 10px; }
 }
 
 .nav-cart-badge {
