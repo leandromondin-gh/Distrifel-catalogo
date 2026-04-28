@@ -338,6 +338,19 @@ function initFilterSidebar() {
 
     const isMobile = () => window.innerWidth < 1024;
 
+    const updateToggleLabel = () => {
+        const labelEl = toggleBtn?.querySelector('.filter-toggle-label');
+        if (!labelEl) return;
+        if (isMobile()) {
+            labelEl.textContent = 'Filtros';
+            toggleBtn.classList.remove('is-collapsed');
+        } else {
+            const collapsed = layout?.classList.contains('sidebar-collapsed');
+            labelEl.textContent = collapsed ? 'Mostrar filtros' : 'Ocultar filtros';
+            toggleBtn.classList.toggle('is-collapsed', collapsed);
+        }
+    };
+
     const open = () => {
         if (isMobile()) {
             sidebar?.classList.add('open');
@@ -346,6 +359,7 @@ function initFilterSidebar() {
         } else {
             layout?.classList.remove('sidebar-collapsed');
         }
+        updateToggleLabel();
     };
 
     const close = () => {
@@ -356,6 +370,7 @@ function initFilterSidebar() {
         } else {
             layout?.classList.add('sidebar-collapsed');
         }
+        updateToggleLabel();
     };
 
     const toggle = () => {
@@ -369,6 +384,8 @@ function initFilterSidebar() {
     toggleBtn?.addEventListener('click', toggle);
     closeBtn?.addEventListener('click', close);
     overlay?.addEventListener('click', close);
+    window.addEventListener('resize', updateToggleLabel);
+    updateToggleLabel();
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && (sidebar?.classList.contains('open') || layout?.classList.contains('sidebar-collapsed') === false)) {

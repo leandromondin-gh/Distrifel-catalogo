@@ -1952,6 +1952,11 @@ body.past-hero .catalog-section {
 
 .filter-toggle-btn svg {
     flex-shrink: 0;
+    transition: transform var(--transition-fast);
+}
+
+.filter-toggle-btn.is-collapsed .filter-toggle-chevron {
+    transform: rotate(180deg);
 }
 
 /* ===== RESPONSIVE ===== */
