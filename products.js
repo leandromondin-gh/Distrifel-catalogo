@@ -1,4 +1,4 @@
-// Generado desde "Lista de precios-3.xlsx" — Version-Final
+// Generado desde "Lista de precios-4.xlsx" — Version-Final
 // Para actualizar: editar el Excel y correr el script de conversión
 window.DISTRIFEL_PRODUCTS = [
   {
@@ -25,7 +25,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "flexible",
     "brand": "alarsa",
     "searchName": "flexible de agua cobre x 3/4",
-    "image": "",
+    "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/flexible-agua-demedio.jpg",
     "variants": [
       { "code": "16020.0", "desc": "20 cm", "price": 7642 },
       { "code": "16025.0", "desc": "25 cm", "price": 8006 },
@@ -59,7 +59,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "flexible",
     "brand": "",
     "searchName": "flexible de agua mallado x 3/4",
-    "image": "",
+    "image": "https://dcdn.mitiendanube.com/stores/004/548/084/products/flexible-de-agua-117e00a18120e7919e17135389237592-1024-1024.jpg",
     "variants": [
       { "code": "F3420", "desc": "20 cm", "price": 3783 },
       { "code": "F3425", "desc": "25 cm", "price": 3889 },
@@ -91,8 +91,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de agua lluvia bidet",
     "image": "https://tse2.mm.bing.net/th/id/OIP.vMfVdi8Ey12S1-6Tkn9hTwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
     "variants": [
-      { "code": "86.0", "desc": "2026-02-01 00:00:00", "price": 3520 },
-      { "code": "85.0", "desc": "2026-08-03 00:00:00", "price": 3363 }
+      { "code": "86.0", "desc": "1/2", "price": 3520 },
+      { "code": "85.0", "desc": "3/8", "price": 3363 }
     ]
   },
   {
@@ -115,7 +115,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "flexible",
     "brand": "alarsa",
     "searchName": "flexible de gas aprobado extensibles x 3/4",
-    "image": "",
+    "image": "https://sanitarioslarralde.com.ar/wp-content/uploads/2024/05/flexible-gas-aprobado-12x30-cm-dinatecnica.jpg",
     "variants": [
       { "code": "11002.0", "desc": "20 a 45 cm", "price": 16395 },
       { "code": "11003.0", "desc": "40 a 99 cm", "price": 25862 }
@@ -142,7 +142,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "flexible",
     "brand": "alarsa",
     "searchName": "flexible de gas aprobado no extensibles x 3/4",
-    "image": "",
+    "image": "https://sanitarioslarralde.com.ar/wp-content/uploads/2024/05/flexible-gas-aprobado-12x30-cm-dinatecnica.jpg",
     "variants": [
       { "code": "11007.0", "desc": "30 cm", "price": 12623 },
       { "code": "11008.0", "desc": "45 cm", "price": 14163 },
@@ -193,8 +193,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "soda caustica",
     "image": "https://dcdn-us.mitiendanube.com/stores/002/897/767/products/soda-caustica-1kg1-4f6fccdec73599ded816842467326588-1024-1024.png",
     "variants": [
-      { "code": "SC1", "desc": "1/2 kg", "price": 8000 },
-      { "code": "SC12", "desc": "1 kg", "price": 10200 }
+      { "code": "SC1", "desc": "1/2 kg", "price": 800 },
+      { "code": "SC12", "desc": "1 kg", "price": 1020 }
     ]
   },
   {
@@ -460,7 +460,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "membrana",
     "brand": "tcoat",
     "searchName": "petrolato",
-    "image": "-",
+    "image": "https://www.xundapipewraps.com/uploads/201713119/p201704261041038090718.jpg",
     "variants": [
       { "code": "PTANT0014", "desc": "0,05 cm x 10 Mts", "price": 10378 },
       { "code": "PTANT0015", "desc": "0,10 cm x 10 Mts", "price": 20755 }
@@ -489,9 +489,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "domiciliarias con campana",
     "image": "https://www.bing.com/images/search?view=detailV2&ccid=esytqJNH&id=BAB7246093AD393C8C004EE5D6850E1A3597E29A&thid=OIP.esytqJNH067vBh2APBgZLAHaGi&mediaurl=https%3a%2f%2fhttp2.mlstatic.com%2fD_NQ_NP_906752-MLA77842382860_072024-O.webp&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.7accada89347d3aeef061d803c18192c%3frik%3dmuKXNRoOhdblTg%26pid%3dImgRaw%26r%3d0&exph=441&expw=500&q=llave+de+gas+domiciliaria+c+campana&FORM=IRPRST&ck=7E57942244C2780EF8376350F617CE70&selectedIndex=0&itb=0&ajaxhist=0&ajaxserp=0",
     "variants": [
-      { "code": "5012.0", "desc": "2026-02-01 00:00:00", "price": 15670 },
-      { "code": "5015.0", "desc": "2026-04-03 00:00:00", "price": 18704 },
-      { "code": "5027.0", "desc": "1.0", "price": 44236 }
+      { "code": "5012.0", "desc": "1/2", "price": 15670 },
+      { "code": "5015.0", "desc": "3/4", "price": 18704 },
+      { "code": "5027.0", "desc": "1", "price": 44236 }
     ]
   },
   {
@@ -503,12 +503,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "domiciliarias bronce",
     "image": "https://www.bing.com/images/search?view=detailV2&ccid=vb2i4cLd&id=6F1B278DD47AD1D7D157338F5733B86A6363735F&thid=OIP.vb2i4cLda52YE8jNUXskywAAAA&mediaurl=https%3A%2F%2Fwww.sagosa.com.ar%2F6142-large_default%2Fllave-gas-comun-bronce-2.jpg&cdnurl=https%3A%2F%2Fth.bing.com%2Fth%2Fid%2FR.bdbda2e1c2dd6b9d9813c8cd517b24cb%3Frik%3DX3NjY2q4M1ePMw%26pid%3DImgRaw%26r%3D0&exph=492&expw=381&q=llave+de+gas+domiciliaria+bronce&form=IRPRST&ck=F09544347A7F9897EB38627E4CC90233&selectedindex=0&itb=1&ajaxhist=0&ajaxserp=0&pivotparams=insightsToken%3Dccid_POHveRQX*cp_5433F31477F4CDC023E19B69B9BF6FB1*mid_6F1B278DD47AD1D7D157834F9D2A887DBA438F05*thid_OIP.POHveRQXcWJv0HvN6yB9ZgHaJk&vt=0&sim=11&iss=VSI",
     "variants": [
-      { "code": "5010.0", "desc": "2026-02-01 00:00:00", "price": 13246 },
-      { "code": "5013.0", "desc": "2026-04-03 00:00:00", "price": 16919 },
-      { "code": "5016.0", "desc": "1.0", "price": 39529 },
+      { "code": "5010.0", "desc": "1/2", "price": 13246 },
+      { "code": "5013.0", "desc": "3/4", "price": 16919 },
+      { "code": "5016.0", "desc": "1", "price": 39529 },
       { "code": "5018.0", "desc": "1 1/4", "price": 65598 },
       { "code": "5024.0", "desc": "1 1/2", "price": 111956 },
-      { "code": "5026.0", "desc": "2.0", "price": 187220 }
+      { "code": "5026.0", "desc": "2", "price": 187220 }
     ]
   },
   {
@@ -520,9 +520,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "domiciliarias cromo",
     "image": "https://www.bing.com/images/search?view=detailV2&ccid=cM8izehD&id=E3CF0BB72309C2C76C990BA02AB8FC59822BB29E&thid=OIP.cM8izehDRL0DJlKl1ncyHwHaG2&mediaurl=https%3a%2f%2fhttp2.mlstatic.com%2fD_NQ_NP_630194-MLA83131744203_032025-O.webp&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.70cf22cde84344bd032652a5d677321f%3frik%3dnrIrgln8uCqgCw%26pid%3dImgRaw%26r%3d0&exph=463&expw=500&q=llave+de+gas+domiciliaria+bronce&FORM=IRPRST&ck=230105BB0895D918BC93F6432B99E721&selectedIndex=1&itb=0&ajaxhist=0&ajaxserp=0",
     "variants": [
-      { "code": "5011.0", "desc": "2026-02-01 00:00:00", "price": 14410 },
-      { "code": "5014.0", "desc": "2026-04-03 00:00:00", "price": 18023 },
-      { "code": "5017.0", "desc": "1.0", "price": 44236 }
+      { "code": "5011.0", "desc": "1/2", "price": 14410 },
+      { "code": "5014.0", "desc": "3/4", "price": 18023 },
+      { "code": "5017.0", "desc": "1", "price": 44236 }
     ]
   },
   {
@@ -549,12 +549,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "esfericas 4 bar",
     "image": "https://alarsa.com.ar/shop/linea-gas/llave-esferica-de-4-bar/",
     "variants": [
-      { "code": "5000.0", "desc": "2026-02-01 00:00:00", "price": 12075 },
-      { "code": "5001.0", "desc": "2026-04-03 00:00:00", "price": 12650 },
-      { "code": "5002.0", "desc": "1.0", "price": 28637 },
+      { "code": "5000.0", "desc": "1/2", "price": 12075 },
+      { "code": "5001.0", "desc": "3/4", "price": 12650 },
+      { "code": "5002.0", "desc": "1", "price": 28637 },
       { "code": "5003.0", "desc": "1 1/4", "price": 55892 },
       { "code": "5004.0", "desc": "1 1/2", "price": 89193 },
-      { "code": "5009.0", "desc": "2.0", "price": 115385 }
+      { "code": "5009.0", "desc": "2", "price": 115385 }
     ]
   },
   {
@@ -566,15 +566,15 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "esfericas 4 bar paso total",
     "image": "https://alarsa.com.ar/shop/linea-gas/llaves-esfericas-paso-total/",
     "variants": [
-      { "code": "5038.0", "desc": "2026-02-01 00:00:00", "price": 21994 },
-      { "code": "5039.0", "desc": "2026-04-03 00:00:00", "price": 24924 },
-      { "code": "5040.0", "desc": "1.0", "price": 50568 },
+      { "code": "5038.0", "desc": "1/2", "price": 21994 },
+      { "code": "5039.0", "desc": "3/4", "price": 24924 },
+      { "code": "5040.0", "desc": "1", "price": 50568 },
       { "code": "5041.0", "desc": "1 1/4", "price": 93469 },
       { "code": "5042.0", "desc": "1 1/2", "price": 128488 },
-      { "code": "5043.0", "desc": "2.0", "price": 195498 },
+      { "code": "5043.0", "desc": "2", "price": 195498 },
       { "code": "5044.0", "desc": "2 1/2", "price": 467074 },
-      { "code": "5045.0", "desc": "3.0", "price": 679575 },
-      { "code": "5046.0", "desc": "4.0", "price": 1387962 }
+      { "code": "5045.0", "desc": "3", "price": 679575 },
+      { "code": "5046.0", "desc": "4", "price": 1387962 }
     ]
   },
   {
@@ -675,7 +675,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p45",
+    "id": "p47",
     "title": "Canilla Esfericas mariposa Laton",
     "category": "agua",
     "type": "canilla",
@@ -683,25 +683,25 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canilla esfericas mariposa laton",
     "image": "canilla esfericas mariposa riego valforte - Búsqueda",
     "variants": [
-      { "code": "215012.0", "desc": "2026-02-01 00:00:00", "price": 3110 },
-      { "code": "215034.0", "desc": "2026-04-03 00:00:00", "price": 4660 }
+      { "code": "215012.0", "desc": "1/2", "price": 3110 },
+      { "code": "215034.0", "desc": "3/4", "price": 4660 }
     ]
   },
   {
-    "id": "p46",
+    "id": "p48",
     "title": "Canilla Esfericas mariposa Plastico",
     "category": "agua",
     "type": "canilla",
     "brand": "duke",
     "searchName": "canilla esfericas mariposa plastico",
-    "image": "",
+    "image": "https://www.bing.com/images/search?view=detailV2&ccid=WN50s0zr&id=75DE3DB7FCD7BFF2F979A741F858591CDECC8313&thid=OIP.WN50s0zrZpgSYpLt4nJzdAHaFj&mediaurl=https%3a%2f%2fpintureria.com%2fwp-content%2fuploads%2f2020%2f11%2fcanilladukeplast.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.58de74b34ceb6698126292ede2727374%3frik%3dE4PM3hxZWPhBpw%26pid%3dImgRaw%26r%3d0&exph=600&expw=800&q=CANILLA+ESFERICA+PLASTICA+MARIPOSA+DUKE&FORM=IRPRST&ck=4E7A9321565D077225F301A49B3C20D7&selectedIndex=3&itb=0&ajaxhist=0&ajaxserp=0",
     "variants": [
-      { "code": "38002301M", "desc": "2026-02-01 00:00:00", "price": 195500 },
-      { "code": "38002302M", "desc": "2026-04-03 00:00:00", "price": 255600 }
+      { "code": "38002301M", "desc": "1/2", "price": 1955 },
+      { "code": "38002302M", "desc": "3/4", "price": 2556 }
     ]
   },
   {
-    "id": "p47",
+    "id": "p49",
     "title": "Tornillo de inodoro",
     "category": "otros",
     "type": "accesorio",
@@ -714,7 +714,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p48",
+    "id": "p50",
     "title": "Monturas de Gas",
     "category": "gas",
     "type": "montura",
@@ -730,7 +730,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p49",
+    "id": "p51",
     "title": "Reja de ventilación esmaltada c/agujero Aprobada",
     "category": "otros",
     "type": "reja",
@@ -744,7 +744,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p50",
+    "id": "p52",
     "title": "Reja de piso simple",
     "category": "otros",
     "type": "reja",
@@ -759,7 +759,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p51",
+    "id": "p53",
     "title": "tapas de piso  simple",
     "category": "otros",
     "type": "tapa",
@@ -774,7 +774,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p52",
+    "id": "p54",
     "title": "Reja de piso Giratoria",
     "category": "otros",
     "type": "reja",
@@ -788,7 +788,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p53",
+    "id": "p55",
     "title": "Reja de piso Embudo",
     "category": "otros",
     "type": "reja",
@@ -802,7 +802,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p54",
+    "id": "p56",
     "title": "sopapa Plástica con Rejilla Metálica",
     "category": "agua",
     "type": "sopapa",
@@ -815,7 +815,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p55",
+    "id": "p57",
     "title": "sopapa Bronce",
     "category": "agua",
     "type": "sopapa",
@@ -828,7 +828,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p56",
+    "id": "p58",
     "title": "sopapa PVC Americana",
     "category": "agua",
     "type": "sopapa",
@@ -840,7 +840,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p57",
+    "id": "p59",
     "title": "Terraja estrella",
     "category": "gas",
     "type": "terraja",
@@ -852,7 +852,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p58",
+    "id": "p60",
     "title": "ALTA PRESION",
     "category": "agua",
     "type": "flotante",
@@ -860,15 +860,15 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "alta presion",
     "image": "https://www.bing.com/images/search?view=detailV2&ccid=tSn290on&id=17A97757A45AB054941485FE6EDF5867C2FD7E27&thid=OIP.tSn290on7l0fSuaJe3JiCgHaHa&mediaurl=https%3a%2f%2fraosrl.com%2fwp-content%2fuploads%2f2023%2f03%2fFLOTANTE-ALTA-PRESION-1000x1000-1.jpg&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.b529f6f74a27ee5d1f4ae6897b72620a%3frik%3dJ379wmdY327%252bhQ%26pid%3dImgRaw%26r%3d0&exph=1000&expw=1000&q=flotrante+alta+presion1%2f2+bronce&FORM=IRPRST&ck=F8A4EFD6AFE8B757FA81A668468D5A12&selectedIndex=5&itb=0&ajaxhist=0&ajaxserp=0",
     "variants": [
-      { "code": "3001.0", "desc": "2026-02-01 00:00:00", "price": 15185 },
-      { "code": "3002.0", "desc": "2026-04-03 00:00:00", "price": 19412 },
-      { "code": "3003.0", "desc": "1.0", "price": 27973 },
-      { "code": "4001.0", "desc": "2026-02-01 00:00:00", "price": 7670 },
-      { "code": "4002.0", "desc": "2026-04-03 00:00:00", "price": 8311 }
+      { "code": "3001.0", "desc": "1/2", "price": 15185 },
+      { "code": "3002.0", "desc": "3/4", "price": 19412 },
+      { "code": "3003.0", "desc": "1", "price": 27973 },
+      { "code": "4001.0", "desc": "1/2", "price": 7670 },
+      { "code": "4002.0", "desc": "3/4", "price": 8311 }
     ]
   },
   {
-    "id": "p59",
+    "id": "p61",
     "title": "GABINETE CON PUERTA fibrocemento",
     "category": "gas",
     "type": "gabinete",
@@ -882,7 +882,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p60",
+    "id": "p62",
     "title": "PUERTAS PARA GAS NATURAL APROBADA",
     "category": "gas",
     "type": "puerta",
@@ -898,7 +898,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p61",
+    "id": "p63",
     "title": "Fuelle mochila comun CIRINO",
     "category": "agua",
     "type": "fuelle",
@@ -910,7 +910,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p62",
+    "id": "p64",
     "title": "Canilla duplex lavarropas\t\n\t plastico blanco",
     "category": "agua",
     "type": "canilla",
@@ -923,7 +923,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p63",
+    "id": "p65",
     "title": "aluminizado con solapa y tacc",
     "category": "otros",
     "type": "aislante",
@@ -944,75 +944,75 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p64",
+    "id": "p66",
     "title": "CANILLA DE BRONCE CROMADA CON PICO",
     "category": "agua",
-    "type": "fasion",
+    "type": "otros",
     "brand": "valforte",
     "searchName": "canilla de bronce cromada con pico",
     "image": "https://arcencohogar.vtexassets.com/arquivos/ids/274016-800-800?v=637651579424470000&width=800&height=800&aspect=true",
     "variants": [
-      { "code": "2033934.0", "desc": "2026-04-03 00:00:00", "price": 14605 },
-      { "code": "21101.0", "desc": "1.0", "price": 13862 }
-    ]
-  },
-  {
-    "id": "p65",
-    "title": "CANILLA PARA RIEGO PALANCA",
-    "category": "agua",
-    "type": "fasion",
-    "brand": "valforte",
-    "searchName": "canilla para riego palanca",
-    "image": "https://tse4.mm.bing.net/th/id/OIP.kHsnzO323MEF6IzAac9bpwHaHa?w=550&h=550&rs=1&pid=ImgDetMain&o=7&rm=3",
-    "variants": [
-      { "code": "215012.0", "desc": "2026-02-01 00:00:00", "price": 3400 }
-    ]
-  },
-  {
-    "id": "p66",
-    "title": "VALVULA ESCLUSA PASO TOTAL",
-    "category": "agua",
-    "type": "fasion",
-    "brand": "valforte",
-    "searchName": "valvula esclusa paso total",
-    "image": "https://tse1.mm.bing.net/th/id/OIP.PNR0H589b_YwMroyNDho8QHaHa?w=879&h=879&rs=1&pid=ImgDetMain&o=7&rm=3",
-    "variants": [
-      { "code": "154021.0", "desc": "1.0", "price": 10567 },
-      { "code": "15402114.0", "desc": "1 1/4", "price": 17724 }
+      { "code": "2033934.0", "desc": "3/4", "price": 14605 },
+      { "code": "21101.0", "desc": "1", "price": 13862 }
     ]
   },
   {
     "id": "p67",
-    "title": "VALVULA ESFERICA MEDIA UNION M-H MARIPOSA",
+    "title": "CANILLA PARA RIEGO PALANCA",
     "category": "agua",
-    "type": "fasion",
+    "type": "otros",
     "brand": "valforte",
-    "searchName": "valvula esferica media union m-h mariposa",
-    "image": "VALVULA ESFERICA MEDIA UNION M-H MARIPOSA VALFORTE - Búsqueda Imágenes",
+    "searchName": "canilla para riego palanca",
+    "image": "https://tse4.mm.bing.net/th/id/OIP.kHsnzO323MEF6IzAac9bpwHaHa?w=550&h=550&rs=1&pid=ImgDetMain&o=7&rm=3",
     "variants": [
-      { "code": "1736612.0", "desc": "2026-02-01 00:00:00", "price": 8728 },
-      { "code": "1736634.0", "desc": "2026-04-03 00:00:00", "price": 14005 }
+      { "code": "215012.0", "desc": "1/2", "price": 3400 }
     ]
   },
   {
     "id": "p68",
-    "title": "CODO 90º",
+    "title": "VALVULA ESCLUSA PASO TOTAL",
     "category": "agua",
-    "type": "fasion",
-    "brand": "latyn",
-    "searchName": "codo 90º",
-    "image": "CODO LATYNFUSION A 90 - Búsqueda Imágenes",
+    "type": "otros",
+    "brand": "valforte",
+    "searchName": "valvula esclusa paso total",
+    "image": "https://tse1.mm.bing.net/th/id/OIP.PNR0H589b_YwMroyNDho8QHaHa?w=879&h=879&rs=1&pid=ImgDetMain&o=7&rm=3",
     "variants": [
-      { "code": "729020.0", "desc": "20.0", "price": 185 },
-      { "code": "729025.0", "desc": "25.0", "price": 293 },
-      { "code": "729032.0", "desc": "32.0", "price": 504 }
+      { "code": "154021.0", "desc": "1", "price": 10567 },
+      { "code": "15402114.0", "desc": "1 1/4", "price": 17724 }
     ]
   },
   {
     "id": "p69",
+    "title": "VALVULA ESFERICA MEDIA UNION M-H MARIPOSA",
+    "category": "agua",
+    "type": "otros",
+    "brand": "valforte",
+    "searchName": "valvula esferica media union m-h mariposa",
+    "image": "VALVULA ESFERICA MEDIA UNION M-H MARIPOSA VALFORTE - Búsqueda Imágenes",
+    "variants": [
+      { "code": "1736612.0", "desc": "1/2", "price": 8728 },
+      { "code": "1736634.0", "desc": "3/4", "price": 14005 }
+    ]
+  },
+  {
+    "id": "p70",
+    "title": "CODO 90º",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latyn",
+    "searchName": "codo 90º",
+    "image": "CODO LATYNFUSION A 90 - Búsqueda Imágenes",
+    "variants": [
+      { "code": "729020.0", "desc": "20", "price": 185 },
+      { "code": "729025.0", "desc": "25", "price": 293 },
+      { "code": "729032.0", "desc": "32", "price": 504 }
+    ]
+  },
+  {
+    "id": "p71",
     "title": "CODO C/INSERTO METALICO HEMBRA",
     "category": "agua",
-    "type": "fasion",
+    "type": "fusion",
     "brand": "latyn",
     "searchName": "codo c/inserto metalico hembra",
     "image": "https://http2.mlstatic.com/D_NQ_NP_733459-MLA93988228277_102025-O.webp",
@@ -1026,10 +1026,10 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p70",
+    "id": "p72",
     "title": "CUPLA REDUCCION",
     "category": "agua",
-    "type": "fasion",
+    "type": "fusion",
     "brand": "latyn",
     "searchName": "cupla reduccion",
     "image": "CUPLA REDUCCION LATYN FUSION - Búsqueda Imágenes",
@@ -1038,63 +1038,63 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p71",
+    "id": "p73",
     "title": "CUPLA",
     "category": "agua",
-    "type": "fasion",
+    "type": "fusion",
     "brand": "latyn",
     "searchName": "cupla",
     "image": "CUPLA REDUCCION LATYN FUSION - Búsqueda Imágenes",
     "variants": [
-      { "code": "7227020.0", "desc": "20.0", "price": 129 },
-      { "code": "7227025.0", "desc": "25.0", "price": 212 },
-      { "code": "7227032.0", "desc": "32.0", "price": 298 }
-    ]
-  },
-  {
-    "id": "p72",
-    "title": "LLAVE PASO COMPACTA CABEZAL POLIAMIDA",
-    "category": "agua",
-    "type": "fasion",
-    "brand": "latyn",
-    "searchName": "llave paso compacta cabezal poliamida",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_924665-MLA82794786446_032025-O.webp",
-    "variants": [
-      { "code": "7260020.0", "desc": "20.0", "price": 5922 },
-      { "code": "7260025.0", "desc": "25.0", "price": 6416 }
-    ]
-  },
-  {
-    "id": "p73",
-    "title": "SOBREPASO",
-    "category": "agua",
-    "type": "fasion",
-    "brand": "latyn",
-    "searchName": "sobrepaso",
-    "image": "SOBREPASO LATYNFUSION - Búsqueda Imágenes",
-    "variants": [
-      { "code": "725020.0", "desc": "20.0", "price": 832 },
-      { "code": "725025.0", "desc": "25.0", "price": 1143 }
+      { "code": "7227020.0", "desc": "20", "price": 129 },
+      { "code": "7227025.0", "desc": "25", "price": 212 },
+      { "code": "7227032.0", "desc": "32", "price": 298 }
     ]
   },
   {
     "id": "p74",
-    "title": "TAPA",
+    "title": "LLAVE PASO COMPACTA CABEZAL POLIAMIDA",
     "category": "agua",
-    "type": "fasion",
+    "type": "fusion",
     "brand": "latyn",
-    "searchName": "tapa",
-    "image": "TAPA LATYNFUSION - Búsqueda Imágenes",
+    "searchName": "llave paso compacta cabezal poliamida",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_924665-MLA82794786446_032025-O.webp",
     "variants": [
-      { "code": "7230120.0", "desc": "20.0", "price": 129 },
-      { "code": "7230125.0", "desc": "25.0", "price": 192 }
+      { "code": "7260020.0", "desc": "20", "price": 5922 },
+      { "code": "7260025.0", "desc": "25", "price": 6416 }
     ]
   },
   {
     "id": "p75",
+    "title": "SOBREPASO",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latyn",
+    "searchName": "sobrepaso",
+    "image": "SOBREPASO LATYNFUSION - Búsqueda Imágenes",
+    "variants": [
+      { "code": "725020.0", "desc": "20", "price": 832 },
+      { "code": "725025.0", "desc": "25", "price": 1143 }
+    ]
+  },
+  {
+    "id": "p76",
+    "title": "TAPA",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latyn",
+    "searchName": "tapa",
+    "image": "TAPA LATYNFUSION - Búsqueda Imágenes",
+    "variants": [
+      { "code": "7230120.0", "desc": "20", "price": 129 },
+      { "code": "7230125.0", "desc": "25", "price": 192 }
+    ]
+  },
+  {
+    "id": "p77",
     "title": "TEE C/INSERTO METALICO HEMBRA",
     "category": "agua",
-    "type": "fasion",
+    "type": "fusion",
     "brand": "latyn",
     "searchName": "tee c/inserto metalico hembra",
     "image": "TEE C/INSERTO METALICO HEMBRA LATYNFUSION - Búsqueda Imágenes",
@@ -1103,24 +1103,24 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p76",
+    "id": "p78",
     "title": "TEE",
     "category": "agua",
-    "type": "fasion",
+    "type": "fusion",
     "brand": "latyn",
     "searchName": "tee",
     "image": "https://latynconexiones.com.ar/img_tabla_fusion/07252126_F-130GR.jpg",
     "variants": [
-      { "code": "7213020.0", "desc": "20.0", "price": 242 },
-      { "code": "7213025.0", "desc": "25.0", "price": 413 },
-      { "code": "7213032.0", "desc": "32.0", "price": 647 }
+      { "code": "7213020.0", "desc": "20", "price": 242 },
+      { "code": "7213025.0", "desc": "25", "price": 413 },
+      { "code": "7213032.0", "desc": "32", "price": 647 }
     ]
   },
   {
-    "id": "p77",
+    "id": "p79",
     "title": "TUBOS AGUA CALIENTE DURAFLOW",
     "category": "agua",
-    "type": "fasion",
+    "type": "fusion",
     "brand": "latyn",
     "searchName": "tubos agua caliente duraflow",
     "image": "TUBOS AGUA CALIENTE DURAFLOW LATYN - Búsqueda Imágenes",
@@ -1130,10 +1130,10 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p78",
+    "id": "p80",
     "title": "TUBOS AGUA FRIA ECOFLOW",
     "category": "agua",
-    "type": "fasion",
+    "type": "fusion",
     "brand": "latyn",
     "searchName": "tubos agua fria ecoflow",
     "image": "https://tse4.mm.bing.net/th/id/OIP.hf7ys3YSZwiE18-MC-qaLgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
@@ -1142,175 +1142,175 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p78",
+    "id": "p81",
     "title": "UNION DOBLE FUSION-FUSION",
     "category": "agua",
-    "type": "fasion",
+    "type": "fusion",
     "brand": "latyn",
     "searchName": "union doble fusion-fusion",
     "image": "https://static.wixstatic.com/media/e9c08b_5fafabecb25c456fbdae486a04221e95~mv2.png/v1/fit/w_500,h_500,q_90/file.png",
     "variants": [
-      { "code": "7234020.0", "desc": "20.0", "price": 772 },
-      { "code": "7234034.0", "desc": "25.0", "price": 1085 }
+      { "code": "7234020.0", "desc": "20", "price": 772 },
+      { "code": "7234034.0", "desc": "25", "price": 1085 }
     ]
   },
   {
-    "id": "p80",
+    "id": "p82",
     "title": "VALVULA PPR FUSION ESFERA PLASTICA",
     "category": "agua",
-    "type": "fasion",
+    "type": "fusion",
     "brand": "latyn",
     "searchName": "valvula ppr fusion esfera plastica",
     "image": "https://http2.mlstatic.com/D_NQ_NP_684547-MLU71861289768_092023-O.webp",
     "variants": [
-      { "code": "570020.0", "desc": "20.0", "price": 1595 },
-      { "code": "570025.0", "desc": "25.0", "price": 2446 }
+      { "code": "570020.0", "desc": "20", "price": 1595 },
+      { "code": "570025.0", "desc": "25", "price": 2446 }
     ]
   },
   {
-    "id": "p81",
+    "id": "p83",
     "title": "ACC.BCE.ROSC.CODO H.H.",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.codo h.h.",
-    "image": "",
+    "image": "https://www.bing.com/images/search?view=detailV2&ccid=elCm1eSu&id=2101745A315430DD7CD034BCE08E8ADD02121E13&thid=OIP.elCm1eSuShcazUBQbhvRogHaHa&mediaurl=https%3A%2F%2Falarsa.com.ar%2Fwp-content%2Fuploads%2F2023%2F03%2Fcodo-reduccion-roscado-e1678893757689.jpg&cdnurl=https%3A%2F%2Fth.bing.com%2Fth%2Fid%2FR.7a50a6d5e4ae4a171acd40506e1bd1a2%3Frik%3DEx4SAt2KjuC8NA%26pid%3DImgRaw%26r%3D0&exph=740&expw=740&q=codo+HH+BRONCE+ALARZA&form=IRPRST&ck=EA4AFFACF5469407CB919BC546341322&selectedindex=3&itb=0&ajaxhist=0&ajaxserp=0&pivotparams=insightsToken%3Dccid_BdLduqrb*cp_0B2A4C30671645C6D9C3A30D87DF841C*mid_FA2BC51E7C1D49BB0B8A6556ED914D174A86CA6A*thid_OIP.BdLduqrbpursuu3Jcb-ITAHaHa&vt=0&sim=11&iss=VSI",
     "variants": [
-      { "code": "1102.0", "desc": "2026-02-01 00:00:00", "price": 2375 },
-      { "code": "1103.0", "desc": "2026-04-03 00:00:00", "price": 3388 },
-      { "code": "1104.0", "desc": "1.0", "price": 5850 },
+      { "code": "1102.0", "desc": "1/2", "price": 2375 },
+      { "code": "1103.0", "desc": "3/4", "price": 3388 },
+      { "code": "1104.0", "desc": "1", "price": 5850 },
       { "code": "1105.0", "desc": "1 1/4", "price": 10542 },
       { "code": "1106.0", "desc": "1 1/2", "price": 18386 },
-      { "code": "1107.0", "desc": "2.0", "price": 25730 }
+      { "code": "1107.0", "desc": "2", "price": 25730 }
     ]
   },
   {
-    "id": "p82",
+    "id": "p84",
     "title": "ACC.BCE.ROSC.TEE",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.tee",
-    "image": "",
+    "image": "tee BRONCE ALARZA - Búsqueda Imágenes",
     "variants": [
-      { "code": "1002.0", "desc": "2026-02-01 00:00:00", "price": 2618 },
-      { "code": "1003.0", "desc": "2026-04-03 00:00:00", "price": 4472 },
-      { "code": "1004.0", "desc": "1.0", "price": 6814 },
+      { "code": "1002.0", "desc": "1/2", "price": 2618 },
+      { "code": "1003.0", "desc": "3/4", "price": 4472 },
+      { "code": "1004.0", "desc": "1", "price": 6814 },
       { "code": "1005.0", "desc": "1 1/4", "price": 12066 },
       { "code": "1006.0", "desc": "1 1/2", "price": 14789 },
-      { "code": "1007.0", "desc": "2.0", "price": 25256 }
+      { "code": "1007.0", "desc": "2", "price": 25256 }
     ]
   },
   {
-    "id": "p83",
+    "id": "p85",
     "title": "ACC.BCE.ROSC.ROS.C/TUERCA",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.ros.c/tuerca",
-    "image": "",
+    "image": "Rosca con tuerca – Alarsa",
     "variants": [
-      { "code": "1302.0", "desc": "2026-02-01 00:00:00", "price": 1374 },
-      { "code": "1303.0", "desc": "2026-04-03 00:00:00", "price": 1983 },
-      { "code": "1304.0", "desc": "1.0", "price": 3211 },
+      { "code": "1302.0", "desc": "1/2", "price": 1374 },
+      { "code": "1303.0", "desc": "3/4", "price": 1983 },
+      { "code": "1304.0", "desc": "1", "price": 3211 },
       { "code": "1305.0", "desc": "1 1/4", "price": 5521 },
       { "code": "1306.0", "desc": "1 1/2", "price": 6545 },
-      { "code": "1307.0", "desc": "2.0", "price": 11267 }
+      { "code": "1307.0", "desc": "2", "price": 11267 }
     ]
   },
   {
-    "id": "p84",
+    "id": "p86",
     "title": "ACC.BCE.ROSC.UNION DOBLE",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.union doble",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-roscado/union-doble/",
     "variants": [
-      { "code": "1802.0", "desc": "2026-02-01 00:00:00", "price": 6760 },
-      { "code": "1803.0", "desc": "2026-04-03 00:00:00", "price": 9193 },
-      { "code": "1804.0", "desc": "1.0", "price": 13594 },
+      { "code": "1802.0", "desc": "1/2", "price": 6760 },
+      { "code": "1803.0", "desc": "3/4", "price": 9193 },
+      { "code": "1804.0", "desc": "1", "price": 13594 },
       { "code": "1805.0", "desc": "1 1/4", "price": 30927 },
       { "code": "1806.0", "desc": "1 1/2", "price": 47489 },
-      { "code": "1807.0", "desc": "2.0", "price": 72745 }
+      { "code": "1807.0", "desc": "2", "price": 72745 }
     ]
   },
   {
-    "id": "p85",
+    "id": "p87",
     "title": "ACC.BCE.ROSC.CODO M.H.",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.codo m.h.",
-    "image": "",
+    "image": "https://www.bing.com/images/search?view=detailV2&ccid=BdLduqrb&id=FA2BC51E7C1D49BB0B8A6556ED914D174A86CA6A&thid=OIP.BdLduqrbpursuu3Jcb-ITAHaHa&mediaurl=https%3a%2f%2falarsa.com.ar%2fwp-content%2fuploads%2f2022%2f11%2fcodo-h-m-e1669333033465.jpg&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.05d2ddbaaadba6eaecbaedc971bf884c%3frik%3dasqGShdNke1WZQ%26pid%3dImgRaw%26r%3d0&exph=729&expw=729&q=codo+HH+BRONCE+ALARZA&FORM=IRPRST&ck=0B2A4C30671645C6D9C3A30D87DF841C&selectedIndex=3&itb=0&ajaxhist=0&ajaxserp=0",
     "variants": [
-      { "code": "1202.0", "desc": "2026-02-01 00:00:00", "price": 2225 },
-      { "code": "1203.0", "desc": "2026-04-03 00:00:00", "price": 3325 },
-      { "code": "1204.0", "desc": "1.0", "price": 6126 },
+      { "code": "1202.0", "desc": "1/2", "price": 2225 },
+      { "code": "1203.0", "desc": "3/4", "price": 3325 },
+      { "code": "1204.0", "desc": "1", "price": 6126 },
       { "code": "1205.0", "desc": "1 1/4", "price": 10242 },
       { "code": "1206.0", "desc": "1 1/2", "price": 18062 },
-      { "code": "1207.0", "desc": "2.0", "price": 25593 }
+      { "code": "1207.0", "desc": "2", "price": 25593 }
     ]
   },
   {
-    "id": "p86",
+    "id": "p88",
     "title": "ACC.BCE.ROSC.BRIDAS",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.bridas",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-roscado/brida/",
     "variants": [
-      { "code": "1702.0", "desc": "2026-02-01 00:00:00", "price": 3019 },
-      { "code": "1703.0", "desc": "2026-04-03 00:00:00", "price": 4021 },
-      { "code": "1704.0", "desc": "1.0", "price": 5756 },
+      { "code": "1702.0", "desc": "1/2", "price": 3019 },
+      { "code": "1703.0", "desc": "3/4", "price": 4021 },
+      { "code": "1704.0", "desc": "1", "price": 5756 },
       { "code": "1705.0", "desc": "1 1/4", "price": 9193 },
       { "code": "1706.0", "desc": "1 1/2", "price": 10717 },
-      { "code": "1707.0", "desc": "2.0", "price": 13990 }
+      { "code": "1707.0", "desc": "2", "price": 13990 }
     ]
   },
   {
-    "id": "p87",
+    "id": "p89",
     "title": "ACC.BCE.ROSC.TAPON",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.tapon",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-roscado/tapon/",
     "variants": [
-      { "code": "11002.0", "desc": "2026-02-01 00:00:00", "price": 1399 },
-      { "code": "11003.0", "desc": "2026-04-03 00:00:00", "price": 2075 },
-      { "code": "11004.0", "desc": "1.0", "price": 3446 },
+      { "code": "11002.0", "desc": "1/2", "price": 1399 },
+      { "code": "11003.0", "desc": "3/4", "price": 2075 },
+      { "code": "11004.0", "desc": "1", "price": 3446 },
       { "code": "11005.0", "desc": "1 1/4", "price": 5920 },
       { "code": "11006.0", "desc": "1 1/2", "price": 8793 },
-      { "code": "11007.0", "desc": "2.0", "price": 13665 }
+      { "code": "11007.0", "desc": "2", "price": 13665 }
     ]
   },
   {
-    "id": "p88",
+    "id": "p90",
     "title": "ACC.BCE.ROSC.CUPLAS",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.cuplas",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-roscado/cupla/",
     "variants": [
-      { "code": "1402.0", "desc": "2026-02-01 00:00:00", "price": 1759 },
-      { "code": "1403.0", "desc": "2026-04-03 00:00:00", "price": 2325 },
-      { "code": "1404.0", "desc": "1.0", "price": 3583 },
+      { "code": "1402.0", "desc": "1/2", "price": 1759 },
+      { "code": "1403.0", "desc": "3/4", "price": 2325 },
+      { "code": "1404.0", "desc": "1", "price": 3583 },
       { "code": "1405.0", "desc": "1 1/4", "price": 5121 },
       { "code": "1406.0", "desc": "1 1/2", "price": 7195 },
-      { "code": "1407.0", "desc": "2.0", "price": 12316 }
+      { "code": "1407.0", "desc": "2", "price": 12316 }
     ]
   },
   {
-    "id": "p89",
+    "id": "p91",
     "title": "ACC.BCE.ROSC.BUJE",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.buje",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-roscado/buje-de-reduccion/",
     "variants": [
       { "code": "12202.0", "desc": "3/4 X 1/2", "price": 1255 },
       { "code": "12204.0", "desc": "1 X 3/4", "price": 2232 },
@@ -1321,13 +1321,13 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p90",
+    "id": "p92",
     "title": "ACC.BCE.ROSC.CUPLAS",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.cuplas",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-roscado/cupla-2/",
     "variants": [
       { "code": "12302.0", "desc": "3/4 X 1/2", "price": 2473 },
       { "code": "12304.0", "desc": "1 X 3/4", "price": 3273 },
@@ -1338,13 +1338,13 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p91",
+    "id": "p93",
     "title": "ACC.BCE.ROSC.TEE",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.tee",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-roscado/tee-2/",
     "variants": [
       { "code": "12402.0", "desc": "3/4 X 1/2", "price": 3997 },
       { "code": "12403.0", "desc": "1 X 1/2", "price": 6395 },
@@ -1355,13 +1355,13 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p92",
+    "id": "p94",
     "title": "ACC.BCE.ROSC.CODO",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.codo",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-roscado/codo-de-reduccion/",
     "variants": [
       { "code": "12602.0", "desc": "3/4 X 1/2", "price": 3347 },
       { "code": "12604.0", "desc": "1 X 3/4", "price": 7744 },
@@ -1372,26 +1372,26 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p93",
+    "id": "p95",
     "title": "ACC.BCE.ROSC.ROSCA C/T",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.rosca c/t",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-roscado/rosca-con-tuerca-2/",
     "variants": [
       { "code": "12502.0", "desc": "3/4 X 1/2", "price": 1857 },
       { "code": "12504.0", "desc": "1 X 3/4", "price": 2554 }
     ]
   },
   {
-    "id": "p94",
+    "id": "p96",
     "title": "ACC.BCE.ROSC.NIPLE",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.niple",
-    "image": "",
+    "image": "https://www.bing.com/images/search?view=detailV2&ccid=rl1MF80m&id=7FC2DFE4FF0CEC7FB3D065D2DB10EB1E395BE89E&thid=OIP.rl1MF80msz87WRFmhAedSgHaFe&mediaurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.ae5d4c17cd26b33f3b59116684079d4a%3frik%3dnuhbOR7rENvSZQ%26riu%3dhttp%253a%252f%252ficofesa.com%252fsistema%252ffotos%252f2producto17771.jpg%26ehk%3dZYTObPVS7juiloptoia%252bj1TN36wzimoiftamaQEmo18%253d%26risl%3d%26pid%3dImgRaw%26r%3d0&exph=998&expw=1348&q=NIPLE+BRONCE+ALARSA&FORM=IRPRST&ck=3CAF8D2D0065F94F9325EE7ABA614A44&selectedIndex=18&itb=0&ajaxhist=0&ajaxserp=0",
     "variants": [
       { "code": "11302.0", "desc": "5 X 1/2", "price": 2323 },
       { "code": "11402.0", "desc": "8 X 1/2", "price": 3922 },
@@ -1402,13 +1402,13 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p95",
+    "id": "p97",
     "title": "ACC.BCE.ROSC.NIPLE",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.niple",
-    "image": "",
+    "image": "https://www.bing.com/images/search?view=detailV2&ccid=rl1MF80m&id=7FC2DFE4FF0CEC7FB3D065D2DB10EB1E395BE89E&thid=OIP.rl1MF80msz87WRFmhAedSgHaFe&mediaurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.ae5d4c17cd26b33f3b59116684079d4a%3frik%3dnuhbOR7rENvSZQ%26riu%3dhttp%253a%252f%252ficofesa.com%252fsistema%252ffotos%252f2producto17771.jpg%26ehk%3dZYTObPVS7juiloptoia%252bj1TN36wzimoiftamaQEmo18%253d%26risl%3d%26pid%3dImgRaw%26r%3d0&exph=998&expw=1348&q=NIPLE+BRONCE+ALARSA&FORM=IRPRST&ck=3CAF8D2D0065F94F9325EE7ABA614A44&selectedIndex=18&itb=0&ajaxhist=0&ajaxserp=1",
     "variants": [
       { "code": "11303.0", "desc": "5 X 3/4", "price": 3522 },
       { "code": "11403.0", "desc": "8 X 3/4", "price": 4721 },
@@ -1419,13 +1419,13 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p96",
+    "id": "p98",
     "title": "ACC.BCE.ROSC.NIPLES",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
     "searchName": "acc.bce.rosc.niples",
-    "image": "",
+    "image": "https://www.bing.com/images/search?view=detailV2&ccid=rl1MF80m&id=7FC2DFE4FF0CEC7FB3D065D2DB10EB1E395BE89E&thid=OIP.rl1MF80msz87WRFmhAedSgHaFe&mediaurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.ae5d4c17cd26b33f3b59116684079d4a%3frik%3dnuhbOR7rENvSZQ%26riu%3dhttp%253a%252f%252ficofesa.com%252fsistema%252ffotos%252f2producto17771.jpg%26ehk%3dZYTObPVS7juiloptoia%252bj1TN36wzimoiftamaQEmo18%253d%26risl%3d%26pid%3dImgRaw%26r%3d0&exph=998&expw=1348&q=NIPLE+BRONCE+ALARSA&FORM=IRPRST&ck=3CAF8D2D0065F94F9325EE7ABA614A44&selectedIndex=18&itb=0&ajaxhist=0&ajaxserp=2",
     "variants": [
       { "code": "11304.0", "desc": "5 X 1", "price": 4646 },
       { "code": "11404.0", "desc": "8 X 1", "price": 7344 },
@@ -1436,13 +1436,13 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p97",
-    "title": "ACC.BCE.ROSC.NIPLE COM.",
+    "id": "p99",
+    "title": "ACC.BCE.ROSC.NIPLE CON.",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
-    "searchName": "acc.bce.rosc.niple com.",
-    "image": "",
+    "searchName": "acc.bce.rosc.niple con.",
+    "image": "https://alarsa.com.ar/shop/bronce-roscado/niples-conexion/",
     "variants": [
       { "code": "11902.0", "desc": "10 X 1/2", "price": 5271 },
       { "code": "12002.0", "desc": "15 X 1/2", "price": 11041 },
@@ -1450,13 +1450,13 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p98",
-    "title": "ACC.BCE.ROSC.NIPLE COM.",
+    "id": "p100",
+    "title": "ACC.BCE.ROSC.NIPLE CON.",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
-    "searchName": "acc.bce.rosc.niple com.",
-    "image": "",
+    "searchName": "acc.bce.rosc.niple con.",
+    "image": "https://alarsa.com.ar/shop/bronce-roscado/niples-conexion/",
     "variants": [
       { "code": "11903.0", "desc": "10 X 3/4", "price": 7344 },
       { "code": "12003.0", "desc": "15 X 3/4", "price": 18506 },
@@ -1464,13 +1464,13 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p99",
-    "title": "ACC.BCE.ROSC.NIPLE COM.",
+    "id": "p101",
+    "title": "ACC.BCE.ROSC.NIPLE CON.",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "hermagar",
-    "searchName": "acc.bce.rosc.niple com.",
-    "image": "",
+    "searchName": "acc.bce.rosc.niple con.",
+    "image": "https://alarsa.com.ar/shop/bronce-roscado/niples-conexion/",
     "variants": [
       { "code": "11904.0", "desc": "10 X 1", "price": 10068 },
       { "code": "12004.0", "desc": "15 X 1", "price": 23296 },
@@ -1478,78 +1478,78 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p100",
+    "id": "p102",
     "title": "ACC.EST.TEE NORMAL",
     "category": "agua",
     "type": "hidro-bronce",
     "brand": "hermagar",
     "searchName": "acc.est.tee normal",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-estanado/tee-normal/",
     "variants": [
-      { "code": "201.0", "desc": "13.0", "price": 2298 },
-      { "code": "202.0", "desc": "19.0", "price": 3595 },
-      { "code": "203.0", "desc": "25.0", "price": 7691 },
-      { "code": "204.0", "desc": "32.0", "price": 12788 }
+      { "code": "201.0", "desc": "13", "price": 2298 },
+      { "code": "202.0", "desc": "19", "price": 3595 },
+      { "code": "203.0", "desc": "25", "price": 7691 },
+      { "code": "204.0", "desc": "32", "price": 12788 }
     ]
   },
   {
-    "id": "p101",
+    "id": "p103",
     "title": "ACC.EST.CODO NORMAL",
     "category": "agua",
     "type": "hidro-bronce",
     "brand": "hermagar",
     "searchName": "acc.est.codo normal",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-estanado/codo-normal/",
     "variants": [
-      { "code": "101.0", "desc": "13.0", "price": 1503 },
-      { "code": "102.0", "desc": "19.0", "price": 3212 },
-      { "code": "103.0", "desc": "25.0", "price": 6438 },
-      { "code": "104.0", "desc": "32.0", "price": 8398 }
+      { "code": "101.0", "desc": "13", "price": 1503 },
+      { "code": "102.0", "desc": "19", "price": 3212 },
+      { "code": "103.0", "desc": "25", "price": 6438 },
+      { "code": "104.0", "desc": "32", "price": 8398 }
     ]
   },
   {
-    "id": "p102",
+    "id": "p104",
     "title": "ACC.EST.UNION NORMAL",
     "category": "agua",
     "type": "hidro-bronce",
     "brand": "hermagar",
     "searchName": "acc.est.union normal",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-estanado/union-normal/",
     "variants": [
-      { "code": "301.0", "desc": "13.0", "price": 1385 },
-      { "code": "302.0", "desc": "19.0", "price": 2298 },
-      { "code": "303.0", "desc": "25.0", "price": 3595 },
-      { "code": "304.0", "desc": "32.0", "price": 6895 }
+      { "code": "301.0", "desc": "13", "price": 1385 },
+      { "code": "302.0", "desc": "19", "price": 2298 },
+      { "code": "303.0", "desc": "25", "price": 3595 },
+      { "code": "304.0", "desc": "32", "price": 6895 }
     ]
   },
   {
-    "id": "p103",
+    "id": "p105",
     "title": "ACC.EST.TUBO M NORMAL",
     "category": "agua",
     "type": "hidro-bronce",
     "brand": "hermagar",
     "searchName": "acc.est.tubo m normal",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-estanado/tubo-macho-normal/",
     "variants": [
-      { "code": "401.0", "desc": "13.0", "price": 1296 },
-      { "code": "402.0", "desc": "19.0", "price": 2386 },
-      { "code": "403.0", "desc": "25.0", "price": 4685 },
-      { "code": "404.0", "desc": "32.0", "price": 7396 }
+      { "code": "401.0", "desc": "13", "price": 1296 },
+      { "code": "402.0", "desc": "19", "price": 2386 },
+      { "code": "403.0", "desc": "25", "price": 4685 },
+      { "code": "404.0", "desc": "32", "price": 7396 }
     ]
   },
   {
-    "id": "p104",
+    "id": "p106",
     "title": "ACC.EST.TUBO HEM NORMAL",
     "category": "agua",
     "type": "hidro-bronce",
     "brand": "hermagar",
     "searchName": "acc.est.tubo hem normal",
-    "image": "",
+    "image": "https://alarsa.com.ar/shop/bronce-estanado/tubo-hembra-normal/",
     "variants": [
-      { "code": "501.0", "desc": "13.0", "price": 1591 },
-      { "code": "502.0", "desc": "19.0", "price": 2505 },
-      { "code": "503.0", "desc": "25.0", "price": 4892 },
-      { "code": "504.0", "desc": "32.0", "price": 7102 }
+      { "code": "501.0", "desc": "13", "price": 1591 },
+      { "code": "502.0", "desc": "19", "price": 2505 },
+      { "code": "503.0", "desc": "25", "price": 4892 },
+      { "code": "504.0", "desc": "32", "price": 7102 }
     ]
   }
 ];
