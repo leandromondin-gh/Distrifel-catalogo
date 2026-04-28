@@ -1861,6 +1861,9 @@ body.past-hero .catalog-section {
     border-radius: var(--radius-lg);
     padding: var(--space-sm) var(--space-sm) var(--space-sm) var(--space-sm);
     box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 88px;
+    z-index: 50;
 }
 
 /* Search takes all remaining space */
