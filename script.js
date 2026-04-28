@@ -386,6 +386,7 @@ function initAccordion() {
             header.closest('.accordion-section')?.classList.toggle('expanded');
         });
     });
+    ['category', 'type', 'brand'].forEach(t => updateAccordionBadge(t, 'all', ''));
 }
 
 const ACCORDION_DEFAULTS = { category: 'Todas', brand: 'Todas', type: 'Todos' };
@@ -393,10 +394,10 @@ const ACCORDION_DEFAULTS = { category: 'Todas', brand: 'Todas', type: 'Todos' };
 function updateAccordionBadge(filterType, value, label) {
     const badge = document.querySelector(`.accordion-badge[data-section="${filterType}"]`);
     if (!badge) return;
-    badge.textContent = (value === 'all' || !value)
-        ? ACCORDION_DEFAULTS[filterType]
-        : label;
-    badge.classList.add('active');
+    const isDefault = (value === 'all' || !value);
+    badge.textContent = isDefault ? ACCORDION_DEFAULTS[filterType] : label;
+    badge.classList.toggle('is-default', isDefault);
+    badge.classList.toggle('is-active', !isDefault);
 }
 
 /**
