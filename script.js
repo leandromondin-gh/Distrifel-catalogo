@@ -784,17 +784,27 @@ function initCart() {
         qtyControl.className = 'card-qty-control';
         qtyControl.innerHTML = `
             <button type="button" class="card-qty-btn" data-action="dec" aria-label="Reducir cantidad">−</button>
-            <span class="card-qty-value">1</span>
+            <input type="number" class="card-qty-value" inputmode="numeric" min="1" max="999" value="1">
             <button type="button" class="card-qty-btn" data-action="inc" aria-label="Aumentar cantidad">+</button>
         `;
 
         const qtyValue = qtyControl.querySelector('.card-qty-value');
+        // Solo números, mínimo 1
+        qtyValue.addEventListener('input', () => {
+            qtyValue.value = qtyValue.value.replace(/[^\d]/g, '');
+        });
+        qtyValue.addEventListener('blur', () => {
+            const v = parseInt(qtyValue.value) || 1;
+            qtyValue.value = Math.max(1, Math.min(999, v));
+        });
+        qtyValue.addEventListener('click', (e) => e.stopPropagation());
+
         qtyControl.querySelectorAll('.card-qty-btn').forEach(qBtn => {
             qBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                let qty = parseInt(qtyValue.textContent) || 1;
-                qty = qBtn.dataset.action === 'inc' ? Math.min(99, qty + 1) : Math.max(1, qty - 1);
-                qtyValue.textContent = qty;
+                let qty = parseInt(qtyValue.value) || 1;
+                qty = qBtn.dataset.action === 'inc' ? Math.min(999, qty + 1) : Math.max(1, qty - 1);
+                qtyValue.value = qty;
             });
         });
 
@@ -810,9 +820,9 @@ function initCart() {
         `;
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const qty = parseInt(qtyValue.textContent) || 1;
+            const qty = parseInt(qtyValue.value) || 1;
             addToCart(card, btn, qty);
-            qtyValue.textContent = '1';
+            qtyValue.value = '1';
         });
 
         // Wrap price + (qty+btn row) in action panel
@@ -872,11 +882,30 @@ function addToCart(card, btn, qty = 1) {
     const cardKey = (card.dataset.name || name).replace(/\s+/g, '-');
     const itemId = `${cardKey}__${variantText || 'unico'}`;
 
+    // Detectar si este producto+variante tiene una oferta activa
+    const offer = (window.DISTRIFEL_OFFERS || []).find(o =>
+        o.title.toLowerCase().trim() === name.toLowerCase().trim() &&
+        o.variant.toLowerCase().trim() === (variantText || '').toLowerCase().trim()
+    );
+
     const existing = cart.items.find(i => i.id === itemId);
+    let item;
     if (existing) {
         existing.qty += qty;
+        item = existing;
     } else {
-        cart.items.push({ id: itemId, cardKey, name, variant: variantText, price, qty });
+        item = { id: itemId, cardKey, name, variant: variantText, price, qty };
+        cart.items.push(item);
+    }
+
+    // Si hay oferta, agregar metadata y recalcular precio según qty
+    if (offer) {
+        const realFinal = Math.round(offer.originalPrice * (1 - offer.discount / 100));
+        item.isOffer        = true;
+        item.originalPrice  = getDisplayPrice(offer.originalPrice);
+        item.discountedPrice = getDisplayPrice(realFinal);
+        item.boxQty         = offer.boxQty;
+        item.price          = item.qty >= offer.boxQty ? item.discountedPrice : item.originalPrice;
     }
 
     updateCartUI();
@@ -1853,6 +1882,16 @@ function changeItemQty(id, delta) {
     updateCartUI();
 }
 
+function setItemQty(id, qty) {
+    const item = cart.items.find(i => i.id === id);
+    if (!item) return;
+    item.qty = Math.max(1, Math.min(999, qty));
+    if (item.isOffer) {
+        item.price = item.qty >= item.boxQty ? item.discountedPrice : item.originalPrice;
+    }
+    updateCartUI();
+}
+
 function updateCartUI() {
     const itemsList = document.getElementById('cartItemsList');
     const emptyState = document.getElementById('cartEmptyState');
@@ -1901,7 +1940,7 @@ function updateCartUI() {
                 </div>
                 <div class="cart-item-controls">
                     <button class="cart-qty-btn" data-action="dec" data-id="${item.id}" aria-label="Reducir">−</button>
-                    <span class="cart-item-qty">${item.qty}</span>
+                    <input type="number" class="cart-item-qty" inputmode="numeric" min="1" max="999" value="${item.qty}" data-id="${item.id}">
                     <button class="cart-qty-btn" data-action="inc" data-id="${item.id}" aria-label="Aumentar">+</button>
                     <button class="cart-remove-btn" data-id="${item.id}" aria-label="Eliminar">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
@@ -1923,6 +1962,20 @@ function updateCartUI() {
 
         itemsList.querySelectorAll('.cart-remove-btn').forEach(btn => {
             btn.addEventListener('click', () => removeCartItem(btn.dataset.id));
+        });
+
+        // Inputs editables de cantidad: solo dígitos, mínimo 1
+        itemsList.querySelectorAll('.cart-item-qty').forEach(input => {
+            input.addEventListener('input', () => {
+                input.value = input.value.replace(/[^\d]/g, '');
+            });
+            input.addEventListener('blur', () => {
+                const v = parseInt(input.value) || 1;
+                setItemQty(input.dataset.id, v);
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') input.blur();
+            });
         });
 
         // Attach swipe-to-delete for touch devices
