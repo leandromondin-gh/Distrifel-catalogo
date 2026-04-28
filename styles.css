@@ -1409,8 +1409,9 @@ body.past-hero .catalog-section {
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
     position: sticky;
-    top: 92px;
-    max-height: calc(100vh - 112px);
+    top: 164px;
+    margin-top: 76px;
+    max-height: calc(100vh - 184px);
     display: flex;
     flex-direction: column;
     overflow: hidden;
