@@ -1554,11 +1554,26 @@ window.DISTRIFEL_PRODUCTS = [
   }
 ];
 
-// Markup aplicado a todos los precios para visitantes sin descuento
-window.PRICE_MARKUP = 1.20;
+// ─────────────────────────────────────────────────────────────────
+// SISTEMA DE CLIENTE PREMIUM (DESACTIVADO HASTA V2 CON LOGIN)
+//
+// Cuando se reactive: cambiar PRICE_MARKUP a 1.20 y poblar DISCOUNT_CLIENTS
+// con la lista de clientes con precio especial. Toda la UI (badge -20% en
+// navbar, banner "Cliente Premium" en carrito, refresh dinámico de precios)
+// queda funcionando intacta — solo desactivamos el efecto.
+//
+// Ver DECISIONES.md punto 1 y 2 para detalles.
+// ─────────────────────────────────────────────────────────────────
 
-// Clientes que ven el precio real (sin markup) — case-insensitive
-window.DISCOUNT_CLIENTS = ['lucas', 'petra', 'lean', 'monzo'];
+// Markup aplicado a todos los precios — 1.0 = sin markup (precios reales)
+window.PRICE_MARKUP = 1.0;
+
+// Lista vacía → ningún cliente activa el modo premium en v1
+window.DISCOUNT_CLIENTS = [];
+
+// Para reactivar en v2:
+// window.PRICE_MARKUP = 1.20;
+// window.DISCOUNT_CLIENTS = ['lucas', 'petra', 'lean', 'monzo'];
 
 window.DISTRIFEL_OFFERS = [
   {

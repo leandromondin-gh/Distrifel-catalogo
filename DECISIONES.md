@@ -4,32 +4,36 @@ Registro de decisiones de negocio y técnicas. Cada entrada explica **qué** se 
 
 ---
 
-## 1. Precios con markup del 20%
+## 1. Precios con markup del 20% — DESACTIVADO en v1, listo para v2
 
-**Decisión:** Todos los precios del catálogo se muestran con un 20% de incremento sobre el precio real.
+**Estado actual:** Desactivado. `PRICE_MARKUP = 1.0` y `DISCOUNT_CLIENTS = []` en `products.js`.
 
-**Por qué:** La competencia puede acceder a la página y ver los precios. Al mostrar precios inflados, se protege el margen real de Distrifel.
+**Decisión original:** Todos los precios del catálogo se muestran con un 20% de incremento sobre el precio real, para proteger el margen frente a la competencia que pueda ver la página pública.
 
-**Cómo funciona:**
-- `products.js` contiene los precios reales.
-- Al renderizar las cards, se multiplica por `PRICE_MARKUP` (1.20).
-- Los clientes de la lista de descuento ven el precio real (el markup se anula).
+**Por qué se desactivó:** La feature requiere autenticación robusta para diferenciar cliente real de visitante. Sin login, cualquiera podría escribir un nombre de la lista y ver precios reales. Se difiere a v2.
 
-**Dónde está:** `script.js` → constante `PRICE_MARKUP` y función `applyClientDiscount()`.
+**Toda la lógica queda intacta:**
+- Funciones `getDisplayPrice()`, `checkClientDiscount()`, `refreshAllPrices()` en `script.js`
+- Badge "-20%" en el navbar al activar cliente premium
+- Banner verde "Cliente Premium" en el carrito
+- Recálculo dinámico de precios al cambiar de cliente
+
+**Cómo reactivar en v2:**
+1. En `products.js`: cambiar `PRICE_MARKUP = 1.20` y poblar `DISCOUNT_CLIENTS` con nombres reales (case-insensitive).
+2. Implementar login con email + JWT (eliminar el popup de corredor por nombre).
+3. Cambiar `checkClientDiscount()` para validar contra el usuario autenticado, no contra el nombre escrito.
 
 ---
 
-## 2. Descuento por cliente (lista fija, sin login)
+## 2. Descuento por cliente (lista fija, sin login) — DESACTIVADO en v1
 
-**Decisión:** Clientes con descuento se identifican solo por nombre en el popup de corredor. No hay login ni contraseña en v1.
+**Estado actual:** Lista vacía. Toda la UI funciona pero no se activa con ningún cliente.
 
-**Por qué:** Simplicidad para v1. El corredor carga el nombre del cliente al inicio de la sesión. Si el nombre está en la lista, los precios se muestran sin el markup.
+**Decisión futura (v2):** Cliente identificado por login con email. Si está en la lista de clientes premium, ve precios reales sin el markup del 20%.
 
-**Lista de clientes con descuento:** definida en `products.js` → `DISCOUNT_CLIENTS` (array de nombres, case-insensitive).
+**Por qué se difirió:** Sin autenticación, no hay forma de impedir que la competencia vea los precios reales escribiendo un nombre conocido.
 
-**Descuento aplicado:** -20% sobre el precio mostrado (equivale al precio real).
-
-**Evolución futura:** Reemplazar por login con email + JWT para que cada cliente acceda desde su dispositivo sin corredor.
+**Evolución:** v2 con login → cada cliente accede desde su dispositivo, sin corredor intermedio.
 
 ---
 
