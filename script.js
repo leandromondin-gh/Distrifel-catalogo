@@ -1760,6 +1760,11 @@ function initOffersModal() {
     prevBtn?.addEventListener('click', () => { goTo(current - 1); stopAutoplay(); });
     nextBtn?.addEventListener('click', () => { goTo(current + 1); stopAutoplay(); });
     dotsWrap.addEventListener('click', e => { if (e.target.closest('.offers-dot')) stopAutoplay(); });
+
+    // Pausar autoplay con cualquier interacción dentro del carousel
+    carousel.addEventListener('click', stopAutoplay);
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('touchstart', stopAutoplay, { passive: true });
     dotsWrap.addEventListener('click', e => {
         const dot = e.target.closest('.offers-dot');
         if (dot) goTo(parseInt(dot.dataset.i));
