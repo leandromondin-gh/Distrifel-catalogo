@@ -30,8 +30,48 @@ document.addEventListener('DOMContentLoaded', () => {
     initOfflineDetection();
     initBrandCarousel();
     initOffersModal();
+    initDownloads();
     registerServiceWorker();
 });
+
+function initDownloads() {
+    const excelBtn = document.getElementById('downloadExcel');
+    const pdfBtn   = document.getElementById('downloadPdf');
+
+    excelBtn?.addEventListener('click', () => {
+        const products = window.DISTRIFEL_PRODUCTS || [];
+        const rows = [['Código', 'Producto', 'Categoría', 'Tipo', 'Marca', 'Variante', 'Precio']];
+        products.forEach(p => {
+            (p.variants || []).forEach(v => {
+                rows.push([
+                    v.code || '',
+                    p.title || '',
+                    p.category || '',
+                    p.type || '',
+                    p.brand || '',
+                    v.desc || '',
+                    v.price || 0
+                ]);
+            });
+        });
+        const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')).join('\n');
+        const bom = '﻿';  // UTF-8 BOM para que Excel reconozca acentos
+        const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8' });
+        const url  = URL.createObjectURL(blob);
+        const a    = document.createElement('a');
+        const date = new Date().toISOString().slice(0, 10);
+        a.href = url;
+        a.download = `Distrifel-Lista-${date}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+
+    pdfBtn?.addEventListener('click', () => {
+        alert('Próximamente — la descarga en PDF estará disponible en una próxima actualización.');
+    });
+}
 
 // State
 const state = {

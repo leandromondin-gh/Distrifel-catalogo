@@ -1502,6 +1502,59 @@ body.past-hero .catalog-section {
     overscroll-behavior: contain;
 }
 
+/* Descargar lista (footer del sidebar) */
+.sidebar-downloads {
+    flex-shrink: 0;
+    margin-top: 28px;
+    padding: 18px 16px 18px;
+    border-top: 1px solid var(--color-gray-200);
+    background: var(--color-gray-50);
+}
+.sidebar-downloads-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gray-600);
+    margin-bottom: 12px;
+}
+.sidebar-downloads-title svg { stroke: var(--color-gray-500); }
+.sidebar-downloads-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+.sidebar-download-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 8px;
+    background: white;
+    border: 1.5px solid var(--color-gray-200);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-gray-700);
+}
+.sidebar-download-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+.sidebar-download-btn--excel { color: #16a34a; }
+.sidebar-download-btn--excel:hover { border-color: #16a34a; background: #f0fdf4; }
+.sidebar-download-btn--excel svg { stroke: #16a34a; }
+.sidebar-download-btn--pdf { color: #dc2626; }
+.sidebar-download-btn--pdf:hover { border-color: #dc2626; background: #fef2f2; }
+.sidebar-download-btn--pdf svg { stroke: #dc2626; }
+
 /* ========================================
    ACCORDION SIDEBAR
    ======================================== */
