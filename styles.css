@@ -3110,6 +3110,52 @@ body.past-hero .catalog-section {
     box-shadow: 0 4px 12px rgba(108, 203, 183, 0.3);
 }
 
+.card-variant.out-of-stock {
+    color: var(--color-gray-400);
+    background: var(--color-gray-100);
+    text-decoration: line-through;
+    border-color: var(--color-gray-200);
+}
+
+.card-variant.out-of-stock.selected {
+    background: var(--color-gray-200);
+    color: var(--color-gray-500);
+    border-color: var(--color-gray-300);
+    box-shadow: none;
+}
+
+.card-variant.out-of-stock:hover {
+    background: var(--color-gray-100);
+    border-color: var(--color-gray-200);
+}
+
+.price-no-stock {
+    font-family: var(--font-brand);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-gray-400);
+    letter-spacing: 0.02em;
+}
+
+.product-card-v2[data-out-of-stock="true"] .card-image,
+.product-card-v2[data-current-oos="true"] .card-image {
+    opacity: 0.55;
+}
+
+.product-card-v2[data-out-of-stock="true"] .btn-add-cart,
+.product-card-v2[data-current-oos="true"] .btn-add-cart {
+    opacity: 0.45;
+    pointer-events: none;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+}
+
+.product-card-v2[data-out-of-stock="true"] .card-qty-control,
+.product-card-v2[data-current-oos="true"] .card-qty-control {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 .card-price {
     padding-top: var(--space-sm);
     border-top: 1px solid rgba(108, 203, 183, 0.2);

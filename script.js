@@ -476,28 +476,41 @@ function initVariantSelection() {
         variant.addEventListener('click', () => {
             const card = variant.closest('.product-card, .product-card-v2');
             const variantsContainer = variant.closest('.product-variants, .card-variants');
-            const priceElement = card.querySelector('.price-value');
+            const priceContainer = card.querySelector('.card-price');
             const price = variant.dataset.price;
-            
+            const rawPrice = parseInt(price) || 0;
+
             // Remove selected from siblings
             variantsContainer.querySelectorAll('.variant, .card-variant').forEach(v => {
                 v.classList.remove('selected');
             });
-            
+
             // Add selected to clicked
             variant.classList.add('selected');
-            
-            // Update price with animation
-            const rawPrice = parseInt(price);
-            priceElement.dataset.rawPrice = rawPrice;
-            priceElement.style.transform = 'scale(1.1)';
-            priceElement.style.color = '#5ab8a5';
-            priceElement.textContent = formatPrice(getDisplayPrice(rawPrice));
-            
-            setTimeout(() => {
-                priceElement.style.transform = 'scale(1)';
-                priceElement.style.color = '';
-            }, 200);
+
+            if (!rawPrice) {
+                // Variante sin stock
+                if (priceContainer) priceContainer.innerHTML = '<span class="price-no-stock">Sin stock</span>';
+                card.dataset.currentOos = 'true';
+            } else {
+                // Variante con precio: rebuild si hace falta
+                let priceElement = card.querySelector('.price-value');
+                if (!priceElement && priceContainer) {
+                    priceContainer.innerHTML = `<span class="price-value" data-raw-price="${rawPrice}">${formatPrice(getDisplayPrice(rawPrice))}</span>`;
+                    priceElement = priceContainer.querySelector('.price-value');
+                }
+                if (priceElement) {
+                    priceElement.dataset.rawPrice = rawPrice;
+                    priceElement.style.transform = 'scale(1.1)';
+                    priceElement.style.color = '#5ab8a5';
+                    priceElement.textContent = formatPrice(getDisplayPrice(rawPrice));
+                    setTimeout(() => {
+                        priceElement.style.transform = 'scale(1)';
+                        priceElement.style.color = '';
+                    }, 200);
+                }
+                delete card.dataset.currentOos;
+            }
         });
     });
     
@@ -913,6 +926,8 @@ function initCart() {
 }
 
 function addToCart(card, btn, qty = 1) {
+    if (card.dataset.outOfStock === 'true' || card.dataset.currentOos === 'true') return;
+
     const name = card.querySelector('.card-title')?.textContent.trim() || 'Producto';
     const selectedVariant = card.querySelector('.card-variant.selected');
     const priceEl = card.querySelector('.price-value');
@@ -920,6 +935,7 @@ function addToCart(card, btn, qty = 1) {
     const variantText = selectedVariant ? selectedVariant.textContent.trim() : null;
     const priceStr = priceEl ? priceEl.textContent : '0';
     const price = parseInt(priceStr.replace(/[^\d]/g, '')) || 0;
+    if (!price) return;
 
     const cardKey = (card.dataset.name || name).replace(/\s+/g, '-');
     const itemId = `${cardKey}__${variantText || 'unico'}`;
@@ -1368,7 +1384,8 @@ const BRAND_NAMES = {
     alarsa: 'Alarsa', latyn: 'Latynflex', canplast: 'Canplast',
     salustri: 'Salustri', paz: 'PAZ', duke: 'Duke', tcoat: 'T-Coat',
     covertex: 'Covertex', aislatech: 'Aislatech', cirino: 'Cirino',
-    espumafoam: 'Espuma Foam', smartfix: 'Smart-Fix'
+    espumafoam: 'Espuma Foam', smartfix: 'Smart-Fix',
+    hermagar: 'Hermagar', valforte: 'Valforte', flotamil: 'Flotamil'
 };
 
 const CATEGORY_LABELS = {
@@ -1400,6 +1417,7 @@ const TYPE_LABELS = {
     pilar:         'Pilar',
     reja:          'Reja',
     sopapa:        'Sopapa',
+    'soda-caustica': 'Soda Cáustica',
     tapa:          'Tapa',
     terraja:       'Terraja',
     tubo:          'Tubo',
@@ -1479,14 +1497,20 @@ function renderProducts() {
 
         // Mostrar todas las variantes (sin truncar con "···")
         let variantsHtml = '';
-        if (p.variants.length > 1) {
+        const hasVariantLabels = p.variants.some(v => v.desc);
+        if (p.variants.length >= 1 && hasVariantLabels) {
             const vItems = p.variants.map((v, idx) => {
                 const label = v.desc || v.code || 'Único';
-                return `<span class="card-variant${idx === 0 ? ' selected' : ''}" data-price="${v.price || 0}" data-code="${escapeHtml(v.code)}">${escapeHtml(label)}</span>`;
+                const oos = !v.price ? ' out-of-stock' : '';
+                return `<span class="card-variant${idx === 0 ? ' selected' : ''}${oos}" data-price="${v.price || 0}" data-code="${escapeHtml(v.code)}">${escapeHtml(label)}</span>`;
             }).join('');
 
             variantsHtml = `<div class="card-variants">${vItems}</div>`;
         }
+
+        const firstOutOfStock = !firstPrice;
+        const allOutOfStock = !prices.length;
+        if (allOutOfStock) card.dataset.outOfStock = 'true';
 
         // Image
         const imgSrc = p.image || placeholderImg(p.title);
@@ -1517,8 +1541,10 @@ function renderProducts() {
                 <h3 class="card-title">${escapeHtml(p.title)}</h3>
                 ${variantsHtml}
                 <div class="card-price">
-                    ${showDesde ? '<span class="price-from">desde</span>' : ''}
-                    <span class="price-value" data-raw-price="${firstPrice}">${formatPrice(getDisplayPrice(firstPrice))}</span>
+                    ${firstOutOfStock
+                        ? '<span class="price-no-stock">Sin stock</span>'
+                        : `${showDesde ? '<span class="price-from">desde</span>' : ''}<span class="price-value" data-raw-price="${firstPrice}">${formatPrice(getDisplayPrice(firstPrice))}</span>`
+                    }
                 </div>
             </div>
         `;
