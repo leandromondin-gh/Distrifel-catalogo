@@ -889,9 +889,9 @@ body.past-hero .nav-home-btn:hover {
     /* Carousel sin padding lateral en mobile */
     .offers-carousel-wrap { padding: 0; }
 
-    /* Banner: imagen más baja + overlay pasa a flujo normal */
+    /* Banner: imagen un poco más alta + overlay pasa a flujo normal */
     .offer-slide-banner-wrap { min-height: auto; }
-    .offer-slide-banner { max-height: 160px; min-height: 0; }
+    .offer-slide-banner { max-height: 200px; min-height: 0; }
 
     .offer-slide-banner-overlay {
         position: static;
