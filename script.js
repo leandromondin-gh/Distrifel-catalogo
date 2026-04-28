@@ -254,6 +254,8 @@ function initFilters() {
             option.classList.add('active');
             updateAccordionBadge(filterType, value, option.dataset.label || option.textContent.trim());
             filterProducts();
+            // Replegar acordeón después de seleccionar
+            option.closest('.accordion-section')?.classList.remove('expanded');
         });
     });
 
@@ -1084,6 +1086,8 @@ function initCategoryChips() {
             const label = chip.querySelector('span:last-child')?.textContent.trim() || '';
             setCategory(category);
             updateAccordionBadge('category', category, label);
+            // Replegar acordeón después de seleccionar
+            chip.closest('.accordion-section')?.classList.remove('expanded');
         });
     });
 }
@@ -1389,6 +1393,8 @@ function buildTypeFilter(category) {
             state.filters.type = opt.dataset.value;
             updateAccordionBadge('type', opt.dataset.value, opt.dataset.label || opt.textContent.trim());
             filterProducts();
+            // Replegar acordeón después de seleccionar
+            opt.closest('.accordion-section')?.classList.remove('expanded');
         });
     });
 
