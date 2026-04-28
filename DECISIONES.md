@@ -126,9 +126,48 @@ Registro de decisiones de negocio y técnicas. Cada entrada explica **qué** se 
 
 ---
 
-## Pendientes / Próximas decisiones
+## 10. Variantes sin precio → "Sin stock"
 
+**Decisión:** Si una variante (o producto entero) no tiene precio en el Excel (`-` o vacío), la UI muestra "Sin stock" en gris en vez de `$0`, y deshabilita el botón Agregar. El chip de la variante se muestra tachado y gris.
+
+**Por qué:** Los productos con marca nueva (FLOTAMIL, etc.) entran al sistema antes de que se definan precios. Mostrar `$0` confundía al corredor; tampoco queremos sacarlos del catálogo porque ya están listos para activar cuando el precio llegue.
+
+**Cómo se activa:** Automático desde `products.js` — `price: 0` en una variante → chip `out-of-stock`. Si TODAS las variantes son 0 → `data-out-of-stock="true"` en la card.
+
+---
+
+## 11. Toggle de sidebar en desktop (no en mobile)
+
+**Decisión:** El botón "Filtros" del toolbar superior funciona como toggle de la sidebar en desktop ("Ocultar filtros" / "Mostrar filtros" con chevron rotando). En mobile abre el drawer normal.
+
+**Por qué:** En desktop la sidebar está siempre visible y el botón "Filtros" del toolbar quedaba redundante. Convertirlo en toggle le da control al corredor sobre el ancho del catálogo (especialmente útil en pantallas chicas o cuando ya filtró y quiere ver más cards).
+
+**Por qué no eliminarlo:** Lo intentamos antes (commit revertido `4599d18`). El usuario quiso dejarlo accesible y darle función real, no quitarlo.
+
+---
+
+## 12. Filtros: labels izquierda, badges derecha, badge default neutral
+
+**Decisión:** En la sidebar de filtros, los labels (CATEGORÍA / TIPO / MARCA) se alinean al borde izquierdo y los badges con el valor activo se alinean al borde derecho. Cuando el filtro está en su estado default ("Todas" / "Todos"), el badge se muestra en gris claro neutro. Solo se vuelve verde cuando hay una selección particular.
+
+**Por qué:** Patrón "settings list" — el ojo barre rápido y agrupa por columnas. El verde como acento solo cuando comunica algo (hay un filtro activo); cuando todo es default, el ojo descansa.
+
+---
+
+## 13. Sidebar arranca a la altura de la primera card + barra búsqueda sticky
+
+**Decisión:** La sidebar de filtros arranca verticalmente alineada con la primera card (no pegada al navbar). La barra de búsqueda y filtros queda sticky debajo del navbar al hacer scroll.
+
+**Por qué:** Crea una grilla más limpia. El toolbar de búsqueda es su propia fila superior que siempre está accesible, y debajo arrancan en paralelo sidebar y cards.
+
+---
+
+## Pendientes / Próximas decisiones (v2)
+
+- [ ] **Login por email + JWT** — clientes acceden desde su dispositivo, sin corredor intermedio
+- [ ] **Reactivar markup 20%** + descuentos por cliente premium (DECISIONES #1, #2)
+- [ ] **Niveles de descuento por cliente** (A/B/C según acuerdo comercial)
 - [ ] **Filtros con subcategorías desplegables** (ej: Flexibles → Mallado / Cobre / Extensibles)
-- [ ] **Descarga de lista en Excel y PDF**
-- [ ] **Login por email** para que clientes accedan desde su dispositivo sin corredor
-- [ ] **Precios por nivel de cliente** (descuento A, B, C según acuerdo comercial)
+- [ ] **Descarga de lista en PDF** (hoy es solo placeholder; CSV/Excel ya funciona)
+- [ ] **Marca "Genérico"** para los 17 productos sin marca asignada (decidir si mostrar como text-tile en filtro)
+- [ ] **Productos duplicados** — algunos títulos aparecen 2-3 veces en el catálogo porque tienen fotos distintas (ver `Reguladores Gas natural`, `ACC.BCE.ROSC.NIPLE CON.`). Decidir si fusionar o dejar.
