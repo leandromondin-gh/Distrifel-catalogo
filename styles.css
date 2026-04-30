@@ -1771,6 +1771,18 @@ body.past-hero .catalog-section {
     display: block;
 }
 
+.filter-sidebar .filter-option--logo[data-value="latynfusion"] img,
+.filter-sidebar .filter-option--logo[data-value="paz"] img,
+.filter-sidebar .filter-option--logo[data-value="smartfix"] img {
+    transform: scale(1.8);
+}
+
+.brand-btn[data-brand="latynfusion"] img,
+.brand-btn[data-brand="smartfix"] img,
+.brand-btn[data-brand="paz"] img {
+    transform: scale(1.4);
+}
+
 .filter-sidebar .filter-option--logo:hover {
     border-color: var(--color-primary-accent);
     background: rgba(108, 203, 183, 0.06);

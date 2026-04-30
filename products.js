@@ -690,7 +690,7 @@ window.DISTRIFEL_PRODUCTS = [
     "title": "Canilla Esfericas mariposa Laton",
     "category": "agua",
     "type": "canilla",
-    "brand": "latyn",
+    "brand": "valforte",
     "searchName": "canilla esfericas mariposa laton",
     "image": "https://sanitariosgaona.com.ar/wp-content/uploads/2022/07/Latyn20-20Canilla20esferica20mariposa20LT-M.jpg",
     "variants": [

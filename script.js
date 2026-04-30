@@ -1386,16 +1386,19 @@ function initOfflineDetection() {
    ============================================================ */
 
 const BRAND_LOGOS = {
-    alarsa:     'Brands-icons/alarsa.png',
-    latyn:      'Brands-icons/latyn-flex.png',
-    paz:        'Brands-icons/paz.png',
-    duke:       'Brands-icons/duke.png',
-    canplast:   'Brands-icons/canplast.png',
-    aislatech:  'Brands-icons/aislatech.jpg',
-    covertex:   'Brands-icons/covertex.png',
-    salustri:   'Brands-icons/salustri.png',
-    smartfix:   'Brands-icons/smartfix.webp',
-    tcoat:      'Brands-icons/t-coat.png'
+    alarsa:      'Brands-icons/alarsa.png',
+    latyn:       'Brands-icons/latyn-flex.png',
+    paz:         'Brands-icons/paz.png',
+    duke:        'Brands-icons/duke.png',
+    canplast:    'Brands-icons/canplast.png',
+    aislatech:   'Brands-icons/aislatech.jpg',
+    covertex:    'Brands-icons/covertex.png',
+    salustri:    'Brands-icons/salustri.png',
+    smartfix:    'Brands-icons/smartfix.webp',
+    tcoat:       'Brands-icons/t-coat.png',
+    valforte:    'https://tse4.mm.bing.net/th/id/OIP.WDmF9eK23dfuUkcHS1OX6gHaCI?rs=1&pid=ImgDetMain&o=7&rm=3',
+    latynfusion: 'Brands-icons/latyn-fusion.png',
+    sanogas:     'https://www.balbico.com.ar/wp-content/uploads/2021/04/682560_1.jpg'
 };
 
 const BRAND_NAMES = {
@@ -1403,7 +1406,8 @@ const BRAND_NAMES = {
     salustri: 'Salustri', paz: 'PAZ', duke: 'Duke', tcoat: 'T-Coat',
     covertex: 'Covertex', aislatech: 'Aislatech', cirino: 'Cirino',
     espumafoam: 'Espuma Foam', smartfix: 'Smart-Fix',
-    hermagar: 'Hermagar', valforte: 'Valforte', flotamil: 'Flotamil'
+    hermagar: 'Hermagar', valforte: 'Valforte', flotamil: 'Flotamil',
+    latynfusion: 'Latyn Fusion', sanogas: 'Sanogas'
 };
 
 const CATEGORY_LABELS = {
