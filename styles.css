@@ -3143,6 +3143,25 @@ body.past-hero .catalog-section {
     box-shadow: 0 4px 12px rgba(108, 203, 183, 0.3);
 }
 
+.card-variant.in-cart-variant {
+    border-color: var(--color-dark);
+    color: var(--color-dark);
+    font-weight: 700;
+    background: white;
+}
+
+.card-variant.in-cart-variant::after {
+    content: ' ✓';
+    font-size: 0.65rem;
+}
+
+.card-variant.selected.in-cart-variant {
+    background: var(--color-dark);
+    color: white;
+    border-color: var(--color-dark);
+    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.2);
+}
+
 .card-variant.out-of-stock {
     color: var(--color-gray-400);
     background: var(--color-gray-100);
@@ -3160,6 +3179,19 @@ body.past-hero .catalog-section {
 .card-variant.out-of-stock:hover {
     background: var(--color-gray-100);
     border-color: var(--color-gray-200);
+}
+
+.card-iva-badge {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 2px 7px;
+    background: rgba(251, 191, 36, 0.15);
+    color: #92690a;
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    border-radius: var(--radius-full);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
 }
 
 .price-no-stock {
@@ -4157,24 +4189,48 @@ body.past-hero .catalog-section {
     flex-shrink: 0;
 }
 
+.cart-totals-breakdown {
+    margin-bottom: var(--space-sm);
+}
+
 .cart-total-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--space-sm);
-    padding-bottom: var(--space-sm);
+    padding: 4px 0;
+}
+
+.cart-iva-row {
     border-bottom: 1px solid var(--color-gray-200);
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+}
+
+.cart-total-final-row {
+    padding-top: 4px;
 }
 
 .cart-total-label {
-    font-size: 0.9rem;
-    color: var(--color-gray-600);
+    font-size: 0.85rem;
+    color: var(--color-gray-500);
     font-weight: 500;
+}
+
+.cart-total-final-row .cart-total-label {
+    font-size: 0.95rem;
+    color: var(--color-gray-700);
+    font-weight: 700;
 }
 
 .cart-total-value {
     font-family: var(--font-brand);
-    font-size: 1.6rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-gray-700);
+}
+
+.cart-total-final-row .cart-total-value {
+    font-size: 1.5rem;
     font-weight: 800;
     color: var(--color-secondary-dark);
 }
@@ -4203,6 +4259,7 @@ body.past-hero .catalog-section {
     transform: translateY(-1px);
     box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
 }
+
 
 .cart-whatsapp-btn svg {
     fill: white;

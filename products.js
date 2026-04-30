@@ -1,4 +1,4 @@
-// Generado desde "Lista de precios-5.xlsx" — Version-Final
+// Generado desde "Lista de precios-6.xlsx" — Version-Final
 // Para actualizar: editar el Excel y correr el script de conversión
 window.DISTRIFEL_PRODUCTS = [
   {
@@ -22,7 +22,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p2",
     "title": "Flexible de agua cobre x 3/4",
     "category": "agua",
-    "type": "otros",
+    "type": "flexible",
     "brand": "alarsa",
     "searchName": "flexible de agua cobre x 3/4",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/flexible-agua-demedio.jpg",
@@ -39,7 +39,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p3",
     "title": "Flexible de agua mallado x 1/2",
     "category": "agua",
-    "type": "otros",
+    "type": "flexible",
     "brand": "",
     "searchName": "flexible de agua mallado x 1/2",
     "image": "https://dcdn.mitiendanube.com/stores/004/548/084/products/flexible-de-agua-117e00a18120e7919e17135389237592-1024-1024.jpg",
@@ -56,7 +56,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p4",
     "title": "Flexible de agua mallado x 3/4",
     "category": "agua",
-    "type": "otros",
+    "type": "flexible",
     "brand": "",
     "searchName": "flexible de agua mallado x 3/4",
     "image": "https://dcdn.mitiendanube.com/stores/004/548/084/products/flexible-de-agua-117e00a18120e7919e17135389237592-1024-1024.jpg",
@@ -73,7 +73,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p5",
     "title": "Flexible de agua Monocomando Hembra",
     "category": "agua",
-    "type": "otros",
+    "type": "flexible",
     "brand": "",
     "searchName": "flexible de agua monocomando hembra",
     "image": "https://tse3.mm.bing.net/th/id/OIP.-caymom_4d8m5eloCXb7xgHaHv?rs=1&pid=ImgDetMain&o=7&rm=3",
@@ -86,7 +86,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p6",
     "title": "Flexible de agua Lluvia bidet",
     "category": "agua",
-    "type": "otros",
+    "type": "flexible",
     "brand": "",
     "searchName": "flexible de agua lluvia bidet",
     "image": "https://tse2.mm.bing.net/th/id/OIP.vMfVdi8Ey12S1-6Tkn9hTwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
@@ -99,7 +99,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p7",
     "title": "Flexible de gas Aprobado Extensibles x 1/2",
     "category": "gas",
-    "type": "otros",
+    "type": "flexible",
     "brand": "alarsa",
     "searchName": "flexible de gas aprobado extensibles x 1/2",
     "image": "https://sanitarioslarralde.com.ar/wp-content/uploads/2024/05/flexible-gas-aprobado-12x30-cm-dinatecnica.jpg",
@@ -112,7 +112,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p8",
     "title": "Flexible de gas Aprobado Extensibles x 3/4",
     "category": "gas",
-    "type": "otros",
+    "type": "flexible",
     "brand": "alarsa",
     "searchName": "flexible de gas aprobado extensibles x 3/4",
     "image": "https://sanitarioslarralde.com.ar/wp-content/uploads/2024/05/flexible-gas-aprobado-12x30-cm-dinatecnica.jpg",
@@ -125,7 +125,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p9",
     "title": "Flexible de gas Aprobado No extensibles x 1/2",
     "category": "gas",
-    "type": "otros",
+    "type": "flexible",
     "brand": "alarsa",
     "searchName": "flexible de gas aprobado no extensibles x 1/2",
     "image": "https://sanitarioslarralde.com.ar/wp-content/uploads/2024/05/flexible-gas-aprobado-12x30-cm-dinatecnica.jpg",
@@ -139,7 +139,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p10",
     "title": "Flexible de gas Aprobado No extensibles x 3/4",
     "category": "gas",
-    "type": "otros",
+    "type": "flexible",
     "brand": "alarsa",
     "searchName": "flexible de gas aprobado no extensibles x 3/4",
     "image": "https://sanitarioslarralde.com.ar/wp-content/uploads/2024/05/flexible-gas-aprobado-12x30-cm-dinatecnica.jpg",
@@ -153,7 +153,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p11",
     "title": "Flexible de gas Aprobado Medidor Con pilar",
     "category": "gas",
-    "type": "otros",
+    "type": "flexible",
     "brand": "alarsa",
     "searchName": "flexible de gas aprobado medidor con pilar",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/flexible-con-pilar.jpg",
@@ -166,7 +166,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p12",
     "title": "Flexible de gas No aprobado x 1/2",
     "category": "gas",
-    "type": "otros",
+    "type": "flexible",
     "brand": "",
     "searchName": "flexible de gas no aprobado x 1/2",
     "image": "https://tse3.mm.bing.net/th/id/OIP.4YwDrx-gPxAUIpJ0eL7BhgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
@@ -203,6 +203,7 @@ window.DISTRIFEL_PRODUCTS = [
     "category": "gas",
     "type": "regulador",
     "brand": "canplast",
+    "iva": 10.5,
     "searchName": "reguladores gas natural",
     "image": "https://www.canplast.com.ar/img/9PL-B.jpg",
     "variants": [
@@ -216,8 +217,9 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p15",
     "title": "Reguladores Gas natural",
     "category": "gas",
-    "type": "otros",
+    "type": "regulador",
     "brand": "salustri",
+    "iva": 10.5,
     "searchName": "reguladores gas natural",
     "image": "https://salustri.com.ar/wp-content/uploads/2025/11/Regulador-SALUSTRI-G-40-1080-x-1080.jpg",
     "variants": [
@@ -236,7 +238,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p16",
     "title": "Reguladores Gas natural",
     "category": "gas",
-    "type": "otros",
+    "type": "regulador",
     "brand": "paz",
     "searchName": "reguladores gas natural",
     "image": "https://th.bing.com/th/id/R.cb72be6d3a94c06e1f3a8482c12ef52a?rik=Phm8V%2fzY6ZkBVA&riu=http%3a%2f%2fdcdn.mitiendanube.com%2fstores%2f002%2f111%2f248%2fproducts%2f14_8001-d4c7dc62d4d8336d2216684264575220-640-0.jpg&ehk=IzDTOO5cKkF9oC46TimztB9ZKk6%2bLInWOMxugjOVveI%3d&risl=&pid=ImgRaw&r=0",
@@ -252,7 +254,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p17",
     "title": "Reguladores Gas natural",
     "category": "gas",
-    "type": "otros",
+    "type": "regulador",
     "brand": "paz",
     "searchName": "reguladores gas natural",
     "image": "https://http2.mlstatic.com/D_NQ_NP_845923-MLA53220335146_012023-O.webp",
@@ -270,7 +272,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "reguladores gas envasado",
     "image": "https://inyect-gas.com.ar/wp-content/uploads/2024/09/AV-2375.jpg",
     "variants": [
-      { "code": "26.0", "desc": "1 Flex.", "price": 40800 }
+      { "code": "26.0", "desc": "1 Flexible", "price": 40800 }
     ]
   },
   {
@@ -282,14 +284,14 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "reguladores gas envasado",
     "image": "https://http2.mlstatic.com/D_NQ_NP_658751-MLA47668358095_092021-O.webp",
     "variants": [
-      { "code": "25.0", "desc": "2 Flex.", "price": 64750 }
+      { "code": "25.0", "desc": "2 Flexibles", "price": 64750 }
     ]
   },
   {
     "id": "p20",
     "title": "Regulador garrafa con manguera",
     "category": "gas",
-    "type": "otros",
+    "type": "regulador",
     "brand": "paz",
     "searchName": "regulador garrafa con manguera",
     "image": "https://tse3.mm.bing.net/th/id/OIP.67SKg8A2QQYF2fcoTO9T8QHaG1?rs=1&pid=ImgDetMain&o=7&rm=3",
@@ -303,7 +305,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p21",
     "title": "Regulador cabezal Garrafa",
     "category": "gas",
-    "type": "otros",
+    "type": "regulador",
     "brand": "paz",
     "searchName": "regulador cabezal garrafa",
     "image": "https://th.bing.com/th/id/OIP.J-NuZ4zapVJphvqiAp_WtwAAAA?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
@@ -340,7 +342,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p24",
     "title": "Flexible Gas natural Modelo viejo",
     "category": "gas",
-    "type": "otros",
+    "type": "flexible",
     "brand": "paz",
     "searchName": "flexible gas natural modelo viejo",
     "image": "https://http2.mlstatic.com/D_NQ_NP_896805-MLA77204893691_062024-O.webp",
@@ -352,7 +354,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p25",
     "title": "Flexible Gas natural modelo viejo",
     "category": "gas",
-    "type": "otros",
+    "type": "flexible",
     "brand": "paz",
     "searchName": "flexible gas natural modelo viejo",
     "image": "https://tse2.mm.bing.net/th/id/OIP.ZJ9bEiq51DQIX-4UmE-6hwHaFn?w=1024&h=777&rs=1&pid=ImgDetMain&o=7&rm=3",
@@ -364,7 +366,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p26",
     "title": "Flexible Gas envasado aprobado",
     "category": "gas",
-    "type": "otros",
+    "type": "flexible",
     "brand": "paz",
     "searchName": "flexible gas envasado aprobado",
     "image": "https://http2.mlstatic.com/D_NQ_NP_920308-MLA74033092245_012024-O.webp",
@@ -376,7 +378,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p27",
     "title": "Flexible Gas envasado economico",
     "category": "gas",
-    "type": "otros",
+    "type": "flexible",
     "brand": "paz",
     "searchName": "flexible gas envasado economico",
     "image": "https://acdn.mitiendanube.com/stores/002/363/077/products/flexible-ge-gasenvasado-1d78c758a311cf4d3517133801439670-640-0.jpg",
@@ -400,7 +402,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p29",
     "title": "Adaptador Rigido 3/4 - Remplaza flex.",
     "category": "otros",
-    "type": "otros",
+    "type": "accesorio",
     "brand": "canplast",
     "searchName": "adaptador rigido 3/4 - remplaza flex.",
     "image": "https://www.canplast.com.ar/img/_2636.jpg",
@@ -430,17 +432,17 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "membrana autoadhesiva",
     "image": "https://http2.mlstatic.com/D_NQ_NP_626913-MLA78117470481_082024-O.webp",
     "variants": [
-      { "code": "PTAME0255", "desc": "0,10 cm", "price": 22390 },
-      { "code": "PTAME0262", "desc": "0,15 cm", "price": 33586 },
-      { "code": "PTAME0278", "desc": "0,25 cm", "price": 55977 },
-      { "code": "PTAME001", "desc": "0,30 cm", "price": 66943 }
+      { "code": "PTAME0255", "desc": "0,10 cm", "price": 211800 },
+      { "code": "PTAME0262", "desc": "0,15 cm", "price": 332700 },
+      { "code": "PTAME0278", "desc": "0,25 cm", "price": 55499 },
+      { "code": "PTAME001", "desc": "0,30 cm", "price": 66155 }
     ]
   },
   {
     "id": "p32",
     "title": "Cinta Anticorrosiva",
     "category": "otros",
-    "type": "otros",
+    "type": "membrana",
     "brand": "tcoat",
     "searchName": "cinta anticorrosiva",
     "image": "https://aislacom.com.ar/445-thickbox_default/t-coat-enargas-010x25mts.jpg",
@@ -455,7 +457,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p33",
     "title": "Cinta anticorrosiva N 1300",
     "category": "otros",
-    "type": "otros",
+    "type": "membrana",
     "brand": "tcoat",
     "searchName": "cinta anticorrosiva n 1300",
     "image": "https://tecnoaislantes.tecnopolipor.com/wp-content/uploads/2023/02/165-000.jpg",
@@ -468,7 +470,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p34",
     "title": "Petrolato",
     "category": "otros",
-    "type": "otros",
+    "type": "membrana",
     "brand": "tcoat",
     "searchName": "petrolato",
     "image": "https://www.xundapipewraps.com/uploads/201713119/p201704261041038090718.jpg",
@@ -481,7 +483,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p35",
     "title": "Imprimador",
     "category": "otros",
-    "type": "otros",
+    "type": "membrana",
     "brand": "tcoat",
     "searchName": "imprimador",
     "image": "https://tecnoaislantes.tecnopolipor.com/wp-content/uploads/2023/02/imprimador_01.jpg",
@@ -509,7 +511,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p37",
     "title": "Llave de gas domiciliarias Bronce",
     "category": "gas",
-    "type": "otros",
+    "type": "llave-gas",
     "brand": "alarsa",
     "searchName": "llave de gas domiciliarias bronce",
     "image": "https://th.bing.com/th/id/OIP.vb2i4cLda52YE8jNUXskywAAAA?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
@@ -526,7 +528,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p38",
     "title": "Llave de gas domiciliarias Cromo",
     "category": "gas",
-    "type": "otros",
+    "type": "llave-gas",
     "brand": "alarsa",
     "searchName": "llave de gas domiciliarias cromo",
     "image": "https://http2.mlstatic.com/D_NQ_NP_630194-MLA83131744203_032025-O.webp",
@@ -540,7 +542,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p39",
     "title": "Llave de gas candado",
     "category": "gas",
-    "type": "otros",
+    "type": "llave-gas",
     "brand": "alarsa",
     "searchName": "llave de gas candado",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/2.jpg",
@@ -555,7 +557,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p40",
     "title": "Llave esfericas 4 Bar",
     "category": "gas",
-    "type": "otros",
+    "type": "llave-gas",
     "brand": "alarsa",
     "searchName": "llave esfericas 4 bar",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/1.png",
@@ -572,7 +574,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p41",
     "title": "Llave esfericas 4 bar P/Total",
     "category": "gas",
-    "type": "otros",
+    "type": "llave-gas",
     "brand": "alarsa",
     "searchName": "llave esfericas 4 bar p/total",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/esferica-paso-total.jpg",
@@ -612,7 +614,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p43",
     "title": "Valvulas esferica de agua PVC",
     "category": "agua",
-    "type": "otros",
+    "type": "valvula",
     "brand": "duke",
     "searchName": "valvulas esferica de agua pvc",
     "image": "https://sanitariosgaona.com.ar/wp-content/uploads/2022/07/Duke-Valvula-esferica-1-union-1000010-P.jpg",
@@ -655,7 +657,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p46",
     "title": "Cobertor de caños Gris 10 mm",
     "category": "agua",
-    "type": "otros",
+    "type": "tubo",
     "brand": "covertex",
     "searchName": "cobertor de caños gris 10 mm",
     "image": "https://cdn.leroymerlin.com.br/products/isolante_elastomerico_vix_c0_1_1_2_9x38_1570130098_ef35_600x600.jpg",
@@ -672,7 +674,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p47",
     "title": "Cobertor de caños Blindado 10 mm",
     "category": "agua",
-    "type": "otros",
+    "type": "tubo",
     "brand": "covertex",
     "searchName": "cobertor de caños blindado 10 mm",
     "image": "https://http2.mlstatic.com/D_NQ_NP_912342-MLA54286443572_032023-O.webp",
@@ -702,7 +704,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p49",
     "title": "Canilla Esfericas mariposa Plastico",
     "category": "agua",
-    "type": "otros",
+    "type": "canilla",
     "brand": "duke",
     "searchName": "canilla esfericas mariposa plastico",
     "image": "https://pintureria.com/wp-content/uploads/2020/11/canilladukeplast.png",
@@ -758,7 +760,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p53",
     "title": "Reja de piso simple",
     "category": "otros",
-    "type": "otros",
+    "type": "reja",
     "brand": "",
     "searchName": "reja de piso simple",
     "image": "https://th.bing.com/th/id/OIP.TsHsDKCOuwFllOJqht8g9wHaHU?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
@@ -802,7 +804,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p56",
     "title": "Reja de piso Embudo",
     "category": "otros",
-    "type": "otros",
+    "type": "reja",
     "brand": "",
     "searchName": "reja de piso embudo",
     "image": "https://http2.mlstatic.com/D_NQ_NP_706667-MLA47691191217_092021-O.webp",
@@ -829,7 +831,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p58",
     "title": "Sopapa Bronce",
     "category": "agua",
-    "type": "otros",
+    "type": "sopapa",
     "brand": "",
     "searchName": "sopapa bronce",
     "image": "https://raosrl.com/wp-content/uploads/2020/11/SOPAPA-LAVATORIO-2-768x768.jpg",
@@ -842,7 +844,7 @@ window.DISTRIFEL_PRODUCTS = [
     "id": "p59",
     "title": "Sopapa PVC Americana",
     "category": "agua",
-    "type": "otros",
+    "type": "sopapa",
     "brand": "",
     "searchName": "sopapa pvc americana",
     "image": "https://http2.mlstatic.com/D_NQ_NP_629628-MLA75644370935_042024-O.webp",
@@ -855,7 +857,7 @@ window.DISTRIFEL_PRODUCTS = [
     "title": "Terraja estrella",
     "category": "gas",
     "type": "terraja",
-    "brand": "latyn",
+    "brand": "sanogas",
     "searchName": "terraja estrella",
     "image": "https://bulplus.net/wp-content/uploads/2024/10/D_NQ_NP_2X_632329-MLU76642904759_052024-F.webp",
     "variants": [
@@ -873,13 +875,24 @@ window.DISTRIFEL_PRODUCTS = [
     "variants": [
       { "code": "3001.0", "desc": "1/2", "price": 15185 },
       { "code": "3002.0", "desc": "3/4", "price": 19412 },
-      { "code": "3003.0", "desc": "1", "price": 27973 },
+      { "code": "3003.0", "desc": "1", "price": 27973 }
+    ]
+  },
+  {
+    "id": "p62",
+    "title": "Flotante comun varilla larga",
+    "category": "agua",
+    "type": "flotante",
+    "brand": "alarsa",
+    "searchName": "flotante comun varilla larga",
+    "image": "https://raosrl.com/wp-content/uploads/2023/03/13001.808-1-768x768.jpg",
+    "variants": [
       { "code": "4001.0", "desc": "1/2", "price": 7670 },
       { "code": "4002.0", "desc": "3/4", "price": 8311 }
     ]
   },
   {
-    "id": "p62",
+    "id": "p63",
     "title": "Gabinete con puerta ( fibrocemento )",
     "category": "gas",
     "type": "gabinete",
@@ -893,7 +906,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p63",
+    "id": "p64",
     "title": "Puerta para gas natural aprobada",
     "category": "gas",
     "type": "puerta",
@@ -909,7 +922,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p64",
+    "id": "p65",
     "title": "Fuelle mochila comun",
     "category": "agua",
     "type": "fuelle",
@@ -921,7 +934,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p65",
+    "id": "p66",
     "title": "Canilla duplex lavarropas\t\n\t plastico blanco",
     "category": "agua",
     "type": "canilla",
@@ -934,7 +947,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p66",
+    "id": "p67",
     "title": "Aislante aluminizado con solapa y tacc",
     "category": "otros",
     "type": "aislante",
@@ -947,10 +960,10 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p67",
+    "id": "p68",
     "title": "CANILLA DE BRONCE CROMADA CON PICO",
     "category": "agua",
-    "type": "otros",
+    "type": "canilla",
     "brand": "valforte",
     "searchName": "canilla de bronce cromada con pico",
     "image": "https://arcencohogar.vtexassets.com/arquivos/ids/274016-800-800?v=637651579424470000&width=800&height=800&aspect=true",
@@ -960,10 +973,10 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p68",
+    "id": "p69",
     "title": "CANILLA PARA RIEGO PALANCA",
-    "category": "otros",
-    "type": "otros",
+    "category": "agua",
+    "type": "canilla",
     "brand": "valforte",
     "searchName": "canilla para riego palanca",
     "image": "https://tse4.mm.bing.net/th/id/OIP.kHsnzO323MEF6IzAac9bpwHaHa?w=550&h=550&rs=1&pid=ImgDetMain&o=7&rm=3",
@@ -972,10 +985,10 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p69",
+    "id": "p70",
     "title": "VALVULA ESCLUSA PASO TOTAL",
-    "category": "otros",
-    "type": "otros",
+    "category": "agua",
+    "type": "valvula",
     "brand": "valforte",
     "searchName": "valvula esclusa paso total",
     "image": "https://tse1.mm.bing.net/th/id/OIP.PNR0H589b_YwMroyNDho8QHaHa?w=879&h=879&rs=1&pid=ImgDetMain&o=7&rm=3",
@@ -985,10 +998,10 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p70",
+    "id": "p71",
     "title": "VALVULA ESFERICA MEDIA UNION M-H MARIPOSA",
-    "category": "otros",
-    "type": "otros",
+    "category": "agua",
+    "type": "valvula",
     "brand": "valforte",
     "searchName": "valvula esferica media union m-h mariposa",
     "image": "https://aloisanitarios.com.ar/wp-content/uploads/2022/09/gUmtn1.jpg",
@@ -998,11 +1011,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p71",
+    "id": "p72",
     "title": "CODO 90º",
-    "category": "otros",
+    "category": "agua",
     "type": "fusion",
-    "brand": "latyn",
+    "brand": "latynfusion",
     "searchName": "codo 90º",
     "image": "https://latynconexiones.com.ar/img_tabla_fusion/07252126_F-90RGR.jpg",
     "variants": [
@@ -1012,11 +1025,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p72",
+    "id": "p73",
     "title": "CODO C/INSERTO METALICO HEMBRA",
-    "category": "otros",
-    "type": "otros",
-    "brand": "latyn",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
     "searchName": "codo c/inserto metalico hembra",
     "image": "https://http2.mlstatic.com/D_NQ_NP_733459-MLA93988228277_102025-O.webp",
     "variants": [
@@ -1029,11 +1042,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p73",
+    "id": "p74",
     "title": "CUPLA REDUCCION",
-    "category": "otros",
-    "type": "otros",
-    "brand": "latyn",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
     "searchName": "cupla reduccion",
     "image": "https://www.maqpro.com.ar/wp-content/uploads/2022/12/FCMH5032-768x768.jpg",
     "variants": [
@@ -1041,11 +1054,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p74",
+    "id": "p75",
     "title": "CUPLA",
-    "category": "otros",
-    "type": "otros",
-    "brand": "latyn",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
     "searchName": "cupla",
     "image": "https://www.maqpro.com.ar/wp-content/uploads/2022/12/FCMH5032-768x768.jpg",
     "variants": [
@@ -1055,11 +1068,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p75",
+    "id": "p76",
     "title": "LLAVE PASO COMPACTA CABEZAL POLIAMIDA",
-    "category": "otros",
-    "type": "otros",
-    "brand": "latyn",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
     "searchName": "llave paso compacta cabezal poliamida",
     "image": "https://http2.mlstatic.com/D_NQ_NP_924665-MLA82794786446_032025-O.webp",
     "variants": [
@@ -1068,11 +1081,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p76",
+    "id": "p77",
     "title": "SOBREPASO",
-    "category": "otros",
-    "type": "otros",
-    "brand": "latyn",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
     "searchName": "sobrepaso",
     "image": "https://http2.mlstatic.com/D_NQ_NP_604348-MLA84527631274_052025-O.webp",
     "variants": [
@@ -1081,11 +1094,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p77",
+    "id": "p78",
     "title": "TAPA",
-    "category": "otros",
-    "type": "otros",
-    "brand": "latyn",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
     "searchName": "tapa",
     "image": "https://latynconexiones.com.ar/img_tabla_fusion/02211756_F301.jpg",
     "variants": [
@@ -1094,11 +1107,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p78",
+    "id": "p79",
     "title": "TEE C/INSERTO METALICO HEMBRA",
-    "category": "otros",
-    "type": "otros",
-    "brand": "latyn",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
     "searchName": "tee c/inserto metalico hembra",
     "image": "https://sanitariosgaona.com.ar/wp-content/uploads/2024/05/F-130-H-GR.jpg",
     "variants": [
@@ -1106,11 +1119,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p79",
+    "id": "p80",
     "title": "TEE",
-    "category": "otros",
-    "type": "otros",
-    "brand": "latyn",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
     "searchName": "tee",
     "image": "https://latynconexiones.com.ar/img_tabla_fusion/07252126_F-130GR.jpg",
     "variants": [
@@ -1120,11 +1133,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p80",
+    "id": "p81",
     "title": "TUBOS AGUA CALIENTE DURAFLOW",
-    "category": "otros",
-    "type": "otros",
-    "brand": "latyn",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
     "searchName": "tubos agua caliente duraflow",
     "image": "https://tse3.mm.bing.net/th/id/OIP.hTC-vMBCPZ2bkqzX2_639gAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
     "variants": [
@@ -1133,11 +1146,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p81",
+    "id": "p82",
     "title": "TUBOS AGUA FRIA ECOFLOW",
-    "category": "otros",
-    "type": "otros",
-    "brand": "latyn",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
     "searchName": "tubos agua fria ecoflow",
     "image": "https://tse4.mm.bing.net/th/id/OIP.hf7ys3YSZwiE18-MC-qaLgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
     "variants": [
@@ -1145,11 +1158,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p82",
+    "id": "p83",
     "title": "UNION DOBLE FUSION-FUSION",
-    "category": "otros",
-    "type": "otros",
-    "brand": "latyn",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
     "searchName": "union doble fusion-fusion",
     "image": "https://static.wixstatic.com/media/e9c08b_5fafabecb25c456fbdae486a04221e95~mv2.png/v1/fit/w_500,h_500,q_90/file.png",
     "variants": [
@@ -1158,11 +1171,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p83",
+    "id": "p84",
     "title": "VALVULA PPR FUSION ESFERA PLASTICA",
-    "category": "otros",
-    "type": "otros",
-    "brand": "latyn",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
     "searchName": "valvula ppr fusion esfera plastica",
     "image": "https://http2.mlstatic.com/D_NQ_NP_684547-MLU71861289768_092023-O.webp",
     "variants": [
@@ -1171,11 +1184,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p84",
+    "id": "p85",
     "title": "ACC.BCE.ROSC.CODO H.H.",
     "category": "agua",
     "type": "bronce-roscado",
-    "brand": "hermagar",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.codo h.h.",
     "image": "https://alarsa.com.ar/wp-content/uploads/2023/03/codo-reduccion-roscado-e1678893757689.jpg",
     "variants": [
@@ -1188,11 +1201,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p85",
+    "id": "p86",
     "title": "ACC.BCE.ROSC.TEE",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.tee",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/tee-e1669332407216.jpg",
     "variants": [
@@ -1205,11 +1218,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p86",
+    "id": "p87",
     "title": "ACC.BCE.ROSC.ROS.C/TUERCA",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.ros.c/tuerca",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/rosca-con-tuerca-e1669332203857.jpg",
     "variants": [
@@ -1222,11 +1235,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p87",
+    "id": "p88",
     "title": "ACC.BCE.ROSC.UNION DOBLE",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.union doble",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/union-doble-e1669332910200.jpg",
     "variants": [
@@ -1239,11 +1252,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p88",
+    "id": "p89",
     "title": "ACC.BCE.ROSC.CODO M.H.",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.codo m.h.",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/codo-h-m-e1669333033465.jpg",
     "variants": [
@@ -1256,11 +1269,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p89",
+    "id": "p90",
     "title": "ACC.BCE.ROSC.BRIDAS",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.bridas",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/brida-1-e1669332448504.jpg",
     "variants": [
@@ -1273,11 +1286,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p90",
+    "id": "p91",
     "title": "ACC.BCE.ROSC.TAPON",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.tapon",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/tapon-1-e1669332690950.jpg",
     "variants": [
@@ -1290,11 +1303,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p91",
+    "id": "p92",
     "title": "ACC.BCE.ROSC.CUPLAS",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.cuplas",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/cupla-2-e1669332530400.jpg",
     "variants": [
@@ -1307,11 +1320,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p92",
+    "id": "p93",
     "title": "ACC.BCE.ROSC.BUJE",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.buje",
     "image": "https://alarsa.com.ar/wp-content/uploads/2023/03/buje-de-reduccion.jpg",
     "variants": [
@@ -1324,11 +1337,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p93",
+    "id": "p94",
     "title": "ACC.BCE.ROSC.CUPLAS",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.cuplas",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/cupla-de-reduccion-e1675100404837.jpg",
     "variants": [
@@ -1341,11 +1354,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p94",
+    "id": "p95",
     "title": "ACC.BCE.ROSC.TEE",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.tee",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/tee-e1669332407216.jpg",
     "variants": [
@@ -1358,11 +1371,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p95",
+    "id": "p96",
     "title": "ACC.BCE.ROSC.CODO",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.codo",
     "image": "https://alarsa.com.ar/wp-content/uploads/2023/03/codo-reduccion-roscado-e1678893757689.jpg",
     "variants": [
@@ -1375,11 +1388,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p96",
+    "id": "p97",
     "title": "ACC.BCE.ROSC.ROSCA C/T",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
     "searchName": "acc.bce.rosc.rosca c/t",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/rosca-con-tuerca-1-e1669332806373.jpg",
     "variants": [
@@ -1388,104 +1401,104 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p97",
-    "title": "ACC.BCE.ROSC.NIPLE",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
-    "searchName": "acc.bce.rosc.niple",
+    "id": "p98",
+    "title": "ACC.BCE.ROSC.NIPLE DE 1/2",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
+    "searchName": "acc.bce.rosc.niple de 1/2",
     "image": "https://th.bing.com/th/id/R.ae5d4c17cd26b33f3b59116684079d4a?rik=nuhbOR7rENvSZQ&riu=http%3a%2f%2ficofesa.com%2fsistema%2ffotos%2f2producto17771.jpg&ehk=ZYTObPVS7juiloptoia%2bj1TN36wzimoiftamaQEmo18%3d&risl=&pid=ImgRaw&r=0",
     "variants": [
-      { "code": "11302.0", "desc": "5 X 1/2", "price": 2323 },
-      { "code": "11402.0", "desc": "8 X 1/2", "price": 3922 },
-      { "code": "11502.0", "desc": "10 X 1/2", "price": 4646 },
-      { "code": "11602.0", "desc": "12 X 1/2", "price": 6145 },
-      { "code": "11702.0", "desc": "15 X 1/2", "price": 7470 },
-      { "code": "11802.0", "desc": "20 X 1/2", "price": 9593 }
-    ]
-  },
-  {
-    "id": "p98",
-    "title": "ACC.BCE.ROSC.NIPLE",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
-    "searchName": "acc.bce.rosc.niple",
-    "image": "https://icofesa.com/sistema/fotos/2producto17771.jpg",
-    "variants": [
-      { "code": "11303.0", "desc": "5 X 3/4", "price": 3522 },
-      { "code": "11403.0", "desc": "8 X 3/4", "price": 4721 },
-      { "code": "11503.0", "desc": "10 X 3/4", "price": 4872 },
-      { "code": "11603.0", "desc": "12 X 3/4", "price": 8069 },
-      { "code": "11703.0", "desc": "15 X 3/4", "price": 10142 },
-      { "code": "11803.0", "desc": "20 X 3/4", "price": 13040 }
+      { "code": "11302.0", "desc": "X 5", "price": 2323 },
+      { "code": "11402.0", "desc": "X 8", "price": 3922 },
+      { "code": "11502.0", "desc": "X 10", "price": 4646 },
+      { "code": "11602.0", "desc": "X 12", "price": 6145 },
+      { "code": "11702.0", "desc": "X 15", "price": 7470 },
+      { "code": "11802.0", "desc": "X 20", "price": 9593 }
     ]
   },
   {
     "id": "p99",
-    "title": "ACC.BCE.ROSC.NIPLES",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
-    "searchName": "acc.bce.rosc.niples",
+    "title": "ACC.BCE.ROSC.NIPLE DE 3/4",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
+    "searchName": "acc.bce.rosc.niple de 3/4",
     "image": "https://icofesa.com/sistema/fotos/2producto17771.jpg",
     "variants": [
-      { "code": "11304.0", "desc": "5 X 1", "price": 4646 },
-      { "code": "11404.0", "desc": "8 X 1", "price": 7344 },
-      { "code": "11504.0", "desc": "10 X 1", "price": 9043 },
-      { "code": "11604.0", "desc": "12 X 1", "price": 10941 },
-      { "code": "11704.0", "desc": "15 X 1", "price": 13590 },
-      { "code": "11804.0", "desc": "20 X 1", "price": 19171 }
+      { "code": "11303.0", "desc": "X 5", "price": 3522 },
+      { "code": "11403.0", "desc": "X 8", "price": 4721 },
+      { "code": "11503.0", "desc": "X 10", "price": 4872 },
+      { "code": "11603.0", "desc": "X 12", "price": 8069 },
+      { "code": "11703.0", "desc": "X 15", "price": 10142 },
+      { "code": "11803.0", "desc": "X 20", "price": 13040 }
     ]
   },
   {
     "id": "p100",
-    "title": "ACC.BCE.ROSC.NIPLE CON.",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
-    "searchName": "acc.bce.rosc.niple con.",
-    "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/niple-conexion-1.jpg",
+    "title": "ACC.BCE.ROSC.NIPLES DE 1",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
+    "searchName": "acc.bce.rosc.niples de 1",
+    "image": "https://icofesa.com/sistema/fotos/2producto17771.jpg",
     "variants": [
-      { "code": "11902.0", "desc": "10 X 1/2", "price": 5271 },
-      { "code": "12002.0", "desc": "15 X 1/2", "price": 11041 },
-      { "code": "12102.0", "desc": "20 X 1/2", "price": 10542 }
+      { "code": "11304.0", "desc": "X 5", "price": 4646 },
+      { "code": "11404.0", "desc": "X 8", "price": 7344 },
+      { "code": "11504.0", "desc": "X 10", "price": 9043 },
+      { "code": "11604.0", "desc": "X 12", "price": 10941 },
+      { "code": "11704.0", "desc": "X 15", "price": 13590 },
+      { "code": "11804.0", "desc": "X 20", "price": 19171 }
     ]
   },
   {
     "id": "p101",
-    "title": "ACC.BCE.ROSC.NIPLE CON.",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
-    "searchName": "acc.bce.rosc.niple con.",
+    "title": "ACC.BCE.ROSC.NIPLE CON. DE 1/2",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
+    "searchName": "acc.bce.rosc.niple con. de 1/2",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/niple-conexion-1.jpg",
     "variants": [
-      { "code": "11903.0", "desc": "10 X 3/4", "price": 7344 },
-      { "code": "12003.0", "desc": "15 X 3/4", "price": 18506 },
-      { "code": "12103.0", "desc": "20 X 3/4", "price": 15913 }
+      { "code": "11902.0", "desc": "X 10", "price": 5271 },
+      { "code": "12002.0", "desc": "X 15", "price": 11041 },
+      { "code": "12102.0", "desc": "X 20", "price": 10542 }
     ]
   },
   {
     "id": "p102",
-    "title": "ACC.BCE.ROSC.NIPLE CON.",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
-    "searchName": "acc.bce.rosc.niple con.",
-    "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/niple-conexion-1-600x600.jpg",
+    "title": "ACC.BCE.ROSC.NIPLE CON. DE 3/4",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
+    "searchName": "acc.bce.rosc.niple con. de 3/4",
+    "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/niple-conexion-1.jpg",
     "variants": [
-      { "code": "11904.0", "desc": "10 X 1", "price": 10068 },
-      { "code": "12004.0", "desc": "15 X 1", "price": 23296 },
-      { "code": "12104.0", "desc": "20 X 1", "price": 19835 }
+      { "code": "11903.0", "desc": "X 10", "price": 7344 },
+      { "code": "12003.0", "desc": "X 15", "price": 18506 },
+      { "code": "12103.0", "desc": "X 20", "price": 15913 }
     ]
   },
   {
     "id": "p103",
+    "title": "ACC.BCE.ROSC.NIPLE CON. DE 1",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
+    "searchName": "acc.bce.rosc.niple con. de 1",
+    "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/niple-conexion-1-600x600.jpg",
+    "variants": [
+      { "code": "11904.0", "desc": "X 10", "price": 10068 },
+      { "code": "12004.0", "desc": "X 15", "price": 23296 },
+      { "code": "12104.0", "desc": "X 20", "price": 19835 }
+    ]
+  },
+  {
+    "id": "p104",
     "title": "ACC.EST.TEE NORMAL",
-    "category": "otros",
+    "category": "agua",
     "type": "hidro-bronce",
-    "brand": "hermagar",
+    "brand": "alarsa",
     "searchName": "acc.est.tee normal",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/tee-estanado-e1669330926339.jpg",
     "variants": [
@@ -1496,11 +1509,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p104",
+    "id": "p105",
     "title": "ACC.EST.CODO NORMAL",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "hidro-bronce",
+    "brand": "alarsa",
     "searchName": "acc.est.codo normal",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/codo-normal-e1678386643283.jpg",
     "variants": [
@@ -1511,11 +1524,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p105",
+    "id": "p106",
     "title": "ACC.EST.UNION NORMAL",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "hidro-bronce",
+    "brand": "alarsa",
     "searchName": "acc.est.union normal",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/union-normal-e1669330984530-600x600.jpg",
     "variants": [
@@ -1526,11 +1539,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p106",
+    "id": "p107",
     "title": "ACC.EST.TUBO M NORMAL",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "hidro-bronce",
+    "brand": "alarsa",
     "searchName": "acc.est.tubo m normal",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/tubo_macho_normal-2.jpg",
     "variants": [
@@ -1541,11 +1554,11 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p107",
+    "id": "p108",
     "title": "ACC.EST.TUBO HEM NORMAL",
-    "category": "otros",
-    "type": "otros",
-    "brand": "hermagar",
+    "category": "agua",
+    "type": "hidro-bronce",
+    "brand": "alarsa",
     "searchName": "acc.est.tubo hem normal",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/tubo_hembra_normal-2.jpg",
     "variants": [
@@ -1556,7 +1569,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p108",
+    "id": "p109",
     "title": "Aislante aluminizado doble con solapa y tacc",
     "category": "otros",
     "type": "aislante",
@@ -1568,10 +1581,10 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p109",
+    "id": "p110",
     "title": "sin revestimiento",
     "category": "otros",
-    "type": "otros",
+    "type": "aislante",
     "brand": "espumafoam",
     "searchName": "sin revestimiento",
     "image": "https://http2.mlstatic.com/D_NQ_NP_919451-MLA76569507983_052024-O.webp",
@@ -1581,10 +1594,10 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p110",
+    "id": "p111",
     "title": "Aislante aluminio puro con solapa y tacc",
     "category": "otros",
-    "type": "otros",
+    "type": "aislante",
     "brand": "aislatech",
     "searchName": "aislante aluminio puro con solapa y tacc",
     "image": "https://aislacom.com.ar/201-thickbox_default/aislantech-fusion-tacc-doble-cara-aluminio-puro.jpg",
@@ -1594,10 +1607,10 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p111",
+    "id": "p112",
     "title": "Aislante bajo pileta azul x 30 mts",
     "category": "otros",
-    "type": "otros",
+    "type": "aislante",
     "brand": "flotamil",
     "searchName": "aislante bajo pileta azul x 30 mts",
     "image": "https://http2.mlstatic.com/D_Q_NP_2X_808047-MLA73662137412_012024-E.webp",
@@ -1607,10 +1620,10 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p112",
+    "id": "p113",
     "title": "Flota - flota",
     "category": "otros",
-    "type": "otros",
+    "type": "aislante",
     "brand": "flotamil",
     "searchName": "flota - flota",
     "image": "https://www.ahlenersg.de/cms/upload/wassersport/bilder/aquafitness/Poolnudeln.jpg",

@@ -251,10 +251,11 @@
                                     <button class="filter-option filter-option--logo" data-value="sanogas" data-label="Sanogas">
                                         <img src="https://www.balbico.com.ar/wp-content/uploads/2021/04/682560_1.jpg" alt="Sanogas">
                                     </button>
-                                    <button class="filter-option filter-option--text-tile" data-value="cirino" data-label="Cirino">Cirino</button>
+                                    <button class="filter-option filter-option--logo" data-value="cirino" data-label="Cirino">
+                                        <img src="Brands-icons/cirino-logo.png" alt="Cirino">
+                                    </button>
                                     <button class="filter-option filter-option--text-tile" data-value="espumafoam" data-label="Espuma Foam">Espuma Foam</button>
-                                    <button class="filter-option filter-option--text-tile" data-value="hermagar" data-label="Hermagar">Hermagar</button>
-                                    <button class="filter-option filter-option--text-tile" data-value="flotamil" data-label="Flotamil">Flotamil</button>
+<button class="filter-option filter-option--text-tile" data-value="flotamil" data-label="Flotamil">Flotamil</button>
                                 </div>
                             </div>
                         </div>
@@ -379,7 +380,7 @@
                 
                 <div class="footer-disclaimer">
                     <p>Los precios publicados son de referencia y pueden variar sin previo aviso.</p>
-                    <p class="footer-list"><strong>Lista 115</strong> • Actualizada: 20/04/2026</p>
+                    <p class="footer-list"><strong>Lista 116</strong> • Actualizada: 29/04/2026</p>
                 </div>
                 
             </div>
@@ -447,9 +448,16 @@
         </div>
 
         <div class="cart-drawer-footer" id="cartDrawerFooter" style="display:none">
-            <div class="cart-total-row">
-                <span class="cart-total-label">Total estimado</span>
-                <span class="cart-total-value" id="cartTotalValue">$0</span>
+            <div class="cart-totals-breakdown">
+                <div class="cart-total-row">
+                    <span class="cart-total-label">Subtotal</span>
+                    <span class="cart-total-value" id="cartSubtotalValue">$0</span>
+                </div>
+                <div id="cartIvaRows"></div>
+                <div class="cart-total-row cart-total-final-row">
+                    <span class="cart-total-label">Total</span>
+                    <span class="cart-total-value" id="cartTotalValue">$0</span>
+                </div>
             </div>
             <button class="cart-whatsapp-btn" id="cartSendWhatsApp">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
@@ -486,13 +494,28 @@
             <h2 class="client-popup-title">Datos del cliente</h2>
             <p class="client-popup-subtitle">Completá la información antes de enviar el pedido</p>
 
-            <!-- Nombre (fila completa) -->
-            <div class="client-field">
-                <label for="clientName" class="client-label">Nombre <span class="client-required">*</span></label>
-                <input type="text" id="clientName" class="client-input" placeholder="Ej: Juan García" maxlength="80" autocomplete="off">
+            <!-- Nombre de comercio (fila completa, obligatorio) -->
+            <div class="client-field" id="clientBusinessLocalidadRow" style="display:none">
+                <label for="clientBusiness" class="client-label">Nombre de comercio <span class="client-required">*</span></label>
+                <input type="text" id="clientBusiness" class="client-input" placeholder="Ej: Ferretería López" maxlength="80" autocomplete="off">
             </div>
 
-            <!-- Teléfono + Email (2 columnas) -->
+            <!-- Dirección + Localidad (2 columnas, obligatorios) -->
+            <div class="client-row" id="clientDireccionLocalidadRow" style="display:none">
+                <div class="client-field">
+                    <label for="clientDireccion" class="client-label">Dirección <span class="client-required">*</span></label>
+                    <input type="text" id="clientDireccion" class="client-input" placeholder="Ej: Av. Corrientes 1234" maxlength="80" autocomplete="off">
+                </div>
+                <div class="client-field">
+                    <label for="clientLocalidad" class="client-label">Localidad <span class="client-required">*</span></label>
+                    <input type="text" id="clientLocalidad" class="client-input" placeholder="Ej: Palermo, CABA" maxlength="60" autocomplete="off">
+                </div>
+            </div>
+
+            <!-- Campo nombre oculto para compatibilidad interna -->
+            <input type="hidden" id="clientName" value="">
+
+            <!-- Teléfono + Email (2 columnas, opcionales) -->
             <div class="client-row" id="clientPhoneEmailRow" style="display:none">
                 <div class="client-field">
                     <label for="clientPhone" class="client-label">Teléfono <span class="client-optional">(opcional)</span></label>
@@ -501,18 +524,6 @@
                 <div class="client-field">
                     <label for="clientEmail" class="client-label">Email <span class="client-optional">(opcional)</span></label>
                     <input type="email" id="clientEmail" class="client-input" placeholder="juan@correo.com" maxlength="100" autocomplete="email">
-                </div>
-            </div>
-
-            <!-- Comercio + Localidad (2 columnas) -->
-            <div class="client-row" id="clientBusinessLocalidadRow" style="display:none">
-                <div class="client-field">
-                    <label for="clientBusiness" class="client-label">Comercio <span class="client-optional">(opcional)</span></label>
-                    <input type="text" id="clientBusiness" class="client-input" placeholder="Ferretería López" maxlength="80" autocomplete="off">
-                </div>
-                <div class="client-field">
-                    <label for="clientLocalidad" class="client-label">Localidad <span class="client-optional">(opcional)</span></label>
-                    <input type="text" id="clientLocalidad" class="client-input" placeholder="Palermo, CABA" maxlength="60" autocomplete="off">
                 </div>
             </div>
 

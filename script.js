@@ -970,7 +970,8 @@ function addToCart(card, btn, qty = 1) {
         existing.qty += qty;
         item = existing;
     } else {
-        item = { id: itemId, cardKey, name, variant: variantText, price, qty };
+        const ivaRate = parseFloat(card.dataset.iva) || 21;
+        item = { id: itemId, cardKey, name, variant: variantText, price, qty, ivaRate };
         cart.items.push(item);
     }
 
@@ -1091,11 +1092,14 @@ function loadCartFromStorage() {
    ============================================================ */
 
 function updateInCartBadges() {
-    // Aggregate qty per card (by data-name attribute)
+    // Aggregate qty per card and per variant
     const qtyByCard = {};
+    const variantsByCard = {};
     cart.items.forEach(item => {
         const key = item.cardKey || (item.id || '').split('__')[0];
         qtyByCard[key] = (qtyByCard[key] || 0) + item.qty;
+        if (!variantsByCard[key]) variantsByCard[key] = new Set();
+        if (item.variant) variantsByCard[key].add(item.variant);
     });
 
     document.querySelectorAll('.product-card-v2').forEach(card => {
@@ -1127,12 +1131,22 @@ function updateInCartBadges() {
                 if (qtyEl) qtyEl.textContent = qty;
             }
 
+            // Marcar chips de variantes en carrito
+            const cartVariants = variantsByCard[key] || new Set();
+            card.querySelectorAll('.card-variant').forEach(chip => {
+                const isInCart = cartVariants.has(chip.textContent.trim());
+                chip.classList.toggle('in-cart-variant', isInCart);
+            });
+
             // Update button label to "Agregar más"
             const btn = card.querySelector('.btn-add-cart span');
             if (btn && !btn.dataset.addedState) btn.textContent = 'Agregar';
         } else {
             card.classList.remove('in-cart');
             if (badge) badge.remove();
+
+            // Limpiar chips
+            card.querySelectorAll('.card-variant.in-cart-variant').forEach(c => c.classList.remove('in-cart-variant'));
 
             // Reset button label
             const btn = card.querySelector('.btn-add-cart span');
@@ -1226,30 +1240,40 @@ function initClientPopup() {
     });
 
     sendBtn?.addEventListener('click', () => {
-        const clientName   = nameInput.value.trim();
+        const business     = document.getElementById('clientBusiness')?.value.trim() || '';
+        const direccion    = document.getElementById('clientDireccion')?.value.trim() || '';
+        const localidad    = document.getElementById('clientLocalidad')?.value.trim() || '';
         const phone        = document.getElementById('clientPhone')?.value.trim() || '';
         const email        = document.getElementById('clientEmail')?.value.trim() || '';
-        const business     = document.getElementById('clientBusiness')?.value.trim() || '';
-        const localidad    = document.getElementById('clientLocalidad')?.value.trim() || '';
         const notes        = document.getElementById('clientNotes')?.value.trim() || '';
+        const clientName   = APP_MODE === 'corredor' ? nameInput.value.trim() : business;
 
-        // Solo nombre es requerido
-        if (!clientName) {
-            nameInput.classList.add('error');
-            nameInput.focus();
-            setTimeout(() => nameInput.classList.remove('error'), 1500);
+        // Validar campos obligatorios
+        const requiredFields = APP_MODE === 'cliente'
+            ? [
+                { el: document.getElementById('clientBusiness'), val: business },
+                { el: document.getElementById('clientDireccion'), val: direccion },
+                { el: document.getElementById('clientLocalidad'), val: localidad }
+              ]
+            : [{ el: nameInput, val: clientName }];
+
+        const firstEmpty = requiredFields.find(f => !f.val);
+        if (firstEmpty) {
+            firstEmpty.el?.classList.add('error');
+            firstEmpty.el?.focus();
+            setTimeout(() => firstEmpty.el?.classList.remove('error'), 1500);
             return;
         }
 
         // Persist cliente info
         if (APP_MODE === 'cliente') {
-            localStorage.setItem('distrifel_cliente', clientName);
+            localStorage.setItem('distrifel_cliente', business);
             if (phone) localStorage.setItem('distrifel_cliente_phone', phone);
-            applyCorrName(clientName);
+            applyCorrName(business);
         }
 
         const msg = APP_MODE === 'cliente'
-            ? buildClienteMessage(clientName, phone, email, business, localidad, notes)
+            ? buildClienteMessage(business, direccion, localidad, phone, email, notes)
             : buildCorredorMessage(clientName, notes);
 
         window.open(`https://wa.me/5491164639441?text=${encodeURIComponent(msg)}`, '_blank');
@@ -1274,8 +1298,9 @@ function openClientPopup() {
     const notesLabel = overlay.querySelector('label[for="clientNotes"]');
     const notesInput = document.getElementById('clientNotes');
 
-    const phoneEmailRow       = overlay.querySelector('#clientPhoneEmailRow');
-    const businessLocalidadRow = overlay.querySelector('#clientBusinessLocalidadRow');
+    const phoneEmailRow          = overlay.querySelector('#clientPhoneEmailRow');
+    const businessRow            = overlay.querySelector('#clientBusinessLocalidadRow');
+    const direccionLocalidadRow  = overlay.querySelector('#clientDireccionLocalidadRow');
 
     if (APP_MODE === 'corredor') {
         if (title) title.textContent = 'Datos del cliente';
@@ -1283,30 +1308,31 @@ function openClientPopup() {
         if (nameLabel) nameLabel.innerHTML = 'Nombre del cliente <span class="client-required">*</span>';
         if (nameInput) { nameInput.placeholder = 'Ej: Ferretería López'; nameInput.autocomplete = 'off'; }
         if (phoneEmailRow) phoneEmailRow.style.display = 'none';
-        if (businessLocalidadRow) businessLocalidadRow.style.display = 'none';
+        if (businessRow) businessRow.style.display = 'none';
+        if (direccionLocalidadRow) direccionLocalidadRow.style.display = 'none';
         if (notesInput) notesInput.placeholder = 'Ej: entregar en la mañana, traer caja cerrada';
     } else {
         if (title) title.textContent = 'Finalizar pedido';
         if (subtitle) subtitle.textContent = 'Completá tus datos para coordinar la entrega';
-        if (nameLabel) nameLabel.innerHTML = 'Nombre <span class="client-required">*</span>';
-        if (nameInput) {
-            nameInput.placeholder = 'Ej: Juan García';
-            nameInput.autocomplete = 'name';
-            const saved = localStorage.getItem('distrifel_cliente');
-            if (saved && !nameInput.value) nameInput.value = saved;
-        }
+        if (businessRow) businessRow.style.display = 'block';
+        if (direccionLocalidadRow) direccionLocalidadRow.style.display = 'grid';
         if (phoneEmailRow) phoneEmailRow.style.display = 'grid';
         if (phoneInput) {
             const savedPhone = localStorage.getItem('distrifel_cliente_phone');
             if (savedPhone && !phoneInput.value) phoneInput.value = savedPhone;
         }
-        if (businessLocalidadRow) businessLocalidadRow.style.display = 'grid';
+        const savedBusiness = localStorage.getItem('distrifel_cliente');
+        const businessInput = document.getElementById('clientBusiness');
+        if (savedBusiness && businessInput && !businessInput.value) businessInput.value = savedBusiness;
         if (notesInput) notesInput.placeholder = 'Ej: entregar a la mañana, paga en efectivo';
     }
 
     overlay.classList.add('visible');
     document.body.classList.add('client-popup-open');
-    setTimeout(() => document.getElementById('clientName')?.focus(), 300);
+    const firstFocus = APP_MODE === 'cliente' ? 'clientBusiness' : 'clientName';
+    setTimeout(() => document.getElementById(firstFocus)?.focus(), 300);
+    // Ocultar campo nombre en modo cliente (usado solo internamente)
+    if (nameInput && APP_MODE === 'cliente') nameInput.closest('.client-field')?.style && (nameInput.style.display = 'none');
 }
 
 /* ============================================================
@@ -1396,6 +1422,7 @@ const BRAND_LOGOS = {
     salustri:    'Brands-icons/salustri.png',
     smartfix:    'Brands-icons/smartfix.webp',
     tcoat:       'Brands-icons/t-coat.png',
+    cirino:      'Brands-icons/cirino-logo.png',
     valforte:    'https://tse4.mm.bing.net/th/id/OIP.WDmF9eK23dfuUkcHS1OX6gHaCI?rs=1&pid=ImgDetMain&o=7&rm=3',
     latynfusion: 'Brands-icons/latyn-fusion.png',
     sanogas:     'https://www.balbico.com.ar/wp-content/uploads/2021/04/682560_1.jpg'
@@ -1501,8 +1528,22 @@ function renderProducts() {
 
     container.innerHTML = '';
 
+    const TYPE_ORDER = { regulador: 0, flexible: 1, membrana: 2, 'llave-gas': 3 };
+    const sorted = [...products].sort((a, b) => {
+        const oa = TYPE_ORDER[a.type] ?? 99;
+        const ob = TYPE_ORDER[b.type] ?? 99;
+        if (oa !== ob) return oa - ob;
+        if (oa === 99) {
+            const ta = TYPE_LABELS[a.type] || a.type;
+            const tb = TYPE_LABELS[b.type] || b.type;
+            const tc = ta.localeCompare(tb, 'es');
+            if (tc !== 0) return tc;
+        }
+        return a.title.localeCompare(b.title, 'es');
+    });
+
     const fragment = document.createDocumentFragment();
-    for (const p of products) {
+    for (const p of sorted) {
         const card = document.createElement('article');
         card.className = 'product-card-v2';
         card.dataset.category = p.category || 'otros';
@@ -1533,6 +1574,7 @@ function renderProducts() {
         const firstOutOfStock = !firstPrice;
         const allOutOfStock = !prices.length;
         if (allOutOfStock) card.dataset.outOfStock = 'true';
+        if (p.iva) card.dataset.iva = p.iva;
 
         // Image
         const imgSrc = p.image || placeholderImg(p.title);
@@ -2083,7 +2125,31 @@ function updateCartUI() {
         });
     }
 
-    if (totalEl) totalEl.textContent = formatPrice(totalPrice);
+    const subtotal = totalPrice;
+
+    // Agrupar IVA por tasa
+    const ivaByRate = {};
+    cart.items.forEach(i => {
+        const rate = i.ivaRate ?? 21;
+        ivaByRate[rate] = (ivaByRate[rate] || 0) + i.price * i.qty * (rate / 100);
+    });
+    const ivaTotal = Math.round(Object.values(ivaByRate).reduce((s, v) => s + v, 0));
+    const total = subtotal + ivaTotal;
+
+    const subtotalEl = document.getElementById('cartSubtotalValue');
+    const ivaRowsEl = document.getElementById('cartIvaRows');
+    if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
+    if (ivaRowsEl) {
+        const sortedRates = Object.keys(ivaByRate).map(Number).sort((a, b) => b - a);
+        const isLast = (i) => i === sortedRates.length - 1;
+        ivaRowsEl.innerHTML = sortedRates.map((rate, i) =>
+            `<div class="cart-total-row${isLast(i) ? ' cart-iva-row' : ''}">
+                <span class="cart-total-label">IVA (${rate}%)</span>
+                <span class="cart-total-value">${formatPrice(Math.round(ivaByRate[rate]))}</span>
+            </div>`
+        ).join('');
+    }
+    if (totalEl) totalEl.textContent = formatPrice(total);
 }
 
 function openCart() {
@@ -2110,6 +2176,7 @@ function buildWhatsAppMessage(fieldValue, notes) {
     return buildClienteMessage(fieldValue, notes);
 }
 
+
 function buildCorredorMessage(clientName, notes) {
     const corredor = localStorage.getItem('distrifel_corredor') || 'Corredor';
 
@@ -2119,6 +2186,7 @@ function buildCorredorMessage(clientName, notes) {
     msg += `🏪 Cliente: *${clientName}*\n`;
     msg += `🕐 ${formatTimestamp()}\n\n`;
 
+    // Lista sin precios
     cart.items.forEach(item => {
         const v = item.variant ? ` (${item.variant})` : '';
         msg += `▪️ ${item.name}${v} — *x${item.qty}*\n`;
@@ -2126,7 +2194,31 @@ function buildCorredorMessage(clientName, notes) {
 
     const totalQty = cart.items.reduce((s, i) => s + i.qty, 0);
     msg += `─────────────────────\n`;
-    msg += `📦 *Total: ${totalQty} ${totalQty === 1 ? 'unidad' : 'unidades'}*`;
+    msg += `📦 *${totalQty} ${totalQty === 1 ? 'unidad' : 'unidades'}*\n`;
+
+    // Lista con precios
+    msg += `\n💰 *DETALLE CON PRECIOS*\n`;
+    msg += `─────────────────────\n`;
+    cart.items.forEach(item => {
+        const v = item.variant ? ` (${item.variant})` : '';
+        msg += `▪️ ${item.name}${v}\n`;
+        msg += `   ${item.qty} u. × ${formatPrice(item.price)} = *${formatPrice(item.price * item.qty)}*\n`;
+    });
+
+    const subtotal = cart.items.reduce((s, i) => s + i.price * i.qty, 0);
+    const ivaByRate = {};
+    cart.items.forEach(i => {
+        const rate = i.ivaRate ?? 21;
+        ivaByRate[rate] = (ivaByRate[rate] || 0) + i.price * i.qty * (rate / 100);
+    });
+    const ivaTotal = Math.round(Object.values(ivaByRate).reduce((s, v) => s + v, 0));
+    const total = subtotal + ivaTotal;
+    msg += `─────────────────────\n`;
+    msg += `Subtotal: ${formatPrice(subtotal)}\n`;
+    Object.keys(ivaByRate).map(Number).sort((a,b) => b-a).forEach(rate => {
+        msg += `IVA (${rate}%): ${formatPrice(Math.round(ivaByRate[rate]))}\n`;
+    });
+    msg += `💵 *Total: ${formatPrice(total)}*`;
 
     if (notes && notes.trim()) {
         msg += `\n\n📝 *Comentarios:*\n${notes.trim()}`;
@@ -2135,21 +2227,34 @@ function buildCorredorMessage(clientName, notes) {
     return msg;
 }
 
-function buildClienteMessage(clientName, phone, email, business, localidad, notes) {
-    let msg = `Hola! Soy *${clientName}* y quiero hacer el siguiente pedido:\n\n`;
+function buildClienteMessage(business, direccion, localidad, phone, email, notes) {
+    let msg = `Hola! Quiero hacer el siguiente pedido:\n\n`;
 
-    if (business)  msg += `🏪 *Comercio:* ${business}\n`;
+    msg += `🏪 *Comercio:* ${business}\n`;
+    if (direccion) msg += `🏠 *Dirección:* ${direccion}\n`;
     if (localidad) msg += `📍 *Localidad:* ${localidad}\n`;
     if (phone)     msg += `📞 *Teléfono:* ${phone}\n`;
     if (email)     msg += `✉️ *Email:* ${email}\n`;
-    if (business || localidad || phone || email) msg += `\n`;
+    msg += `\n`;
 
-    msg += `📦 *PEDIDO DISTRIFEL*\n`;
+    // Lista sin precios
+    msg += `📦 *PEDIDO*\n`;
     msg += `─────────────────────\n`;
-
     cart.items.forEach(item => {
         const v = item.variant ? ` (${item.variant})` : '';
-        msg += `▪️ ${item.name}${v} x${item.qty} — ${formatPrice(item.price * item.qty)}\n`;
+        msg += `▪️ ${item.name}${v} — *x${item.qty}*\n`;
+    });
+    const totalQty = cart.items.reduce((s, i) => s + i.qty, 0);
+    msg += `─────────────────────\n`;
+    msg += `📦 *${totalQty} ${totalQty === 1 ? 'unidad' : 'unidades'}*\n`;
+
+    // Lista con precios
+    msg += `\n💰 *DETALLE CON PRECIOS*\n`;
+    msg += `─────────────────────\n`;
+    cart.items.forEach(item => {
+        const v = item.variant ? ` (${item.variant})` : '';
+        msg += `▪️ ${item.name}${v}\n`;
+        msg += `   ${item.qty} u. × ${formatPrice(item.price)} = *${formatPrice(item.price * item.qty)}*\n`;
     });
 
     const total = cart.items.reduce((s, i) => s + i.price * i.qty, 0);

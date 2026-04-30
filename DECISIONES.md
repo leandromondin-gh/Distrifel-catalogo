@@ -162,6 +162,23 @@ Registro de decisiones de negocio y técnicas. Cada entrada explica **qué** se 
 
 ---
 
+## 14. IVA diferencial — Reguladores Gas Natural al 10,5%
+
+**Decisión:** Los productos "Reguladores Gas Natural" de Canplast (p14) y Salustri (p15) tienen IVA del 10,5% en lugar del 21% estándar. Esto se marca en `products.js` con el campo `"iva": 10.5` en esos productos.
+
+**Por qué:** Son reguladores de gas con alícuota reducida por normativa impositiva argentina.
+
+**Cómo funciona:**
+- Campo `"iva"` en el producto — si no existe, el sistema asume 21%
+- La card muestra un badge amarillo "IVA 10,5%"
+- El carrito calcula el IVA real por ítem y muestra el total correcto
+- Si hay productos con distintas tasas en el mismo carrito, el footer muestra "IVA (mixto)"
+- El mensaje de WhatsApp refleja la tasa correcta
+
+**Para agregar más productos con IVA diferencial:** agregar `"iva": 10.5` (o el porcentaje que corresponda) en el objeto del producto en `products.js`.
+
+---
+
 ## Pendientes / Próximas decisiones (v2)
 
 - [ ] **Login por email + JWT** — clientes acceden desde su dispositivo, sin corredor intermedio
