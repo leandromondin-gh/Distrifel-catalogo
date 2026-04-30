@@ -955,7 +955,7 @@ function addToCart(card, btn, qty = 1) {
     const price = parseInt(priceStr.replace(/[^\d]/g, '')) || 0;
     if (!price) return;
 
-    const cardKey = (card.dataset.name || name).replace(/\s+/g, '-');
+    const cardKey = card.dataset.pid || (card.dataset.name || name).replace(/\s+/g, '-');
     const itemId = `${cardKey}__${variantText || 'unico'}`;
 
     // Detectar si este producto+variante tiene una oferta activa
@@ -1103,7 +1103,7 @@ function updateInCartBadges() {
     });
 
     document.querySelectorAll('.product-card-v2').forEach(card => {
-        const key = (card.dataset.name || '').replace(/\s+/g, '-');
+        const key = card.dataset.pid || (card.dataset.name || '').replace(/\s+/g, '-');
         const qty = qtyByCard[key] || 0;
 
         // Remove legacy floating badge if present
@@ -1550,6 +1550,7 @@ function renderProducts() {
         card.dataset.brand = p.brand || '';
         card.dataset.type = p.type || '';
         card.dataset.name = p.searchName || p.title.toLowerCase();
+        card.dataset.pid = p.id;
 
         // Prices
         const prices = p.variants.map(v => v.price).filter(n => n > 0);
