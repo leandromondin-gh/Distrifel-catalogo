@@ -451,10 +451,17 @@ function filterProducts() {
         if (isVisible) visibleCount++;
     });
     
+    // Ocultar separadores si no hay productos visibles de ese tipo
+    document.querySelectorAll('.catalog-type-divider').forEach(div => {
+        const type = div.dataset.type;
+        const hasVisible = [...document.querySelectorAll(`.product-card-v2:not(.hidden)[data-type="${type}"]`)].length > 0;
+        div.classList.toggle('hidden', !hasVisible);
+    });
+
     // Update counter
     const resultsCount = document.getElementById('resultsCount');
     if (resultsCount) resultsCount.textContent = visibleCount;
-    
+
     // Show/hide no results message
     if (noResults) noResults.classList.toggle('visible', visibleCount === 0);
     if (productsGrid) productsGrid.style.display = visibleCount === 0 ? 'none' : '';
@@ -1543,7 +1550,20 @@ function renderProducts() {
     });
 
     const fragment = document.createDocumentFragment();
+    let lastType = null;
+
     for (const p of sorted) {
+        // Separador por tipo
+        if (p.type !== lastType) {
+            const sep = document.createElement('div');
+            sep.className = 'catalog-type-divider';
+            sep.dataset.type = p.type;
+            const label = TYPE_LABELS[p.type] || p.type;
+            sep.innerHTML = `<span class="catalog-type-divider-label">${escapeHtml(label)}</span>`;
+            fragment.appendChild(sep);
+            lastType = p.type;
+        }
+
         const card = document.createElement('article');
         card.className = 'product-card-v2';
         card.dataset.category = p.category || 'otros';
