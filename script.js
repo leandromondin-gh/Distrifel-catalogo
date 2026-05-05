@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initDownloads();
     registerServiceWorker();
     initWpHint();
+    initPdfLogo();
 });
 
 function initDownloads() {
@@ -69,9 +70,366 @@ function initDownloads() {
         URL.revokeObjectURL(url);
     });
 
-    pdfBtn?.addEventListener('click', () => {
-        alert('Próximamente — la descarga en PDF estará disponible en una próxima actualización.');
+    pdfBtn?.addEventListener('click', () => generatePDF());
+}
+
+/* ============================================================
+   GENERADOR DE PDF
+   ============================================================ */
+
+async function loadImgBase64(url, contain = true, targetW = 400, targetH = 300) {
+    if (!url) return null;
+    // Intentar con fetch primero (funciona local + HTTP mismo origen)
+    try {
+        const res = await Promise.race([
+            fetch(url).then(r => r.ok ? r.blob() : Promise.reject()),
+            new Promise((_, rej) => setTimeout(() => rej('timeout'), 5000))
+        ]);
+        const base64 = await new Promise(resolve => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.readAsDataURL(res);
+        });
+        // Dibujar en canvas con contain
+        return await new Promise(resolve => {
+            const img = new Image();
+            img.onload = () => {
+                try {
+                    const c = document.createElement('canvas');
+                    c.width = targetW; c.height = targetH;
+                    const ctx = c.getContext('2d');
+                    ctx.fillStyle = contain ? '#f8fafc' : '#111827';
+                    ctx.fillRect(0, 0, targetW, targetH);
+                    if (contain) {
+                        const scale = Math.min(targetW / img.naturalWidth, targetH / img.naturalHeight);
+                        const sw = img.naturalWidth * scale;
+                        const sh = img.naturalHeight * scale;
+                        ctx.drawImage(img, (targetW - sw) / 2, (targetH - sh) / 2, sw, sh);
+                    } else {
+                        const scale = Math.min(targetW / img.naturalWidth, targetH / img.naturalHeight);
+                        const sw = img.naturalWidth * scale;
+                        const sh = img.naturalHeight * scale;
+                        ctx.drawImage(img, (targetW - sw) / 2, (targetH - sh) / 2, sw, sh);
+                    }
+                    resolve(c.toDataURL('image/jpeg', 0.75));
+                } catch { resolve(null); }
+            };
+            img.onerror = () => resolve(null);
+            img.src = base64;
+        });
+    } catch { return null; }
+}
+
+async function generatePDF() {
+    const btn = document.getElementById('downloadPdf');
+    const btnLabel = btn?.querySelector('span') || btn;
+    const origText = btnLabel?.textContent;
+    if (btn) { btn.style.opacity = '0.6'; btn.style.pointerEvents = 'none'; }
+    if (btnLabel) btnLabel.textContent = 'Generando...';
+
+    const { jsPDF } = window.jspdf;
+    const products = window.DISTRIFEL_PRODUCTS || [];
+
+    // Ordenar igual que el catálogo
+    const TYPE_ORDER = { regulador: 0, flexible: 1, membrana: 2, 'llave-gas': 3 };
+    const sorted = [...products].sort((a, b) => {
+        const oa = TYPE_ORDER[a.type] ?? 99, ob = TYPE_ORDER[b.type] ?? 99;
+        if (oa !== ob) return oa - ob;
+        if (oa === 99) return (TYPE_LABELS[a.type]||a.type).localeCompare(TYPE_LABELS[b.type]||b.type,'es');
+        return a.title.localeCompare(b.title, 'es');
     });
+
+    // Precargar logo y todas las imágenes en paralelo
+    const imgCache = {};
+
+    const logoBase64 = PDF_LOGO_B64;
+
+    await Promise.all(sorted.map(async p => {
+        // Cuadrado 300x300 con contain — igual que las cards del sitio
+        imgCache[p.id] = await loadImgBase64(p.image, true, 300, 300);
+    }));
+
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const W = 210, H = 297, M = 10;
+    const NAVY  = [17, 24, 39];
+    const TEAL  = [74, 159, 142];
+    const TEAL2 = [232, 247, 244];
+    const WHITE = [255, 255, 255];
+    const GRAY  = [156, 163, 175];
+    const DARK  = [31, 41, 55];
+    const LIGHT = [248, 250, 252];
+    const dateStr = new Date().toLocaleDateString('es-AR',{year:'numeric',month:'long',day:'numeric'});
+
+    // ══════════════════════ PORTADA ══════════════════════
+    // Fondo full dark
+    doc.setFillColor(...NAVY);
+    doc.rect(0, 0, W, H, 'F');
+
+    // Banda teal decorativa izquierda
+    doc.setFillColor(...TEAL);
+    doc.rect(0, 0, 6, H, 'F');
+
+    // Línea teal horizontal
+    doc.setFillColor(...TEAL);
+    doc.rect(M + 6, 90, W - M - 6 - M, 0.8, 'F');
+    doc.rect(M + 6, 145, W - M - 6 - M, 0.8, 'F');
+
+    // DISTRIBUIDORA MAYORISTA
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.setTextColor(...TEAL);
+    doc.setCharSpace(4);
+    doc.text('DISTRIBUIDORA MAYORISTA', M + 10, 82);
+    doc.setCharSpace(0);
+
+    // Logo PNG o fallback texto
+    if (logoBase64) {
+        try {
+            doc.addImage(logoBase64, 'PNG', M + 10, 88, 120, 40);
+        } catch {
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(52);
+            doc.setTextColor(...WHITE);
+            doc.text('DISTRIFEL', M + 10, 118);
+        }
+    } else {
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(52);
+        doc.setTextColor(...WHITE);
+        doc.text('DISTRIFEL', M + 10, 118);
+    }
+
+    // Tagline
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+    doc.setTextColor(180, 200, 196);
+    doc.text('Ferretería · Sanitarios · Construcción', M + 10, 134);
+
+    // LISTA DE PRECIOS 2026
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.setTextColor(...TEAL);
+    doc.text('LISTA DE PRECIOS 2026', M + 10, 160);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(...GRAY);
+    doc.text(`Actualizada: ${dateStr}`, M + 10, 170);
+
+    // Stats en portada
+    const totalProds = products.length;
+    const totalVars  = products.reduce((s,p) => s + p.variants.length, 0);
+    const stats = [`${totalProds} productos`, `${totalVars} variantes`, `${Object.keys(TYPE_LABELS).filter(t => products.some(p=>p.type===t)).length} categorías`];
+    stats.forEach((s, i) => {
+        const sx = M + 10 + i * 60;
+        doc.setFillColor(30, 42, 58);
+        doc.roundedRect(sx, 185, 55, 16, 2, 2, 'F');
+        doc.setFillColor(...TEAL);
+        doc.roundedRect(sx, 185, 4, 16, 1, 1, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(10);
+        doc.setTextColor(...WHITE);
+        doc.text(s.split(' ')[0], sx + 8, 195);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7);
+        doc.setTextColor(...GRAY);
+        doc.text(s.split(' ').slice(1).join(' '), sx + 8, 199);
+    });
+
+    // Footer portada
+    doc.setFillColor(25, 35, 52);
+    doc.rect(0, H - 18, W, 18, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(...TEAL);
+    doc.text('DISTRIFEL', M + 10, H - 9);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...GRAY);
+    doc.text('Venta mayorista a corralones, ferreterías y profesionales', W / 2, H - 9, { align: 'center' });
+
+    // ══════════════════════ PÁGINAS DE PRODUCTOS ══════════════════════
+    // 2 cards por fila
+    const CARD_W = (W - M * 2 - 5) / 2;
+    const IMG_H  = CARD_W; // cuadrada — misma proporción que canvas 300x300
+    const HEADER_H = 14;
+    const FOOTER_H = 10;
+
+    function addPageHeader(pageNum) {
+        doc.setFillColor(...NAVY);
+        doc.rect(0, 0, W, HEADER_H, 'F');
+        doc.setFillColor(...TEAL);
+        doc.rect(0, HEADER_H - 1.5, W, 1.5, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(...WHITE);
+        doc.text('DISTRIFEL', M, 9.5);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...TEAL);
+        doc.text('Lista de Precios 2026', W / 2, 9.5, { align: 'center' });
+        doc.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
+        doc.text(`Pág. ${pageNum}`, W - M, 9.5, { align: 'right' });
+    }
+
+    function addPageFooter() {
+        doc.setFillColor(...NAVY);
+        doc.rect(0, H - FOOTER_H, W, FOOTER_H, 'F');
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(6.5);
+        doc.setTextColor(...GRAY);
+        doc.text('Precios en pesos argentinos · Sujetos a cambio sin previo aviso', W / 2, H - 3.5, { align: 'center' });
+    }
+
+    let pageNum = 2;
+    doc.addPage();
+    addPageHeader(pageNum);
+    addPageFooter();
+
+    let y = HEADER_H + 4;
+    let col = 0;
+
+    // Separador de tipo
+    let lastType = null;
+
+    for (const p of sorted) {
+        // Separador de tipo
+        if (p.type !== lastType) {
+            const label = (TYPE_LABELS[p.type] || p.type).toUpperCase();
+            const needed = 10 + (col !== 0 ? 10 : 0);
+            if (y + needed > H - FOOTER_H - 4) {
+                pageNum++;
+                doc.addPage();
+                addPageHeader(pageNum);
+                addPageFooter();
+                y = HEADER_H + 4;
+                col = 0;
+            } else if (col !== 0) {
+                col = 0;
+                y += 4;
+            }
+
+            doc.setFillColor(...NAVY);
+            doc.roundedRect(M, y, W - M * 2, 8, 1, 1, 'F');
+            doc.setFillColor(...TEAL);
+            doc.roundedRect(M, y, 3, 8, 0.5, 0.5, 'F');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(10);
+            doc.setTextColor(...WHITE);
+            doc.text(label, M + 6, y + 5.8);
+            const cnt = sorted.filter(x => x.type === p.type).length;
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(...TEAL);
+            doc.text(`${cnt} producto${cnt !== 1 ? 's' : ''}`, W - M - 2, y + 5.8, { align: 'right' });
+            y += 11;
+            lastType = p.type;
+        }
+
+        // Calcular altura de la card
+        const varRows = p.variants.length;
+        const nameExtra = p.title.length > 28 ? 6 : 0;
+        const cardH = Math.round(IMG_H) + 3 + 6 + 14 + nameExtra + 6 + varRows * 7 + 6;
+
+        if (y + cardH > H - FOOTER_H - 4) {
+            pageNum++;
+            doc.addPage();
+            addPageHeader(pageNum);
+            addPageFooter();
+            y = HEADER_H + 4;
+            col = 0;
+        }
+
+        const cx = M + col * (CARD_W + 5);
+
+        // Card background
+        doc.setFillColor(...WHITE);
+        doc.setDrawColor(226, 232, 240);
+        doc.setLineWidth(0.3);
+        doc.roundedRect(cx, y, CARD_W, cardH, 2, 2, 'FD');
+
+        // Imagen — fondo blanco, imagen centrada con contain
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(cx + 0.3, y + 0.3, CARD_W - 0.6, IMG_H, 2, 2, 'F');
+        doc.setDrawColor(230, 235, 240);
+        doc.setLineWidth(0.2);
+        doc.roundedRect(cx + 0.3, y + 0.3, CARD_W - 0.6, IMG_H, 2, 2, 'D');
+        const img64 = imgCache[p.id];
+        if (img64) {
+            // La imagen ya viene cuadrada con contain desde el canvas, la mostramos con padding
+            try { doc.addImage(img64, 'JPEG', cx + 2, y + 2, CARD_W - 4, IMG_H - 4); } catch {}
+        } else {
+            doc.setFillColor(232, 247, 244);
+            doc.roundedRect(cx + 0.3, y + 0.3, CARD_W - 0.6, IMG_H, 2, 2, 'F');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(18);
+            doc.setTextColor(...TEAL);
+            doc.text(p.title.charAt(0).toUpperCase(), cx + CARD_W / 2, y + IMG_H / 2 + 3, { align: 'center' });
+        }
+
+        // Tipo badge
+        doc.setFillColor(...TEAL2);
+        doc.roundedRect(cx + 3, y + IMG_H + 3, 36, 6, 1.5, 1.5, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7);
+        doc.setTextColor(...TEAL);
+        doc.text((TYPE_LABELS[p.type] || p.type).toUpperCase(), cx + 21, y + IMG_H + 7.2, { align: 'center' });
+
+        // Nombre producto
+        const nameY = y + IMG_H + 14;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(10.5);
+        doc.setTextColor(...DARK);
+        const nameLines = doc.splitTextToSize(p.title, CARD_W - 6);
+        doc.text(nameLines[0], cx + 3, nameY);
+        if (nameLines[1]) {
+            doc.setFontSize(9);
+            doc.text(nameLines[1], cx + 3, nameY + 5);
+        }
+
+        // Línea divisoria
+        const divY = nameLines[1] ? nameY + 8 : nameY + 4;
+        doc.setDrawColor(226, 232, 240);
+        doc.setLineWidth(0.3);
+        doc.line(cx + 3, divY, cx + CARD_W - 3, divY);
+
+        // Variantes
+        let vy = divY + 6;
+        p.variants.forEach((v, i) => {
+            const bg = i % 2 === 0 ? LIGHT : WHITE;
+            doc.setFillColor(...bg);
+            doc.rect(cx + 1, vy - 4.5, CARD_W - 2, 7, 'F');
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8.5);
+            doc.setTextColor(...DARK);
+            doc.text(v.desc || '-', cx + 3, vy);
+            if (v.price > 0) {
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(...TEAL);
+                doc.text(formatPrice(v.price), cx + CARD_W - 3, vy, { align: 'right' });
+            } else {
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(...GRAY);
+                doc.text('Sin stock', cx + CARD_W - 3, vy, { align: 'right' });
+            }
+            vy += 7;
+        });
+
+        col++;
+        if (col >= 2) { col = 0; y += cardH + 4; }
+        // Si es el último de su tipo y quedó solo, avanzar fila
+        const typeItems = sorted.filter(x => x.type === p.type);
+        const isLastOfType = typeItems[typeItems.length - 1]?.id === p.id;
+        if (isLastOfType && col === 1) { col = 0; y += cardH + 4; }
+    }
+
+    // Última fila incompleta
+    if (col !== 0) y += 0;
+
+    // ── Guardar ──
+    const dateFile = new Date().toISOString().slice(0, 10);
+    doc.save(`Distrifel-Lista-de-Precios-${dateFile}.pdf`);
+
+    if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
+    if (btnLabel && origText) btnLabel.textContent = origText;
 }
 
 // State
@@ -1395,6 +1753,26 @@ function attachSwipeToDelete(itemEl, itemId) {
 /* ============================================================
    OFFLINE DETECTION
    ============================================================ */
+
+let PDF_LOGO_B64 = null;
+
+function initPdfLogo() {
+    const img = document.querySelector('.hero-logo-img');
+    if (!img) return;
+    const capture = () => {
+        try {
+            const c = document.createElement('canvas');
+            c.width = img.naturalWidth || 600;
+            c.height = img.naturalHeight || 200;
+            const ctx = c.getContext('2d');
+            ctx.filter = 'brightness(0) invert(1)';
+            ctx.drawImage(img, 0, 0);
+            PDF_LOGO_B64 = c.toDataURL('image/png');
+        } catch(e) { PDF_LOGO_B64 = null; }
+    };
+    if (img.complete && img.naturalWidth > 0) capture();
+    else img.addEventListener('load', capture);
+}
 
 function initWpHint() {
     const btn = document.querySelector('.wp-consult-btn');
