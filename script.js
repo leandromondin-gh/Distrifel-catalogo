@@ -171,69 +171,72 @@ async function generatePDF() {
 
     // Línea teal horizontal
     doc.setFillColor(...TEAL);
-    doc.rect(M + 6, 90, W - M - 6 - M, 0.8, 'F');
-    doc.rect(M + 6, 145, W - M - 6 - M, 0.8, 'F');
+    // Líneas decorativas — centradas
+    doc.rect(M, 90, W - M * 2, 0.8, 'F');
+    doc.rect(M, 150, W - M * 2, 0.8, 'F');
 
-    // DISTRIBUIDORA MAYORISTA
+    // DISTRIBUIDORA MAYORISTA — centrado
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(11);
+    doc.setFontSize(13);
     doc.setTextColor(...TEAL);
-    doc.setCharSpace(4);
-    doc.text('DISTRIBUIDORA MAYORISTA', M + 10, 82);
+    doc.setCharSpace(5);
+    doc.text('DISTRIBUIDORA MAYORISTA', W / 2, 82, { align: 'center' });
     doc.setCharSpace(0);
 
-    // Logo PNG o fallback texto
+    // Logo PNG centrado, más ancho
     if (logoBase64) {
         try {
-            doc.addImage(logoBase64, 'PNG', M + 10, 88, 120, 40);
+            const logoW = 160, logoH = 45;
+            doc.addImage(logoBase64, 'PNG', (W - logoW) / 2, 92, logoW, logoH);
         } catch {
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(52);
+            doc.setFontSize(56);
             doc.setTextColor(...WHITE);
-            doc.text('DISTRIFEL', M + 10, 118);
+            doc.text('DISTRIFEL', W / 2, 128, { align: 'center' });
         }
     } else {
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(52);
+        doc.setFontSize(56);
         doc.setTextColor(...WHITE);
-        doc.text('DISTRIFEL', M + 10, 118);
+        doc.text('DISTRIFEL', W / 2, 128, { align: 'center' });
     }
 
-    // Tagline
+    // Tagline — centrada
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(12);
+    doc.setFontSize(14);
     doc.setTextColor(180, 200, 196);
-    doc.text('Ferretería · Sanitarios · Construcción', M + 10, 134);
+    doc.text('Ferretería · Sanitarios · Construcción', W / 2, 142, { align: 'center' });
 
-    // LISTA DE PRECIOS 2026
+    // LISTA DE PRECIOS 2026 — centrada
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(16);
+    doc.setFontSize(20);
     doc.setTextColor(...TEAL);
-    doc.text('LISTA DE PRECIOS 2026', M + 10, 160);
+    doc.text('LISTA DE PRECIOS 2026', W / 2, 168, { align: 'center' });
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
+    doc.setFontSize(11);
     doc.setTextColor(...GRAY);
-    doc.text(`Actualizada: ${dateStr}`, M + 10, 170);
+    doc.text(`Actualizada: ${dateStr}`, W / 2, 179, { align: 'center' });
 
     // Stats en portada
     const totalProds = products.length;
     const totalVars  = products.reduce((s,p) => s + p.variants.length, 0);
     const stats = [`${totalProds} productos`, `${totalVars} variantes`, `${Object.keys(TYPE_LABELS).filter(t => products.some(p=>p.type===t)).length} categorías`];
+    const statW = 55, statGap = (W - M * 2 - statW * 3) / 2;
     stats.forEach((s, i) => {
-        const sx = M + 10 + i * 60;
+        const sx = M + i * (statW + statGap);
         doc.setFillColor(30, 42, 58);
-        doc.roundedRect(sx, 185, 55, 16, 2, 2, 'F');
+        doc.roundedRect(sx, 193, statW, 18, 2, 2, 'F');
         doc.setFillColor(...TEAL);
-        doc.roundedRect(sx, 185, 4, 16, 1, 1, 'F');
+        doc.roundedRect(sx, 193, 4, 18, 1, 1, 'F');
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(10);
+        doc.setFontSize(13);
         doc.setTextColor(...WHITE);
-        doc.text(s.split(' ')[0], sx + 8, 195);
+        doc.text(s.split(' ')[0], sx + 9, 204);
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(7);
+        doc.setFontSize(8);
         doc.setTextColor(...GRAY);
-        doc.text(s.split(' ').slice(1).join(' '), sx + 8, 199);
+        doc.text(s.split(' ').slice(1).join(' '), sx + 9, 209);
     });
 
     // Footer portada
@@ -308,19 +311,19 @@ async function generatePDF() {
             }
 
             doc.setFillColor(...NAVY);
-            doc.roundedRect(M, y, W - M * 2, 8, 1, 1, 'F');
+            doc.roundedRect(M, y, W - M * 2, 10, 1, 1, 'F');
             doc.setFillColor(...TEAL);
-            doc.roundedRect(M, y, 3, 8, 0.5, 0.5, 'F');
+            doc.roundedRect(M, y, 4, 10, 0.5, 0.5, 'F');
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(10);
+            doc.setFontSize(12);
             doc.setTextColor(...WHITE);
-            doc.text(label, M + 6, y + 5.8);
+            doc.text(label, M + 7, y + 7);
             const cnt = sorted.filter(x => x.type === p.type).length;
             doc.setFont('helvetica', 'normal');
-            doc.setFontSize(8);
+            doc.setFontSize(9);
             doc.setTextColor(...TEAL);
-            doc.text(`${cnt} producto${cnt !== 1 ? 's' : ''}`, W - M - 2, y + 5.8, { align: 'right' });
-            y += 11;
+            doc.text(`${cnt} producto${cnt !== 1 ? 's' : ''}`, W - M - 2, y + 7, { align: 'right' });
+            y += 14;
             lastType = p.type;
         }
 
@@ -376,7 +379,7 @@ async function generatePDF() {
         // Nombre producto
         const nameY = y + IMG_H + 14;
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(10.5);
+        doc.setFontSize(12);
         doc.setTextColor(...DARK);
         const nameLines = doc.splitTextToSize(p.title, CARD_W - 6);
         doc.text(nameLines[0], cx + 3, nameY);
@@ -398,7 +401,7 @@ async function generatePDF() {
             doc.setFillColor(...bg);
             doc.rect(cx + 1, vy - 4.5, CARD_W - 2, 7, 'F');
             doc.setFont('helvetica', 'normal');
-            doc.setFontSize(8.5);
+            doc.setFontSize(10);
             doc.setTextColor(...DARK);
             doc.text(v.desc || '-', cx + 3, vy);
             if (v.price > 0) {
