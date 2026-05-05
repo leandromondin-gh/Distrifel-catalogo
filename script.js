@@ -2009,7 +2009,9 @@ function initOffersModal() {
         }, 1100);
     });
 
-    openBtn.addEventListener('click', () => { goTo(0); overlay.classList.add('open'); startAutoplay(); });
+    const openOffers = () => { goTo(0); overlay.classList.add('open'); startAutoplay(); };
+    openBtn.addEventListener('click', openOffers);
+    document.getElementById('heroOffersBtn')?.addEventListener('click', e => { e.preventDefault(); openOffers(); });
     closeBtn.addEventListener('click', () => { overlay.classList.remove('open'); stopAutoplay(); });
     overlay.addEventListener('click', e => { if (e.target === overlay) { overlay.classList.remove('open'); stopAutoplay(); } });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') { overlay.classList.remove('open'); stopAutoplay(); } });
