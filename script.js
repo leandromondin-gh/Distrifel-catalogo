@@ -1756,22 +1756,28 @@ function attachSwipeToDelete(itemEl, itemId) {
 
 let PDF_LOGO_B64 = null;
 
-function initPdfLogo() {
-    const img = document.querySelector('.hero-logo-img');
-    if (!img) return;
-    const capture = () => {
-        try {
-            const c = document.createElement('canvas');
-            c.width = img.naturalWidth || 600;
-            c.height = img.naturalHeight || 200;
-            const ctx = c.getContext('2d');
-            ctx.filter = 'brightness(0) invert(1)';
-            ctx.drawImage(img, 0, 0);
-            PDF_LOGO_B64 = c.toDataURL('image/png');
-        } catch(e) { PDF_LOGO_B64 = null; }
-    };
-    if (img.complete && img.naturalWidth > 0) capture();
-    else img.addEventListener('load', capture);
+async function initPdfLogo() {
+    try {
+        const res = await fetch('Logo-Distrifel.png');
+        const blob = await res.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        await new Promise(resolve => {
+            const img = new Image();
+            img.onload = () => {
+                const c = document.createElement('canvas');
+                c.width = img.naturalWidth;
+                c.height = img.naturalHeight;
+                const ctx = c.getContext('2d');
+                ctx.filter = 'brightness(0) invert(1)';
+                ctx.drawImage(img, 0, 0);
+                PDF_LOGO_B64 = c.toDataURL('image/png');
+                URL.revokeObjectURL(blobUrl);
+                resolve();
+            };
+            img.onerror = () => { URL.revokeObjectURL(blobUrl); resolve(); };
+            img.src = blobUrl;
+        });
+    } catch { PDF_LOGO_B64 = null; }
 }
 
 function initWpHint() {
