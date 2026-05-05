@@ -1875,14 +1875,30 @@ function initOffersModal() {
         `<button class="offers-dot${i === 0 ? ' active' : ''}" data-i="${i}"></button>`
     ).join('');
 
+    const slides = Array.from(carousel.querySelectorAll('.offers-slide'));
+
     function goTo(i) {
+        const prev = current;
         current = ((i % groups.length) + groups.length) % groups.length;
-        carousel.style.transform = `translateX(-${current * 100}%)`;
+        if (prev === current) return;
+
+        const outSlide = slides[prev];
+        const inSlide  = slides[current];
+
+        // Salida
+        outSlide.classList.remove('active');
+        outSlide.classList.add('exiting');
+        outSlide.addEventListener('animationend', () => outSlide.classList.remove('exiting'), { once: true });
+
+        // Entrada
+        inSlide.classList.add('active');
+
         dotsWrap.querySelectorAll('.offers-dot').forEach((d, idx) => d.classList.toggle('active', idx === current));
-        if (prevBtn) prevBtn.disabled = false;
-        if (nextBtn) nextBtn.disabled = false;
     }
-    goTo(0);
+
+    // Inicializar primer slide visible
+    slides.forEach((s, i) => { if (i === 0) s.classList.add('active'); });
+    current = 0;
 
     // Autoplay — pausa si el usuario interactúa
     let autoplay = null;
