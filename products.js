@@ -1,4 +1,4 @@
-// Generado desde "Lista de precios-6.xlsx" — Version-Final
+// Generado desde "Lista de precios-7.xlsx" — Version-Final
 // Para actualizar: editar el Excel y correr el script de conversión
 window.DISTRIFEL_PRODUCTS = [
   {
@@ -78,8 +78,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de agua monocomando hembra",
     "image": "https://tse3.mm.bing.net/th/id/OIP.-caymom_4d8m5eloCXb7xgHaHv?rs=1&pid=ImgDetMain&o=7&rm=3",
     "variants": [
-      { "code": "393.0", "desc": "40 cm. Pico Corto", "price": 1702 },
-      { "code": "397.0", "desc": "40 cm. Pico Largo", "price": 2032 }
+      { "code": "393.0", "desc": "40 cm. Pico Corto", "price": 1821 },
+      { "code": "397.0", "desc": "40 cm. Pico Largo", "price": 2175 }
     ]
   },
   {
@@ -91,8 +91,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de agua lluvia bidet",
     "image": "https://tse2.mm.bing.net/th/id/OIP.vMfVdi8Ey12S1-6Tkn9hTwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
     "variants": [
-      { "code": "86.0", "desc": "1/2", "price": 3520 },
-      { "code": "85.0", "desc": "3/8", "price": 3363 }
+      { "code": "86.0", "desc": "1/2", "price": 2934 },
+      { "code": "85.0", "desc": "3/8", "price": 2763 }
     ]
   },
   {
@@ -203,68 +203,33 @@ window.DISTRIFEL_PRODUCTS = [
     "category": "gas",
     "type": "regulador",
     "brand": "canplast",
-    "iva": 10.5,
     "searchName": "reguladores gas natural",
     "image": "https://www.canplast.com.ar/img/9PL-B.jpg",
     "variants": [
       { "code": "PT.13B6", "desc": "6 Mts", "price": 58673 },
       { "code": "PT.13B10", "desc": "10 mts", "price": 64384 },
       { "code": "PT.13B12", "desc": "12 mts", "price": 71488 },
-      { "code": "PT.13B16", "desc": "16 mts", "price": 107231 }
+      { "code": "PT.13B16", "desc": "16 mts", "price": 107231 },
+      { "code": "620.0", "desc": "6 Mts", "price": 49687 },
+      { "code": "619.0", "desc": "10 Mts", "price": 44768 },
+      { "code": "600.0", "desc": "16 Mts", "price": 108887 },
+      { "code": "418.0", "desc": "25 Mts", "price": 133774 },
+      { "code": "PLA25N", "desc": "25 Mts NUEVO", "price": 104275 },
+      { "code": "492.0", "desc": "40 Mts", "price": 206250 },
+      { "code": "614.0", "desc": "50 Mts", "price": 314875 },
+      { "code": "612.0", "desc": "75 Mts", "price": 338481 },
+      { "code": "613.0", "desc": "100 Mts", "price": 377218 },
+      { "code": "12.0", "desc": "8,5 Directo", "price": 25010 },
+      { "code": "14.0", "desc": "12 Directo", "price": 26387 },
+      { "code": "15.0", "desc": "20 Directo", "price": 28190 },
+      { "code": "17.0", "desc": "32 Directo", "price": 70049 },
+      { "code": "18.0", "desc": "50 Directo", "price": 77150 },
+      { "code": "11.0", "desc": "8,5 m3/h  c/flexible", "price": 47476 },
+      { "code": "13.0", "desc": "12 m3/h  c/flexible", "price": 50338 }
     ]
   },
   {
     "id": "p15",
-    "title": "Reguladores Gas natural",
-    "category": "gas",
-    "type": "regulador",
-    "brand": "salustri",
-    "iva": 10.5,
-    "searchName": "reguladores gas natural",
-    "image": "https://salustri.com.ar/wp-content/uploads/2025/11/Regulador-SALUSTRI-G-40-1080-x-1080.jpg",
-    "variants": [
-      { "code": "620.0", "desc": "6 Mts", "price": 48237 },
-      { "code": "619.0", "desc": "10 Mts", "price": 43462 },
-      { "code": "600.0", "desc": "16 Mts", "price": 105715 },
-      { "code": "418.0", "desc": "25 Mts", "price": 129879 },
-      { "code": "PLA25N", "desc": "25 Mts NUEVO", "price": 101238 },
-      { "code": "492.0", "desc": "40 Mts", "price": 200245 },
-      { "code": "614.0", "desc": "50 Mts", "price": 305705 },
-      { "code": "612.0", "desc": "75 Mts", "price": 328622 },
-      { "code": "613.0", "desc": "100 Mts", "price": 366230 }
-    ]
-  },
-  {
-    "id": "p16",
-    "title": "Reguladores Gas natural",
-    "category": "gas",
-    "type": "regulador",
-    "brand": "paz",
-    "searchName": "reguladores gas natural",
-    "image": "https://th.bing.com/th/id/R.cb72be6d3a94c06e1f3a8482c12ef52a?rik=Phm8V%2fzY6ZkBVA&riu=http%3a%2f%2fdcdn.mitiendanube.com%2fstores%2f002%2f111%2f248%2fproducts%2f14_8001-d4c7dc62d4d8336d2216684264575220-640-0.jpg&ehk=IzDTOO5cKkF9oC46TimztB9ZKk6%2bLInWOMxugjOVveI%3d&risl=&pid=ImgRaw&r=0",
-    "variants": [
-      { "code": "12.0", "desc": "8,5 Directo", "price": 23208 },
-      { "code": "14.0", "desc": "12 Directo", "price": 24479 },
-      { "code": "15.0", "desc": "20 Directo", "price": 26176 },
-      { "code": "17.0", "desc": "32 Directo", "price": 64856 },
-      { "code": "18.0", "desc": "50 Directo", "price": 71427 }
-    ]
-  },
-  {
-    "id": "p17",
-    "title": "Reguladores Gas natural",
-    "category": "gas",
-    "type": "regulador",
-    "brand": "paz",
-    "searchName": "reguladores gas natural",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_845923-MLA53220335146_012023-O.webp",
-    "variants": [
-      { "code": "11.0", "desc": "8,5 m3/h  c/flexible", "price": 43979 },
-      { "code": "13.0", "desc": "12 m3/h  c/flexible", "price": 46628 }
-    ]
-  },
-  {
-    "id": "p18",
     "title": "Reguladores Gas envasado",
     "category": "gas",
     "type": "regulador",
@@ -272,23 +237,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "reguladores gas envasado",
     "image": "https://inyect-gas.com.ar/wp-content/uploads/2024/09/AV-2375.jpg",
     "variants": [
-      { "code": "26.0", "desc": "1 Flexible", "price": 40800 }
+      { "code": "26.0", "desc": "1 Flexible", "price": 44086 },
+      { "code": "25.0", "desc": "2 Flexibles", "price": 69943 }
     ]
   },
   {
-    "id": "p19",
-    "title": "Reguladores Gas envasado",
-    "category": "gas",
-    "type": "regulador",
-    "brand": "paz",
-    "searchName": "reguladores gas envasado",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_658751-MLA47668358095_092021-O.webp",
-    "variants": [
-      { "code": "25.0", "desc": "2 Flexibles", "price": 64750 }
-    ]
-  },
-  {
-    "id": "p20",
+    "id": "p16",
     "title": "Regulador garrafa con manguera",
     "category": "gas",
     "type": "regulador",
@@ -296,13 +250,13 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "regulador garrafa con manguera",
     "image": "https://tse3.mm.bing.net/th/id/OIP.67SKg8A2QQYF2fcoTO9T8QHaG1?rs=1&pid=ImgDetMain&o=7&rm=3",
     "variants": [
-      { "code": "34.0", "desc": "0,80 Mts", "price": 8054 },
-      { "code": "134.0", "desc": "1.50 Mts", "price": 8690 },
-      { "code": "234.0", "desc": "2.00 Mts", "price": 9114 }
+      { "code": "34.0", "desc": "0,80 Mts", "price": 8711 },
+      { "code": "134.0", "desc": "1.50 Mts", "price": 9400 },
+      { "code": "234.0", "desc": "2.00 Mts", "price": 9856 }
     ]
   },
   {
-    "id": "p21",
+    "id": "p17",
     "title": "Regulador cabezal Garrafa",
     "category": "gas",
     "type": "regulador",
@@ -310,12 +264,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "regulador cabezal garrafa",
     "image": "https://th.bing.com/th/id/OIP.J-NuZ4zapVJphvqiAp_WtwAAAA?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
     "variants": [
-      { "code": "44.0", "desc": "10 Kg", "price": 6464 },
-      { "code": "45L", "desc": "3 Kg", "price": 5167 }
+      { "code": "44.0", "desc": "10 Kg", "price": 6994 },
+      { "code": "45L", "desc": "3 Kg", "price": 5587 }
     ]
   },
   {
-    "id": "p22",
+    "id": "p18",
     "title": "Flexible Gas natural nuevo",
     "category": "gas",
     "type": "flexible",
@@ -323,23 +277,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible gas natural nuevo",
     "image": "https://www.canplast.com.ar/img/_2633.jpg",
     "variants": [
-      { "code": "63G", "desc": "P/ Reg. 6 mts", "price": 10173 }
-    ]
-  },
-  {
-    "id": "p23",
-    "title": "Flexible Gas natural nuevo",
-    "category": "gas",
-    "type": "flexible",
-    "brand": "canplast",
-    "searchName": "flexible gas natural nuevo",
-    "image": "https://www.canplast.com.ar/img/_2633.jpg",
-    "variants": [
+      { "code": "63G", "desc": "P/ Reg. 6 mts", "price": 11021 },
       { "code": "PT.14.01.400", "desc": "P/ Reg. 10 mts", "price": 16932 }
     ]
   },
   {
-    "id": "p24",
+    "id": "p19",
     "title": "Flexible Gas natural Modelo viejo",
     "category": "gas",
     "type": "flexible",
@@ -347,23 +290,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible gas natural modelo viejo",
     "image": "https://http2.mlstatic.com/D_NQ_NP_896805-MLA77204893691_062024-O.webp",
     "variants": [
-      { "code": "63.0", "desc": "aprobado", "price": 18333 }
+      { "code": "63.0", "desc": "aprobado", "price": 19817 },
+      { "code": "63E", "desc": "economico", "price": 10226 }
     ]
   },
   {
-    "id": "p25",
-    "title": "Flexible Gas natural modelo viejo",
-    "category": "gas",
-    "type": "flexible",
-    "brand": "paz",
-    "searchName": "flexible gas natural modelo viejo",
-    "image": "https://tse2.mm.bing.net/th/id/OIP.ZJ9bEiq51DQIX-4UmE-6hwHaFn?w=1024&h=777&rs=1&pid=ImgDetMain&o=7&rm=3",
-    "variants": [
-      { "code": "63E", "desc": "economico", "price": 9431 }
-    ]
-  },
-  {
-    "id": "p26",
+    "id": "p20",
     "title": "Flexible Gas envasado aprobado",
     "category": "gas",
     "type": "flexible",
@@ -371,11 +303,11 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible gas envasado aprobado",
     "image": "https://http2.mlstatic.com/D_NQ_NP_920308-MLA74033092245_012024-O.webp",
     "variants": [
-      { "code": "62.0", "desc": "aprobado", "price": 18333 }
+      { "code": "62.0", "desc": "aprobado", "price": 19817 }
     ]
   },
   {
-    "id": "p27",
+    "id": "p21",
     "title": "Flexible Gas envasado economico",
     "category": "gas",
     "type": "flexible",
@@ -383,11 +315,11 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible gas envasado economico",
     "image": "https://acdn.mitiendanube.com/stores/002/363/077/products/flexible-ge-gasenvasado-1d78c758a311cf4d3517133801439670-640-0.jpg",
     "variants": [
-      { "code": "62E", "desc": "economico", "price": 9431 }
+      { "code": "62E", "desc": "economico", "price": 10226 }
     ]
   },
   {
-    "id": "p28",
+    "id": "p22",
     "title": "Adaptador Rigido 3/4 - Remplaza flex.",
     "category": "otros",
     "type": "accesorio",
@@ -395,23 +327,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "adaptador rigido 3/4 - remplaza flex.",
     "image": "https://m.media-amazon.com/images/I/610zZmtGnGL._AC_SL1500_.jpg",
     "variants": [
-      { "code": "PT.10.04", "desc": "Macho - Hembra", "price": 6960 }
-    ]
-  },
-  {
-    "id": "p29",
-    "title": "Adaptador Rigido 3/4 - Remplaza flex.",
-    "category": "otros",
-    "type": "accesorio",
-    "brand": "canplast",
-    "searchName": "adaptador rigido 3/4 - remplaza flex.",
-    "image": "https://www.canplast.com.ar/img/_2636.jpg",
-    "variants": [
+      { "code": "PT.10.04", "desc": "Macho - Hembra", "price": 6960 },
       { "code": "PT.10.01", "desc": "Macho - Macho", "price": 5080 }
     ]
   },
   {
-    "id": "p30",
+    "id": "p23",
     "title": "Pilar para medidor",
     "category": "gas",
     "type": "pilar",
@@ -424,7 +345,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p31",
+    "id": "p24",
     "title": "Membrana autoadhesiva",
     "category": "otros",
     "type": "membrana",
@@ -439,7 +360,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p32",
+    "id": "p25",
     "title": "Cinta Anticorrosiva",
     "category": "otros",
     "type": "membrana",
@@ -454,7 +375,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p33",
+    "id": "p26",
     "title": "Cinta anticorrosiva N 1300",
     "category": "otros",
     "type": "membrana",
@@ -462,12 +383,23 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "cinta anticorrosiva n 1300",
     "image": "https://tecnoaislantes.tecnopolipor.com/wp-content/uploads/2023/02/165-000.jpg",
     "variants": [
-      { "code": "PTANT0009", "desc": "0,05 cm x 17 Mts", "price": 12588 },
+      { "code": "PTANT0009", "desc": "0,05 cm x 17 Mts", "price": 12588 }
+    ]
+  },
+  {
+    "id": "p27",
+    "title": "Cinta anticorrosiva N 1301",
+    "category": "otros",
+    "type": "membrana",
+    "brand": "tcoat",
+    "searchName": "cinta anticorrosiva n 1301",
+    "image": "https://tecnoaislantes.tecnopolipor.com/wp-content/uploads/2023/02/165-000.jpg",
+    "variants": [
       { "code": "PTANT0010", "desc": "0,10 cm x 17 Mts", "price": 25215 }
     ]
   },
   {
-    "id": "p34",
+    "id": "p28",
     "title": "Petrolato",
     "category": "otros",
     "type": "membrana",
@@ -480,7 +412,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p35",
+    "id": "p29",
     "title": "Imprimador",
     "category": "otros",
     "type": "membrana",
@@ -494,7 +426,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p36",
+    "id": "p30",
     "title": "Llave de gas domiciliarias Con campana",
     "category": "gas",
     "type": "llave-gas",
@@ -508,7 +440,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p37",
+    "id": "p31",
     "title": "Llave de gas domiciliarias Bronce",
     "category": "gas",
     "type": "llave-gas",
@@ -525,7 +457,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p38",
+    "id": "p32",
     "title": "Llave de gas domiciliarias Cromo",
     "category": "gas",
     "type": "llave-gas",
@@ -539,7 +471,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p39",
+    "id": "p33",
     "title": "Llave de gas candado",
     "category": "gas",
     "type": "llave-gas",
@@ -554,7 +486,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p40",
+    "id": "p34",
     "title": "Llave esfericas 4 Bar",
     "category": "gas",
     "type": "llave-gas",
@@ -571,13 +503,13 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p41",
+    "id": "p35",
     "title": "Llave esfericas 4 bar P/Total",
     "category": "gas",
     "type": "llave-gas",
     "brand": "alarsa",
     "searchName": "llave esfericas 4 bar p/total",
-    "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/esferica-paso-total.jpg",
+    "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/1.png",
     "variants": [
       { "code": "5038.0", "desc": "1/2", "price": 21994 },
       { "code": "5039.0", "desc": "3/4", "price": 24924 },
@@ -591,7 +523,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p42",
+    "id": "p36",
     "title": "Valvulas esferica de agua",
     "category": "agua",
     "type": "valvula",
@@ -611,7 +543,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p43",
+    "id": "p37",
     "title": "Valvulas esferica de agua PVC",
     "category": "agua",
     "type": "valvula",
@@ -625,7 +557,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p44",
+    "id": "p38",
     "title": "Juego de manija - campana - tornillo",
     "category": "gas",
     "type": "llave-gas",
@@ -637,7 +569,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p45",
+    "id": "p39",
     "title": "Cobertor de caños Blanco 5 mm",
     "category": "agua",
     "type": "tubo",
@@ -654,7 +586,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p46",
+    "id": "p40",
     "title": "Cobertor de caños Gris 10 mm",
     "category": "agua",
     "type": "tubo",
@@ -671,13 +603,13 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p47",
+    "id": "p41",
     "title": "Cobertor de caños Blindado 10 mm",
     "category": "agua",
     "type": "tubo",
     "brand": "covertex",
     "searchName": "cobertor de caños blindado 10 mm",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_912342-MLA54286443572_032023-O.webp",
+    "image": "https://cdn.leroymerlin.com.br/products/isolante_elastomerico_vix_c0_1_1_2_9x38_1570130098_ef35_600x600.jpg",
     "variants": [
       { "code": "PTETU0102", "desc": "1/2 \" (32 UN.)", "price": 36660 },
       { "code": "PTETU0104", "desc": "3/4 \" (25 UN.)", "price": 32365 },
@@ -688,7 +620,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p48",
+    "id": "p42",
     "title": "Canilla Esfericas mariposa Laton",
     "category": "agua",
     "type": "canilla",
@@ -701,7 +633,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p49",
+    "id": "p43",
     "title": "Canilla Esfericas mariposa Plastico",
     "category": "agua",
     "type": "canilla",
@@ -714,7 +646,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p50",
+    "id": "p44",
     "title": "Tornillo de inodoro",
     "category": "otros",
     "type": "accesorio",
@@ -727,7 +659,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p51",
+    "id": "p45",
     "title": "Monturas de Gas",
     "category": "gas",
     "type": "montura",
@@ -735,15 +667,15 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "monturas de gas",
     "image": "https://sanitariosgaona.com.ar/wp-content/uploads/2022/07/CR20-20Montura20derivacion20epoxi_2-600x488.jpg",
     "variants": [
-      { "code": "M131300000", "desc": "1/2 X 1/2", "price": 7079 },
-      { "code": "M191300000", "desc": "3/4 X 1/2", "price": 7079 },
-      { "code": "M251300000", "desc": "1 X 1/2", "price": 7237 },
-      { "code": "M19190000", "desc": "3/4 X 3/4", "price": 7628 },
-      { "code": "M251900000", "desc": "1 X 3/4", "price": 7729 }
+      { "code": "M131300000", "desc": "1/2 X 1/2", "price": 10010 },
+      { "code": "M191300000", "desc": "3/4 X 1/2", "price": 10010 },
+      { "code": "M251300000", "desc": "1 X 1/2", "price": 11257 },
+      { "code": "M19190000", "desc": "3/4 X 3/4", "price": 11325 },
+      { "code": "M251900000", "desc": "1 X 3/4", "price": 11476 }
     ]
   },
   {
-    "id": "p52",
+    "id": "p46",
     "title": "Reja de ventilación esmaltada c/agujero Aprobada",
     "category": "otros",
     "type": "reja",
@@ -757,7 +689,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p53",
+    "id": "p47",
     "title": "Reja de piso simple",
     "category": "otros",
     "type": "reja",
@@ -772,7 +704,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p54",
+    "id": "p48",
     "title": "Tapas de piso  simple",
     "category": "otros",
     "type": "tapa",
@@ -787,7 +719,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p55",
+    "id": "p49",
     "title": "Reja de piso Giratoria",
     "category": "otros",
     "type": "reja",
@@ -801,7 +733,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p56",
+    "id": "p50",
     "title": "Reja de piso Embudo",
     "category": "otros",
     "type": "reja",
@@ -815,7 +747,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p57",
+    "id": "p51",
     "title": "Sopapa Plástica con Rejilla Metálica",
     "category": "agua",
     "type": "sopapa",
@@ -828,7 +760,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p58",
+    "id": "p52",
     "title": "Sopapa Bronce",
     "category": "agua",
     "type": "sopapa",
@@ -841,7 +773,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p59",
+    "id": "p53",
     "title": "Sopapa PVC Americana",
     "category": "agua",
     "type": "sopapa",
@@ -853,7 +785,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p60",
+    "id": "p54",
     "title": "Terraja estrella",
     "category": "gas",
     "type": "terraja",
@@ -865,7 +797,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p61",
+    "id": "p55",
     "title": "Flotantes alta presión",
     "category": "agua",
     "type": "flotante",
@@ -879,7 +811,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p62",
+    "id": "p56",
     "title": "Flotante comun varilla larga",
     "category": "agua",
     "type": "flotante",
@@ -892,7 +824,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p63",
+    "id": "p57",
     "title": "Gabinete con puerta ( fibrocemento )",
     "category": "gas",
     "type": "gabinete",
@@ -906,7 +838,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p64",
+    "id": "p58",
     "title": "Puerta para gas natural aprobada",
     "category": "gas",
     "type": "puerta",
@@ -922,7 +854,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p65",
+    "id": "p59",
     "title": "Fuelle mochila comun",
     "category": "agua",
     "type": "fuelle",
@@ -934,7 +866,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p66",
+    "id": "p60",
     "title": "Canilla duplex lavarropas\t\n\t plastico blanco",
     "category": "agua",
     "type": "canilla",
@@ -942,12 +874,23 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canilla duplex lavarropas\t\n\t plastico blanco",
     "image": "https://insacor.com.ar/24192-home_default/canilla-pvc-esfdoble-p-lav1-2.jpg",
     "variants": [
-      { "code": "CLMG", "desc": "1/2 x 3/4", "price": 2541 },
+      { "code": "CLMG", "desc": "1/2 x 3/4", "price": 2541 }
+    ]
+  },
+  {
+    "id": "p61",
+    "title": "Canilla duplex lavarropas\t\n\t bronce cromado",
+    "category": "agua",
+    "type": "canilla",
+    "brand": "",
+    "searchName": "canilla duplex lavarropas\t\n\t bronce cromado",
+    "image": "https://marfad.com.ar/wp-content/uploads/2021/06/CDLG1234G-2.jpg",
+    "variants": [
       { "code": "CL", "desc": "1/2 x 3/4", "price": 8784 }
     ]
   },
   {
-    "id": "p67",
+    "id": "p62",
     "title": "Aislante aluminizado con solapa y tacc",
     "category": "otros",
     "type": "aislante",
@@ -960,7 +903,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p68",
+    "id": "p63",
     "title": "CANILLA DE BRONCE CROMADA CON PICO",
     "category": "agua",
     "type": "canilla",
@@ -968,12 +911,23 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canilla de bronce cromada con pico",
     "image": "https://arcencohogar.vtexassets.com/arquivos/ids/274016-800-800?v=637651579424470000&width=800&height=800&aspect=true",
     "variants": [
-      { "code": "2033934.0", "desc": "3/4", "price": 14605 },
+      { "code": "2033934.0", "desc": "3/4", "price": 14605 }
+    ]
+  },
+  {
+    "id": "p64",
+    "title": "CANILLA ESFERICA FORJADA PALANCA ROJA",
+    "category": "agua",
+    "type": "canilla",
+    "brand": "valforte",
+    "searchName": "canilla esferica forjada palanca roja",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_878813-MLA52294868973_112022-O.webp",
+    "variants": [
       { "code": "21101.0", "desc": "1", "price": 13862 }
     ]
   },
   {
-    "id": "p69",
+    "id": "p65",
     "title": "CANILLA PARA RIEGO PALANCA",
     "category": "agua",
     "type": "canilla",
@@ -985,7 +939,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p70",
+    "id": "p66",
     "title": "VALVULA ESCLUSA PASO TOTAL",
     "category": "agua",
     "type": "valvula",
@@ -998,7 +952,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p71",
+    "id": "p67",
     "title": "VALVULA ESFERICA MEDIA UNION M-H MARIPOSA",
     "category": "agua",
     "type": "valvula",
@@ -1011,7 +965,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p72",
+    "id": "p68",
     "title": "CODO 90º",
     "category": "agua",
     "type": "fusion",
@@ -1025,7 +979,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p73",
+    "id": "p69",
     "title": "CODO C/INSERTO METALICO HEMBRA",
     "category": "agua",
     "type": "fusion",
@@ -1035,14 +989,25 @@ window.DISTRIFEL_PRODUCTS = [
     "variants": [
       { "code": "7290201.0", "desc": "20 x 1/2", "price": 1434 },
       { "code": "7290251.0", "desc": "25 x 1/2", "price": 1852 },
-      { "code": "7290252.0", "desc": "25 x 3/4", "price": 2152 },
+      { "code": "7290252.0", "desc": "25 x 3/4", "price": 2152 }
+    ]
+  },
+  {
+    "id": "p70",
+    "title": "CUPLA C/INSERTO METALICO HEMBRA",
+    "category": "agua",
+    "type": "fusion",
+    "brand": "latynfusion",
+    "searchName": "cupla c/inserto metalico hembra",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_733459-MLA93988228277_102025-O.webp",
+    "variants": [
       { "code": "72270201.0", "desc": "20 x 1/2", "price": 1294 },
       { "code": "722702038.0", "desc": "20 x 3/8", "price": 1237 },
       { "code": "72270251.0", "desc": "25 x 12", "price": 1554 }
     ]
   },
   {
-    "id": "p74",
+    "id": "p71",
     "title": "CUPLA REDUCCION",
     "category": "agua",
     "type": "fusion",
@@ -1054,7 +1019,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p75",
+    "id": "p72",
     "title": "CUPLA",
     "category": "agua",
     "type": "fusion",
@@ -1068,7 +1033,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p76",
+    "id": "p73",
     "title": "LLAVE PASO COMPACTA CABEZAL POLIAMIDA",
     "category": "agua",
     "type": "fusion",
@@ -1081,7 +1046,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p77",
+    "id": "p74",
     "title": "SOBREPASO",
     "category": "agua",
     "type": "fusion",
@@ -1094,7 +1059,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p78",
+    "id": "p75",
     "title": "TAPA",
     "category": "agua",
     "type": "fusion",
@@ -1107,7 +1072,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p79",
+    "id": "p76",
     "title": "TEE C/INSERTO METALICO HEMBRA",
     "category": "agua",
     "type": "fusion",
@@ -1119,7 +1084,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p80",
+    "id": "p77",
     "title": "TEE",
     "category": "agua",
     "type": "fusion",
@@ -1133,7 +1098,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p81",
+    "id": "p78",
     "title": "TUBOS AGUA CALIENTE DURAFLOW",
     "category": "agua",
     "type": "fusion",
@@ -1146,7 +1111,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p82",
+    "id": "p79",
     "title": "TUBOS AGUA FRIA ECOFLOW",
     "category": "agua",
     "type": "fusion",
@@ -1158,7 +1123,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p83",
+    "id": "p80",
     "title": "UNION DOBLE FUSION-FUSION",
     "category": "agua",
     "type": "fusion",
@@ -1171,7 +1136,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p84",
+    "id": "p81",
     "title": "VALVULA PPR FUSION ESFERA PLASTICA",
     "category": "agua",
     "type": "fusion",
@@ -1184,7 +1149,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p85",
+    "id": "p82",
     "title": "ACC.BCE.ROSC.CODO H.H.",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1193,7 +1158,6 @@ window.DISTRIFEL_PRODUCTS = [
     "image": "https://alarsa.com.ar/wp-content/uploads/2023/03/codo-reduccion-roscado-e1678893757689.jpg",
     "variants": [
       { "code": "1102.0", "desc": "1/2", "price": 2375 },
-      { "code": "1103.0", "desc": "3/4", "price": 3388 },
       { "code": "1104.0", "desc": "1", "price": 5850 },
       { "code": "1105.0", "desc": "1 1/4", "price": 10542 },
       { "code": "1106.0", "desc": "1 1/2", "price": 18386 },
@@ -1201,7 +1165,19 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p86",
+    "id": "p83",
+    "title": "AC.BCE.ROSC.CODO. H.H.",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
+    "searchName": "ac.bce.rosc.codo. h.h.",
+    "image": "https://alarsa.com.ar/wp-content/uploads/2023/03/codo-reduccion-roscado-e1678893757689.jpg",
+    "variants": [
+      { "code": "1103.0", "desc": "3/4", "price": 3388 }
+    ]
+  },
+  {
+    "id": "p84",
     "title": "ACC.BCE.ROSC.TEE",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1214,11 +1190,16 @@ window.DISTRIFEL_PRODUCTS = [
       { "code": "1004.0", "desc": "1", "price": 6814 },
       { "code": "1005.0", "desc": "1 1/4", "price": 12066 },
       { "code": "1006.0", "desc": "1 1/2", "price": 14789 },
-      { "code": "1007.0", "desc": "2", "price": 25256 }
+      { "code": "1007.0", "desc": "2", "price": 25256 },
+      { "code": "12402.0", "desc": "3/4 X 1/2", "price": 3997 },
+      { "code": "12403.0", "desc": "1 X 1/2", "price": 6395 },
+      { "code": "12404.0", "desc": "1 X 3/4", "price": 6395 },
+      { "code": "12407.0", "desc": "1 1/4 X 1", "price": 9993 },
+      { "code": "12411.0", "desc": "1 1/2 X 1 1/4", "price": 14639 }
     ]
   },
   {
-    "id": "p87",
+    "id": "p85",
     "title": "ACC.BCE.ROSC.ROS.C/TUERCA",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1235,7 +1216,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p88",
+    "id": "p86",
     "title": "ACC.BCE.ROSC.UNION DOBLE",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1252,7 +1233,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p89",
+    "id": "p87",
     "title": "ACC.BCE.ROSC.CODO M.H.",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1263,13 +1244,24 @@ window.DISTRIFEL_PRODUCTS = [
       { "code": "1202.0", "desc": "1/2", "price": 2225 },
       { "code": "1203.0", "desc": "3/4", "price": 3325 },
       { "code": "1204.0", "desc": "1", "price": 6126 },
-      { "code": "1205.0", "desc": "1 1/4", "price": 10242 },
       { "code": "1206.0", "desc": "1 1/2", "price": 18062 },
       { "code": "1207.0", "desc": "2", "price": 25593 }
     ]
   },
   {
-    "id": "p90",
+    "id": "p88",
+    "title": "ACC.BCE. ROSC..CODO M.H.",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
+    "searchName": "acc.bce. rosc..codo m.h.",
+    "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/codo-h-m-e1669333033465.jpg",
+    "variants": [
+      { "code": "1205.0", "desc": "1 1/4", "price": 10242 }
+    ]
+  },
+  {
+    "id": "p89",
     "title": "ACC.BCE.ROSC.BRIDAS",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1286,7 +1278,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p91",
+    "id": "p90",
     "title": "ACC.BCE.ROSC.TAPON",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1303,7 +1295,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p92",
+    "id": "p91",
     "title": "ACC.BCE.ROSC.CUPLAS",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1316,11 +1308,15 @@ window.DISTRIFEL_PRODUCTS = [
       { "code": "1404.0", "desc": "1", "price": 3583 },
       { "code": "1405.0", "desc": "1 1/4", "price": 5121 },
       { "code": "1406.0", "desc": "1 1/2", "price": 7195 },
-      { "code": "1407.0", "desc": "2", "price": 12316 }
+      { "code": "1407.0", "desc": "2", "price": 12316 },
+      { "code": "12302.0", "desc": "3/4 X 1/2", "price": 2473 },
+      { "code": "12304.0", "desc": "1 X 3/4", "price": 3273 },
+      { "code": "12303.0", "desc": "1 X 1/2", "price": 3273 },
+      { "code": "12316.0", "desc": "2 X 1 1/2", "price": 13858 }
     ]
   },
   {
-    "id": "p93",
+    "id": "p92",
     "title": "ACC.BCE.ROSC.BUJE",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1337,36 +1333,38 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p94",
-    "title": "ACC.BCE.ROSC.CUPLAS",
+    "id": "p93",
+    "title": "ACC. BCE.ROSC.CUPLAS",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "alarsa",
-    "searchName": "acc.bce.rosc.cuplas",
+    "searchName": "acc. bce.rosc.cuplas",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/cupla-de-reduccion-e1675100404837.jpg",
     "variants": [
-      { "code": "12302.0", "desc": "3/4 X 1/2", "price": 2473 },
-      { "code": "12304.0", "desc": "1 X 3/4", "price": 3273 },
-      { "code": "12303.0", "desc": "1 X 1/2", "price": 3273 },
-      { "code": "12307.0", "desc": "1 1/4 X 1", "price": 5762 },
-      { "code": "12311.0", "desc": "1 1/2 X 1 1/4", "price": 8180 },
-      { "code": "12316.0", "desc": "2 X 1 1/2", "price": 13858 }
+      { "code": "12307.0", "desc": "1 1/4 X 1", "price": 5762 }
+    ]
+  },
+  {
+    "id": "p94",
+    "title": "ACC. BCE. ROSC.CUPLAS",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
+    "searchName": "acc. bce. rosc.cuplas",
+    "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/cupla-de-reduccion-e1675100404837.jpg",
+    "variants": [
+      { "code": "12311.0", "desc": "1 1/2 X 1 1/4", "price": 8180 }
     ]
   },
   {
     "id": "p95",
-    "title": "ACC.BCE.ROSC.TEE",
+    "title": "ACC BCE ROS TEES",
     "category": "agua",
     "type": "bronce-roscado",
     "brand": "alarsa",
-    "searchName": "acc.bce.rosc.tee",
+    "searchName": "acc bce ros tees",
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/tee-e1669332407216.jpg",
     "variants": [
-      { "code": "12402.0", "desc": "3/4 X 1/2", "price": 3997 },
-      { "code": "12403.0", "desc": "1 X 1/2", "price": 6395 },
-      { "code": "12404.0", "desc": "1 X 3/4", "price": 6395 },
-      { "code": "12407.0", "desc": "1 1/4 X 1", "price": 9993 },
-      { "code": "12411.0", "desc": "1 1/2 X 1 1/4", "price": 14639 },
       { "code": "12416.0", "desc": "2 X 1 1/2", "price": 24931 }
     ]
   },
@@ -1443,7 +1441,18 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "acc.bce.rosc.niples de 1",
     "image": "https://icofesa.com/sistema/fotos/2producto17771.jpg",
     "variants": [
-      { "code": "11304.0", "desc": "X 5", "price": 4646 },
+      { "code": "11304.0", "desc": "X 5", "price": 4646 }
+    ]
+  },
+  {
+    "id": "p101",
+    "title": "ACC.BCE.ROSC.NIPLE DE 1",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
+    "searchName": "acc.bce.rosc.niple de 1",
+    "image": "https://icofesa.com/sistema/fotos/2producto17771.jpg",
+    "variants": [
       { "code": "11404.0", "desc": "X 8", "price": 7344 },
       { "code": "11504.0", "desc": "X 10", "price": 9043 },
       { "code": "11604.0", "desc": "X 12", "price": 10941 },
@@ -1452,7 +1461,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p101",
+    "id": "p102",
     "title": "ACC.BCE.ROSC.NIPLE CON. DE 1/2",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1466,7 +1475,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p102",
+    "id": "p103",
     "title": "ACC.BCE.ROSC.NIPLE CON. DE 3/4",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1475,12 +1484,23 @@ window.DISTRIFEL_PRODUCTS = [
     "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/niple-conexion-1.jpg",
     "variants": [
       { "code": "11903.0", "desc": "X 10", "price": 7344 },
-      { "code": "12003.0", "desc": "X 15", "price": 18506 },
+      { "code": "12003.0", "desc": "X 15", "price": 18506 }
+    ]
+  },
+  {
+    "id": "p104",
+    "title": "ACC. BCE ROSC.NIPLE CON. DE 3/4",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
+    "searchName": "acc. bce rosc.niple con. de 3/4",
+    "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/niple-conexion-1.jpg",
+    "variants": [
       { "code": "12103.0", "desc": "X 20", "price": 15913 }
     ]
   },
   {
-    "id": "p103",
+    "id": "p105",
     "title": "ACC.BCE.ROSC.NIPLE CON. DE 1",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1494,7 +1514,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p104",
+    "id": "p106",
     "title": "ACC.EST.TEE NORMAL",
     "category": "agua",
     "type": "hidro-bronce",
@@ -1509,7 +1529,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p105",
+    "id": "p107",
     "title": "ACC.EST.CODO NORMAL",
     "category": "agua",
     "type": "hidro-bronce",
@@ -1524,7 +1544,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p106",
+    "id": "p108",
     "title": "ACC.EST.UNION NORMAL",
     "category": "agua",
     "type": "hidro-bronce",
@@ -1539,7 +1559,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p107",
+    "id": "p109",
     "title": "ACC.EST.TUBO M NORMAL",
     "category": "agua",
     "type": "hidro-bronce",
@@ -1554,7 +1574,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p108",
+    "id": "p110",
     "title": "ACC.EST.TUBO HEM NORMAL",
     "category": "agua",
     "type": "hidro-bronce",
@@ -1569,7 +1589,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p109",
+    "id": "p111",
     "title": "Aislante aluminizado doble con solapa y tacc",
     "category": "otros",
     "type": "aislante",
@@ -1581,7 +1601,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p110",
+    "id": "p112",
     "title": "sin revestimiento",
     "category": "otros",
     "type": "aislante",
@@ -1594,7 +1614,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p111",
+    "id": "p113",
     "title": "Aislante aluminio puro con solapa y tacc",
     "category": "otros",
     "type": "aislante",
@@ -1607,7 +1627,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p112",
+    "id": "p114",
     "title": "Aislante bajo pileta azul x 30 mts",
     "category": "otros",
     "type": "aislante",
@@ -1620,7 +1640,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p113",
+    "id": "p115",
     "title": "Flota - flota",
     "category": "otros",
     "type": "aislante",

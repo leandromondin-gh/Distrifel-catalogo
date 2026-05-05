@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initOffersModal();
     initDownloads();
     registerServiceWorker();
+    initWpHint();
 });
 
 function initDownloads() {
@@ -1394,6 +1395,26 @@ function attachSwipeToDelete(itemEl, itemId) {
 /* ============================================================
    OFFLINE DETECTION
    ============================================================ */
+
+function initWpHint() {
+    const btn = document.querySelector('.wp-consult-btn');
+    if (!btn) return;
+    const isMobile = window.innerWidth <= 640;
+    const entryDelay = isMobile ? 1600 : 5200;
+    // Abrir automáticamente después de que termina la animación de entrada
+    setTimeout(() => {
+        // Primera apertura
+        btn.classList.add('wp-hint-open');
+        setTimeout(() => {
+            btn.classList.remove('wp-hint-open');
+            // Segunda apertura
+            setTimeout(() => {
+                btn.classList.add('wp-hint-open');
+                setTimeout(() => btn.classList.remove('wp-hint-open'), 2000);
+            }, 1800);
+        }, 2000);
+    }, entryDelay + 700);
+}
 
 function initOfflineDetection() {
     const banner = document.createElement('div');

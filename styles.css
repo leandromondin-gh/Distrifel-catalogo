@@ -1156,13 +1156,29 @@ body.past-hero .nav-home-btn:hover {
     to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes popInRight {
+    0%   { opacity: 0; transform: translateY(-50%) translateX(80px) scale(0.6); }
+    60%  { transform: translateY(-50%) translateX(-8px) scale(1.08); }
+    80%  { transform: translateY(-50%) translateX(4px) scale(0.97); }
+    100% { opacity: 1; transform: translateY(-50%) translateX(0) scale(1); }
+}
+
 .brands-carousel { animation: fadeInUp 1.4s ease-out 0s    both; }
 .hero-eyebrow    { animation: fadeInUp 0.6s ease-out 0.1s  both; }
 .hero-logo-img   { animation: fadeInUp 1.2s ease-out 0.3s  both; }
 .hero-tagline    { animation: fadeInUp 0.6s ease-out 0.5s  both; }
-.hero-categories { animation: fadeInUp 0.6s ease-out 1.1s  both; }
-.hero-buttons    { animation: fadeInUp 0.6s ease-out 1.2s  both; }
-.wp-consult-btn  { animation: fadeInUp 0.6s ease-out 2.0s  both; }
+.hero-categories { opacity: 1; }
+.hero-categories .hero-cat:nth-child(1) { animation: fadeInUp 0.6s ease-out 1.1s both; }
+.hero-categories .hero-cat:nth-child(2) { animation: fadeInUp 0.6s ease-out 2.1s both; }
+.hero-categories .hero-cat:nth-child(3) { animation: fadeInUp 0.6s ease-out 3.1s both; }
+.hero-buttons .btn-hero-catalog,
+.hero-buttons .btn-hero-offers  { animation: fadeInScale 1.1s ease-out 4.0s both; }
+.wp-consult-btn  { animation: popInRight 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 5.2s both; }
 
 .hero-badge {
     display: inline-block;
@@ -1261,6 +1277,9 @@ body.past-hero .nav-home-btn:hover {
 
 @media (max-width: 640px) {
     .hero-categories { display: none; }
+    .hero-buttons .btn-hero-catalog,
+    .hero-buttons .btn-hero-offers { animation-delay: 1.1s; }
+    .wp-consult-btn { animation: popInRight 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1.6s both; }
 }
 
 /* CTAs hero */
@@ -5289,13 +5308,13 @@ body[data-mode="corredor"].has-promo .catalog-section {
 .wp-consult-btn {
     position: fixed;
     right: 0;
-    top: 80%;
+    top: 72%;
     transform: translateY(-50%);
     z-index: 900;
     display: flex;
     align-items: center;
     gap: 0;
-    padding: 20px 16px 20px 18px;
+    padding: 22px 18px 22px 20px;
     background: var(--color-secondary-dark);
     color: white;
     border-radius: 16px 0 0 16px;
@@ -5305,11 +5324,12 @@ body[data-mode="corredor"].has-promo .catalog-section {
     font-family: var(--font-body);
     box-shadow: -4px 4px 20px rgba(74, 159, 142, 0.45);
     overflow: hidden;
-    max-width: 62px;
+    max-width: 68px;
     transition: max-width 0.3s ease, gap 0.3s ease, box-shadow 0.3s ease;
 }
 
-.wp-consult-btn:hover {
+.wp-consult-btn:hover,
+.wp-consult-btn.wp-hint-open {
     max-width: 180px;
     gap: 10px;
     box-shadow: -6px 6px 28px rgba(74, 159, 142, 0.6);
@@ -5318,8 +5338,8 @@ body[data-mode="corredor"].has-promo .catalog-section {
 .wp-consult-btn svg {
     flex-shrink: 0;
     fill: #25d366;
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
 }
 
 .wp-consult-label {
