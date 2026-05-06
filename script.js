@@ -474,7 +474,7 @@ async function generatePDF() {
             doc.setFontSize(11);
             doc.setTextColor(31, 41, 55);
             const titleLines2 = doc.splitTextToSize(p.title || '', TEXT_W);
-            const titleStartY = yPos + 14;
+            const titleStartY = yPos + 18;
             doc.text(titleLines2.slice(0, 2), TEXT_X, titleStartY);
 
             // Línea vertical divisoria gris
@@ -634,12 +634,8 @@ async function generatePDF() {
             // ── Contacto al pie ──
             doc.setFillColor(12, 18, 28);
             doc.rect(0, PH - 22, PW, 22, 'F');
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(8);
-            doc.setTextColor(74, 159, 142);
-            doc.text('DISTRIFEL', 15, PH - 9);
             doc.setFont('helvetica', 'normal');
-            doc.setFontSize(8);
+            doc.setFontSize(11);
             doc.setTextColor(156, 163, 175);
             doc.text('ventas@distrifel.com  |  www.distrifel.com.ar  |  11 6463-9441', PW / 2, PH - 9, { align: 'center' });
 
