@@ -77,8 +77,42 @@ function initDownloads() {
    GENERADOR DE PDF
    ============================================================ */
 
+function drawImgToCanvas(img, contain, targetW, targetH) {
+    const c = document.createElement('canvas');
+    c.width = targetW; c.height = targetH;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#f8fafc'; ctx.fillRect(0, 0, targetW, targetH);
+    if (contain) {
+        const scale = Math.min(targetW / img.naturalWidth, targetH / img.naturalHeight);
+        const sw = img.naturalWidth * scale, sh = img.naturalHeight * scale;
+        ctx.drawImage(img, (targetW - sw) / 2, (targetH - sh) / 2, sw, sh);
+    } else {
+        const scale = Math.min(targetW / img.naturalWidth, targetH / img.naturalHeight);
+        const sw = img.naturalWidth * scale, sh = img.naturalHeight * scale;
+        ctx.drawImage(img, (targetW - sw) / 2, (targetH - sh) / 2, sw, sh);
+    }
+    return c.toDataURL('image/jpeg', 0.75);
+}
+
 async function loadImgBase64(url, contain = true, targetW = 400, targetH = 300) {
     if (!url) return null;
+
+    // Imágenes locales (img/p*.jpg) — usar Image sin crossOrigin (same-origin file://)
+    const isLocal = !url.startsWith('http') && !url.startsWith('data:');
+    if (isLocal) {
+        return new Promise(resolve => {
+            const img = new Image();
+            const t = setTimeout(() => resolve(null), 5000);
+            img.onload = () => {
+                clearTimeout(t);
+                try { resolve(drawImgToCanvas(img, contain, targetW, targetH)); }
+                catch { resolve(null); }
+            };
+            img.onerror = () => { clearTimeout(t); resolve(null); };
+            img.src = url;
+        });
+    }
+
     // Para URLs externas intentar directo con Image+crossOrigin primero (evita CORS de fetch)
     const isExternal = /^https?:\/\//.test(url) && !url.startsWith(location.origin);
     if (isExternal) {
@@ -169,12 +203,32 @@ async function generatePDF() {
             return a.title.localeCompare(b.title, 'es');
         });
 
+        // ── Helper: captura img del DOM (ya cargada por el browser, sin CORS) ──
+        function imgFromDOM(pid, url) {
+            // Buscar en cards del catálogo
+            const card = document.querySelector(`[data-pid="${pid}"] .card-image img`);
+            if (card && card.complete && card.naturalWidth > 0) {
+                try {
+                    const c = document.createElement('canvas');
+                    const MAX = 300;
+                    const sc = Math.min(MAX / card.naturalWidth, MAX / card.naturalHeight, 1);
+                    c.width = card.naturalWidth * sc; c.height = card.naturalHeight * sc;
+                    const ctx = c.getContext('2d');
+                    ctx.fillStyle = '#f8fafc'; ctx.fillRect(0,0,c.width,c.height);
+                    ctx.drawImage(card, 0, 0, c.width, c.height);
+                    return c.toDataURL('image/jpeg', 0.75);
+                } catch {}
+            }
+            return null;
+        }
+
         // ── Precargar imágenes de productos y logos de marcas ──
         const imgCache = {};
         const brandsDone = new Set();
         await Promise.all([
             ...sorted.map(async p => {
-                imgCache[p.id] = await loadImgBase64(p.image, true, 300, 300);
+                // Primero intentar desde DOM (funciona en file://)
+                imgCache[p.id] = imgFromDOM(p.id, p.image) || await loadImgBase64(p.image, true, 300, 300);
                 // Logo de marca (solo una vez por marca)
                 if (p.brand && !brandsDone.has(p.brand)) {
                     brandsDone.add(p.brand);
@@ -393,40 +447,35 @@ async function generatePDF() {
                 } catch (_e) {}
             }
 
-            // Nombre producto — normal, primero
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(10);
-            doc.setTextColor(31, 41, 55);
-            const titleLines2 = doc.splitTextToSize(p.title || '', TEXT_W);
-            const titleStartY = yPos + 12;
-            doc.text(titleLines2.slice(0, 2), TEXT_X, titleStartY);
-
-            // Brand logo chip — pequeño, DESPUÉS del nombre, mantiene proporción
+            // Chip de marca — primera línea, a la izquierda
             const brandB64 = (window.BRAND_LOGOS_B64 && p.brand) ? window.BRAND_LOGOS_B64[p.brand] : null;
+            const chipH = 6, chipW = 22, chipY = yPos + 5;
             if (brandB64) {
-                const chipY = titleStartY + titleLines2.slice(0,2).length * 5 + 2;
-                const chipH = 6;
-                const chipW = 20;
-                // Fondo chip blanco con borde gris
                 doc.setFillColor(255, 255, 255);
                 doc.setDrawColor(220, 226, 232);
                 doc.setLineWidth(0.2);
                 doc.roundedRect(TEXT_X, chipY, chipW, chipH, 1, 1, 'FD');
-                // Logo dentro del chip manteniendo proporción
                 const bFmt2 = brandB64.startsWith('data:image/png') ? 'PNG' : brandB64.startsWith('data:image/webp') ? 'WEBP' : 'JPEG';
                 try { doc.addImage(brandB64, bFmt2, TEXT_X + 1, chipY + 0.5, chipW - 2, chipH - 1); } catch {}
             } else if (p.brand) {
                 const brandName2 = (window.BRAND_NAMES && window.BRAND_NAMES[p.brand]) || p.brand;
-                const chipY2 = titleStartY + titleLines2.slice(0,2).length * 5 + 2;
                 doc.setFillColor(232, 247, 244);
                 doc.setDrawColor(74, 159, 142);
                 doc.setLineWidth(0.2);
-                doc.roundedRect(TEXT_X, chipY2, 20, 5.5, 1, 1, 'FD');
+                doc.roundedRect(TEXT_X, chipY, chipW, chipH, 1, 1, 'FD');
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(5.5);
                 doc.setTextColor(74, 159, 142);
-                doc.text(brandName2.toUpperCase(), TEXT_X + 10, chipY2 + 3.8, { align: 'center' });
+                doc.text(brandName2.toUpperCase(), TEXT_X + chipW / 2, chipY + 4, { align: 'center' });
             }
+
+            // Nombre producto — 11pt, debajo del chip
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(11);
+            doc.setTextColor(31, 41, 55);
+            const titleLines2 = doc.splitTextToSize(p.title || '', TEXT_W);
+            const titleStartY = yPos + 14;
+            doc.text(titleLines2.slice(0, 2), TEXT_X, titleStartY);
 
             // Línea vertical divisoria gris
             doc.setDrawColor(...GRAY_LINE);
@@ -520,67 +569,79 @@ async function generatePDF() {
             if (typeof PDF_BG_B64 !== 'undefined' && PDF_BG_B64) {
                 try { doc.addImage(PDF_BG_B64, 'JPEG', 0, 0, PW, PH); } catch {}
             }
-            // Overlay dark sobre la imagen
-            doc.setGState(new doc.GState({ opacity: 0.80 }));
+            // Overlay dark 70% (más transparente → fondo de caños más visible)
+            doc.setGState(new doc.GState({ opacity: 0.70 }));
             doc.setFillColor(17, 24, 39);
             doc.rect(0, 0, PW, PH, 'F');
             doc.setGState(new doc.GState({ opacity: 1 }));
 
-
-
-
-            // ── "2026" — número muy grande, teal ──
+            // ── "2026" watermark centrado en página ──
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(160);
             doc.setTextColor(74, 159, 142);
-            doc.setGState(new doc.GState({ opacity: 0.12 }));
-            doc.text('2026', PW / 2, 185, { align: 'center' });
+            doc.setGState(new doc.GState({ opacity: 0.10 }));
+            doc.text('2026', PW / 2, PH / 2 + 40, { align: 'center' });
             doc.setGState(new doc.GState({ opacity: 1 }));
 
-            // ── Logo centrado ──
+            // ── Bloque central de contenido — centrado verticalmente ──
+            const centerY = PH / 2 - 30;
+
+            // "DISTRIBUIDORA MAYORISTA"
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(16);
+            doc.setTextColor(74, 159, 142);
+            doc.text('DISTRIBUIDORA MAYORISTA', PW / 2, centerY - 28, { align: 'center' });
+
+            // Logo
             if (PDF_LOGO_B64) {
                 try {
                     const lw = 130, lh = 30.7;
-                    doc.addImage(PDF_LOGO_B64, 'PNG', (PW - lw) / 2, 80, lw, lh);
+                    doc.addImage(PDF_LOGO_B64, 'PNG', (PW - lw) / 2, centerY - 22, lw, lh);
                 } catch {}
             } else {
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(48);
                 doc.setTextColor(255, 255, 255);
-                doc.text('DISTRIFEL', PW / 2, 108, { align: 'center' });
+                doc.text('DISTRIFEL', PW / 2, centerY + 5, { align: 'center' });
             }
 
-            // ── "DISTRIBUIDORA MAYORISTA" — sin charSpace para que no se corte ──
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(16);
-            doc.setTextColor(74, 159, 142);
-            doc.text('DISTRIBUIDORA MAYORISTA', PW / 2, 72, { align: 'center' });
-
-            // Separador
+            // Separador teal
             doc.setFillColor(74, 159, 142);
-            doc.rect(30, 118, PW - 60, 0.8, 'F');
+            doc.rect(30, centerY + 16, PW - 60, 0.8, 'F');
 
-            // ── "LISTA DE PRECIOS" ──
+            // "LISTA DE PRECIOS"
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(28);
             doc.setTextColor(255, 255, 255);
-            doc.text('LISTA DE PRECIOS', PW / 2, 136, { align: 'center' });
+            doc.text('LISTA DE PRECIOS', PW / 2, centerY + 32, { align: 'center' });
 
-            // ── Tagline — más grande ──
+            // Tagline
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(15);
             doc.setTextColor(156, 163, 175);
-            doc.text('Ferretería · Sanitarios · Construcción', PW / 2, 155, { align: 'center' });
+            doc.text('Ferretería · Sanitarios · Construcción', PW / 2, centerY + 46, { align: 'center' });
 
-            // ── Separador ──
+            // Separador
             doc.setFillColor(30, 42, 58);
-            doc.rect(30, 163, PW - 60, 0.8, 'F');
+            doc.rect(30, centerY + 52, PW - 60, 0.8, 'F');
 
-            // ── Info lista — más grande ──
+            // Info lista
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(13);
             doc.setTextColor(156, 163, 175);
-            doc.text('Lista 116  •  Actualizada: 29/04/2026', PW / 2, 175, { align: 'center' });
+            doc.text('Lista 116  •  Actualizada: 29/04/2026', PW / 2, centerY + 63, { align: 'center' });
+
+            // ── Contacto al pie ──
+            doc.setFillColor(12, 18, 28);
+            doc.rect(0, PH - 22, PW, 22, 'F');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8);
+            doc.setTextColor(74, 159, 142);
+            doc.text('DISTRIFEL', 15, PH - 9);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(156, 163, 175);
+            doc.text('ventas@distrifel.com  |  www.distrifel.com.ar  |  11 6463-9441', PW / 2, PH - 9, { align: 'center' });
 
             doc.addPage();
             pageNum++;
@@ -631,8 +692,11 @@ async function generatePDF() {
         }
 
         // ── Guardar ──
-        const dateFileSave = new Date().toISOString().slice(0, 10);
-        window.open(doc.output("bloburl"), "_blank");
+        const now = new Date();
+        const dd   = String(now.getDate()).padStart(2, '0');
+        const mm   = String(now.getMonth() + 1).padStart(2, '0');
+        const yyyy = now.getFullYear();
+        doc.save(`Distrifel - Lista de Precios ${dd}-${mm}-${yyyy}.pdf`);
 
     } finally {
         if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
