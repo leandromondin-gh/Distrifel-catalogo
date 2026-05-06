@@ -127,312 +127,373 @@ async function generatePDF() {
     if (btn) { btn.style.opacity = '0.6'; btn.style.pointerEvents = 'none'; }
     if (btnLabel) btnLabel.textContent = 'Generando...';
 
-    const { jsPDF } = window.jspdf;
-    const products = window.DISTRIFEL_PRODUCTS || [];
+    try {
+        const { jsPDF } = window.jspdf;
+        const products = window.DISTRIFEL_PRODUCTS || [];
 
-    // Ordenar igual que el catálogo
-    const TYPE_ORDER = { regulador: 0, flexible: 1, membrana: 2, 'llave-gas': 3 };
-    const sorted = [...products].sort((a, b) => {
-        const oa = TYPE_ORDER[a.type] ?? 99, ob = TYPE_ORDER[b.type] ?? 99;
-        if (oa !== ob) return oa - ob;
-        if (oa === 99) return (TYPE_LABELS[a.type]||a.type).localeCompare(TYPE_LABELS[b.type]||b.type,'es');
-        return a.title.localeCompare(b.title, 'es');
-    });
+        // ── Ordenar: TYPE_ORDER primero, resto A-Z ──
+        const TYPE_ORDER = { regulador: 0, flexible: 1, membrana: 2, 'llave-gas': 3 };
+        const sorted = [...products].sort((a, b) => {
+            const oa = TYPE_ORDER[a.type] ?? 99;
+            const ob = TYPE_ORDER[b.type] ?? 99;
+            if (oa !== ob) return oa - ob;
+            if (oa === 99) return (TYPE_LABELS[a.type] || a.type).localeCompare(TYPE_LABELS[b.type] || b.type, 'es');
+            return a.title.localeCompare(b.title, 'es');
+        });
 
-    // Precargar logo y todas las imágenes en paralelo
-    const imgCache = {};
+        // ── Precargar imágenes ──
+        const imgCache = {};
+        await Promise.all(sorted.map(async p => {
+            imgCache[p.id] = await loadImgBase64(p.image, true, 300, 300);
+        }));
 
-    const logoBase64 = PDF_LOGO_B64;
+        const logoBase64 = PDF_LOGO_B64;
 
-    await Promise.all(sorted.map(async p => {
-        // Cuadrado 300x300 con contain — igual que las cards del sitio
-        imgCache[p.id] = await loadImgBase64(p.image, true, 300, 300);
-    }));
+        // ── Constantes de layout ──
+        const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const W = 210, H = 297, M = 10;
+        const COL_W = (W - M * 2 - 5) / 2;   // ~92.5mm
+        const COL_GAP = 5;
+        const HEADER_H = 14;
+        const FOOTER_H = 9;
+        const CONTENT_TOP = HEADER_H + 3;      // y=17mm
+        const CONTENT_BOT = H - FOOTER_H;      // y=288mm
+        const IMG_S = 22;                       // imagen 22x22mm
+        const SEP_H = 9;                        // altura separador de tipo
 
-    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-    const W = 210, H = 297, M = 10;
-    const NAVY  = [17, 24, 39];
-    const TEAL  = [74, 159, 142];
-    const TEAL2 = [232, 247, 244];
-    const WHITE = [255, 255, 255];
-    const GRAY  = [156, 163, 175];
-    const DARK  = [31, 41, 55];
-    const LIGHT = [248, 250, 252];
-    const dateStr = new Date().toLocaleDateString('es-AR',{year:'numeric',month:'long',day:'numeric'});
+        // Colores
+        const NAVY  = [17, 24, 39];
+        const TEAL  = [74, 159, 142];
+        const TEAL2 = [232, 247, 244];
+        const WHITE = [255, 255, 255];
+        const GRAY  = [156, 163, 175];
+        const DARK  = [31, 41, 55];
+        const LIGHT = [248, 250, 252];
 
-    // ══════════════════════ PORTADA ══════════════════════
-    // Fondo full dark
-    doc.setFillColor(...NAVY);
-    doc.rect(0, 0, W, H, 'F');
+        const dateStr = new Date().toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
+        const dateFile = new Date().toISOString().slice(0, 10);
 
-    // Banda teal decorativa izquierda
-    doc.setFillColor(...TEAL);
-    doc.rect(0, 0, 6, H, 'F');
+        // ══════════════════════════════════════════
+        // PORTADA
+        // ══════════════════════════════════════════
+        doc.setFillColor(...NAVY);
+        doc.rect(0, 0, W, H, 'F');
 
-    // Línea teal horizontal
-    doc.setFillColor(...TEAL);
-    // Líneas decorativas — centradas
-    doc.rect(M, 90, W - M * 2, 0.8, 'F');
-    doc.rect(M, 150, W - M * 2, 0.8, 'F');
+        // Banda teal vertical izquierda
+        doc.setFillColor(...TEAL);
+        doc.rect(0, 0, 6, H, 'F');
 
-    // DISTRIBUIDORA MAYORISTA — centrado
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(13);
-    doc.setTextColor(...TEAL);
-    doc.setCharSpace(5);
-    doc.text('DISTRIBUIDORA MAYORISTA', W / 2, 82, { align: 'center' });
-    doc.setCharSpace(0);
+        // Bandas horizontales decorativas
+        doc.setFillColor(...TEAL);
+        doc.rect(M, 90, W - M * 2, 0.8, 'F');
+        doc.rect(M, 150, W - M * 2, 0.8, 'F');
 
-    // Logo PNG centrado, más ancho
-    if (logoBase64) {
-        try {
-            const logoW = 160, logoH = 45;
-            doc.addImage(logoBase64, 'PNG', (W - logoW) / 2, 92, logoW, logoH);
-        } catch {
+        // "DISTRIBUIDORA MAYORISTA"
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(13);
+        doc.setTextColor(...TEAL);
+        doc.setCharSpace(5);
+        doc.text('DISTRIBUIDORA MAYORISTA', W / 2, 82, { align: 'center' });
+        doc.setCharSpace(0);
+
+        // Logo
+        if (logoBase64) {
+            try {
+                const logoW = 160, logoH = 45;
+                doc.addImage(logoBase64, 'PNG', (W - logoW) / 2, 92, logoW, logoH);
+            } catch (_e) {
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(56);
+                doc.setTextColor(...WHITE);
+                doc.text('DISTRIFEL', W / 2, 128, { align: 'center' });
+            }
+        } else {
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(56);
             doc.setTextColor(...WHITE);
             doc.text('DISTRIFEL', W / 2, 128, { align: 'center' });
         }
-    } else {
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(56);
-        doc.setTextColor(...WHITE);
-        doc.text('DISTRIFEL', W / 2, 128, { align: 'center' });
-    }
 
-    // Tagline — centrada
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(14);
-    doc.setTextColor(180, 200, 196);
-    doc.text('Ferretería · Sanitarios · Construcción', W / 2, 142, { align: 'center' });
-
-    // LISTA DE PRECIOS 2026 — centrada
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(20);
-    doc.setTextColor(...TEAL);
-    doc.text('LISTA DE PRECIOS 2026', W / 2, 168, { align: 'center' });
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(11);
-    doc.setTextColor(...GRAY);
-    doc.text(`Actualizada: ${dateStr}`, W / 2, 179, { align: 'center' });
-
-    // Stats en portada
-    const totalProds = products.length;
-    const totalVars  = products.reduce((s,p) => s + p.variants.length, 0);
-    const stats = [`${totalProds} productos`, `${totalVars} variantes`, `${Object.keys(TYPE_LABELS).filter(t => products.some(p=>p.type===t)).length} categorías`];
-    const statW = 55, statGap = (W - M * 2 - statW * 3) / 2;
-    stats.forEach((s, i) => {
-        const sx = M + i * (statW + statGap);
-        doc.setFillColor(30, 42, 58);
-        doc.roundedRect(sx, 193, statW, 18, 2, 2, 'F');
-        doc.setFillColor(...TEAL);
-        doc.roundedRect(sx, 193, 4, 18, 1, 1, 'F');
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(13);
-        doc.setTextColor(...WHITE);
-        doc.text(s.split(' ')[0], sx + 9, 204);
+        // Tagline
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8);
-        doc.setTextColor(...GRAY);
-        doc.text(s.split(' ').slice(1).join(' '), sx + 9, 209);
-    });
+        doc.setFontSize(14);
+        doc.setTextColor(180, 200, 196);
+        doc.text('Ferretería · Sanitarios · Construcción', W / 2, 142, { align: 'center' });
 
-    // Footer portada
-    doc.setFillColor(25, 35, 52);
-    doc.rect(0, H - 18, W, 18, 'F');
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8);
-    doc.setTextColor(...TEAL);
-    doc.text('DISTRIFEL', M + 10, H - 9);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(...GRAY);
-    doc.text('Venta mayorista a corralones, ferreterías y profesionales', W / 2, H - 9, { align: 'center' });
-
-    // ══════════════════════ PÁGINAS DE PRODUCTOS ══════════════════════
-    // 2 cards por fila
-    const CARD_W = (W - M * 2 - 5) / 2;
-    const IMG_H  = CARD_W; // cuadrada — misma proporción que canvas 300x300
-    const HEADER_H = 14;
-    const FOOTER_H = 10;
-
-    function addPageHeader(pageNum) {
-        doc.setFillColor(...NAVY);
-        doc.rect(0, 0, W, HEADER_H, 'F');
-        doc.setFillColor(...TEAL);
-        doc.rect(0, HEADER_H - 1.5, W, 1.5, 'F');
+        // "LISTA DE PRECIOS 2026"
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(9);
-        doc.setTextColor(...WHITE);
-        doc.text('DISTRIFEL', M, 9.5);
-        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(20);
         doc.setTextColor(...TEAL);
-        doc.text('Lista de Precios 2026', W / 2, 9.5, { align: 'center' });
-        doc.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
-        doc.text(`Pág. ${pageNum}`, W - M, 9.5, { align: 'right' });
-    }
+        doc.text('LISTA DE PRECIOS 2026', W / 2, 168, { align: 'center' });
 
-    function addPageFooter() {
-        doc.setFillColor(...NAVY);
-        doc.rect(0, H - FOOTER_H, W, FOOTER_H, 'F');
+        // Fecha
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(6.5);
+        doc.setFontSize(11);
         doc.setTextColor(...GRAY);
-        doc.text('Precios en pesos argentinos · Sujetos a cambio sin previo aviso', W / 2, H - 3.5, { align: 'center' });
-    }
+        doc.text(`Actualizada: ${dateStr}`, W / 2, 179, { align: 'center' });
 
-    let pageNum = 2;
-    doc.addPage();
-    addPageHeader(pageNum);
-    addPageFooter();
-
-    let y = HEADER_H + 4;
-    let col = 0;
-
-    // Separador de tipo
-    let lastType = null;
-
-    for (const p of sorted) {
-        // Separador de tipo
-        if (p.type !== lastType) {
-            const label = (TYPE_LABELS[p.type] || p.type).toUpperCase();
-            const needed = 10 + (col !== 0 ? 10 : 0);
-            if (y + needed > H - FOOTER_H - 4) {
-                pageNum++;
-                doc.addPage();
-                addPageHeader(pageNum);
-                addPageFooter();
-                y = HEADER_H + 4;
-                col = 0;
-            } else if (col !== 0) {
-                col = 0;
-                y += 4;
-            }
-
-            doc.setFillColor(...NAVY);
-            doc.roundedRect(M, y, W - M * 2, 10, 1, 1, 'F');
+        // Stats cards
+        const totalProds = products.length;
+        const totalVars  = products.reduce((s, p) => s + (p.variants ? p.variants.length : 0), 0);
+        const totalCats  = Object.keys(TYPE_LABELS).filter(t => products.some(p => p.type === t)).length;
+        const statsData  = [
+            { num: String(totalProds), label: 'productos' },
+            { num: String(totalVars),  label: 'variantes' },
+            { num: String(totalCats),  label: 'categorías' },
+        ];
+        const statW = 55;
+        const statGap = (W - M * 2 - statW * 3) / 2;
+        statsData.forEach((s, i) => {
+            const sx = M + i * (statW + statGap);
+            doc.setFillColor(30, 42, 58);
+            doc.roundedRect(sx, 193, statW, 18, 2, 2, 'F');
             doc.setFillColor(...TEAL);
-            doc.roundedRect(M, y, 4, 10, 0.5, 0.5, 'F');
+            doc.roundedRect(sx, 193, 4, 18, 1, 1, 'F');
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(12);
+            doc.setFontSize(13);
             doc.setTextColor(...WHITE);
-            doc.text(label, M + 7, y + 7);
-            const cnt = sorted.filter(x => x.type === p.type).length;
+            doc.text(s.num, sx + 9, 204);
             doc.setFont('helvetica', 'normal');
-            doc.setFontSize(9);
-            doc.setTextColor(...TEAL);
-            doc.text(`${cnt} producto${cnt !== 1 ? 's' : ''}`, W - M - 2, y + 7, { align: 'right' });
-            y += 14;
-            lastType = p.type;
-        }
-
-        // Calcular altura de la card
-        const varRows = p.variants.length;
-        const nameExtra = p.title.length > 28 ? 6 : 0;
-        const cardH = Math.round(IMG_H) + 3 + 6 + 14 + nameExtra + 6 + varRows * 7 + 6;
-
-        if (y + cardH > H - FOOTER_H - 4) {
-            pageNum++;
-            doc.addPage();
-            addPageHeader(pageNum);
-            addPageFooter();
-            y = HEADER_H + 4;
-            col = 0;
-        }
-
-        const cx = M + col * (CARD_W + 5);
-
-        // Card background
-        doc.setFillColor(...WHITE);
-        doc.setDrawColor(226, 232, 240);
-        doc.setLineWidth(0.3);
-        doc.roundedRect(cx, y, CARD_W, cardH, 2, 2, 'FD');
-
-        // Imagen — fondo blanco, imagen centrada con contain
-        doc.setFillColor(255, 255, 255);
-        doc.roundedRect(cx + 0.3, y + 0.3, CARD_W - 0.6, IMG_H, 2, 2, 'F');
-        doc.setDrawColor(230, 235, 240);
-        doc.setLineWidth(0.2);
-        doc.roundedRect(cx + 0.3, y + 0.3, CARD_W - 0.6, IMG_H, 2, 2, 'D');
-        const img64 = imgCache[p.id];
-        if (img64) {
-            // La imagen ya viene cuadrada con contain desde el canvas, la mostramos con padding
-            try { doc.addImage(img64, 'JPEG', cx + 2, y + 2, CARD_W - 4, IMG_H - 4); } catch {}
-        } else {
-            doc.setFillColor(232, 247, 244);
-            doc.roundedRect(cx + 0.3, y + 0.3, CARD_W - 0.6, IMG_H, 2, 2, 'F');
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(18);
-            doc.setTextColor(...TEAL);
-            doc.text(p.title.charAt(0).toUpperCase(), cx + CARD_W / 2, y + IMG_H / 2 + 3, { align: 'center' });
-        }
-
-        // Tipo badge
-        doc.setFillColor(...TEAL2);
-        doc.roundedRect(cx + 3, y + IMG_H + 3, 36, 6, 1.5, 1.5, 'F');
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(7);
-        doc.setTextColor(...TEAL);
-        doc.text((TYPE_LABELS[p.type] || p.type).toUpperCase(), cx + 21, y + IMG_H + 7.2, { align: 'center' });
-
-        // Nombre producto
-        const nameY = y + IMG_H + 14;
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(12);
-        doc.setTextColor(...DARK);
-        const nameLines = doc.splitTextToSize(p.title, CARD_W - 6);
-        doc.text(nameLines[0], cx + 3, nameY);
-        if (nameLines[1]) {
-            doc.setFontSize(9);
-            doc.text(nameLines[1], cx + 3, nameY + 5);
-        }
-
-        // Línea divisoria
-        const divY = nameLines[1] ? nameY + 8 : nameY + 4;
-        doc.setDrawColor(226, 232, 240);
-        doc.setLineWidth(0.3);
-        doc.line(cx + 3, divY, cx + CARD_W - 3, divY);
-
-        // Variantes
-        let vy = divY + 6;
-        p.variants.forEach((v, i) => {
-            const bg = i % 2 === 0 ? LIGHT : WHITE;
-            doc.setFillColor(...bg);
-            doc.rect(cx + 1, vy - 4.5, CARD_W - 2, 7, 'F');
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(10);
-            doc.setTextColor(...DARK);
-            doc.text(v.desc || '-', cx + 3, vy);
-            if (v.price > 0) {
-                doc.setFont('helvetica', 'bold');
-                doc.setTextColor(...TEAL);
-                doc.text(formatPrice(v.price), cx + CARD_W - 3, vy, { align: 'right' });
-            } else {
-                doc.setFont('helvetica', 'normal');
-                doc.setTextColor(...GRAY);
-                doc.text('Sin stock', cx + CARD_W - 3, vy, { align: 'right' });
-            }
-            vy += 7;
+            doc.setFontSize(8);
+            doc.setTextColor(...GRAY);
+            doc.text(s.label, sx + 9, 209);
         });
 
-        col++;
-        if (col >= 2) { col = 0; y += cardH + 4; }
-        // Si es el último de su tipo y quedó solo, avanzar fila
-        const typeItems = sorted.filter(x => x.type === p.type);
-        const isLastOfType = typeItems[typeItems.length - 1]?.id === p.id;
-        if (isLastOfType && col === 1) { col = 0; y += cardH + 4; }
+        // Footer portada
+        doc.setFillColor(25, 35, 52);
+        doc.rect(0, H - 18, W, 18, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8);
+        doc.setTextColor(...TEAL);
+        doc.text('DISTRIFEL', M + 10, H - 9);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...GRAY);
+        doc.text('Venta mayorista a corralones, ferreterías y profesionales', W / 2, H - 9, { align: 'center' });
+
+        // ══════════════════════════════════════════
+        // PÁGINAS DE CONTENIDO — layout tipo Lösung
+        // ══════════════════════════════════════════
+
+        // Helper: header de página
+        function drawPageHeader(pageNum) {
+            doc.setFillColor(...NAVY);
+            doc.rect(0, 0, W, HEADER_H, 'F');
+            doc.setFillColor(...TEAL);
+            doc.rect(0, 13, W, 1.5, 'F');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.setTextColor(...WHITE);
+            doc.text('DISTRIFEL', M, 9.5);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(...TEAL);
+            doc.text('Lista de Precios 2026', W / 2, 9.5, { align: 'center' });
+            doc.setTextColor(...GRAY);
+            doc.text(`Pág. ${pageNum}`, W - M, 9.5, { align: 'right' });
+        }
+
+        // Helper: footer de página
+        function drawPageFooter() {
+            doc.setFillColor(...NAVY);
+            doc.rect(0, H - FOOTER_H, W, FOOTER_H, 'F');
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(7);
+            doc.setTextColor(...GRAY);
+            doc.text('Precios en pesos argentinos · Sujetos a cambio sin previo aviso', W / 2, H - 3, { align: 'center' });
+        }
+
+        // Helper: calcular altura de sección de producto
+        // sectionH = 7 (header) + max(22, rows*8+8) + 2 (padding)
+        function calcSectionH(p) {
+            const rows = p.variants ? p.variants.length : 0;
+            const tableH = Math.max(IMG_S, rows * 8 + 8);
+            return 7 + tableH + 2;
+        }
+
+        // Helper: dibujar separador de tipo
+        function drawTypeSeparator(label, count, x, yPos) {
+            doc.setFillColor(...NAVY);
+            doc.rect(x, yPos, W - M * 2, SEP_H, 'F');
+            doc.setFillColor(...TEAL);
+            doc.rect(x, yPos, 4, SEP_H, 'F');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.setTextColor(...WHITE);
+            doc.text(label, x + 7, yPos + SEP_H - 2.5);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(...TEAL);
+            doc.text(`${count} producto${count !== 1 ? 's' : ''}`, W - M - 2, yPos + SEP_H - 2.5, { align: 'right' });
+        }
+
+        // Helper: dibujar sección de producto
+        function drawProductSection(p, cx, yPos) {
+            const rows     = p.variants ? p.variants.length : 0;
+            const tableH   = Math.max(IMG_S, rows * 8 + 8);
+            const sectionH = 7 + tableH + 2;
+            const tableW   = COL_W - IMG_S - 3;   // ancho de la tabla a la derecha de la imagen
+
+            // Header teal
+            doc.setFillColor(...TEAL);
+            doc.rect(cx, yPos, COL_W, 7, 'F');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.setTextColor(...WHITE);
+            const title = doc.splitTextToSize(p.title, COL_W - 4)[0] || p.title;
+            doc.text(title, cx + 2, yPos + 5);
+
+            // Área de contenido: imagen izquierda + tabla derecha
+            const contentY = yPos + 7;
+
+            // Imagen 22x22 fondo blanco con borde
+            doc.setFillColor(...WHITE);
+            doc.rect(cx, contentY, IMG_S, IMG_S, 'F');
+            doc.setDrawColor(200, 210, 220);
+            doc.setLineWidth(0.2);
+            doc.rect(cx, contentY, IMG_S, IMG_S, 'D');
+            const img64 = imgCache[p.id];
+            if (img64) {
+                try { doc.addImage(img64, 'JPEG', cx + 1, contentY + 1, IMG_S - 2, IMG_S - 2); } catch (_e) {}
+            } else {
+                doc.setFillColor(...TEAL2);
+                doc.rect(cx, contentY, IMG_S, IMG_S, 'F');
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(10);
+                doc.setTextColor(...TEAL);
+                doc.text(p.title.charAt(0).toUpperCase(), cx + IMG_S / 2, contentY + IMG_S / 2 + 2, { align: 'center' });
+            }
+
+            // Tabla de variantes con autoTable
+            const tableX = cx + IMG_S + 3;
+            const tableRows = (p.variants || []).map(v => [
+                v.desc || '-',
+                v.price > 0 ? formatPrice(v.price) : 'Sin stock',
+            ]);
+
+            doc.autoTable({
+                startY: contentY,
+                margin: { left: tableX, right: W - (tableX + tableW) },
+                tableWidth: tableW,
+                head: [['Variante', 'Precio']],
+                body: tableRows,
+                styles: {
+                    fontSize: 8.5,
+                    cellPadding: { top: 1, right: 2, bottom: 1, left: 2 },
+                    overflow: 'ellipsize',
+                    lineWidth: 0,
+                },
+                headStyles: {
+                    fillColor: DARK,
+                    textColor: WHITE,
+                    fontSize: 7.5,
+                    fontStyle: 'bold',
+                    halign: 'left',
+                },
+                bodyStyles: {
+                    textColor: DARK,
+                },
+                alternateRowStyles: {
+                    fillColor: LIGHT,
+                },
+                columnStyles: {
+                    0: { cellWidth: 'auto', halign: 'left', textColor: DARK },
+                    1: { cellWidth: 28, halign: 'right', textColor: TEAL, fontStyle: 'bold' },
+                },
+                didParseCell: function (data) {
+                    if (data.column.index === 1 && data.row.section === 'body') {
+                        const raw = data.row.raw;
+                        if (raw && raw[1] === 'Sin stock') {
+                            data.cell.styles.textColor = GRAY;
+                            data.cell.styles.fontStyle = 'normal';
+                        }
+                    }
+                },
+                showHead: 'firstPage',
+                theme: 'plain',
+            });
+
+            return sectionH;
+        }
+
+        // ── Estado de paginación ──
+        let pageNum = 2;
+        doc.addPage();
+        drawPageHeader(pageNum);
+        drawPageFooter();
+
+        let colY = [CONTENT_TOP, CONTENT_TOP];  // y actual de col 0 y col 1
+        let lastType = null;
+
+        // Pre-calcular conteo por tipo para el separador
+        const typeCounts = {};
+        sorted.forEach(p => { typeCounts[p.type] = (typeCounts[p.type] || 0) + 1; });
+
+        for (const p of sorted) {
+            // ── Separador de tipo si cambió ──
+            if (p.type !== lastType) {
+                const sepLabel = (TYPE_LABELS[p.type] || p.type).toUpperCase();
+                const sepCount = typeCounts[p.type];
+
+                // Si no hay espacio suficiente en ninguna columna: nueva página
+                const maxColY = Math.max(colY[0], colY[1]);
+                if (maxColY + SEP_H + 2 > CONTENT_BOT - 14) {
+                    pageNum++;
+                    doc.addPage();
+                    drawPageHeader(pageNum);
+                    drawPageFooter();
+                    colY = [CONTENT_TOP, CONTENT_TOP];
+                }
+
+                // Separador siempre al nivel del máximo de ambas columnas
+                const sepY = Math.max(colY[0], colY[1]) + 2;
+                drawTypeSeparator(sepLabel, sepCount, M, sepY);
+                // Ambas columnas avanzan al mismo nivel tras el separador
+                colY[0] = sepY + SEP_H + 2;
+                colY[1] = sepY + SEP_H + 2;
+                lastType = p.type;
+            }
+
+            // ── Calcular altura de la sección del producto ──
+            const sH = calcSectionH(p);
+
+            // ── Elegir columna: la que tiene más espacio (menor colY) ──
+            // Si ambas columnas no tienen espacio: nueva página
+            if (colY[0] + sH > CONTENT_BOT && colY[1] + sH > CONTENT_BOT) {
+                pageNum++;
+                doc.addPage();
+                drawPageHeader(pageNum);
+                drawPageFooter();
+                colY = [CONTENT_TOP, CONTENT_TOP];
+            }
+
+            // Elegir columna con menor Y (más espacio libre)
+            let col;
+            if (colY[0] <= colY[1]) {
+                col = 0;
+            } else {
+                col = 1;
+            }
+            // Si la columna elegida no tiene espacio, forzar la otra
+            if (colY[col] + sH > CONTENT_BOT) {
+                col = 1 - col;
+            }
+
+            const cx = M + col * (COL_W + COL_GAP);
+
+            // ── Dibujar sección ──
+            drawProductSection(p, cx, colY[col]);
+
+            // ── Avanzar colY de la columna usada ──
+            colY[col] += sH + 3;
+        }
+
+        // ── Guardar ──
+        doc.save(`Distrifel-Lista-de-Precios-${dateFile}.pdf`);
+
+    } finally {
+        if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
+        if (btnLabel && origText) btnLabel.textContent = origText;
     }
-
-    // Última fila incompleta
-    if (col !== 0) y += 0;
-
-    // ── Guardar ──
-    const dateFile = new Date().toISOString().slice(0, 10);
-    doc.save(`Distrifel-Lista-de-Precios-${dateFile}.pdf`);
-
-    if (btn) { btn.style.opacity = ''; btn.style.pointerEvents = ''; }
-    if (btnLabel && origText) btnLabel.textContent = origText;
 }
 
 // State
