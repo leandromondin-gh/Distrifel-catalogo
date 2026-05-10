@@ -2074,9 +2074,10 @@ body.past-hero .catalog-section {
 }
 
 .catalog-sticky-bar .active-filters-bar {
-    background: var(--color-bg-dark, #0f172a);
-    padding: 6px 4px 2px;
+    background: var(--color-white, #ffffff);
+    padding: 4px 8px 10px;
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    box-shadow: var(--shadow-sm);
 }
 
 /* Chip "Limpiar todo" */
