@@ -350,6 +350,7 @@
 
                 <!-- ===== MAIN CATALOG ===== -->
                 <div class="catalog-main">
+                    <div class="catalog-sticky-bar">
                     <div class="catalog-main-header">
                         <button class="filter-toggle-btn" id="filterToggleBtn" type="button" aria-label="Mostrar u ocultar filtros">
                             <svg class="filter-toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
@@ -397,6 +398,7 @@
                     </div>
 
                     <div id="activeFiltersBar" class="active-filters-bar"></div>
+                    </div><!-- /.catalog-sticky-bar -->
 
                     <div class="products-container" id="productsGrid"></div>
 
@@ -669,5 +671,12 @@
     <script src="brand-logos.js"></script>
     <script src="products.js"></script>
     <script src="script.js"></script>
+    <!-- Botón volver arriba -->
+    <button id="backToTop" class="back-to-top" aria-label="Volver arriba">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20">
+            <polyline points="18,15 12,9 6,15"/>
+        </svg>
+    </button>
+
 </body>
 </html>

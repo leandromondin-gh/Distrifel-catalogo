@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     registerServiceWorker();
     initWpHint();
     initPdfLogo();
+    initBackToTop();
 });
 
 function initDownloads() {
@@ -667,49 +668,53 @@ async function generatePDF() {
         // ── Helper: dibujar página de índice ──
         function drawIndexPage(tpMap) {
             const PW = 210, PH = 297;
-            const TC = [74, 159, 142];   // teal
-            const NV = [15, 24, 40];     // navy
+            const TC = [74, 159, 142];    // teal
+            const NV = [15, 24, 40];      // navy
+            const LT = [248, 250, 253];   // light bg
 
-            // Fondo dark navy
+            // ── Franja header dark navy ──────────────────────
             doc.setFillColor(...NV);
-            doc.rect(0, 0, PW, PH, 'F');
+            doc.rect(0, 0, PW, 46, 'F');
 
-            // Watermark
+            // Fondo blanco resto de página
+            doc.setFillColor(255, 255, 255);
+            doc.rect(0, 46, PW, PH - 46, 'F');
+
+            // Watermark muy sutil en la zona blanca
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(180);
             doc.setTextColor(...TC);
-            doc.setGState(new doc.GState({ opacity: 0.05 }));
+            doc.setGState(new doc.GState({ opacity: 0.03 }));
             doc.text('2026', PW / 2, PH / 2 + 50, { align: 'center' });
             doc.setGState(new doc.GState({ opacity: 1 }));
 
-            // ── Encabezado ──────────────────────────────────
-            // Eyebrow
+            // ── Encabezado (sobre dark) ──────────────────────
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8);
             doc.setTextColor(...TC);
-            doc.text('DISTRIBUIDORA MAYORISTA  ·  LISTA 117', 18, 17);
+            doc.text('DISTRIBUIDORA MAYORISTA  ·  LISTA 117', 18, 14);
 
-            // Título: "ÍNDICE DE" blanco + "PRODUCTOS" teal — misma línea
+            // Título: "ÍNDICE DE" blanco + "PRODUCTOS" teal
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(30);
+            doc.setFontSize(28);
             doc.setTextColor(255, 255, 255);
-            doc.text('ÍNDICE DE', 18, 32);
+            doc.text('ÍNDICE DE', 18, 30);
             const idxDeW = doc.getTextWidth('ÍNDICE DE ');
             doc.setTextColor(...TC);
-            doc.text('PRODUCTOS', 18 + idxDeW, 32);
+            doc.text('PRODUCTOS', 18 + idxDeW, 30);
 
-            // Logo derecha — 30% más chico (44→31, 13.2→9.2)
+            // Logo derecha — sobre dark
             if (PDF_LOGO_B64) {
-                try { doc.addImage(PDF_LOGO_B64, 'PNG', PW - 43, 21, 31, 9.2); } catch {}
+                try { doc.addImage(PDF_LOGO_B64, 'PNG', PW - 43, 19, 31, 9.2); } catch {}
             }
 
             // Línea teal bajo título
             doc.setFillColor(...TC);
-            doc.rect(18, 36, 75, 1.1, 'F');
+            doc.rect(18, 34, 72, 1, 'F');
 
-            // Separador horizontal
-            doc.setFillColor(28, 42, 60);
-            doc.rect(0, 44, PW, 0.6, 'F');
+            // Borde inferior del header (sombra sutil)
+            doc.setFillColor(220, 230, 240);
+            doc.rect(0, 46, PW, 0.5, 'F');
 
             // ── Lista ────────────────────────────────────────
             const IDX_ORDER = [
@@ -724,24 +729,22 @@ async function generatePDF() {
 
             const ICON_S = 13;
             const ROW_H  = 16;
-            const COL_W  = (PW - 36 - 8) / 2;   // ~83mm
+            const COL_W  = (PW - 36 - 8) / 2;
             const MX     = 18;
             const COL2X  = MX + COL_W + 8;
-            const HDR_Y  = 49;
-            const LST_Y  = 57;
+            const HDR_Y  = 52;
+            const LST_Y  = 60;
 
-            // Headers de columna con línea teal debajo
+            // Headers de columna — más grandes, con línea teal
             [MX, COL2X].forEach(hx => {
                 doc.setFont('helvetica', 'bold');
-                doc.setFontSize(7);
+                doc.setFontSize(9);
                 doc.setTextColor(...TC);
-                doc.setGState(new doc.GState({ opacity: 0.75 }));
                 doc.text('SECCIÓN', hx + ICON_S + 4, HDR_Y);
                 doc.text('PÁG.', hx + COL_W - 6, HDR_Y, { align: 'right' });
-                doc.setGState(new doc.GState({ opacity: 1 }));
                 doc.setFillColor(...TC);
-                doc.setGState(new doc.GState({ opacity: 0.35 }));
-                doc.rect(hx + ICON_S + 4, HDR_Y + 1.5, COL_W - ICON_S - 10, 0.4, 'F');
+                doc.setGState(new doc.GState({ opacity: 0.4 }));
+                doc.rect(hx + ICON_S + 4, HDR_Y + 1.5, COL_W - ICON_S - 10, 0.5, 'F');
                 doc.setGState(new doc.GState({ opacity: 1 }));
             });
 
@@ -751,14 +754,20 @@ async function generatePDF() {
                 const cx  = col === 0 ? MX : COL2X;
                 const cy  = LST_Y + row * ROW_H;
 
-                // Ícono
-                drawTypeIcon(entry.type, cx, cy + (ROW_H - ICON_S) / 2, ICON_S);
+                // Fondo alternado muy sutil (gris muy claro)
+                if (row % 2 === 0) {
+                    doc.setFillColor(245, 248, 252);
+                    doc.rect(cx, cy, COL_W, ROW_H, 'F');
+                }
 
-                // Nombre
+                // Ícono
+                drawTypeIcon(entry.type, cx + 1, cy + (ROW_H - ICON_S) / 2, ICON_S);
+
+                // Nombre — dark navy sobre blanco
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(10.5);
-                doc.setTextColor(220, 234, 248);
-                doc.text(entry.label, cx + ICON_S + 4, cy + ROW_H / 2 + 1.8);
+                doc.setTextColor(...NV);
+                doc.text(entry.label, cx + ICON_S + 5, cy + ROW_H / 2 + 1.8);
 
                 // Número (zero-padded, teal)
                 const pg = String(entry.page).padStart(2, '0');
@@ -769,20 +778,16 @@ async function generatePDF() {
 
                 // Chevron ">"
                 doc.setDrawColor(...TC);
-                doc.setGState(new doc.GState({ opacity: 0.55 }));
+                doc.setGState(new doc.GState({ opacity: 0.7 }));
                 doc.setLineWidth(0.65);
                 const ax = cx + COL_W - 3, ay = cy + ROW_H / 2;
                 doc.line(ax - 1.8, ay - 1.8, ax, ay);
                 doc.line(ax - 1.8, ay + 1.8, ax, ay);
                 doc.setGState(new doc.GState({ opacity: 1 }));
 
-                // Separador muy sutil entre filas (solo cuando no es última)
-                if (row < Math.ceil(entries.length / 2) - 1 && col === 1) {
-                    doc.setFillColor(255, 255, 255);
-                    doc.setGState(new doc.GState({ opacity: 0.04 }));
-                    doc.rect(MX, cy + ROW_H - 0.3, PW - 36, 0.3, 'F');
-                    doc.setGState(new doc.GState({ opacity: 1 }));
-                }
+                // Separador sutil entre filas
+                doc.setFillColor(220, 228, 238);
+                doc.rect(cx, cy + ROW_H - 0.3, COL_W, 0.3, 'F');
             });
 
             // ── Tip box ─────────────────────────────────────
@@ -792,30 +797,24 @@ async function generatePDF() {
             const tipW  = PW - 36;
             const divX  = MX + tipW * 0.62;   // divisor izquierda/derecha
 
-            // Fondo + borde
-            doc.setFillColor(20, 33, 52);
+            // Fondo light + borde teal sutil
+            doc.setFillColor(240, 247, 245);
             doc.setDrawColor(...TC);
-            doc.setGState(new doc.GState({ opacity: 0.25 }));
-            doc.setLineWidth(0.3);
+            doc.setGState(new doc.GState({ opacity: 0.45 }));
+            doc.setLineWidth(0.35);
             doc.roundedRect(MX, tipY, tipW, tipH, 3, 3, 'FD');
             doc.setGState(new doc.GState({ opacity: 1 }));
 
-            // Divisor vertical entre secciones
+            // Divisor vertical
             doc.setDrawColor(...TC);
-            doc.setGState(new doc.GState({ opacity: 0.2 }));
+            doc.setGState(new doc.GState({ opacity: 0.25 }));
             doc.setLineWidth(0.3);
             doc.line(divX, tipY + 3, divX, tipY + tipH - 3);
             doc.setGState(new doc.GState({ opacity: 1 }));
 
             // ── Lado izquierdo: Consejo ──
-            // Ícono "i" — círculo teal con letra blanca
             doc.setFillColor(...TC);
             doc.circle(MX + 10, tipY + tipH / 2, 5.5, 'F');
-            // Círculo interno blanco (aro) para efecto outline
-            doc.setDrawColor(255, 255, 255);
-            doc.setLineWidth(0.4);
-            doc.circle(MX + 10, tipY + tipH / 2, 5.5, 'D');
-            // Letra "i"
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8.5);
             doc.setTextColor(255, 255, 255);
@@ -827,7 +826,7 @@ async function generatePDF() {
             doc.text('CONSEJO', MX + 18, tipY + 8);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7);
-            doc.setTextColor(155, 185, 210);
+            doc.setTextColor(...NV);
             doc.text('Usá los marcadores del PDF o hacé clic en\ncada categoría para navegar rápidamente.', MX + 18, tipY + 14, { maxWidth: divX - MX - 20 });
 
             // ── Lado derecho: QR ──
@@ -865,7 +864,7 @@ async function generatePDF() {
             const txtX = qrX + qrS + 3;
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(7);
-            doc.setTextColor(220, 234, 248);
+            doc.setTextColor(...NV);
             doc.text('VER CATÁLOGO', txtX, tipY + 8);
             doc.text('COMPLETO ONLINE', txtX, tipY + 13);
             doc.setFont('helvetica', 'normal');
@@ -1560,8 +1559,15 @@ function filterProducts() {
             type.includes(state.search);
         
         const isVisible = matchesCategory && matchesBrand && matchesType && matchesSearch;
-        
+        const wasHidden = product.classList.contains('hidden');
+
         product.classList.toggle('hidden', !isVisible);
+
+        if (isVisible && wasHidden) {
+            product.classList.remove('filter-reveal');
+            void product.offsetWidth; // reflow para reiniciar animación
+            product.classList.add('filter-reveal');
+        }
         
         if (isVisible) visibleCount++;
     });
@@ -1614,6 +1620,10 @@ function updateActiveFiltersBar() {
         active.push({ key: 'search', value: state.search, label: `"${state.search}"` });
     }
 
+    const clearAllHTML = active.length > 1
+        ? `<button class="active-filter-chip clear-all-chip" id="clearAllChip" type="button">× Limpiar todo</button>`
+        : '';
+
     bar.innerHTML = active.map(f => `
         <button class="active-filter-chip" data-key="${f.key}" data-value="${f.value}" type="button">
             ${f.label}
@@ -1621,7 +1631,7 @@ function updateActiveFiltersBar() {
                 <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
         </button>
-    `).join('');
+    `).join('') + clearAllHTML;
 
     bar.classList.toggle('has-filters', active.length > 0);
 
@@ -1660,6 +1670,20 @@ function updateActiveFiltersBar() {
             }
             filterProducts();
         });
+    });
+
+    // Limpiar todo
+    document.getElementById('clearAllChip')?.addEventListener('click', () => {
+        state.search = '';
+        state.filters = { category: 'all', brand: new Set(), type: new Set() };
+        document.querySelectorAll('.filter-option').forEach(o => o.classList.toggle('active', o.dataset.value === 'all'));
+        document.querySelectorAll('.category-chips .chip').forEach(c => c.classList.toggle('active', c.dataset.category === 'all'));
+        ['brand', 'type', 'category'].forEach(t => updateAccordionBadge(t, 'all', ''));
+        const inp = document.getElementById('searchInput');
+        const clr = document.getElementById('searchClear');
+        if (inp) inp.value = '';
+        if (clr) clr.classList.remove('visible');
+        filterProducts();
     });
 
     // Badge en botón Filtros (excluye búsqueda de texto)
@@ -3348,6 +3372,17 @@ function initOffersModal() {
     closeBtn.addEventListener('click', () => { overlay.classList.remove('open'); stopAutoplay(); });
     overlay.addEventListener('click', e => { if (e.target === overlay) { overlay.classList.remove('open'); stopAutoplay(); } });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') { overlay.classList.remove('open'); stopAutoplay(); } });
+}
+
+function initBackToTop() {
+    const btn = document.getElementById('backToTop');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 }
 
 function registerServiceWorker() {
