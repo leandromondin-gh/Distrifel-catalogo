@@ -508,22 +508,31 @@ async function generatePDF() {
 
             // Barra vertical teal + header
             doc.setFillColor(...TEAL);
-            doc.rect(18, 14, 1.8, 30, 'F');
+            doc.rect(18, 14, 1.8, 36, 'F');
+
+            // Eyebrow
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(7.5);
             doc.setTextColor(...TEAL);
-            doc.text('DISTRIBUIDORA MAYORISTA', 24, 22);
+            doc.text('DISTRIBUIDORA MAYORISTA  ·  LISTA 117', 24, 21);
+
+            // Título jerarquizado
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(27);
+            doc.setFontSize(38);
             doc.setTextColor(255, 255, 255);
-            doc.text('ÍNDICE DE', 24, 33);
-            doc.text('CONTENIDOS', 24, 45);
+            doc.text('ÍNDICE', 24, 38);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(17);
+            doc.setTextColor(155, 185, 210);
+            doc.text('DE CATEGORÍAS', 24, 50);
+
             doc.setFillColor(...TEAL);
-            doc.rect(24, 48, 58, 1.2, 'F');
+            doc.rect(24, 54, 66, 1.3, 'F');
 
             // Separador
             doc.setFillColor(30, 42, 58);
-            doc.rect(18, 57, PW - 36, 0.6, 'F');
+            doc.rect(18, 62, PW - 36, 0.6, 'F');
 
             // ── Cards grid ──
             const IDX_ORDER = [
@@ -537,13 +546,24 @@ async function generatePDF() {
                 .map(t => ({ label: (TYPE_LABELS[t] || t).toUpperCase(), page: tpMap[t] }));
 
             const COLS     = 2;
-            const CARD_H   = 15;
-            const CARD_GAP = 3;
+            const CARD_H   = 16;
+            const CARD_GAP = 2.5;
             const COL_GAP  = 8;
             const MX       = 18;
             const CARD_W   = (PW - MX * 2 - COL_GAP) / COLS;  // ~83mm
-            const START_Y  = 64;
-            const rows     = Math.ceil(entries.length / COLS);
+            const START_Y  = 70;
+
+            // Header de columnas — encima de las cards
+            [0, 1].forEach(col => {
+                const hx = MX + col * (CARD_W + COL_GAP);
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(7);
+                doc.setTextColor(...TEAL);
+                doc.setGState(new doc.GState({ opacity: 0.6 }));
+                doc.text('SECCIÓN', hx + 9, START_Y - 2);
+                doc.text('PÁG.', hx + CARD_W - 4, START_Y - 2, { align: 'right' });
+                doc.setGState(new doc.GState({ opacity: 1 }));
+            });
 
             entries.forEach((entry, i) => {
                 const col  = i % COLS;
@@ -562,21 +582,21 @@ async function generatePDF() {
                 doc.roundedRect(cx, cy, CARD_W, CARD_H, 2.5, 2.5, 'D');
                 doc.setGState(new doc.GState({ opacity: 1 }));
 
-                // Accent bar izquierda (igual al hero)
+                // Accent bar izquierda
                 doc.setFillColor(...TEAL);
-                doc.roundedRect(cx + 3, cy + 3, 2.5, CARD_H - 6, 1, 1, 'F');
+                doc.roundedRect(cx + 3, cy + 3.5, 2.5, CARD_H - 7, 1, 1, 'F');
 
                 // Nombre del tipo
                 doc.setFont('helvetica', 'bold');
-                doc.setFontSize(10);
-                doc.setTextColor(220, 232, 245);
-                doc.text(entry.label, cx + 9, cy + CARD_H / 2 + 1.8);
+                doc.setFontSize(11);
+                doc.setTextColor(225, 236, 250);
+                doc.text(entry.label, cx + 9, cy + CARD_H / 2 + 2);
 
                 // Número de página
                 doc.setFont('helvetica', 'bold');
-                doc.setFontSize(9);
+                doc.setFontSize(11);
                 doc.setTextColor(...TEAL);
-                doc.text(`p.${entry.page}`, cx + CARD_W - 4, cy + CARD_H / 2 + 1.8, { align: 'right' });
+                doc.text(`${entry.page}`, cx + CARD_W - 4, cy + CARD_H / 2 + 2, { align: 'right' });
             });
 
             // Footer — igual que portada
@@ -1081,37 +1101,40 @@ function initFilters() {
     const clearFiltersBtn = document.getElementById('clearFilters');
     const resetFiltersBtn = document.getElementById('resetFilters');
 
-    document.querySelectorAll('.filter-option').forEach(option => {
-        option.addEventListener('click', () => {
-            const menu = option.closest('.filter-menu');
-            const filterType = menu.dataset.menu;
-            const value = option.dataset.value;
-            const label = option.dataset.label || option.textContent.trim();
+    // Event delegation: un solo listener para todos los .filter-option,
+    // incluyendo los generados dinámicamente por buildTypeFilter
+    document.getElementById('filterSidebar')?.addEventListener('click', e => {
+        const option = e.target.closest('.filter-option');
+        if (!option) return;
+        const menu = option.closest('.filter-menu');
+        if (!menu) return;
+        const filterType = menu.dataset.menu;
+        const value = option.dataset.value;
+        const label = option.dataset.label || option.textContent.trim();
 
-            if (filterType === 'brand' || filterType === 'type') {
-                const set = state.filters[filterType];
-                if (value === 'all') {
-                    set.clear();
-                    menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
-                    option.classList.add('active');
-                } else {
-                    menu.querySelector('[data-value="all"]')?.classList.remove('active');
-                    if (set.has(value)) { set.delete(value); option.classList.remove('active'); }
-                    else                { set.add(value);    option.classList.add('active');    }
-                    if (set.size === 0) menu.querySelector('[data-value="all"]')?.classList.add('active');
-                }
-                const badgeLabel = set.size === 0 ? '' : set.size === 1 ? label : `${set.size} seleccionados`;
-                updateAccordionBadge(filterType, set.size === 0 ? 'all' : value, badgeLabel);
-            } else {
-                state.filters[filterType] = value;
+        if (filterType === 'brand' || filterType === 'type') {
+            const set = state.filters[filterType];
+            if (value === 'all') {
+                set.clear();
                 menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
                 option.classList.add('active');
-                updateAccordionBadge(filterType, value, label);
-                option.closest('.accordion-section')?.classList.remove('expanded');
+            } else {
+                menu.querySelector('[data-value="all"]')?.classList.remove('active');
+                if (set.has(value)) { set.delete(value); option.classList.remove('active'); }
+                else                { set.add(value);    option.classList.add('active');    }
+                if (set.size === 0) menu.querySelector('[data-value="all"]')?.classList.add('active');
             }
+            const badgeLabel = set.size === 0 ? '' : set.size === 1 ? label : `${set.size} seleccionados`;
+            updateAccordionBadge(filterType, set.size === 0 ? 'all' : value, badgeLabel);
+        } else {
+            state.filters[filterType] = value;
+            menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
+            option.classList.add('active');
+            updateAccordionBadge(filterType, value, label);
+            option.closest('.accordion-section')?.classList.remove('expanded');
+        }
 
-            filterProducts();
-        });
+        filterProducts();
     });
 
     const clearAll = () => {
@@ -2421,38 +2444,18 @@ function buildTypeFilter(category) {
             .filter(Boolean)
     )].sort((a, b) => (TYPE_LABELS[a] || a).localeCompare(TYPE_LABELS[b] || b));
 
-    menu.innerHTML = `<button class="filter-option active" data-value="all" data-label="Todos">Todos</button>` +
+    // Marcar activos los tipos que siguen seleccionados
+    const activeTypes = state.filters.type;
+    menu.innerHTML = `<button class="filter-option${activeTypes.size === 0 ? ' active' : ''}" data-value="all" data-label="Todos">Todos</button>` +
         types.map(t =>
-            `<button class="filter-option" data-value="${escapeHtml(t)}" data-label="${escapeHtml(TYPE_LABELS[t] || t)}">${escapeHtml(TYPE_LABELS[t] || t)}</button>`
+            `<button class="filter-option${activeTypes.has(t) ? ' active' : ''}" data-value="${escapeHtml(t)}" data-label="${escapeHtml(TYPE_LABELS[t] || t)}">${escapeHtml(TYPE_LABELS[t] || t)}</button>`
         ).join('');
 
-    // Re-registrar click handlers
-    menu.querySelectorAll('.filter-option').forEach(opt => {
-        opt.addEventListener('click', () => {
-            const value = opt.dataset.value;
-            const label = opt.dataset.label || opt.textContent.trim();
-            const set   = state.filters.type;
-            if (value === 'all') {
-                set.clear();
-                menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
-                opt.classList.add('active');
-            } else {
-                menu.querySelector('[data-value="all"]')?.classList.remove('active');
-                if (set.has(value)) { set.delete(value); opt.classList.remove('active'); }
-                else                { set.add(value);    opt.classList.add('active');    }
-                if (set.size === 0) menu.querySelector('[data-value="all"]')?.classList.add('active');
-            }
-            const badgeLabel = set.size === 0 ? '' : set.size === 1 ? label : `${set.size} seleccionados`;
-            updateAccordionBadge('type', set.size === 0 ? 'all' : value, badgeLabel);
-            filterProducts();
-        });
-    });
-
     // Eliminar tipos activos que ya no existen en la nueva lista
-    [...state.filters.type].forEach(t => {
-        if (!types.includes(t)) state.filters.type.delete(t);
+    [...activeTypes].forEach(t => {
+        if (!types.includes(t)) activeTypes.delete(t);
     });
-    if (state.filters.type.size === 0) updateAccordionBadge('type', 'all', '');
+    if (activeTypes.size === 0) updateAccordionBadge('type', 'all', '');
 }
 
 function escapeHtml(str) {
