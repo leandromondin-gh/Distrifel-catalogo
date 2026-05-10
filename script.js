@@ -357,7 +357,6 @@ async function generatePDF() {
             doc.setTextColor(...TEAL);
             doc.text('Lista 117  •  Actualizada: 11/05/2026', W - M, 19, { align: 'right' });
 
-            // Línea teal eliminada
         }
 
         // ── Helper: footer gris con info de contacto ──
@@ -386,14 +385,13 @@ async function generatePDF() {
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8);
 
-            // Items del footer: espaciados en la mitad izquierda
+            // Items del footer: 65% izquierdo (igual que antes)
             const items = [
                 { label: '11 6463-9441',               icon: 'phone' },
                 { label: 'ventas@distrifel.com',        icon: 'email' },
                 { label: 'www.distrifel.com.ar',        icon: 'globe' },
             ];
-            // 3 items distribuidos en el 65% izquierdo del footer
-            const footerLeft = 10;   // start x dentro del card
+            const footerLeft = 10;
             const footerRight = W - 8;
             const usableW = footerRight - footerLeft;
             const itemSlot = usableW * 0.65 / 3;
@@ -436,12 +434,18 @@ async function generatePDF() {
                 }
             });
 
-            // ─── Disclaimer — columna derecha separada ───
-            doc.setFontSize(8.5);
-            doc.setTextColor(...GRAY);
-            const dix = footerRight - 4;
-            doc.text('Precios expresados en pesos argentinos.', dix, fy + fh/2 - 0.5, { align: 'right' });
-            doc.text('Sujetos a cambio sin previo aviso.', dix, fy + fh/2 + 4, { align: 'right' });
+            // Número de página — círculo al 72% del footer (espacio libre entre ítems y borde)
+            const pgCX = W * 0.72, pgCY = fy + fh / 2, pgR = 5;
+            doc.setFillColor(...TEAL);
+            doc.circle(pgCX, pgCY, pgR, 'F');
+            doc.setDrawColor(220, 225, 232);
+            doc.setLineWidth(0.5);
+            doc.circle(pgCX, pgCY, pgR, 'D');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(11);
+            doc.setTextColor(255, 255, 255);
+            doc.text(String(pageNum), pgCX, pgCY + 2, { align: 'center' });
+
         }
 
         // ── Helper: dibujar separador de tipo ──
@@ -490,6 +494,14 @@ async function generatePDF() {
             const IB = [12, 22, 40];
             doc.setFillColor(...IB);
             doc.roundedRect(cx, cy, sz, sz, 2.5, 2.5, 'F');
+
+            // Usar imagen PNG si está disponible
+            const iconB64 = window.INDEX_ICONS_B64?.[type];
+            if (iconB64) {
+                const pad = 1;
+                try { doc.addImage(iconB64, 'PNG', cx + pad, cy + pad, sz - pad * 2, sz - pad * 2); } catch {}
+                return;
+            }
             doc.setDrawColor(255, 255, 255);
             doc.setFillColor(255, 255, 255);
             const mx = cx + sz / 2, my = cy + sz / 2, r = sz * 0.22;
@@ -776,15 +788,11 @@ async function generatePDF() {
                 doc.setTextColor(...TC);
                 doc.text(pg, cx + COL_W - 13, cy + ROW_H / 2 + 2.5, { align: 'right' });
 
-                // Flecha — círculo con chevron adentro (estilo imagen)
-                const arrowCX = cx + COL_W - 4.5, arrowCY = cy + ROW_H / 2, arrowR = 3.4;
-                doc.setDrawColor(...TC);
-                doc.setLineWidth(0.65);
-                doc.circle(arrowCX, arrowCY, arrowR, 'D');
-                doc.setLineWidth(1.0);
-                const chX = arrowCX - 0.6, chY = arrowCY;
-                doc.line(chX - 1.1, chY - 1.9, chX + 1.1, chY);
-                doc.line(chX - 1.1, chY + 1.9, chX + 1.1, chY);
+                // Flecha — imagen PNG
+                if (window.ARROW_CIRCLE_B64) {
+                    const arrowS = 5.5;
+                    try { doc.addImage(window.ARROW_CIRCLE_B64, 'PNG', cx + COL_W - arrowS - 0.5, cy + ROW_H / 2 - arrowS / 2, arrowS, arrowS); } catch {}
+                }
 
                 // Link clicable sobre toda la fila → va a la página del tipo
                 doc.link(cx, cy, COL_W, ROW_H, { pageNumber: entry.page });
@@ -833,7 +841,7 @@ async function generatePDF() {
             doc.setTextColor(...TC);
             doc.text('CONSEJO', MX + 18, tipY + 8);
             doc.setFont('helvetica', 'normal');
-            doc.setFontSize(8);
+            doc.setFontSize(9);
             doc.setTextColor(...NV);
             doc.text('Usá los marcadores del PDF o hacé clic en\ncada categoría para navegar rápidamente.', MX + 18, tipY + 14, { maxWidth: divX - MX - 20 });
 
