@@ -177,6 +177,9 @@
 
                 <aside class="filter-sidebar" id="filterSidebar">
 
+                    <!-- Handle drag (solo mobile bottom sheet) -->
+                    <div class="sheet-handle" aria-hidden="true"></div>
+
                     <!-- Header: título + limpiar + cerrar -->
                     <div class="sidebar-header">
                         <span class="sidebar-title">
@@ -335,6 +338,14 @@
                             </button>
                         </div>
                     </div>
+
+                    <!-- Footer solo mobile: Ver X productos -->
+                    <div class="sheet-footer">
+                        <button class="sheet-apply-btn" id="sheetApplyBtn">
+                            Ver <span id="sheetCount">0</span> productos
+                        </button>
+                    </div>
+
                 </aside>
 
                 <!-- ===== MAIN CATALOG ===== -->

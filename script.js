@@ -484,57 +484,234 @@ async function generatePDF() {
             covertex:    { w: 24, h:  7 },  // +10% ancho, -22% alto
         };
 
+        // ── Helper: ícono por tipo ──
+        function drawTypeIcon(type, cx, cy, sz) {
+            const IB = [12, 22, 40];
+            doc.setFillColor(...IB);
+            doc.roundedRect(cx, cy, sz, sz, 2.5, 2.5, 'F');
+            doc.setDrawColor(255, 255, 255);
+            doc.setFillColor(255, 255, 255);
+            const mx = cx + sz / 2, my = cy + sz / 2, r = sz * 0.29;
+            const lw = (v) => doc.setLineWidth(v);
+            lw(0.65);
+            switch (type) {
+                case 'regulador': {
+                    doc.circle(mx, my + 0.8, r, 'D');
+                    lw(0.8);
+                    doc.line(mx, my + 0.8, mx + r * 0.6 * Math.cos(-2.2), my + 0.8 + r * 0.6 * Math.sin(-2.2));
+                    lw(0.55);
+                    [-2.6, -1.57, -0.54].forEach(a => doc.line(mx + (r - 1.5) * Math.cos(a), my + 0.8 + (r - 1.5) * Math.sin(a), mx + r * Math.cos(a), my + 0.8 + r * Math.sin(a)));
+                    break;
+                }
+                case 'flexible': {
+                    lw(0.8);
+                    for (let j = 0; j < 10; j++) {
+                        const t1 = j / 10, t2 = (j + 1) / 10;
+                        doc.line(cx + 1 + t1 * (sz - 2), my + sz * 0.24 * Math.sin(t1 * Math.PI * 2.5), cx + 1 + t2 * (sz - 2), my + sz * 0.24 * Math.sin(t2 * Math.PI * 2.5));
+                    }
+                    break;
+                }
+                case 'membrana': {
+                    [-sz*0.18, 0, sz*0.18].forEach(dy => doc.roundedRect(cx + 2, my + dy - 1, sz - 4, 2, 0.5, 0.5, 'F'));
+                    break;
+                }
+                case 'llave-gas': {
+                    doc.circle(cx + sz * 0.34, my - 0.5, r * 0.65, 'D');
+                    doc.line(cx + sz * 0.34 + r * 0.65, my - 0.5, cx + sz - 2, my - 0.5);
+                    doc.line(cx + sz - 2, my - 0.5, cx + sz - 2, my + sz * 0.16);
+                    doc.line(cx + sz - 3.5, my - 0.5, cx + sz - 3.5, my + sz * 0.12);
+                    break;
+                }
+                case 'canilla': {
+                    doc.rect(cx + sz*0.12, my - sz*0.42, sz*0.76, 1.8, 'F');
+                    doc.rect(cx + sz*0.43, my - sz*0.42, sz*0.22, sz*0.65, 'F');
+                    doc.rect(cx + sz*0.43 + sz*0.22 - 1.8, my - sz*0.1, 1.8, sz*0.38, 'F');
+                    break;
+                }
+                case 'accesorio': {
+                    lw(0.65);
+                    doc.circle(cx + sz*0.34, cy + sz*0.34, r * 0.6, 'D');
+                    lw(1.1);
+                    doc.line(cx + sz*0.34 + r*0.6*0.71, cy + sz*0.34 + r*0.6*0.71, cx + sz - 2, cy + sz - 2);
+                    break;
+                }
+                case 'aislante': {
+                    lw(0.6);
+                    doc.ellipse(mx, my, r, r * 0.45, 'D');
+                    [-r*0.22, 0, r*0.22].forEach(dy => doc.line(mx - r, my + dy, mx + r, my + dy));
+                    break;
+                }
+                case 'bronce-roscado': {
+                    lw(0.55);
+                    doc.circle(mx, my, r, 'D');
+                    doc.circle(mx, my, r * 0.52, 'D');
+                    for (let a = 0; a < Math.PI * 2; a += Math.PI / 4)
+                        doc.line(mx + r*0.52*Math.cos(a), my + r*0.52*Math.sin(a), mx + r*Math.cos(a), my + r*Math.sin(a));
+                    break;
+                }
+                case 'fusion': {
+                    doc.rect(cx + 1, my - 2.2, sz - 2, 4.4, 'F');
+                    doc.setFillColor(...IB); doc.rect(cx + sz*0.38, my - 3.8, 3.5, 7.6, 'F');
+                    doc.setFillColor(255, 255, 255); lw(0.5);
+                    doc.roundedRect(cx + sz*0.38, my - 3.8, 3.5, 7.6, 0.5, 0.5, 'D');
+                    break;
+                }
+                case 'hidro-bronce': {
+                    doc.rect(cx + 1, my - 2, sz * 0.52, 4, 'F');
+                    doc.rect(cx + sz*0.52 - 2, cy + 1, 4, my - cy + 2, 'F');
+                    break;
+                }
+                case 'gabinete': {
+                    lw(0.55); doc.roundedRect(cx+2, cy+2, sz-4, sz-4, 1, 1, 'D');
+                    doc.line(cx + 2 + (sz-4)/2, cy + 2, cx + 2 + (sz-4)/2, cy + sz - 2);
+                    doc.circle(cx + 2 + (sz-4)/2 - 2, my, 1, 'F');
+                    doc.circle(cx + 2 + (sz-4)/2 + 2, my, 1, 'F');
+                    break;
+                }
+                case 'pilar': {
+                    doc.rect(cx + sz*0.18, cy + 2, sz*0.64, 2, 'F');
+                    doc.rect(cx + sz*0.38, cy + 4, sz*0.24, sz - 8, 'F');
+                    doc.rect(cx + sz*0.18, cy + sz - 4, sz*0.64, 2, 'F');
+                    break;
+                }
+                case 'flotante': {
+                    lw(0.6); doc.circle(cx + sz*0.38, cy + sz*0.38, r * 0.68, 'D');
+                    doc.line(cx + sz*0.38 + r*0.68*0.71, cy + sz*0.38 + r*0.68*0.71, cx + sz - 2, cy + sz - 2);
+                    break;
+                }
+                case 'fuelle': {
+                    doc.rect(mx - 1.2, cy + 1, 2.4, sz * 0.22, 'F');
+                    doc.rect(cx + sz*0.15, cy + sz*0.22, sz*0.7, sz*0.16, 'F');
+                    doc.rect(cx + sz*0.22, cy + sz*0.38, sz*0.56, sz*0.16, 'F');
+                    doc.rect(cx + sz*0.3, cy + sz*0.54, sz*0.4, sz*0.16, 'F');
+                    doc.rect(mx - 1.2, cy + sz*0.7, 2.4, sz*0.18, 'F');
+                    break;
+                }
+                case 'montura': {
+                    lw(0.7);
+                    doc.line(cx + 2, cy + sz - 3, cx + 2, my + 1);
+                    doc.line(cx + sz - 2, cy + sz - 3, cx + sz - 2, my + 1);
+                    for (let j = 0; j < 10; j++) {
+                        const a1 = Math.PI + j * Math.PI / 10, a2 = Math.PI + (j+1) * Math.PI / 10;
+                        doc.line(mx + r*1.1*Math.cos(a1), my + 1 + r*0.55*Math.sin(a1), mx + r*1.1*Math.cos(a2), my + 1 + r*0.55*Math.sin(a2));
+                    }
+                    doc.line(cx + 2, cy + sz - 3, cx + sz - 2, cy + sz - 3);
+                    break;
+                }
+                case 'puerta': {
+                    lw(0.6); doc.roundedRect(cx+3, cy+2, sz-6, sz-4, 1, 1, 'D');
+                    doc.circle(cx + sz - 6.5, my + 1, 1.3, 'F');
+                    break;
+                }
+                case 'sopapa': {
+                    doc.rect(cx + sz*0.38, cy + sz*0.12, sz*0.24, sz*0.56, 'F');
+                    doc.rect(cx + sz*0.12, cy + sz*0.6, sz*0.76, sz*0.2, 'F');
+                    break;
+                }
+                case 'reja': {
+                    lw(0.5); doc.roundedRect(cx+2, cy+2, sz-4, sz-4, 1, 1, 'D');
+                    [1/3, 2/3].forEach(f => {
+                        doc.line(cx + sz*f, cy + 2, cx + sz*f, cy + sz - 2);
+                        doc.line(cx + 2, cy + sz*f, cx + sz - 2, cy + sz*f);
+                    });
+                    break;
+                }
+                case 'tapa': {
+                    lw(0.7); doc.ellipse(mx, my + sz*0.12, r, r*0.32, 'D');
+                    for (let j = 0; j < 10; j++) {
+                        const a1 = Math.PI + j*Math.PI/10, a2 = Math.PI + (j+1)*Math.PI/10;
+                        doc.line(mx + r*Math.cos(a1), my + sz*0.12 + r*0.32*Math.sin(a1), mx + r*Math.cos(a2), my + sz*0.12 + r*0.32*Math.sin(a2));
+                    }
+                    doc.line(mx - r, my + sz*0.12, mx + r, my + sz*0.12);
+                    break;
+                }
+                case 'soda-caustica': {
+                    lw(0.65);
+                    for (let j = 0; j < 10; j++) {
+                        const a1 = Math.PI + j*Math.PI/10, a2 = Math.PI + (j+1)*Math.PI/10;
+                        doc.line(mx + r*Math.cos(a1), my + r*Math.sin(a1), mx + r*Math.cos(a2), my + r*Math.sin(a2));
+                    }
+                    doc.line(mx - r, my, mx, cy + 2.5);
+                    doc.line(mx + r, my, mx, cy + 2.5);
+                    break;
+                }
+                case 'terraja': {
+                    lw(0.6);
+                    for (let j = 0; j < 6; j++) {
+                        const a1 = j*Math.PI/3 - Math.PI/6, a2 = (j+1)*Math.PI/3 - Math.PI/6;
+                        doc.line(mx + r*Math.cos(a1), my + r*Math.sin(a1), mx + r*Math.cos(a2), my + r*Math.sin(a2));
+                    }
+                    doc.circle(mx, my, r*0.44, 'D');
+                    break;
+                }
+                case 'tubo': {
+                    lw(0.65);
+                    doc.circle(mx, my, r, 'D');
+                    doc.circle(mx, my, r*0.48, 'D');
+                    break;
+                }
+                case 'valvula': {
+                    doc.rect(cx + 1, my - 2, sz - 2, 4, 'F');
+                    lw(0.6);
+                    doc.setFillColor(...IB); doc.circle(mx, cy + sz*0.3, r*0.68, 'FD');
+                    doc.setFillColor(255,255,255);
+                    for (let a = 0; a < Math.PI; a += Math.PI/3)
+                        doc.line(mx + r*0.68*Math.cos(a), cy+sz*0.3 + r*0.68*Math.sin(a), mx - r*0.68*Math.cos(a), cy+sz*0.3 - r*0.68*Math.sin(a));
+                    doc.rect(mx - 1.2, cy + sz*0.3 + r*0.68, 2.4, sz*0.18, 'F');
+                    break;
+                }
+                default: { lw(0.65); doc.circle(mx, my, r, 'D'); }
+            }
+        }
+
         // ── Helper: dibujar página de índice ──
         function drawIndexPage(tpMap) {
             const PW = 210, PH = 297;
-            const TEAL = [74, 159, 142];
+            const TC = [74, 159, 142];   // teal
+            const NV = [15, 24, 40];     // navy
 
             // Fondo dark navy
-            doc.setFillColor(17, 24, 39);
+            doc.setFillColor(...NV);
             doc.rect(0, 0, PW, PH, 'F');
 
-            // "2026" watermark
+            // Watermark
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(180);
-            doc.setTextColor(...TEAL);
-            doc.setGState(new doc.GState({ opacity: 0.06 }));
+            doc.setTextColor(...TC);
+            doc.setGState(new doc.GState({ opacity: 0.05 }));
             doc.text('2026', PW / 2, PH / 2 + 50, { align: 'center' });
             doc.setGState(new doc.GState({ opacity: 1 }));
 
-            // Logo top-right
-            if (PDF_LOGO_B64) {
-                try { doc.addImage(PDF_LOGO_B64, 'PNG', PW - 52, 14, 38, 11.4); } catch {}
-            }
-
-            // Barra vertical teal + header
-            doc.setFillColor(...TEAL);
-            doc.rect(18, 14, 1.8, 36, 'F');
-
+            // ── Encabezado ──────────────────────────────────
             // Eyebrow
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(7.5);
-            doc.setTextColor(...TEAL);
-            doc.text('DISTRIBUIDORA MAYORISTA  ·  LISTA 117', 24, 21);
+            doc.setFontSize(8);
+            doc.setTextColor(...TC);
+            doc.text('DISTRIBUIDORA MAYORISTA  ·  LISTA 117', 18, 17);
 
-            // Título jerarquizado
+            // Título: "ÍNDICE DE" blanco + "PRODUCTOS" teal — misma línea
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(38);
+            doc.setFontSize(30);
             doc.setTextColor(255, 255, 255);
-            doc.text('ÍNDICE', 24, 38);
+            doc.text('ÍNDICE DE', 18, 32);
+            const idxDeW = doc.getTextWidth('ÍNDICE DE ');
+            doc.setTextColor(...TC);
+            doc.text('PRODUCTOS', 18 + idxDeW, 32);
 
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(17);
-            doc.setTextColor(155, 185, 210);
-            doc.text('DE CATEGORÍAS', 24, 50);
+            // Logo derecha — 30% más chico (44→31, 13.2→9.2)
+            if (PDF_LOGO_B64) {
+                try { doc.addImage(PDF_LOGO_B64, 'PNG', PW - 43, 21, 31, 9.2); } catch {}
+            }
 
-            doc.setFillColor(...TEAL);
-            doc.rect(24, 54, 66, 1.3, 'F');
+            // Línea teal bajo título
+            doc.setFillColor(...TC);
+            doc.rect(18, 36, 75, 1.1, 'F');
 
-            // Separador
-            doc.setFillColor(30, 42, 58);
-            doc.rect(18, 62, PW - 36, 0.6, 'F');
+            // Separador horizontal
+            doc.setFillColor(28, 42, 60);
+            doc.rect(0, 44, PW, 0.6, 'F');
 
-            // ── Cards grid ──
+            // ── Lista ────────────────────────────────────────
             const IDX_ORDER = [
                 'regulador','flexible','membrana','llave-gas','canilla',
                 'accesorio','aislante','bronce-roscado','fusion','hidro-bronce',
@@ -543,63 +720,160 @@ async function generatePDF() {
             ];
             const entries = IDX_ORDER
                 .filter(t => tpMap[t])
-                .map(t => ({ label: (TYPE_LABELS[t] || t).toUpperCase(), page: tpMap[t] }));
+                .map(t => ({ type: t, label: (TYPE_LABELS[t] || t).toUpperCase(), page: tpMap[t] }));
 
-            const COLS     = 2;
-            const CARD_H   = 16;
-            const CARD_GAP = 2.5;
-            const COL_GAP  = 8;
-            const MX       = 18;
-            const CARD_W   = (PW - MX * 2 - COL_GAP) / COLS;  // ~83mm
-            const START_Y  = 70;
+            const ICON_S = 13;
+            const ROW_H  = 16;
+            const COL_W  = (PW - 36 - 8) / 2;   // ~83mm
+            const MX     = 18;
+            const COL2X  = MX + COL_W + 8;
+            const HDR_Y  = 49;
+            const LST_Y  = 57;
 
-            // Header de columnas — encima de las cards
-            [0, 1].forEach(col => {
-                const hx = MX + col * (CARD_W + COL_GAP);
+            // Headers de columna con línea teal debajo
+            [MX, COL2X].forEach(hx => {
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(7);
-                doc.setTextColor(...TEAL);
-                doc.setGState(new doc.GState({ opacity: 0.6 }));
-                doc.text('SECCIÓN', hx + 9, START_Y - 2);
-                doc.text('PÁG.', hx + CARD_W - 4, START_Y - 2, { align: 'right' });
+                doc.setTextColor(...TC);
+                doc.setGState(new doc.GState({ opacity: 0.75 }));
+                doc.text('SECCIÓN', hx + ICON_S + 4, HDR_Y);
+                doc.text('PÁG.', hx + COL_W - 6, HDR_Y, { align: 'right' });
+                doc.setGState(new doc.GState({ opacity: 1 }));
+                doc.setFillColor(...TC);
+                doc.setGState(new doc.GState({ opacity: 0.35 }));
+                doc.rect(hx + ICON_S + 4, HDR_Y + 1.5, COL_W - ICON_S - 10, 0.4, 'F');
                 doc.setGState(new doc.GState({ opacity: 1 }));
             });
 
             entries.forEach((entry, i) => {
-                const col  = i % COLS;
-                const row  = Math.floor(i / COLS);
-                const cx   = MX + col * (CARD_W + COL_GAP);
-                const cy   = START_Y + row * (CARD_H + CARD_GAP);
+                const col = i % 2;
+                const row = Math.floor(i / 2);
+                const cx  = col === 0 ? MX : COL2X;
+                const cy  = LST_Y + row * ROW_H;
 
-                // Card background
-                doc.setFillColor(22, 34, 52);
-                doc.roundedRect(cx, cy, CARD_W, CARD_H, 2.5, 2.5, 'F');
+                // Ícono
+                drawTypeIcon(entry.type, cx, cy + (ROW_H - ICON_S) / 2, ICON_S);
 
-                // Card border teal sutil
-                doc.setDrawColor(...TEAL);
-                doc.setGState(new doc.GState({ opacity: 0.22 }));
-                doc.setLineWidth(0.35);
-                doc.roundedRect(cx, cy, CARD_W, CARD_H, 2.5, 2.5, 'D');
+                // Nombre
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(10.5);
+                doc.setTextColor(220, 234, 248);
+                doc.text(entry.label, cx + ICON_S + 4, cy + ROW_H / 2 + 1.8);
+
+                // Número (zero-padded, teal)
+                const pg = String(entry.page).padStart(2, '0');
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(11);
+                doc.setTextColor(...TC);
+                doc.text(pg, cx + COL_W - 8, cy + ROW_H / 2 + 1.8, { align: 'right' });
+
+                // Chevron ">"
+                doc.setDrawColor(...TC);
+                doc.setGState(new doc.GState({ opacity: 0.55 }));
+                doc.setLineWidth(0.65);
+                const ax = cx + COL_W - 3, ay = cy + ROW_H / 2;
+                doc.line(ax - 1.8, ay - 1.8, ax, ay);
+                doc.line(ax - 1.8, ay + 1.8, ax, ay);
                 doc.setGState(new doc.GState({ opacity: 1 }));
 
-                // Accent bar izquierda
-                doc.setFillColor(...TEAL);
-                doc.roundedRect(cx + 3, cy + 3.5, 2.5, CARD_H - 7, 1, 1, 'F');
-
-                // Nombre del tipo
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(11);
-                doc.setTextColor(225, 236, 250);
-                doc.text(entry.label, cx + 9, cy + CARD_H / 2 + 2);
-
-                // Número de página
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(11);
-                doc.setTextColor(...TEAL);
-                doc.text(`${entry.page}`, cx + CARD_W - 4, cy + CARD_H / 2 + 2, { align: 'right' });
+                // Separador muy sutil entre filas (solo cuando no es última)
+                if (row < Math.ceil(entries.length / 2) - 1 && col === 1) {
+                    doc.setFillColor(255, 255, 255);
+                    doc.setGState(new doc.GState({ opacity: 0.04 }));
+                    doc.rect(MX, cy + ROW_H - 0.3, PW - 36, 0.3, 'F');
+                    doc.setGState(new doc.GState({ opacity: 1 }));
+                }
             });
 
-            // Footer — igual que portada
+            // ── Tip box ─────────────────────────────────────
+            const rows  = Math.ceil(entries.length / 2);
+            const tipY  = LST_Y + rows * ROW_H + 4;
+            const tipH  = 22;
+            const tipW  = PW - 36;
+            const divX  = MX + tipW * 0.62;   // divisor izquierda/derecha
+
+            // Fondo + borde
+            doc.setFillColor(20, 33, 52);
+            doc.setDrawColor(...TC);
+            doc.setGState(new doc.GState({ opacity: 0.25 }));
+            doc.setLineWidth(0.3);
+            doc.roundedRect(MX, tipY, tipW, tipH, 3, 3, 'FD');
+            doc.setGState(new doc.GState({ opacity: 1 }));
+
+            // Divisor vertical entre secciones
+            doc.setDrawColor(...TC);
+            doc.setGState(new doc.GState({ opacity: 0.2 }));
+            doc.setLineWidth(0.3);
+            doc.line(divX, tipY + 3, divX, tipY + tipH - 3);
+            doc.setGState(new doc.GState({ opacity: 1 }));
+
+            // ── Lado izquierdo: Consejo ──
+            // Ícono "i" — círculo teal con letra blanca
+            doc.setFillColor(...TC);
+            doc.circle(MX + 10, tipY + tipH / 2, 5.5, 'F');
+            // Círculo interno blanco (aro) para efecto outline
+            doc.setDrawColor(255, 255, 255);
+            doc.setLineWidth(0.4);
+            doc.circle(MX + 10, tipY + tipH / 2, 5.5, 'D');
+            // Letra "i"
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8.5);
+            doc.setTextColor(255, 255, 255);
+            doc.text('i', MX + 10, tipY + tipH / 2 + 2, { align: 'center' });
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(7.5);
+            doc.setTextColor(...TC);
+            doc.text('CONSEJO', MX + 18, tipY + 8);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(7);
+            doc.setTextColor(155, 185, 210);
+            doc.text('Usá los marcadores del PDF o hacé clic en\ncada categoría para navegar rápidamente.', MX + 18, tipY + 14, { maxWidth: divX - MX - 20 });
+
+            // ── Lado derecho: QR ──
+            const qrX  = divX + 4;
+            const qrY  = tipY + 3;
+            const qrS  = tipH - 6;   // tamaño del QR ~16mm
+
+            // Dibujar QR simulado
+            function drawFakeQR(x, y, s) {
+                const cell = s / 10;
+                // Fondo blanco
+                doc.setFillColor(255, 255, 255);
+                doc.rect(x, y, s, s, 'F');
+                doc.setFillColor(12, 22, 38);
+                // Corner markers (3 esquinas)
+                [[0,0],[6,0],[0,6]].forEach(([ci, cj]) => {
+                    doc.rect(x + ci*cell, y + cj*cell, 4*cell, 4*cell, 'F');
+                    doc.setFillColor(255,255,255);
+                    doc.rect(x + (ci+0.8)*cell, y + (cj+0.8)*cell, 2.4*cell, 2.4*cell, 'F');
+                    doc.setFillColor(12,22,38);
+                    doc.rect(x + (ci+1.4)*cell, y + (cj+1.4)*cell, 1.2*cell, 1.2*cell, 'F');
+                    doc.setFillColor(12, 22, 38);
+                });
+                // Patrón central aleatorio-looking (fijo para consistencia)
+                const pat = [
+                    [4,1],[5,1],[4,2],[6,2],[4,3],[5,3],[7,3],
+                    [5,4],[6,4],[4,5],[7,5],[5,6],[6,6],[7,6],
+                    [4,7],[6,7],[5,8],[7,8],[4,9],[5,9],[6,9],
+                ];
+                pat.forEach(([ci,cj]) => doc.rect(x + ci*cell, y + cj*cell, cell, cell, 'F'));
+            }
+            drawFakeQR(qrX, qrY, qrS);
+
+            // Texto derecho
+            const txtX = qrX + qrS + 3;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(7);
+            doc.setTextColor(220, 234, 248);
+            doc.text('VER CATÁLOGO', txtX, tipY + 8);
+            doc.text('COMPLETO ONLINE', txtX, tipY + 13);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(6.5);
+            doc.setTextColor(...TC);
+            doc.text('www.distrifel.com.ar', txtX, tipY + 18);
+
+            // ── Footer contacto ──────────────────────────────
             doc.setFillColor(12, 18, 28);
             doc.rect(0, PH - 22, PW, 22, 'F');
             doc.setFont('helvetica', 'normal');
@@ -1219,6 +1493,9 @@ function initFilterSidebar() {
         }
     };
 
+    // "Ver X productos" cierra el sheet en mobile
+    document.getElementById('sheetApplyBtn')?.addEventListener('click', close);
+
     toggleBtn?.addEventListener('click', toggle);
     closeBtn?.addEventListener('click', close);
     overlay?.addEventListener('click', close);
@@ -1299,6 +1576,10 @@ function filterProducts() {
     // Update counter
     const resultsCount = document.getElementById('resultsCount');
     if (resultsCount) resultsCount.textContent = visibleCount;
+
+    // Update "Ver X productos" en el bottom sheet
+    const sheetCount = document.getElementById('sheetCount');
+    if (sheetCount) sheetCount.textContent = visibleCount;
 
     // Show/hide no results message
     if (noResults) noResults.classList.toggle('visible', visibleCount === 0);
