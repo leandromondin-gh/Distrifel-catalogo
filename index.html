@@ -145,7 +145,7 @@
                     <button class="brand-btn" data-brand="tcoat" type="button" aria-label="Filtrar por T-Coat"><img src="Brands-icons/t-coat.png" alt="T-Coat"></button>
                     <button class="brand-btn" data-brand="covertex" type="button" aria-label="Filtrar por Covertex"><img src="Brands-icons/covertex.png" alt="Covertex"></button>
                     <button class="brand-btn" data-brand="aislatech" type="button" aria-label="Filtrar por Aislatech"><img src="Brands-icons/aislatech.jpg" alt="Aislatech"></button>
-                    <button class="brand-btn" data-brand="valforte" type="button" aria-label="Filtrar por Valforte"><img src="https://tse4.mm.bing.net/th/id/OIP.WDmF9eK23dfuUkcHS1OX6gHaCI?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Valforte"></button>
+                    <button class="brand-btn" data-brand="valforte" type="button" aria-label="Filtrar por Valforte"><img src="Brands-icons/valforte.png" alt="Valforte"></button>
                     <button class="brand-btn" data-brand="sanogas" type="button" aria-label="Filtrar por Sanogas"><img src="https://www.balbico.com.ar/wp-content/uploads/2021/04/682560_1.jpg" alt="Sanogas"></button>
                 </div>
                 <div class="brands-slide" id="brandsSlide2">
@@ -160,7 +160,7 @@
                     <button class="brand-btn" data-brand="tcoat" type="button" aria-label="Filtrar por T-Coat"><img src="Brands-icons/t-coat.png" alt="T-Coat"></button>
                     <button class="brand-btn" data-brand="covertex" type="button" aria-label="Filtrar por Covertex"><img src="Brands-icons/covertex.png" alt="Covertex"></button>
                     <button class="brand-btn" data-brand="aislatech" type="button" aria-label="Filtrar por Aislatech"><img src="Brands-icons/aislatech.jpg" alt="Aislatech"></button>
-                    <button class="brand-btn" data-brand="valforte" type="button" aria-label="Filtrar por Valforte"><img src="https://tse4.mm.bing.net/th/id/OIP.WDmF9eK23dfuUkcHS1OX6gHaCI?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Valforte"></button>
+                    <button class="brand-btn" data-brand="valforte" type="button" aria-label="Filtrar por Valforte"><img src="Brands-icons/valforte.png" alt="Valforte"></button>
                     <button class="brand-btn" data-brand="sanogas" type="button" aria-label="Filtrar por Sanogas"><img src="https://www.balbico.com.ar/wp-content/uploads/2021/04/682560_1.jpg" alt="Sanogas"></button>
                 </div>
             </div>
@@ -345,6 +345,7 @@
                                 <polyline points="15,18 9,12 15,6"/>
                             </svg>
                             <span class="filter-toggle-label">Ocultar filtros</span>
+                            <span id="filterCountBadge" class="filter-count-badge"></span>
                         </button>
 
                         <div class="search-box header-search">
@@ -383,6 +384,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <div id="activeFiltersBar" class="active-filters-bar"></div>
 
                     <div class="products-container" id="productsGrid"></div>
 

@@ -227,6 +227,7 @@ async function generatePDF() {
             return a.title.localeCompare(b.title, 'es');
         });
 
+
         // ── Helper: captura img del DOM (ya cargada por el browser, sin CORS) ──
         function imgFromDOM(pid, url) {
             // Buscar en cards del catálogo
@@ -298,6 +299,28 @@ async function generatePDF() {
             return Math.max(IMG_SIZE + 16, 19 + displayRows * VAR_ROW + 6);
         }
 
+        // Páginas por tipo — el contenido arranca en pág 3 (portada=1, índice=2)
+        // (se calcula aquí, después de que CONTENT_TOP/CONTENT_BOT/IMG_SIZE ya están definidos)
+        const typePageMap = computeTypePages(sorted, 3);
+
+        // ── Helper: pre-calcular página inicial por tipo (para el índice) ──
+        function computeTypePages(productList, startPage) {
+            const map = {}, SH = 11, SP = 6;
+            let page = startPage, y = CONTENT_TOP, lastType = null;
+            for (const p of productList) {
+                const rh = calcRowH(p);
+                if (p.type !== lastType) {
+                    if (lastType !== null && y + SP + SH + 8 + rh > CONTENT_BOT) { page++; y = CONTENT_TOP; }
+                    if (!(p.type in map)) map[p.type] = page;
+                    y += SP + SH + 8;
+                    lastType = p.type;
+                }
+                if (y + rh > CONTENT_BOT) { page++; y = CONTENT_TOP; }
+                y += rh + 2;
+            }
+            return map;
+        }
+
         // ── Helper: dibujar header de página ──
         function addPageHeader(pageNum, isFirstPage) {
             // Fondo dark navy completo
@@ -331,7 +354,7 @@ async function generatePDF() {
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
             doc.setTextColor(...TEAL);
-            doc.text('Lista 116  •  Actualizada: 29/04/2026', W - M, 19, { align: 'right' });
+            doc.text('Lista 117  •  Actualizada: 11/05/2026', W - M, 19, { align: 'right' });
 
             // Línea teal eliminada
         }
@@ -451,15 +474,153 @@ async function generatePDF() {
 
         // Tamaños de logo por marca (base: 22×9). Solo listar las que difieren.
         const LOGO_SIZES = {
-            canplast:    { w: 29, h:  9 },  // +30% ancho
+            canplast:    { w: 33, h:  8 },  // +15% ancho, -5% alto
             alarsa:      { w: 23, h:  9 },  // +5% ancho
-            smartfix:    { w: 28, h: 11 },  // +25% general
+            smartfix:    { w: 28, h: 13 },  // +25% ancho, +40% alto
             duke:        { w: 20, h:  8 },  // -10%
             aislatech:   { w: 24, h: 10 },  // +10%
             latynfusion: { w: 27, h: 12 },  // +25% general
             valforte:    { w: 23, h:  9 },  // +5% ancho
-            covertex:    { w: 24, h:  9 },  // +10% ancho, -5% alto neto
+            covertex:    { w: 24, h:  7 },  // +10% ancho, -22% alto
         };
+
+        // ── Helper: dibujar página de índice ──
+        function drawIndexPage(tpMap) {
+            const PW = 210, PH = 297;
+
+            // Fondo dark navy
+            doc.setFillColor(...NAVY);
+            doc.rect(0, 0, PW, PH, 'F');
+
+            // "2026" watermark
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(180);
+            doc.setTextColor(74, 159, 142);
+            doc.setGState(new doc.GState({ opacity: 0.06 }));
+            doc.text('2026', PW / 2, PH / 2 + 50, { align: 'center' });
+            doc.setGState(new doc.GState({ opacity: 1 }));
+
+            // Logo top-right
+            if (PDF_LOGO_B64) {
+                try { doc.addImage(PDF_LOGO_B64, 'PNG', PW - 52, 14, 38, 11.4); } catch {}
+            }
+
+            // Barra vertical teal izquierda
+            doc.setFillColor(74, 159, 142);
+            doc.rect(18, 14, 1.5, 28, 'F');
+
+            // Etiqueta superior
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(7.5);
+            doc.setTextColor(74, 159, 142);
+            doc.text('DISTRIBUIDORA MAYORISTA', 24, 21);
+
+            // Título
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(26);
+            doc.setTextColor(255, 255, 255);
+            doc.text('ÍNDICE DE', 24, 32);
+            doc.text('CONTENIDOS', 24, 44);
+
+            // Línea teal bajo título
+            doc.setFillColor(74, 159, 142);
+            doc.rect(24, 47, 55, 1, 'F');
+
+            // Línea separadora horizontal
+            doc.setFillColor(30, 42, 58);
+            doc.rect(18, 56, PW - 36, 0.6, 'F');
+
+            // ── Lista de tipos ──
+            const IDX_ORDER = [
+                'regulador','flexible','membrana','llave-gas','canilla',
+                'accesorio','aislante','bronce-roscado','fusion','hidro-bronce',
+                'gabinete','pilar','flotante','fuelle','montura','puerta',
+                'sopapa','reja','tapa','soda-caustica','terraja','tubo','valvula'
+            ];
+            const entries = IDX_ORDER
+                .filter(t => tpMap[t])
+                .map((t, i) => ({ num: i + 1, label: (TYPE_LABELS[t] || t).toUpperCase(), page: tpMap[t] }));
+
+            const half     = Math.ceil(entries.length / 2);
+            const colW     = 82;
+            const col0X    = 18;
+            const col1X    = col0X + colW + 10;
+            const listY    = 64;
+            const rowH_idx = 11.5;
+
+            entries.forEach((entry, i) => {
+                const col = i < half ? 0 : 1;
+                const row = i < half ? i : i - half;
+                const x   = col === 0 ? col0X : col1X;
+                const y   = listY + row * rowH_idx;
+
+                // Fondo alternado muy sutil
+                if (row % 2 === 0) {
+                    doc.setFillColor(255, 255, 255);
+                    doc.setGState(new doc.GState({ opacity: 0.03 }));
+                    doc.rect(x - 1, y - 5, colW, rowH_idx, 'F');
+                    doc.setGState(new doc.GState({ opacity: 1 }));
+                }
+
+                // Badge número
+                doc.setFillColor(74, 159, 142);
+                doc.setGState(new doc.GState({ opacity: 0.18 }));
+                doc.roundedRect(x, y - 4.2, 6.5, 5.8, 0.8, 0.8, 'F');
+                doc.setGState(new doc.GState({ opacity: 1 }));
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(5.5);
+                doc.setTextColor(74, 159, 142);
+                doc.text(String(entry.num).padStart(2, '0'), x + 3.25, y - 0.2, { align: 'center' });
+
+                // Nombre del tipo
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(8.5);
+                doc.setTextColor(210, 222, 238);
+                const labelX = x + 9;
+                doc.text(entry.label, labelX, y - 0.2);
+
+                // Puntos guía
+                const labelW  = doc.getTextWidth(entry.label);
+                const pageStr = `p.${entry.page}`;
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(8.5);
+                const pageW      = doc.getTextWidth(pageStr);
+                const dotsStart  = labelX + labelW + 2;
+                const dotsEnd    = x + colW - pageW - 2;
+                if (dotsEnd > dotsStart + 2) {
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(7);
+                    doc.setTextColor(74, 159, 142);
+                    doc.setGState(new doc.GState({ opacity: 0.3 }));
+                    const dotW    = doc.getTextWidth('.');
+                    const nDots   = Math.floor((dotsEnd - dotsStart) / dotW);
+                    if (nDots > 0) doc.text('.'.repeat(nDots), dotsStart, y - 0.5);
+                    doc.setGState(new doc.GState({ opacity: 1 }));
+                }
+
+                // Número de página
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(8.5);
+                doc.setTextColor(74, 159, 142);
+                doc.text(pageStr, x + colW, y - 0.2, { align: 'right' });
+            });
+
+            // Línea divisoria entre columnas
+            const midX = col0X + colW + 5;
+            doc.setDrawColor(74, 159, 142);
+            doc.setGState(new doc.GState({ opacity: 0.12 }));
+            doc.setLineWidth(0.3);
+            doc.line(midX, listY - 5, midX, listY + half * rowH_idx - 2);
+            doc.setGState(new doc.GState({ opacity: 1 }));
+
+            // Footer — igual que portada
+            doc.setFillColor(12, 18, 28);
+            doc.rect(0, PH - 22, PW, 22, 'F');
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(11);
+            doc.setTextColor(156, 163, 175);
+            doc.text('ventas@distrifel.com  |  www.distrifel.com.ar  |  11 6463-9441', PW / 2, PH - 9, { align: 'center' });
+        }
 
         // ── Helper: dibujar row de producto ──
         function drawProductRow(p, yPos) {
@@ -669,7 +830,7 @@ async function generatePDF() {
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(13);
             doc.setTextColor(156, 163, 175);
-            doc.text('Lista 116  •  Actualizada: 29/04/2026', PW / 2, centerY + 63, { align: 'center' });
+            doc.text('Lista 117  •  Actualizada: 11/05/2026', PW / 2, centerY + 63, { align: 'center' });
 
             // ── Contacto al pie ──
             doc.setFillColor(12, 18, 28);
@@ -684,6 +845,11 @@ async function generatePDF() {
         }
         // ── Fin portada ──
 
+        // ── Página 2: Índice ──
+        drawIndexPage(typePageMap);
+
+        doc.addPage();
+        pageNum++;
         addPageHeader(pageNum, true);
         addPageFooter(pageNum);
 
@@ -1131,6 +1297,78 @@ function filterProducts() {
     // Show/hide no results message
     if (noResults) noResults.classList.toggle('visible', visibleCount === 0);
     if (productsGrid) productsGrid.style.display = visibleCount === 0 ? 'none' : '';
+
+    updateActiveFiltersBar();
+}
+
+function updateActiveFiltersBar() {
+    const bar   = document.getElementById('activeFiltersBar');
+    const badge = document.getElementById('filterCountBadge');
+    if (!bar) return;
+
+    const active = [];
+
+    if (state.filters.category !== 'all') {
+        const el    = document.querySelector(`.category-chips .chip[data-category="${state.filters.category}"] span:last-child`);
+        const label = el?.textContent.trim() || state.filters.category;
+        active.push({ key: 'category', label });
+    }
+    if (state.filters.brand !== 'all') {
+        const el    = document.querySelector(`[data-menu="brand"] .filter-option.active`);
+        const label = el?.dataset.label || el?.textContent.trim() || state.filters.brand;
+        active.push({ key: 'brand', label });
+    }
+    if (state.filters.type !== 'all') {
+        const el    = document.querySelector(`[data-menu="type"] .filter-option.active`);
+        const label = el?.dataset.label || el?.textContent.trim() || state.filters.type;
+        active.push({ key: 'type', label });
+    }
+    if (state.search) {
+        active.push({ key: 'search', label: `"${state.search}"` });
+    }
+
+    bar.innerHTML = active.map(f => `
+        <button class="active-filter-chip" data-key="${f.key}" type="button">
+            ${f.label}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="11" height="11" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+    `).join('');
+
+    bar.classList.toggle('has-filters', active.length > 0);
+
+    bar.querySelectorAll('.active-filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const key = chip.dataset.key;
+            if (key === 'search') {
+                state.search = '';
+                const inp = document.getElementById('searchInput');
+                const clr = document.getElementById('searchClear');
+                if (inp) inp.value = '';
+                if (clr) clr.classList.remove('visible');
+            } else {
+                state.filters[key] = 'all';
+                document.querySelectorAll(`[data-menu="${key}"] .filter-option`).forEach(o =>
+                    o.classList.toggle('active', o.dataset.value === 'all')
+                );
+                if (key === 'category') {
+                    document.querySelectorAll('.category-chips .chip').forEach(c =>
+                        c.classList.toggle('active', c.dataset.category === 'all')
+                    );
+                }
+                updateAccordionBadge(key, 'all', '');
+            }
+            filterProducts();
+        });
+    });
+
+    // Badge en botón Filtros
+    const count = active.filter(f => f.key !== 'search').length;
+    if (badge) {
+        badge.textContent = count > 0 ? count : '';
+        badge.classList.toggle('visible', count > 0);
+    }
 }
 
 /**
