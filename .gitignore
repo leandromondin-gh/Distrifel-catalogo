@@ -2,6 +2,9 @@
 *.xlsx
 Lista de precios.xlsx
 
+# Excepción: Excel de descarga pública
+!downloads/lista-precios.xlsx
+
 # macOS
 .DS_Store
 
