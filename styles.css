@@ -1313,6 +1313,9 @@ body.past-hero .nav-home-btn:hover {
 @media (max-width: 640px) {
     .hero {
         min-height: 100svh;
+        padding-top: 90px;
+        padding-bottom: 200px; /* deja espacio para WA button + carousel */
+        justify-content: center;
     }
     .hero-categories { display: none; }
     .hero-tagline { display: block; }
@@ -1482,7 +1485,7 @@ body.past-hero .nav-home-btn:hover {
 .brands-track {
     display: flex;
     width: max-content;
-    animation: scroll-brands 25s linear infinite;
+    animation: scroll-brands 20s linear infinite;
 }
 
 .brands-slide {
@@ -5374,7 +5377,13 @@ body[data-mode="corredor"].has-promo .catalog-section {
 }
 
 @media (max-width: 640px) {
-    .wp-consult-btn { padding: 14px 12px 14px 14px; max-width: 58px; }
+    .wp-consult-btn {
+        padding: 14px 12px 14px 14px;
+        max-width: 58px;
+        top: auto;
+        bottom: 110px;
+        transform: none;
+    }
 }
 
 /* ========================================

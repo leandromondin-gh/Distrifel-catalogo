@@ -449,6 +449,18 @@ async function generatePDF() {
             doc.text(label, cx, yPos + 6.8, { align: 'center' });
         }
 
+        // Tamaños de logo por marca (base: 22×9). Solo listar las que difieren.
+        const LOGO_SIZES = {
+            canplast:    { w: 29, h:  9 },  // +30% ancho
+            alarsa:      { w: 23, h:  9 },  // +5% ancho
+            smartfix:    { w: 28, h: 11 },  // +25% general
+            duke:        { w: 20, h:  8 },  // -10%
+            aislatech:   { w: 24, h: 10 },  // +10%
+            latynfusion: { w: 27, h: 12 },  // +25% general
+            valforte:    { w: 23, h:  9 },  // +5% ancho
+            covertex:    { w: 24, h:  9 },  // +10% ancho, -5% alto neto
+        };
+
         // ── Helper: dibujar row de producto ──
         function drawProductRow(p, yPos) {
             const variants = p.variants || [];
@@ -484,7 +496,8 @@ async function generatePDF() {
             const brandB64 = (window.BRAND_LOGOS_B64 && p.brand) ? window.BRAND_LOGOS_B64[p.brand] : null;
             const logoAreaX = TEXT_X;
             const logoAreaW = DIVIDER_X - 4 - TEXT_X;
-            const logoW = 35, logoH = 14;
+            const logoSize = LOGO_SIZES[p.brand] || { w: 22, h: 9 };
+            const logoW = logoSize.w, logoH = logoSize.h;
             const logoX = logoAreaX + (logoAreaW - logoW) / 2;
             const logoY = imgY + (IMG_SIZE - logoH) / 2;
             if (brandB64) {
@@ -2431,6 +2444,90 @@ function initBrandCarousel() {
             setBrandFilter(btn.dataset.brand);
         });
     });
+    initBrandsTouch();
+}
+
+function initBrandsTouch() {
+    const carousel = document.querySelector('.brands-carousel');
+    const track    = document.querySelector('.brands-track');
+    if (!carousel || !track) return;
+
+    const ANIM_DURATION = 20; // must match CSS seconds
+    let isDragging = false;
+    let trackX     = 0;
+    let startX     = 0;
+    let prevX      = 0;
+    let prevTime   = 0;
+    let velX       = 0;
+    let momentumId = null;
+
+    function getCurrentX() {
+        return new DOMMatrix(getComputedStyle(track).transform).m41;
+    }
+
+    function loopWidth() {
+        return track.scrollWidth / 2;
+    }
+
+    function pause() {
+        cancelAnimationFrame(momentumId);
+        trackX = getCurrentX();
+        track.style.animation = 'none';
+        track.style.transform = `translateX(${trackX}px)`;
+    }
+
+    function resume() {
+        const w        = loopWidth();
+        let norm       = trackX % w;
+        if (norm > 0)  norm -= w;
+        const progress = Math.abs(norm) / w;
+        const delay    = -(progress * ANIM_DURATION);
+        track.style.transform = '';
+        track.style.animation = `scroll-brands ${ANIM_DURATION}s linear ${delay}s infinite`;
+    }
+
+    carousel.addEventListener('touchstart', e => {
+        pause();
+        isDragging = true;
+        startX = prevX = e.touches[0].clientX;
+        prevTime = Date.now();
+        velX = 0;
+    }, { passive: true });
+
+    carousel.addEventListener('touchmove', e => {
+        if (!isDragging) return;
+        const x   = e.touches[0].clientX;
+        const now = Date.now();
+        const dt  = Math.max(now - prevTime, 1);
+        velX      = (x - prevX) / dt;
+        trackX   += x - startX;
+        startX    = x;
+        prevX     = x;
+        prevTime  = now;
+        track.style.transform = `translateX(${trackX}px)`;
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        const momentum = velX * 300;
+        if (Math.abs(momentum) < 2) { resume(); return; }
+
+        const t0       = performance.now();
+        const dur      = 600;
+        const startPos = trackX;
+
+        function step(now) {
+            const t    = Math.min((now - t0) / dur, 1);
+            const ease = 1 - Math.pow(1 - t, 3);
+            trackX     = startPos + momentum * ease;
+            track.style.transform = `translateX(${trackX}px)`;
+            if (t < 1) momentumId = requestAnimationFrame(step);
+            else        resume();
+        }
+        momentumId = requestAnimationFrame(step);
+    }, { passive: true });
 }
 
 function setBrandFilter(brand) {
