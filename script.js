@@ -414,8 +414,8 @@ async function generatePDF() {
                 }
             });
 
-            // Número de página — círculo al 72% del footer (espacio libre entre ítems y borde)
-            const pgCX = W * 0.72, pgCY = fy + fh / 2, pgR = 5;
+            // Número de página — círculo al 68% para dejar espacio al disclaimer
+            const pgCX = W * 0.68, pgCY = fy + fh / 2, pgR = 5;
             doc.setFillColor(...TEAL);
             doc.circle(pgCX, pgCY, pgR, 'F');
             doc.setDrawColor(220, 225, 232);
@@ -424,7 +424,15 @@ async function generatePDF() {
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
             doc.setTextColor(255, 255, 255);
-            doc.text(String(pageNum), pgCX, pgCY + 2, { align: 'center' });
+            doc.text(String(pageNum), pgCX, pgCY + 1.5, { align: 'center' });
+
+            // Disclaimer — bien a la derecha, separado del círculo
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(7);
+            doc.setTextColor(...GRAY);
+            const dix = W - M - 2;
+            doc.text('Precios en pesos argentinos.', dix, pgCY - 1, { align: 'right' });
+            doc.text('Sujetos a cambio sin previo aviso.', dix, pgCY + 3.5, { align: 'right' });
 
         }
 
@@ -940,7 +948,7 @@ async function generatePDF() {
 
                     const varLabel = doc.splitTextToSize(v.desc || '-', subColW - 25)[0] || (v.desc || '-');
                     doc.setFont('helvetica', 'normal');
-                    doc.setFontSize(9);
+                    doc.setFontSize(10);
                     doc.setTextColor(...DARK);
                     doc.text(varLabel, subX + 2, yPos + 17.5 + rowIdx * VAR_ROW);
 
@@ -968,7 +976,7 @@ async function generatePDF() {
 
                     const varLabel = doc.splitTextToSize(v.desc || '-', TABLE_W - 35)[0] || (v.desc || '-');
                     doc.setFont('helvetica', 'normal');
-                    doc.setFontSize(9);
+                    doc.setFontSize(10);
                     doc.setTextColor(...DARK);
                     doc.text(varLabel, TABLE_X + 2, yPos + 17.5 + i * VAR_ROW);
 
