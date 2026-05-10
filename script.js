@@ -487,15 +487,16 @@ async function generatePDF() {
         // ── Helper: dibujar página de índice ──
         function drawIndexPage(tpMap) {
             const PW = 210, PH = 297;
+            const TEAL = [74, 159, 142];
 
             // Fondo dark navy
-            doc.setFillColor(...NAVY);
+            doc.setFillColor(17, 24, 39);
             doc.rect(0, 0, PW, PH, 'F');
 
             // "2026" watermark
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(180);
-            doc.setTextColor(74, 159, 142);
+            doc.setTextColor(...TEAL);
             doc.setGState(new doc.GState({ opacity: 0.06 }));
             doc.text('2026', PW / 2, PH / 2 + 50, { align: 'center' });
             doc.setGState(new doc.GState({ opacity: 1 }));
@@ -505,32 +506,26 @@ async function generatePDF() {
                 try { doc.addImage(PDF_LOGO_B64, 'PNG', PW - 52, 14, 38, 11.4); } catch {}
             }
 
-            // Barra vertical teal izquierda
-            doc.setFillColor(74, 159, 142);
-            doc.rect(18, 14, 1.5, 28, 'F');
-
-            // Etiqueta superior
+            // Barra vertical teal + header
+            doc.setFillColor(...TEAL);
+            doc.rect(18, 14, 1.8, 30, 'F');
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(7.5);
-            doc.setTextColor(74, 159, 142);
-            doc.text('DISTRIBUIDORA MAYORISTA', 24, 21);
-
-            // Título
+            doc.setTextColor(...TEAL);
+            doc.text('DISTRIBUIDORA MAYORISTA', 24, 22);
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(26);
+            doc.setFontSize(27);
             doc.setTextColor(255, 255, 255);
-            doc.text('ÍNDICE DE', 24, 32);
-            doc.text('CONTENIDOS', 24, 44);
+            doc.text('ÍNDICE DE', 24, 33);
+            doc.text('CONTENIDOS', 24, 45);
+            doc.setFillColor(...TEAL);
+            doc.rect(24, 48, 58, 1.2, 'F');
 
-            // Línea teal bajo título
-            doc.setFillColor(74, 159, 142);
-            doc.rect(24, 47, 55, 1, 'F');
-
-            // Línea separadora horizontal
+            // Separador
             doc.setFillColor(30, 42, 58);
-            doc.rect(18, 56, PW - 36, 0.6, 'F');
+            doc.rect(18, 57, PW - 36, 0.6, 'F');
 
-            // ── Lista de tipos ──
+            // ── Cards grid ──
             const IDX_ORDER = [
                 'regulador','flexible','membrana','llave-gas','canilla',
                 'accesorio','aislante','bronce-roscado','fusion','hidro-bronce',
@@ -539,79 +534,50 @@ async function generatePDF() {
             ];
             const entries = IDX_ORDER
                 .filter(t => tpMap[t])
-                .map((t, i) => ({ num: i + 1, label: (TYPE_LABELS[t] || t).toUpperCase(), page: tpMap[t] }));
+                .map(t => ({ label: (TYPE_LABELS[t] || t).toUpperCase(), page: tpMap[t] }));
 
-            const half     = Math.ceil(entries.length / 2);
-            const colW     = 82;
-            const col0X    = 18;
-            const col1X    = col0X + colW + 10;
-            const listY    = 64;
-            const rowH_idx = 11.5;
+            const COLS     = 2;
+            const CARD_H   = 15;
+            const CARD_GAP = 3;
+            const COL_GAP  = 8;
+            const MX       = 18;
+            const CARD_W   = (PW - MX * 2 - COL_GAP) / COLS;  // ~83mm
+            const START_Y  = 64;
+            const rows     = Math.ceil(entries.length / COLS);
 
             entries.forEach((entry, i) => {
-                const col = i < half ? 0 : 1;
-                const row = i < half ? i : i - half;
-                const x   = col === 0 ? col0X : col1X;
-                const y   = listY + row * rowH_idx;
+                const col  = i % COLS;
+                const row  = Math.floor(i / COLS);
+                const cx   = MX + col * (CARD_W + COL_GAP);
+                const cy   = START_Y + row * (CARD_H + CARD_GAP);
 
-                // Fondo alternado muy sutil
-                if (row % 2 === 0) {
-                    doc.setFillColor(255, 255, 255);
-                    doc.setGState(new doc.GState({ opacity: 0.03 }));
-                    doc.rect(x - 1, y - 5, colW, rowH_idx, 'F');
-                    doc.setGState(new doc.GState({ opacity: 1 }));
-                }
+                // Card background
+                doc.setFillColor(22, 34, 52);
+                doc.roundedRect(cx, cy, CARD_W, CARD_H, 2.5, 2.5, 'F');
 
-                // Badge número
-                doc.setFillColor(74, 159, 142);
-                doc.setGState(new doc.GState({ opacity: 0.18 }));
-                doc.roundedRect(x, y - 4.2, 6.5, 5.8, 0.8, 0.8, 'F');
+                // Card border teal sutil
+                doc.setDrawColor(...TEAL);
+                doc.setGState(new doc.GState({ opacity: 0.22 }));
+                doc.setLineWidth(0.35);
+                doc.roundedRect(cx, cy, CARD_W, CARD_H, 2.5, 2.5, 'D');
                 doc.setGState(new doc.GState({ opacity: 1 }));
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(5.5);
-                doc.setTextColor(74, 159, 142);
-                doc.text(String(entry.num).padStart(2, '0'), x + 3.25, y - 0.2, { align: 'center' });
+
+                // Accent bar izquierda (igual al hero)
+                doc.setFillColor(...TEAL);
+                doc.roundedRect(cx + 3, cy + 3, 2.5, CARD_H - 6, 1, 1, 'F');
 
                 // Nombre del tipo
                 doc.setFont('helvetica', 'bold');
-                doc.setFontSize(8.5);
-                doc.setTextColor(210, 222, 238);
-                const labelX = x + 9;
-                doc.text(entry.label, labelX, y - 0.2);
-
-                // Puntos guía
-                const labelW  = doc.getTextWidth(entry.label);
-                const pageStr = `p.${entry.page}`;
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(8.5);
-                const pageW      = doc.getTextWidth(pageStr);
-                const dotsStart  = labelX + labelW + 2;
-                const dotsEnd    = x + colW - pageW - 2;
-                if (dotsEnd > dotsStart + 2) {
-                    doc.setFont('helvetica', 'normal');
-                    doc.setFontSize(7);
-                    doc.setTextColor(74, 159, 142);
-                    doc.setGState(new doc.GState({ opacity: 0.3 }));
-                    const dotW    = doc.getTextWidth('.');
-                    const nDots   = Math.floor((dotsEnd - dotsStart) / dotW);
-                    if (nDots > 0) doc.text('.'.repeat(nDots), dotsStart, y - 0.5);
-                    doc.setGState(new doc.GState({ opacity: 1 }));
-                }
+                doc.setFontSize(10);
+                doc.setTextColor(220, 232, 245);
+                doc.text(entry.label, cx + 9, cy + CARD_H / 2 + 1.8);
 
                 // Número de página
                 doc.setFont('helvetica', 'bold');
-                doc.setFontSize(8.5);
-                doc.setTextColor(74, 159, 142);
-                doc.text(pageStr, x + colW, y - 0.2, { align: 'right' });
+                doc.setFontSize(9);
+                doc.setTextColor(...TEAL);
+                doc.text(`p.${entry.page}`, cx + CARD_W - 4, cy + CARD_H / 2 + 1.8, { align: 'right' });
             });
-
-            // Línea divisoria entre columnas
-            const midX = col0X + colW + 5;
-            doc.setDrawColor(74, 159, 142);
-            doc.setGState(new doc.GState({ opacity: 0.12 }));
-            doc.setLineWidth(0.3);
-            doc.line(midX, listY - 5, midX, listY + half * rowH_idx - 2);
-            doc.setGState(new doc.GState({ opacity: 1 }));
 
             // Footer — igual que portada
             doc.setFillColor(12, 18, 28);
@@ -910,8 +876,8 @@ const state = {
     search: '',
     filters: {
         category: 'all',
-        brand: 'all',
-        type: 'all'
+        brand: new Set(),
+        type: new Set()
     },
     discountActive: false
 };
@@ -1120,20 +1086,37 @@ function initFilters() {
             const menu = option.closest('.filter-menu');
             const filterType = menu.dataset.menu;
             const value = option.dataset.value;
+            const label = option.dataset.label || option.textContent.trim();
 
-            state.filters[filterType] = value;
-            menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
-            option.classList.add('active');
-            updateAccordionBadge(filterType, value, option.dataset.label || option.textContent.trim());
+            if (filterType === 'brand' || filterType === 'type') {
+                const set = state.filters[filterType];
+                if (value === 'all') {
+                    set.clear();
+                    menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
+                    option.classList.add('active');
+                } else {
+                    menu.querySelector('[data-value="all"]')?.classList.remove('active');
+                    if (set.has(value)) { set.delete(value); option.classList.remove('active'); }
+                    else                { set.add(value);    option.classList.add('active');    }
+                    if (set.size === 0) menu.querySelector('[data-value="all"]')?.classList.add('active');
+                }
+                const badgeLabel = set.size === 0 ? '' : set.size === 1 ? label : `${set.size} seleccionados`;
+                updateAccordionBadge(filterType, set.size === 0 ? 'all' : value, badgeLabel);
+            } else {
+                state.filters[filterType] = value;
+                menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
+                option.classList.add('active');
+                updateAccordionBadge(filterType, value, label);
+                option.closest('.accordion-section')?.classList.remove('expanded');
+            }
+
             filterProducts();
-            // Replegar acordeón después de seleccionar
-            option.closest('.accordion-section')?.classList.remove('expanded');
         });
     });
 
     const clearAll = () => {
         state.search = '';
-        state.filters = { category: 'all', brand: 'all', type: 'all' };
+        state.filters = { category: 'all', brand: new Set(), type: new Set() };
 
         const searchInput = document.getElementById('searchInput');
         const searchClear = document.getElementById('searchClear');
@@ -1266,8 +1249,8 @@ function filterProducts() {
         
         // Check filters
         const matchesCategory = state.filters.category === 'all' || category === state.filters.category;
-        const matchesBrand = state.filters.brand === 'all' || brand === state.filters.brand;
-        const matchesType = state.filters.type === 'all' || type === state.filters.type;
+        const matchesBrand = state.filters.brand.size === 0 || state.filters.brand.has(brand);
+        const matchesType  = state.filters.type.size  === 0 || state.filters.type.has(type);
         
         // Check search
         const matchesSearch = state.search === '' || 
@@ -1311,24 +1294,24 @@ function updateActiveFiltersBar() {
     if (state.filters.category !== 'all') {
         const el    = document.querySelector(`.category-chips .chip[data-category="${state.filters.category}"] span:last-child`);
         const label = el?.textContent.trim() || state.filters.category;
-        active.push({ key: 'category', label });
+        active.push({ key: 'category', value: state.filters.category, label });
     }
-    if (state.filters.brand !== 'all') {
-        const el    = document.querySelector(`[data-menu="brand"] .filter-option.active`);
-        const label = el?.dataset.label || el?.textContent.trim() || state.filters.brand;
-        active.push({ key: 'brand', label });
-    }
-    if (state.filters.type !== 'all') {
-        const el    = document.querySelector(`[data-menu="type"] .filter-option.active`);
-        const label = el?.dataset.label || el?.textContent.trim() || state.filters.type;
-        active.push({ key: 'type', label });
-    }
+    state.filters.brand.forEach(b => {
+        const el    = document.querySelector(`[data-menu="brand"] [data-value="${b}"]`);
+        const label = el?.dataset.label || el?.textContent.trim() || b;
+        active.push({ key: 'brand', value: b, label });
+    });
+    state.filters.type.forEach(t => {
+        const el    = document.querySelector(`[data-menu="type"] [data-value="${t}"]`);
+        const label = el?.dataset.label || el?.textContent.trim() || t;
+        active.push({ key: 'type', value: t, label });
+    });
     if (state.search) {
-        active.push({ key: 'search', label: `"${state.search}"` });
+        active.push({ key: 'search', value: state.search, label: `"${state.search}"` });
     }
 
     bar.innerHTML = active.map(f => `
-        <button class="active-filter-chip" data-key="${f.key}" type="button">
+        <button class="active-filter-chip" data-key="${f.key}" data-value="${f.value}" type="button">
             ${f.label}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="11" height="11" aria-hidden="true">
                 <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
@@ -1340,13 +1323,25 @@ function updateActiveFiltersBar() {
 
     bar.querySelectorAll('.active-filter-chip').forEach(chip => {
         chip.addEventListener('click', () => {
-            const key = chip.dataset.key;
+            const { key, value } = chip.dataset;
             if (key === 'search') {
                 state.search = '';
                 const inp = document.getElementById('searchInput');
                 const clr = document.getElementById('searchClear');
                 if (inp) inp.value = '';
                 if (clr) clr.classList.remove('visible');
+            } else if (key === 'brand' || key === 'type') {
+                state.filters[key].delete(value);
+                document.querySelector(`[data-menu="${key}"] [data-value="${value}"]`)?.classList.remove('active');
+                if (state.filters[key].size === 0) {
+                    document.querySelector(`[data-menu="${key}"] [data-value="all"]`)?.classList.add('active');
+                    updateAccordionBadge(key, 'all', '');
+                } else {
+                    const rem      = state.filters[key].size;
+                    const firstVal = [...state.filters[key]][0];
+                    const firstLbl = document.querySelector(`[data-menu="${key}"] [data-value="${firstVal}"]`)?.textContent.trim() || firstVal;
+                    updateAccordionBadge(key, 'multi', rem === 1 ? firstLbl : `${rem} seleccionados`);
+                }
             } else {
                 state.filters[key] = 'all';
                 document.querySelectorAll(`[data-menu="${key}"] .filter-option`).forEach(o =>
@@ -1363,7 +1358,7 @@ function updateActiveFiltersBar() {
         });
     });
 
-    // Badge en botón Filtros
+    // Badge en botón Filtros (excluye búsqueda de texto)
     const count = active.filter(f => f.key !== 'search').length;
     if (badge) {
         badge.textContent = count > 0 ? count : '';
@@ -2434,21 +2429,30 @@ function buildTypeFilter(category) {
     // Re-registrar click handlers
     menu.querySelectorAll('.filter-option').forEach(opt => {
         opt.addEventListener('click', () => {
-            menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
-            opt.classList.add('active');
-            state.filters.type = opt.dataset.value;
-            updateAccordionBadge('type', opt.dataset.value, opt.dataset.label || opt.textContent.trim());
+            const value = opt.dataset.value;
+            const label = opt.dataset.label || opt.textContent.trim();
+            const set   = state.filters.type;
+            if (value === 'all') {
+                set.clear();
+                menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
+                opt.classList.add('active');
+            } else {
+                menu.querySelector('[data-value="all"]')?.classList.remove('active');
+                if (set.has(value)) { set.delete(value); opt.classList.remove('active'); }
+                else                { set.add(value);    opt.classList.add('active');    }
+                if (set.size === 0) menu.querySelector('[data-value="all"]')?.classList.add('active');
+            }
+            const badgeLabel = set.size === 0 ? '' : set.size === 1 ? label : `${set.size} seleccionados`;
+            updateAccordionBadge('type', set.size === 0 ? 'all' : value, badgeLabel);
             filterProducts();
-            // Replegar acordeón después de seleccionar
-            opt.closest('.accordion-section')?.classList.remove('expanded');
         });
     });
 
-    // Resetear tipo activo si ya no existe en la nueva lista
-    if (state.filters.type !== 'all' && !types.includes(state.filters.type)) {
-        state.filters.type = 'all';
-        updateAccordionBadge('type', 'all', '');
-    }
+    // Eliminar tipos activos que ya no existen en la nueva lista
+    [...state.filters.type].forEach(t => {
+        if (!types.includes(t)) state.filters.type.delete(t);
+    });
+    if (state.filters.type.size === 0) updateAccordionBadge('type', 'all', '');
 }
 
 function escapeHtml(str) {
@@ -2769,25 +2773,34 @@ function initBrandsTouch() {
 }
 
 function setBrandFilter(brand) {
-    state.filters.brand = brand;
+    const set = state.filters.brand;
+
+    if (brand === 'all') {
+        set.clear();
+    } else {
+        document.querySelector('[data-menu="brand"] [data-value="all"]')?.classList.remove('active');
+        if (set.has(brand)) set.delete(brand);
+        else                set.add(brand);
+        if (set.size === 0) brand = 'all';
+    }
 
     // Sync dropdown options
     document.querySelectorAll('[data-menu="brand"] .filter-option').forEach(opt => {
-        opt.classList.toggle('active', opt.dataset.value === brand);
+        if (opt.dataset.value === 'all') opt.classList.toggle('active', set.size === 0);
+        else                             opt.classList.toggle('active', set.has(opt.dataset.value));
     });
 
     // Actualizar badge del acordeón
-    const activeOpt = document.querySelector(`[data-menu="brand"] [data-value="${brand}"]`);
+    const activeOpt  = document.querySelector(`[data-menu="brand"] [data-value="${brand}"]`);
     const activeLabel = activeOpt?.dataset.label || activeOpt?.textContent.trim() || brand;
-    updateAccordionBadge('brand', brand, activeLabel);
+    const badgeLabel  = set.size === 0 ? '' : set.size === 1 ? activeLabel : `${set.size} seleccionadas`;
+    updateAccordionBadge('brand', set.size === 0 ? 'all' : brand, badgeLabel);
 
     // Sync dropdown button label
     const filterBtn = document.querySelector('[data-filter="brand"]');
     if (filterBtn) {
         const valueEl = filterBtn.querySelector('.filter-value');
-        if (valueEl) {
-            valueEl.textContent = brand === 'all' ? 'Todas' : activeLabel;
-        }
+        if (valueEl) valueEl.textContent = set.size === 0 ? 'Todas' : set.size === 1 ? activeLabel : `${set.size} marcas`;
     }
 
     filterProducts();
