@@ -193,8 +193,32 @@ async function generatePDF() {
         const { jsPDF } = window.jspdf;
         const products = window.DISTRIFEL_PRODUCTS || [];
 
-        // ── Ordenar: TYPE_ORDER primero, resto A-Z por label ──
-        const TYPE_ORDER = { regulador: 0, flexible: 1, membrana: 2, 'llave-gas': 3 };
+        // ── Ordenar: orden explícito de tipos para PDF ──
+        const TYPE_ORDER = {
+            'regulador':       0,
+            'flexible':        1,
+            'membrana':        2,
+            'llave-gas':       3,
+            'canilla':         4,
+            'accesorio':       5,
+            'aislante':        6,
+            'bronce-roscado':  7,
+            'fusion':          8,
+            'hidro-bronce':    9,
+            'gabinete':       10,
+            'pilar':          11,
+            'flotante':       12,
+            'fuelle':         13,
+            'montura':        14,
+            'puerta':         15,
+            'sopapa':         16,
+            'reja':           17,
+            'tapa':           18,
+            'soda-caustica':  19,
+            'terraja':        20,
+            'tubo':           21,
+            'valvula':        22,
+        };
         const sorted = [...products].sort((a, b) => {
             const oa = TYPE_ORDER[a.type] ?? 99;
             const ob = TYPE_ORDER[b.type] ?? 99;
@@ -267,10 +291,11 @@ async function generatePDF() {
         const dateFile = new Date().toISOString().slice(0, 10);
 
         // ── Helper: calcular rowH ──
+        const VAR_ROW = 9; // altura de cada fila de variante en mm
         function calcRowH(p) {
             const variants = p.variants || [];
             const displayRows = variants.length > 1 ? Math.ceil(variants.length / 2) : variants.length;
-            return Math.max(IMG_SIZE + 8, 13 + displayRows * 8 + 6);
+            return Math.max(IMG_SIZE + 16, 19 + displayRows * VAR_ROW + 6);
         }
 
         // ── Helper: dibujar header de página ──
@@ -433,49 +458,45 @@ async function generatePDF() {
             doc.setFillColor(...WHITE);
             doc.rect(M, yPos, W - M * 2, rowH, 'F');
 
-            // Panel izquierdo: imagen con borde sutil
+            // Título — arriba del todo, ancho completo del panel izquierdo
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(11);
+            doc.setTextColor(...DARK);
+            const titleLines2 = doc.splitTextToSize(p.title || '', LEFT_W);
+            doc.text(titleLines2.slice(0, 2), M, yPos + 9);
+
+            // Panel izquierdo: imagen con borde sutil (debajo del título)
+            const imgY = yPos + 14;
             doc.setFillColor(248, 250, 252);
-            doc.roundedRect(M, yPos + 2, IMG_SIZE, IMG_SIZE, 1.5, 1.5, 'F');
+            doc.roundedRect(M, imgY, IMG_SIZE, IMG_SIZE, 1.5, 1.5, 'F');
             doc.setDrawColor(220, 226, 232);
             doc.setLineWidth(0.2);
-            doc.roundedRect(M, yPos + 2, IMG_SIZE, IMG_SIZE, 1.5, 1.5, 'D');
+            doc.roundedRect(M, imgY, IMG_SIZE, IMG_SIZE, 1.5, 1.5, 'D');
 
             const img64 = imgCache[p.id];
             if (img64) {
                 try {
-                    doc.addImage(img64, 'JPEG', M + 1, yPos + 3, IMG_SIZE - 2, IMG_SIZE - 2);
+                    doc.addImage(img64, 'JPEG', M + 1, imgY + 1, IMG_SIZE - 2, IMG_SIZE - 2);
                 } catch (_e) {}
             }
 
-            // Chip de marca — primera línea, a la izquierda
+            // Logo de marca — grande y centrado en el espacio a la derecha de la imagen
             const brandB64 = (window.BRAND_LOGOS_B64 && p.brand) ? window.BRAND_LOGOS_B64[p.brand] : null;
-            const chipH = 6, chipW = 22, chipY = yPos + 5;
+            const logoAreaX = TEXT_X;
+            const logoAreaW = DIVIDER_X - 4 - TEXT_X;
+            const logoW = 35, logoH = 14;
+            const logoX = logoAreaX + (logoAreaW - logoW) / 2;
+            const logoY = imgY + (IMG_SIZE - logoH) / 2;
             if (brandB64) {
-                doc.setFillColor(255, 255, 255);
-                doc.setDrawColor(220, 226, 232);
-                doc.setLineWidth(0.2);
-                doc.roundedRect(TEXT_X, chipY, chipW, chipH, 1, 1, 'FD');
                 const bFmt2 = brandB64.startsWith('data:image/png') ? 'PNG' : brandB64.startsWith('data:image/webp') ? 'WEBP' : 'JPEG';
-                try { doc.addImage(brandB64, bFmt2, TEXT_X + 1, chipY + 0.5, chipW - 2, chipH - 1); } catch {}
+                try { doc.addImage(brandB64, bFmt2, logoX, logoY, logoW, logoH); } catch {}
             } else if (p.brand) {
                 const brandName2 = (window.BRAND_NAMES && window.BRAND_NAMES[p.brand]) || p.brand;
-                doc.setFillColor(232, 247, 244);
-                doc.setDrawColor(74, 159, 142);
-                doc.setLineWidth(0.2);
-                doc.roundedRect(TEXT_X, chipY, chipW, chipH, 1, 1, 'FD');
                 doc.setFont('helvetica', 'bold');
-                doc.setFontSize(5.5);
-                doc.setTextColor(74, 159, 142);
-                doc.text(brandName2.toUpperCase(), TEXT_X + chipW / 2, chipY + 4, { align: 'center' });
+                doc.setFontSize(9);
+                doc.setTextColor(...TEAL);
+                doc.text(brandName2.toUpperCase(), logoAreaX + logoAreaW / 2, imgY + IMG_SIZE / 2 + 1.5, { align: 'center' });
             }
-
-            // Nombre producto — 11pt, debajo del chip
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(11);
-            doc.setTextColor(31, 41, 55);
-            const titleLines2 = doc.splitTextToSize(p.title || '', TEXT_W);
-            const titleStartY = yPos + 18;
-            doc.text(titleLines2.slice(0, 2), TEXT_X, titleStartY);
 
             // Línea vertical divisoria gris
             doc.setDrawColor(...GRAY_LINE);
@@ -485,7 +506,7 @@ async function generatePDF() {
             // Panel derecho — tabla
             // Header "OPCIONES" y "PRECIO"
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(8);
+            doc.setFontSize(8.5);
             doc.setTextColor(...TEAL);
             doc.text('OPCIONES', TABLE_X + 2, yPos + 9);
             doc.text('PRECIO', TABLE_X + TABLE_W - 2, yPos + 9, { align: 'right' });
@@ -505,47 +526,53 @@ async function generatePDF() {
                     const colIdx = i < half ? 0 : 1;
                     const rowIdx = i < half ? i : i - half;
                     const subX = TABLE_X + colIdx * (subColW + 2);
-                    const rowBg = rowIdx % 2 === 0 ? [248, 250, 252] : [255, 255, 255];
+                    const rowBg = rowIdx % 2 === 0 ? [241, 245, 249] : [255, 255, 255];
 
                     doc.setFillColor(...rowBg);
-                    doc.rect(subX, yPos + 12 + rowIdx * 8, subColW, 8, 'F');
+                    doc.rect(subX, yPos + 12 + rowIdx * VAR_ROW, subColW, VAR_ROW, 'F');
 
                     const varLabel = doc.splitTextToSize(v.desc || '-', subColW - 25)[0] || (v.desc || '-');
                     doc.setFont('helvetica', 'normal');
-                    doc.setFontSize(8.5);
+                    doc.setFontSize(9);
                     doc.setTextColor(...DARK);
-                    doc.text(varLabel, subX + 2, yPos + 17 + rowIdx * 8);
+                    doc.text(varLabel, subX + 2, yPos + 17.5 + rowIdx * VAR_ROW);
 
                     if (v.price === 0) {
                         doc.setTextColor(...GRAY);
                         doc.setFont('helvetica', 'normal');
-                        doc.text('Sin stock', subX + subColW - 2, yPos + 17 + rowIdx * 8, { align: 'right' });
+                        doc.text('Sin stock', subX + subColW - 2, yPos + 17.5 + rowIdx * VAR_ROW, { align: 'right' });
                     } else {
                         doc.setFont('helvetica', 'bold');
                         doc.setTextColor(...TEAL);
-                        doc.text(formatPrice(v.price), subX + subColW - 2, yPos + 17 + rowIdx * 8, { align: 'right' });
+                        doc.text(formatPrice(v.price), subX + subColW - 2, yPos + 17.5 + rowIdx * VAR_ROW, { align: 'right' });
                     }
                 });
+
+                // Línea divisoria sutil entre columnas
+                const divX = TABLE_X + subColW + 1;
+                doc.setDrawColor(210, 220, 228);
+                doc.setLineWidth(0.25);
+                doc.line(divX, yPos + 12, divX, yPos + 12 + half * VAR_ROW);
             } else {
                 variants.forEach((v, i) => {
-                    const rowBg = i % 2 === 0 ? [248, 250, 252] : [255, 255, 255];
+                    const rowBg = i % 2 === 0 ? [241, 245, 249] : [255, 255, 255];
                     doc.setFillColor(...rowBg);
-                    doc.rect(TABLE_X, yPos + 12 + i * 8, TABLE_W, 8, 'F');
+                    doc.rect(TABLE_X, yPos + 12 + i * VAR_ROW, TABLE_W, VAR_ROW, 'F');
 
                     const varLabel = doc.splitTextToSize(v.desc || '-', TABLE_W - 35)[0] || (v.desc || '-');
                     doc.setFont('helvetica', 'normal');
-                    doc.setFontSize(8.5);
+                    doc.setFontSize(9);
                     doc.setTextColor(...DARK);
-                    doc.text(varLabel, TABLE_X + 2, yPos + 17 + i * 8);
+                    doc.text(varLabel, TABLE_X + 2, yPos + 17.5 + i * VAR_ROW);
 
                     if (v.price === 0) {
                         doc.setTextColor(...GRAY);
                         doc.setFont('helvetica', 'normal');
-                        doc.text('Sin stock', TABLE_X + TABLE_W - 2, yPos + 17 + i * 8, { align: 'right' });
+                        doc.text('Sin stock', TABLE_X + TABLE_W - 2, yPos + 17.5 + i * VAR_ROW, { align: 'right' });
                     } else {
                         doc.setFont('helvetica', 'bold');
                         doc.setTextColor(...TEAL);
-                        doc.text(formatPrice(v.price), TABLE_X + TABLE_W - 2, yPos + 17 + i * 8, { align: 'right' });
+                        doc.text(formatPrice(v.price), TABLE_X + TABLE_W - 2, yPos + 17.5 + i * VAR_ROW, { align: 'right' });
                     }
                 });
             }
@@ -655,12 +682,11 @@ async function generatePDF() {
         for (const p of sorted) {
             const rowH = calcRowH(p);
 
-            // Separador de tipo — cada tipo nuevo arranca en hoja nueva
+            // Separador de tipo — nueva página solo si separador + producto no entran
             if (p.type !== lastType) {
                 const sepLabel = (TYPE_LABELS[p.type] || p.type).toUpperCase();
 
-                // Siempre nueva página al cambiar de tipo (excepto el primero)
-                if (lastType !== null) {
+                if (lastType !== null && y + SEP_PAD + SEP_H + 8 + rowH > CONTENT_BOT) {
                     pageNum++;
                     doc.addPage();
                     addPageHeader(pageNum, false);
@@ -670,7 +696,7 @@ async function generatePDF() {
 
                 y += SEP_PAD;
                 drawTypeSeparator(sepLabel, y);
-                y += SEP_H + 8;  // más espacio después del separador
+                y += SEP_H + 8;
                 lastType = p.type;
             }
 
