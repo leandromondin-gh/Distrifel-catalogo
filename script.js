@@ -183,22 +183,24 @@ async function generatePDF() {
             'canilla':         4,
             'accesorio':       5,
             'aislante':        6,
-            'bronce-roscado':  7,
-            'fusion':          8,
-            'hidro-bronce':    9,
-            'gabinete':       10,
-            'pilar':          11,
-            'flotante':       12,
-            'fuelle':         13,
-            'montura':        14,
-            'puerta':         15,
-            'sopapa':         16,
-            'reja':           17,
-            'tapa':           18,
-            'soda-caustica':  19,
-            'terraja':        20,
-            'tubo':           21,
-            'valvula':        22,
+            'bronce-roscado':    7,
+            'bronce-trefilado':  8,
+            'fusion':            9,
+            'hidro-bronce':      10,
+            'gabinete':          11,
+            'pilar':             12,
+            'flotante':          13,
+            'fuelle':            14,
+            'montura':           15,
+            'puerta':            16,
+            'sopapa':            17,
+            'reja':              18,
+            'tapa':              19,
+            'soda-caustica':     20,
+            'terraja':           21,
+            'tubo':              22,
+            'valvula':           23,
+            'malla-advertencia': 24,
         };
         const sorted = [...products].sort((a, b) => {
             const oa = TYPE_ORDER[a.type] ?? 99;
@@ -335,7 +337,7 @@ async function generatePDF() {
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
             doc.setTextColor(...TEAL);
-            doc.text('Lista 117  •  Actualizada: 11/05/2026', W - M, 19, { align: 'right' });
+            doc.text('Lista 118  •  Actualizada: 13/05/2026', W - M, 19, { align: 'right' });
 
         }
 
@@ -1071,7 +1073,7 @@ async function generatePDF() {
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(13);
             doc.setTextColor(156, 163, 175);
-            doc.text('Lista 117  •  Actualizada: 11/05/2026', PW / 2, centerY + 63, { align: 'center' });
+            doc.text('Lista 118  •  Actualizada: 13/05/2026', PW / 2, centerY + 63, { align: 'center' });
 
             // ── Contacto al pie ──
             doc.setFillColor(12, 18, 28);
@@ -2699,7 +2701,9 @@ const TYPE_LABELS = {
     accesorio:     'Accesorio',
     membrana:      'Membrana',
     aislante:      'Aislante',
-    'bronce-roscado': 'Bronce Roscado',
+    'bronce-roscado':    'Bronce Roscado',
+    'bronce-trefilado':  'Bronce Trefilado',
+    'malla-advertencia': 'Malla Advertencia',
     canilla:       'Canilla',
     fasion:        'Fasión',
     flotante:      'Flotante',
