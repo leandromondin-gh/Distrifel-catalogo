@@ -1564,8 +1564,7 @@ window.DISCOUNT_CLIENTS = [];
 // window.PRICE_MARKUP = 1.20;
 // window.DISCOUNT_CLIENTS = ['lucas', 'petra', 'lean', 'monzo'];
 
-window.DISTRIFEL_OFFERS
- [
+window.DISTRIFEL_OFFERS = [
   {
     title:         "Flexible de Agua Cobre x 1/2\"",
     variant:       "20 cm",
