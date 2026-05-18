@@ -2188,9 +2188,11 @@ function addToCart(card, btn, qty = 1) {
         existing.qty += qty;
         item = existing;
     } else {
-        const ivaRate = parseFloat(card.dataset.iva) || 21;
-        const brand   = card.dataset.brand || '';
-        item = { id: itemId, cardKey, name, variant: variantText, price, qty, ivaRate, brand };
+        const ivaRate  = parseFloat(card.dataset.iva) || 21;
+        const brand    = card.dataset.brand || '';
+        const imgEl    = card.querySelector('.card-image img, img');
+        const image    = imgEl ? imgEl.src : '';
+        item = { id: itemId, cardKey, name, variant: variantText, price, qty, ivaRate, brand, image };
         cart.items.push(item);
     }
 
@@ -3473,7 +3475,8 @@ function updateCartUI() {
 
     // Render items
     if (itemsList) {
-        // Banners de ofertas de grupo
+        // Banners de ofertas de grupo — rediseñados con ícono
+        const dropIcon = `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2C8.5 8 5 12.5 5 16a7 7 0 0014 0c0-3.5-3.5-8-7-14z"/></svg>`;
         const bannerItems = (window.DISTRIFEL_GROUP_OFFERS || []).map(offer => {
             const total = cart.items
                 .filter(i => offer.products.some(p => p.toLowerCase().trim() === i.name.toLowerCase().trim()))
@@ -3481,13 +3484,19 @@ function updateCartUI() {
             if (total === 0) return '';
             const active = total >= offer.minQty;
             const pct    = Math.min(100, Math.round(total / offer.minQty * 100));
+            const shortName = offer.name.replace(/^OFERTA \d+:\s*/i, '');
+            const ofertaNum = (offer.name.match(/OFERTA\s+(\d+)/i) || [])[0] || offer.name;
             return `<div class="cart-group-offer-banner ${active ? 'cgob--active' : 'cgob--pending'}">
-                <div class="cgob-title">${active ? '✓' : '⚡'} ${offer.name}</div>
-                <div class="cgob-detail">${active
-                    ? `-${offer.discount}% aplicado · ${total} unidades`
-                    : `${total}/${offer.minQty} u. · faltan ${offer.minQty - total} para -${offer.discount}%`
-                }</div>
-                ${!active ? `<div class="cgob-progress"><div class="cgob-bar" style="width:${pct}%"></div></div>` : ''}
+                <div class="cgob-icon">${dropIcon}</div>
+                <div class="cgob-body">
+                    <span class="cgob-label">${ofertaNum}</span>
+                    <span class="cgob-title">${shortName}</span>
+                    <span class="cgob-detail">${active
+                        ? `✓ -${offer.discount}% aplicado`
+                        : `${total}/${offer.minQty} u. · faltan ${offer.minQty - total} para -${offer.discount}%`
+                    }</span>
+                    ${!active ? `<div class="cgob-progress"><div class="cgob-bar" style="width:${pct}%"></div></div>` : ''}
+                </div>
             </div>`;
         }).filter(Boolean);
         const groupBanners = bannerItems.length
@@ -3500,35 +3509,42 @@ function updateCartUI() {
             const offerBadge = discountActive
                 ? `<span class="cart-offer-badge cart-offer-badge--on">-${Math.round((1 - item.discountedPrice / item.originalPrice) * 100)}% aplicado</span>`
                 : discountLost
-                    ? `<span class="cart-offer-badge cart-offer-badge--off">Necesitás ${item.boxQty} u. para el descuento</span>`
+                    ? `<span class="cart-offer-badge cart-offer-badge--off">Necesitás ${item.boxQty} u.</span>`
                     : '';
             const groupBadge = item.groupOfferId
                 ? (item.groupActive
                     ? `<span class="cart-offer-badge cart-offer-badge--on">-${item.groupDiscount}% aplicado</span>`
                     : `<span class="cart-offer-badge cart-offer-badge--off">Faltan ${item.groupMinQty - item.groupTotalQty} u. para -${item.groupDiscount}%</span>`)
                 : '';
+            const badge = groupBadge || offerBadge;
             return `
             <li class="cart-item" data-id="${item.id}">
-                <div class="cart-item-info">
-                    <div class="cart-item-name-row">
-                        <span class="cart-item-name">${item.name}</span>
-                        ${item.variant ? `<span class="cart-item-variant">${item.variant}</span>` : ''}
-                        ${groupBadge || offerBadge ? `<span class="cart-item-badge-inline">${groupBadge || offerBadge}</span>` : ''}
+                <div class="cart-item-thumb">
+                    ${item.image ? `<img src="${item.image}" alt="${item.name}" loading="lazy" onerror="this.style.display='none'">` : ''}
+                </div>
+                <div class="cart-item-body">
+                    <div class="cart-item-top-row">
+                        <div class="cart-item-name-row">
+                            <span class="cart-item-name">${item.name}</span>
+                            ${item.variant ? `<span class="cart-item-variant">${item.variant}</span>` : ''}
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="cart-qty-btn" data-action="dec" data-id="${item.id}" aria-label="Reducir">−</button>
+                            <input type="number" class="cart-item-qty" inputmode="numeric" min="1" max="999" value="${item.qty}" data-id="${item.id}">
+                            <button class="cart-qty-btn" data-action="inc" data-id="${item.id}" aria-label="Aumentar">+</button>
+                            <button class="cart-remove-btn" data-id="${item.id}" aria-label="Eliminar">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                    <span class="cart-item-price">${formatPrice(item.price)} c/u</span>
+                    <div class="cart-item-bottom-row">
+                        <span class="cart-item-price">${formatPrice(item.price)} c/u${badge ? ` · ${badge}` : ''}</span>
+                        <span class="cart-item-subtotal">${formatPrice(item.price * item.qty)}</span>
+                    </div>
                 </div>
-                <div class="cart-item-controls">
-                    <button class="cart-qty-btn" data-action="dec" data-id="${item.id}" aria-label="Reducir">−</button>
-                    <input type="number" class="cart-item-qty" inputmode="numeric" min="1" max="999" value="${item.qty}" data-id="${item.id}">
-                    <button class="cart-qty-btn" data-action="inc" data-id="${item.id}" aria-label="Aumentar">+</button>
-                    <button class="cart-remove-btn" data-id="${item.id}" aria-label="Eliminar">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
-                            <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="cart-item-subtotal">${formatPrice(item.price * item.qty)}</div>
             </li>
         `}).join('');
 
