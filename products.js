@@ -1,4 +1,4 @@
-// Generado desde "Lista de precios-11.xlsx" — Version-Final
+// Generado desde "Lista de precios-12.xlsx" — Version-Final
 // Para actualizar: editar el Excel y correr el script de conversión
 window.DISTRIFEL_PRODUCTS = [
   {
@@ -1230,6 +1230,17 @@ window.DISTRIFEL_PRODUCTS = [
       { "code": "1105.0", "desc": "1 1/4", "price": 10542 },
       { "code": "1106.0", "desc": "1 1/2", "price": 18386 },
       { "code": "1107.0", "desc": "2", "price": 25730 },
+    ]
+  },
+  {
+    "id": "p89",
+    "title": "Tee",
+    "category": "agua",
+    "type": "bronce-roscado",
+    "brand": "alarsa",
+    "searchName": "tee",
+    "image": "img/p77.jpg",
+    "variants": [
       { "code": "1002.0", "desc": "1/2", "price": 2618 },
       { "code": "1003.0", "desc": "3/4", "price": 4472 },
       { "code": "1004.0", "desc": "1", "price": 6814 },
@@ -1239,7 +1250,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p89",
+    "id": "p90",
     "title": "Rosca C/ Tuerca",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1256,7 +1267,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p90",
+    "id": "p91",
     "title": "Union Doble",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1273,7 +1284,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p91",
+    "id": "p92",
     "title": "Codo M-H",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1290,7 +1301,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p92",
+    "id": "p93",
     "title": "Bridas",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1307,7 +1318,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p93",
+    "id": "p94",
     "title": "Tapon",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1324,7 +1335,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p94",
+    "id": "p95",
     "title": "Cuplas",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1341,7 +1352,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p95",
+    "id": "p96",
     "title": "Buje Reducción",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1358,7 +1369,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p96",
+    "id": "p97",
     "title": "Cupla Reducción",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1375,7 +1386,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p97",
+    "id": "p98",
     "title": "Tee Reducción",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1392,7 +1403,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p98",
+    "id": "p99",
     "title": "Codo Reducción",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1409,7 +1420,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p99",
+    "id": "p100",
     "title": "Rosca C/ Tuerca Reducción",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1422,7 +1433,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p100",
+    "id": "p101",
     "title": "Niple de 1/2",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1439,7 +1450,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p101",
+    "id": "p102",
     "title": "Niple de 3/4",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1456,7 +1467,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p102",
+    "id": "p103",
     "title": "Niples de 1",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1473,7 +1484,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p103",
+    "id": "p104",
     "title": "Niples Conexión de 1/2",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1487,7 +1498,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p104",
+    "id": "p105",
     "title": "Niples Conexión de 3/4",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1501,7 +1512,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p105",
+    "id": "p106",
     "title": "Niples Conexión de 1",
     "category": "agua",
     "type": "bronce-roscado",
@@ -1515,7 +1526,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p106",
+    "id": "p107",
     "title": "Tee Normal",
     "category": "agua",
     "type": "hidro-bronce",
@@ -1530,7 +1541,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p107",
+    "id": "p108",
     "title": "Codo Normal",
     "category": "agua",
     "type": "hidro-bronce",
@@ -1545,7 +1556,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p108",
+    "id": "p109",
     "title": "Unión Normal",
     "category": "agua",
     "type": "hidro-bronce",
@@ -1560,7 +1571,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p109",
+    "id": "p110",
     "title": "Tubo M. Normal",
     "category": "agua",
     "type": "hidro-bronce",
@@ -1575,7 +1586,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p110",
+    "id": "p111",
     "title": "Tubo Hembra Normal",
     "category": "agua",
     "type": "hidro-bronce",
@@ -1590,7 +1601,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p111",
+    "id": "p112",
     "title": "Aislante Aluminizado Doble con Solapa y Tacc",
     "category": "otros",
     "type": "aislante",
@@ -1602,7 +1613,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p112",
+    "id": "p113",
     "title": "Aislante sin revestimiento",
     "category": "otros",
     "type": "aislante",
@@ -1615,7 +1626,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p113",
+    "id": "p114",
     "title": "Aislante Aluminio Puro con Solapa y Tacc",
     "category": "otros",
     "type": "aislante",
@@ -1628,7 +1639,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p114",
+    "id": "p115",
     "title": "Aislante Bajo Pileta Azul x 30 mts",
     "category": "otros",
     "type": "aislante",
@@ -1641,7 +1652,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p115",
+    "id": "p116",
     "title": "Tubo Flota - Flota",
     "category": "otros",
     "type": "aislante",
@@ -1653,7 +1664,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p116",
+    "id": "p117",
     "title": "Malla advertencia",
     "category": "gas",
     "type": "malla-advertencia",
@@ -1666,7 +1677,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p117",
+    "id": "p118",
     "title": "Kit Flexible Conex. Radiador y Calef.",
     "category": "gas",
     "type": "flexible",
@@ -1678,7 +1689,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p118",
+    "id": "p119",
     "title": "Flexible de Calefactor",
     "category": "gas",
     "type": "flexible",
@@ -1691,7 +1702,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p119",
+    "id": "p120",
     "title": "Flexible de Regulador",
     "category": "gas",
     "type": "flexible",
@@ -1703,7 +1714,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p120",
+    "id": "p121",
     "title": "Flexible para Termotanque",
     "category": "gas",
     "type": "flexible",
@@ -1715,7 +1726,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p121",
+    "id": "p122",
     "title": "Check Gas",
     "category": "gas",
     "type": "accesorio",
@@ -1727,7 +1738,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p122",
+    "id": "p123",
     "title": "Tuerca de Ajuste",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1742,7 +1753,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p123",
+    "id": "p124",
     "title": "Entre Rosca P/ Virola",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1757,7 +1768,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p124",
+    "id": "p125",
     "title": "Tetón Macho",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1772,7 +1783,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p125",
+    "id": "p126",
     "title": "Tetón Hembra",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1787,7 +1798,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p126",
+    "id": "p127",
     "title": "Virolas de Aluminio ( x 100)",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1802,7 +1813,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p127",
+    "id": "p128",
     "title": "Codo Macho - Macho",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1816,7 +1827,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p128",
+    "id": "p129",
     "title": "Codo Hembra -Hembra",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1830,7 +1841,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p129",
+    "id": "p130",
     "title": "Codo Hembra -Macho",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1844,7 +1855,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p130",
+    "id": "p131",
     "title": "Tee Macho - Macho - Macho",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1858,7 +1869,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p131",
+    "id": "p132",
     "title": "Tapa",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1873,7 +1884,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p132",
+    "id": "p133",
     "title": "Cuplas",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1888,7 +1899,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p133",
+    "id": "p134",
     "title": "Tee manguera para gas",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1900,7 +1911,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p134",
+    "id": "p135",
     "title": "Union manguera",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1912,7 +1923,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p135",
+    "id": "p136",
     "title": "Mariposa",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1938,4 +1949,26 @@ window.DISTRIFEL_OFFERS = [
   { title: "Reguladores Gas Natural", variant: "6 Mts", image: "img/p14.jpg", brand: "canplast", banner: "banners/Banner-1.png", originalPrice: 58673, discount: 10, boxQty: 12, condition: "caja cerrada" },
   { title: "Membrana Autoadhesiva", variant: "0,10 cm", image: "img/p24.webp", brand: "smartfix", banner: "banners/Banner-2.png", originalPrice: 20890, discount: 10, boxQty: 6, condition: "caja cerrada" },
   { title: "Cobertor de Ca\u00f1os Gris 10 mm", variant: "1/2 \" (32 UN.)", image: "", brand: "aislatech", banner: "banners/Banner-1.png", originalPrice: 38925, discount: 10, boxQty: 5, condition: "caja cerrada" },
+];
+
+// ─────────────────────────────────────────────────────────────────
+// OFERTAS DE GRUPO — descuento por cantidad total entre productos
+//
+// Estructura de cada oferta:
+//   id:        string único (ej: "oferta-01")
+//   name:      nombre visible al usuario en el carrito
+//   products:  títulos exactos de productos que suman al grupo
+//   minQty:    unidades totales mínimas para activar el descuento
+//   discount:  porcentaje de descuento (10 = 10%)
+//   condition: texto descriptivo para mostrar al usuario
+// ─────────────────────────────────────────────────────────────────
+window.DISTRIFEL_GROUP_OFFERS = [
+  {
+    id:        "oferta-01",
+    name:      "OFERTA 01: Flexible de Agua Cobre",
+    products:  ["Flexible de Agua Cobre x 1/2\"", "Flexible de Agua Cobre x 3/4\""],
+    minQty:    50,
+    discount:  10,
+    condition: "50 unidades surtidas entre todas las variantes"
+  }
 ];
