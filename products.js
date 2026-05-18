@@ -1947,6 +1947,9 @@ window.DISTRIFEL_OFFERS = [
   { title: "Reguladores Gas Natural", variant: "6 Mts",  image: "img/p14.jpg", brand: "canplast", banner: "banners/Banner-1.png", originalPrice: 58673, discount: 10, boxQty: 12, condition: "caja cerrada" },
   { title: "Reguladores Gas Natural", variant: "10 mts", image: "img/p14.jpg", brand: "canplast", banner: "banners/Banner-1.png", originalPrice: 64384, discount: 10, boxQty: 12, condition: "caja cerrada" },
   { title: "Membrana Autoadhesiva", variant: "0,10 cm", image: "img/p24.webp", brand: "smartfix", banner: "banners/Banner-2.png", originalPrice: 20890, discount: 10, boxQty: 6, condition: "caja cerrada" },
+  { title: "Membrana Autoadhesiva", variant: "0,15 cm", image: "img/p24.webp", brand: "smartfix", banner: "banners/Banner-2.png", originalPrice: 31333, discount: 10, boxQty: 4, condition: "caja cerrada" },
+  { title: "Membrana Autoadhesiva", variant: "0,25 cm", image: "img/p24.webp", brand: "smartfix", banner: "banners/Banner-2.png", originalPrice: 52222, discount: 10, boxQty: 2, condition: "caja cerrada" },
+  { title: "Membrana Autoadhesiva", variant: "0,30 cm", image: "img/p24.webp", brand: "smartfix", banner: "banners/Banner-2.png", originalPrice: 59480, discount: 10, boxQty: 2, condition: "caja cerrada" },
   { title: "Cobertor de Ca\u00f1os Gris 10 mm", variant: "1/2 \" (32 UN.)", image: "", brand: "aislatech", banner: "banners/Banner-1.png", originalPrice: 38925, discount: 10, boxQty: 5, condition: "caja cerrada" },
 ];
 
