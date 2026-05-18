@@ -204,7 +204,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "regulador",
     "brand": "canplast",
     "searchName": "reguladores gas natural",
-    "image": "img/p14.jpg",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_684392-MLA51046537458_082022-V.jpg",
     "variants": [
       { "code": "PT.13B6", "desc": "6 Mts", "price": 58673 },
       { "code": "PT.13B10", "desc": "10 mts", "price": 64384 },
