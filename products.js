@@ -1980,5 +1980,14 @@ window.DISTRIFEL_GROUP_OFFERS = [
     minQty:    50,
     discount:  10,
     condition: "50 unidades surtidas entre todas las variantes"
+  },
+  {
+    id:        "oferta-03",
+    name:      "OFERTA 03: Cobertor de Caños Gris 10 mm",
+    products:  ["Cobertor de Caños Gris 10 mm"],
+    brand:     "covertex",
+    minQty:    5,
+    discount:  10,
+    condition: "5 unidades surtidas entre todas las medidas"
   }
 ];

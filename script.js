@@ -2189,7 +2189,8 @@ function addToCart(card, btn, qty = 1) {
         item = existing;
     } else {
         const ivaRate = parseFloat(card.dataset.iva) || 21;
-        item = { id: itemId, cardKey, name, variant: variantText, price, qty, ivaRate };
+        const brand   = card.dataset.brand || '';
+        item = { id: itemId, cardKey, name, variant: variantText, price, qty, ivaRate, brand };
         cart.items.push(item);
     }
 
@@ -3393,7 +3394,8 @@ function applyGroupOffers() {
     const groupOffers = window.DISTRIFEL_GROUP_OFFERS || [];
     groupOffers.forEach(offer => {
         const groupItems = cart.items.filter(item =>
-            offer.products.some(p => p.toLowerCase().trim() === item.name.toLowerCase().trim())
+            offer.products.some(p => p.toLowerCase().trim() === item.name.toLowerCase().trim()) &&
+            (!offer.brand || (item.brand || '').toLowerCase() === offer.brand.toLowerCase())
         );
         const totalQty = groupItems.reduce((sum, i) => sum + i.qty, 0);
         const isActive = totalQty >= offer.minQty;
