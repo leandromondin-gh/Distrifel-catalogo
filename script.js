@@ -3472,22 +3472,25 @@ function updateCartUI() {
     // Render items
     if (itemsList) {
         // Banners de ofertas de grupo
-        const groupBanners = (window.DISTRIFEL_GROUP_OFFERS || []).map(offer => {
+        const bannerItems = (window.DISTRIFEL_GROUP_OFFERS || []).map(offer => {
             const total = cart.items
                 .filter(i => offer.products.some(p => p.toLowerCase().trim() === i.name.toLowerCase().trim()))
                 .reduce((s, i) => s + i.qty, 0);
             if (total === 0) return '';
             const active = total >= offer.minQty;
             const pct    = Math.min(100, Math.round(total / offer.minQty * 100));
-            return `<li class="cart-group-offer-banner ${active ? 'cgob--active' : 'cgob--pending'}">
+            return `<div class="cart-group-offer-banner ${active ? 'cgob--active' : 'cgob--pending'}">
                 <div class="cgob-title">${active ? '✓' : '⚡'} ${offer.name}</div>
                 <div class="cgob-detail">${active
                     ? `-${offer.discount}% aplicado · ${total} unidades`
-                    : `${total}/${offer.minQty} unidades · faltan ${offer.minQty - total} para -${offer.discount}%`
+                    : `${total}/${offer.minQty} u. · faltan ${offer.minQty - total} para -${offer.discount}%`
                 }</div>
                 ${!active ? `<div class="cgob-progress"><div class="cgob-bar" style="width:${pct}%"></div></div>` : ''}
-            </li>`;
-        }).join('');
+            </div>`;
+        }).filter(Boolean);
+        const groupBanners = bannerItems.length
+            ? `<li class="cart-offers-row">${bannerItems.join('')}</li>`
+            : '';
 
         itemsList.innerHTML = groupBanners + cart.items.map(item => {
             const discountActive = item.isOffer && item.qty >= item.boxQty;

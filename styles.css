@@ -4347,7 +4347,7 @@ body.past-hero .catalog-section {
     right: 0;
     height: 100vh;
     height: 100dvh;
-    width: clamp(420px, 45vw, 780px);
+    width: clamp(420px, 50vw, 900px);
     max-width: 100vw;
     background: var(--color-white);
     z-index: 5000;
@@ -4498,10 +4498,11 @@ body.past-hero .catalog-section {
 }
 
 .cart-offer-badge {
-    display: inline-block;
+    display: inline-flex;
+    width: fit-content;
     font-size: 0.68rem;
     font-weight: 700;
-    padding: 2px 7px;
+    padding: 2px 8px;
     border-radius: 20px;
     margin-top: 3px;
 }
@@ -4515,12 +4516,22 @@ body.past-hero .catalog-section {
 }
 
 /* ── Oferta de grupo — banner de progreso en el carrito ── */
+/* Fila contenedora de ofertas de grupo */
+.cart-offers-row {
+    list-style: none;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
 .cart-group-offer-banner {
     list-style: none;
+    flex: 1;
     border-radius: 10px;
     padding: 10px 14px;
-    margin-bottom: 8px;
+    margin-bottom: 0;
     font-size: 0.8rem;
+    min-width: 0;
 }
 .cgob--active {
     background: rgba(22, 163, 74, 0.1);
@@ -4646,8 +4657,8 @@ body.past-hero .catalog-section {
     flex-direction: column;
     gap: var(--space-sm);
     padding: var(--space-lg) var(--space-xl);
-    border-top: 2px solid var(--color-gray-200);
-    background: var(--color-gray-100);
+    border-top: none;
+    background: #111827;
     flex-shrink: 0;
 }
 
@@ -4663,7 +4674,7 @@ body.past-hero .catalog-section {
 }
 
 .cart-iva-row {
-    border-bottom: 1px solid var(--color-gray-200);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
     padding-bottom: 8px;
     margin-bottom: 4px;
 }
@@ -4674,13 +4685,13 @@ body.past-hero .catalog-section {
 
 .cart-total-label {
     font-size: 0.85rem;
-    color: var(--color-gray-500);
+    color: rgba(255,255,255,0.55);
     font-weight: 500;
 }
 
 .cart-total-final-row .cart-total-label {
     font-size: 1.05rem;
-    color: var(--color-gray-700);
+    color: rgba(255,255,255,0.85);
     font-weight: 700;
 }
 
@@ -4688,13 +4699,13 @@ body.past-hero .catalog-section {
     font-family: var(--font-brand);
     font-size: 1rem;
     font-weight: 700;
-    color: var(--color-gray-700);
+    color: rgba(255,255,255,0.8);
 }
 
 .cart-total-final-row .cart-total-value {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 800;
-    color: var(--color-secondary-dark);
+    color: #4a9f8e;
 }
 
 .cart-whatsapp-btn {
