@@ -4514,6 +4514,46 @@ body.past-hero .catalog-section {
     color: #dc2626;
 }
 
+/* ── Oferta de grupo — banner de progreso en el carrito ── */
+.cart-group-offer-banner {
+    list-style: none;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+}
+.cgob--active {
+    background: rgba(22, 163, 74, 0.1);
+    border: 1px solid rgba(22, 163, 74, 0.3);
+}
+.cgob--pending {
+    background: rgba(74, 159, 142, 0.08);
+    border: 1px solid rgba(74, 159, 142, 0.25);
+}
+.cgob-title {
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+.cgob--active .cgob-title  { color: #16a34a; }
+.cgob--pending .cgob-title { color: #4a9f8e; }
+.cgob-detail {
+    color: #64748b;
+    font-size: 0.75rem;
+    margin-bottom: 5px;
+}
+.cgob-progress {
+    height: 5px;
+    background: rgba(74, 159, 142, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.cgob-bar {
+    height: 100%;
+    background: #4a9f8e;
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+
 .cart-item-controls {
     grid-column: 2;
     grid-row: 1;

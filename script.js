@@ -3385,6 +3385,35 @@ function registerServiceWorker() {
     }
 }
 
+/* ============================================================
+   OFERTAS DE GRUPO — descuento por cantidad total entre productos
+   ============================================================ */
+
+function applyGroupOffers() {
+    const groupOffers = window.DISTRIFEL_GROUP_OFFERS || [];
+    groupOffers.forEach(offer => {
+        const groupItems = cart.items.filter(item =>
+            !item.isOffer &&
+            offer.products.some(p => p.toLowerCase().trim() === item.name.toLowerCase().trim())
+        );
+        const totalQty = groupItems.reduce((sum, i) => sum + i.qty, 0);
+        const isActive = totalQty >= offer.minQty;
+
+        groupItems.forEach(item => {
+            // Guardar precio original una sola vez
+            if (item.groupOriginalPrice === undefined) item.groupOriginalPrice = item.price;
+            item.groupOfferId        = offer.id;
+            item.groupOfferName      = offer.name;
+            item.groupMinQty         = offer.minQty;
+            item.groupTotalQty       = totalQty;
+            item.groupDiscount       = offer.discount;
+            item.groupActive         = isActive;
+            item.groupDiscountedPrice = Math.round(item.groupOriginalPrice * (1 - offer.discount / 100));
+            item.price = isActive ? item.groupDiscountedPrice : item.groupOriginalPrice;
+        });
+    });
+}
+
 function removeCartItem(id) {
     cart.items = cart.items.filter(i => i.id !== id);
     updateCartUI();
@@ -3417,6 +3446,9 @@ function updateCartUI() {
     const totalEl = document.getElementById('cartTotalValue');
     const badge = document.getElementById('cartFloatBadge');
 
+    // Recalcular ofertas de grupo antes de cualquier otra cosa
+    applyGroupOffers();
+
     const totalQty = cart.items.reduce((s, i) => s + i.qty, 0);
     const totalPrice = cart.items.reduce((s, i) => s + i.price * i.qty, 0);
 
@@ -3440,7 +3472,25 @@ function updateCartUI() {
 
     // Render items
     if (itemsList) {
-        itemsList.innerHTML = cart.items.map(item => {
+        // Banners de ofertas de grupo
+        const groupBanners = (window.DISTRIFEL_GROUP_OFFERS || []).map(offer => {
+            const total = cart.items
+                .filter(i => offer.products.some(p => p.toLowerCase().trim() === i.name.toLowerCase().trim()))
+                .reduce((s, i) => s + i.qty, 0);
+            if (total === 0) return '';
+            const active = total >= offer.minQty;
+            const pct    = Math.min(100, Math.round(total / offer.minQty * 100));
+            return `<li class="cart-group-offer-banner ${active ? 'cgob--active' : 'cgob--pending'}">
+                <div class="cgob-title">${active ? '✓' : '⚡'} ${offer.name}</div>
+                <div class="cgob-detail">${active
+                    ? `-${offer.discount}% aplicado · ${total} unidades`
+                    : `${total}/${offer.minQty} unidades · faltan ${offer.minQty - total} para -${offer.discount}%`
+                }</div>
+                ${!active ? `<div class="cgob-progress"><div class="cgob-bar" style="width:${pct}%"></div></div>` : ''}
+            </li>`;
+        }).join('');
+
+        itemsList.innerHTML = groupBanners + cart.items.map(item => {
             const discountActive = item.isOffer && item.qty >= item.boxQty;
             const discountLost   = item.isOffer && item.qty < item.boxQty;
             const offerBadge = discountActive
@@ -3448,13 +3498,18 @@ function updateCartUI() {
                 : discountLost
                     ? `<span class="cart-offer-badge cart-offer-badge--off">Necesitás ${item.boxQty} u. para el descuento</span>`
                     : '';
+            const groupBadge = item.groupOfferId
+                ? (item.groupActive
+                    ? `<span class="cart-offer-badge cart-offer-badge--on">-${item.groupDiscount}% aplicado</span>`
+                    : `<span class="cart-offer-badge cart-offer-badge--off">Faltan ${item.groupMinQty - item.groupTotalQty} u. para -${item.groupDiscount}%</span>`)
+                : '';
             return `
             <li class="cart-item" data-id="${item.id}">
                 <div class="cart-item-info">
                     <span class="cart-item-name">${item.name}</span>
                     ${item.variant ? `<span class="cart-item-variant">${item.variant}</span>` : ''}
                     <span class="cart-item-price">${formatPrice(item.price)} c/u</span>
-                    ${offerBadge}
+                    ${offerBadge}${groupBadge}
                 </div>
                 <div class="cart-item-controls">
                     <button class="cart-qty-btn" data-action="dec" data-id="${item.id}" aria-label="Reducir">−</button>
