@@ -1946,7 +1946,8 @@ window.DISCOUNT_CLIENTS = [];
 window.DISTRIFEL_OFFERS = [
   { title: "Flexible de Agua Cobre x 1/2\"", variant: "20 cm", image: "img/p2.jpg", brand: "alarsa", banner: "banners/Banner-1.png", originalPrice: 4492, discount: 10, boxQty: 50, condition: "caja cerrada" },
   { title: "Flexible de Agua Mallado x 1/2\"", variant: "20 cm", image: "img/p4.jpg", brand: "alarsa", banner: "banners/Banner-1.png", originalPrice: 1727, discount: 10, boxQty: 50, condition: "caja cerrada" },
-  { title: "Reguladores Gas Natural", variant: "6 Mts", image: "img/p14.jpg", brand: "canplast", banner: "banners/Banner-1.png", originalPrice: 58673, discount: 10, boxQty: 12, condition: "caja cerrada" },
+  { title: "Reguladores Gas Natural", variant: "6 Mts",  image: "img/p14.jpg", brand: "canplast", banner: "banners/Banner-1.png", originalPrice: 58673, discount: 10, boxQty: 12, condition: "caja cerrada" },
+  { title: "Reguladores Gas Natural", variant: "10 mts", image: "img/p14.jpg", brand: "canplast", banner: "banners/Banner-1.png", originalPrice: 64384, discount: 10, boxQty: 12, condition: "caja cerrada" },
   { title: "Membrana Autoadhesiva", variant: "0,10 cm", image: "img/p24.webp", brand: "smartfix", banner: "banners/Banner-2.png", originalPrice: 20890, discount: 10, boxQty: 6, condition: "caja cerrada" },
   { title: "Cobertor de Ca\u00f1os Gris 10 mm", variant: "1/2 \" (32 UN.)", image: "", brand: "aislatech", banner: "banners/Banner-1.png", originalPrice: 38925, discount: 10, boxQty: 5, condition: "caja cerrada" },
 ];
