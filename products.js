@@ -1970,5 +1970,13 @@ window.DISTRIFEL_GROUP_OFFERS = [
     minQty:    50,
     discount:  10,
     condition: "50 unidades surtidas entre todas las variantes"
+  },
+  {
+    id:        "oferta-02",
+    name:      "OFERTA 02: Flexible de Agua Mallado",
+    products:  ["Flexible de Agua Mallado x 1/2\"", "Flexible de Agua Mallado x 3/4\""],
+    minQty:    50,
+    discount:  10,
+    condition: "50 unidades surtidas entre todas las variantes"
   }
 ];
