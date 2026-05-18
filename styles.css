@@ -4669,68 +4669,32 @@ body.past-hero .catalog-section {
 
 .cart-drawer-footer {
     flex-direction: column;
-    gap: 8px;
-    padding: 12px 16px;
+    gap: 6px;
+    padding: 10px 16px 12px;
     border-top: none;
     background: #111827;
     flex-shrink: 0;
 }
 
-/* Totals: secondary (subtotal+IVA) a la izquierda, total a la derecha */
-.cart-totals-compact {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 8px;
-    margin-bottom: 2px;
-}
-
-.cart-totals-secondary {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.cart-totals-secondary .cart-total-row {
-    padding: 1px 0;
-}
-
-.cart-totals-secondary .cart-total-label {
-    font-size: 0.75rem;
-}
-
-.cart-totals-secondary .cart-total-value {
-    font-size: 0.85rem;
-}
-
-/* Botones side by side */
-.cart-footer-actions {
-    display: flex;
-    gap: 8px;
-    align-items: stretch;
-}
-
 .cart-totals-breakdown {
-    margin-bottom: var(--space-sm);
+    margin-bottom: 4px;
 }
 
 .cart-total-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 4px 0;
+    padding: 2px 0;
 }
 
 .cart-iva-row {
     border-bottom: 1px solid rgba(255,255,255,0.12);
-    padding-bottom: 8px;
-    margin-bottom: 4px;
+    padding-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .cart-total-final-row {
-    padding-top: 4px;
+    padding-top: 3px;
 }
 
 .cart-total-label {
@@ -4762,8 +4726,8 @@ body.past-hero .catalog-section {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    padding: 10px 16px;
+    gap: 8px;
+    padding: 11px 16px;
     background: #25d366;
     color: white;
     font-size: 0.95rem;
@@ -4773,8 +4737,7 @@ body.past-hero .catalog-section {
     border: none;
     cursor: pointer;
     transition: all var(--transition-base);
-    min-height: 44px;
-    flex: 1;
+    width: 100%;
     box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
 }
 
@@ -4794,18 +4757,17 @@ body.past-hero .catalog-section {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
-    padding: 10px 14px;
-    background: rgba(255,255,255,0.08);
-    color: rgba(255,255,255,0.55);
+    gap: 6px;
+    padding: 7px 16px;
+    background: transparent;
+    color: rgba(255,255,255,0.45);
     font-size: 0.8rem;
     font-family: var(--font-body);
     border-radius: var(--radius-md);
     border: 1px solid rgba(255,255,255,0.15);
     cursor: pointer;
     transition: all var(--transition-fast);
-    min-height: 44px;
-    white-space: nowrap;
+    width: 100%;
 }
 
 .cart-clear-btn:hover {
