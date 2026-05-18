@@ -3393,7 +3393,6 @@ function applyGroupOffers() {
     const groupOffers = window.DISTRIFEL_GROUP_OFFERS || [];
     groupOffers.forEach(offer => {
         const groupItems = cart.items.filter(item =>
-            !item.isOffer &&
             offer.products.some(p => p.toLowerCase().trim() === item.name.toLowerCase().trim())
         );
         const totalQty = groupItems.reduce((sum, i) => sum + i.qty, 0);
@@ -3509,7 +3508,7 @@ function updateCartUI() {
                     <span class="cart-item-name">${item.name}</span>
                     ${item.variant ? `<span class="cart-item-variant">${item.variant}</span>` : ''}
                     <span class="cart-item-price">${formatPrice(item.price)} c/u</span>
-                    ${offerBadge}${groupBadge}
+                    ${groupBadge || offerBadge}
                 </div>
                 <div class="cart-item-controls">
                     <button class="cart-qty-btn" data-action="dec" data-id="${item.id}" aria-label="Reducir">−</button>
