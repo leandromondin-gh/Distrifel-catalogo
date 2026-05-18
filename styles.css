@@ -4347,7 +4347,7 @@ body.past-hero .catalog-section {
     right: 0;
     height: 100vh;
     height: 100dvh;
-    width: clamp(420px, 28vw, 560px);
+    width: clamp(420px, 45vw, 780px);
     max-width: 100vw;
     background: var(--color-white);
     z-index: 5000;
