@@ -3510,10 +3510,12 @@ function updateCartUI() {
             return `
             <li class="cart-item" data-id="${item.id}">
                 <div class="cart-item-info">
-                    <span class="cart-item-name">${item.name}</span>
-                    ${item.variant ? `<span class="cart-item-variant">${item.variant}</span>` : ''}
+                    <div class="cart-item-name-row">
+                        <span class="cart-item-name">${item.name}</span>
+                        ${item.variant ? `<span class="cart-item-variant">${item.variant}</span>` : ''}
+                        ${groupBadge || offerBadge ? `<span class="cart-item-badge-inline">${groupBadge || offerBadge}</span>` : ''}
+                    </div>
                     <span class="cart-item-price">${formatPrice(item.price)} c/u</span>
-                    ${groupBadge || offerBadge}
                 </div>
                 <div class="cart-item-controls">
                     <button class="cart-qty-btn" data-action="dec" data-id="${item.id}" aria-label="Reducir">−</button>
