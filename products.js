@@ -1,4 +1,4 @@
-// Generado desde "Lista de precios-9.xlsx" — Version-Final
+// Generado desde "Lista de precios-10.xlsx" — Version-Final
 // Para actualizar: editar el Excel y correr el script de conversión
 window.DISTRIFEL_PRODUCTS = [
   {
@@ -1373,18 +1373,6 @@ window.DISTRIFEL_PRODUCTS = [
   },
   {
     "id": "p115",
-    "title": "",
-    "category": "gas",
-    "type": "malla-advertencia",
-    "brand": "salustri",
-    "searchName": "",
-    "image": "https://www.segutecnica.com/images/000000000000000099388anoxide-malla-seguridad-advertencia-detectable-amarilla-para-gas-segutecnica.png",
-    "variants": [
-      { "code": "188.0", "desc": "30 cm x 100 mts", "price": 141250 },
-    ]
-  },
-  {
-    "id": "p116",
     "title": "Kit Flexible Conex. Radiador y Calef.",
     "category": "gas",
     "type": "flexible",
@@ -1396,7 +1384,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p117",
+    "id": "p116",
     "title": "Flexible de Calefactor",
     "category": "gas",
     "type": "flexible",
@@ -1408,19 +1396,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p118",
-    "title": "",
-    "category": "gas",
-    "type": "flexible",
-    "brand": "alarsa",
-    "searchName": "",
-    "image": "https://http2.mlstatic.com/D_NQ_NP_691306-MLA78293891835_082024-O.webp",
-    "variants": [
-      { "code": "11011.0", "desc": "1/4 - 1/2 de 30 A 50 cm", "price": 12192 },
-    ]
-  },
-  {
-    "id": "p119",
+    "id": "p117",
     "title": "Flexible de Regulador",
     "category": "gas",
     "type": "flexible",
@@ -1432,7 +1408,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p120",
+    "id": "p118",
     "title": "Flexible para Termotanque",
     "category": "gas",
     "type": "flexible",
@@ -1444,7 +1420,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p121",
+    "id": "p119",
     "title": "Check Gas",
     "category": "gas",
     "type": "accesorio",
@@ -1456,7 +1432,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p122",
+    "id": "p120",
     "title": "Tuerca de Ajuste",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1471,7 +1447,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p123",
+    "id": "p121",
     "title": "Entre Rosca P/ Virola",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1486,7 +1462,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p124",
+    "id": "p122",
     "title": "Tetón Macho",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1501,7 +1477,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p125",
+    "id": "p123",
     "title": "Tetón Hembra",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1516,7 +1492,7 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p126",
+    "id": "p124",
     "title": "Virolas de Aluminio ( x 100)",
     "category": "gas",
     "type": "bronce-trefilado",
@@ -1531,14 +1507,137 @@ window.DISTRIFEL_PRODUCTS = [
     ]
   },
   {
-    "id": "p127",
-    "title": "",
+    "id": "p125",
+    "title": "Codo Macho - Macho",
     "category": "gas",
     "type": "bronce-trefilado",
     "brand": "",
-    "searchName": "",
-    "image": "",
+    "searchName": "codo macho - macho",
+    "image": "https://sanitariosypintureriabianco.com/wp-content/uploads/2023/05/Codo-MM.jpg",
     "variants": [
+      { "code": "MM14", "desc": "1/8", "price": 1068 },
+      { "code": "MM18", "desc": "1/4", "price": 1325 },
+      { "code": "MM38", "desc": "3/8", "price": 1609 },
+    ]
+  },
+  {
+    "id": "p126",
+    "title": "Codo Hembra -Hembra",
+    "category": "gas",
+    "type": "bronce-trefilado",
+    "brand": "",
+    "searchName": "codo hembra -hembra",
+    "image": "https://grako.pe/wp-content/uploads/2023/08/CODO-BRONCE-600x600.jpg",
+    "variants": [
+      { "code": "HH18", "desc": "1/8", "price": 1419 },
+      { "code": "HH14", "desc": "1/4", "price": 1082 },
+    ]
+  },
+  {
+    "id": "p127",
+    "title": "Codo Hembra - Hembra",
+    "category": "gas",
+    "type": "bronce-trefilado",
+    "brand": "",
+    "searchName": "codo hembra - hembra",
+    "image": "https://grako.pe/wp-content/uploads/2023/08/CODO-BRONCE-600x600.jpg",
+    "variants": [
+      { "code": "HH38", "desc": "3/8", "price": 1440 },
+    ]
+  },
+  {
+    "id": "p128",
+    "title": "Codo Hembra -Macho",
+    "category": "gas",
+    "type": "bronce-trefilado",
+    "brand": "",
+    "searchName": "codo hembra -macho",
+    "image": "https://sanitariosypintureriabianco.com/wp-content/uploads/2023/05/Codo-bce-reduccion-MH.jpg",
+    "variants": [
+      { "code": "HM18", "desc": "1/8", "price": 1177 },
+      { "code": "HM14", "desc": "1/4", "price": 1222 },
+      { "code": "MH38", "desc": "3/8", "price": 1462 },
+    ]
+  },
+  {
+    "id": "p129",
+    "title": "Tee Macho - Macho - Macho",
+    "category": "gas",
+    "type": "bronce-trefilado",
+    "brand": "",
+    "searchName": "tee macho - macho - macho",
+    "image": "https://tse1.mm.bing.net/th/id/OIP.6F4gtfvet5Gnb-rN75pDDwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "variants": [
+      { "code": "TMM18", "desc": "1/8", "price": 1550 },
+      { "code": "TMM14", "desc": "1/4", "price": 1736 },
+      { "code": "TMM38", "desc": "3/8", "price": 2262 },
+    ]
+  },
+  {
+    "id": "p130",
+    "title": "Tapa",
+    "category": "gas",
+    "type": "bronce-trefilado",
+    "brand": "",
+    "searchName": "tapa",
+    "image": "img/p75.jpg",
+    "variants": [
+      { "code": "TA18", "desc": "1/8", "price": 310 },
+      { "code": "TA14", "desc": "1/4", "price": 310 },
+      { "code": "TA38", "desc": "3/8", "price": 440 },
+      { "code": "TA12", "desc": "1/2", "price": 660 },
+    ]
+  },
+  {
+    "id": "p131",
+    "title": "Cuplas",
+    "category": "gas",
+    "type": "bronce-trefilado",
+    "brand": "",
+    "searchName": "cuplas",
+    "image": "https://alarsa.com.ar/wp-content/uploads/2022/11/cupla-2-e1669332530400.jpg",
+    "variants": [
+      { "code": "C18", "desc": "1/8", "price": 346 },
+      { "code": "C14", "desc": "1/4", "price": 466 },
+      { "code": "C38", "desc": "3/8", "price": 638 },
+      { "code": "C12", "desc": "1/2", "price": 1056 },
+    ]
+  },
+  {
+    "id": "p132",
+    "title": "Tee manguera para gas",
+    "category": "gas",
+    "type": "bronce-trefilado",
+    "brand": "",
+    "searchName": "tee manguera para gas",
+    "image": "https://m.media-amazon.com/images/I/61pwkRTbzNS.jpg",
+    "variants": [
+      { "code": "TM", "desc": "-", "price": 1464 },
+    ]
+  },
+  {
+    "id": "p133",
+    "title": "Union manguera",
+    "category": "gas",
+    "type": "bronce-trefilado",
+    "brand": "",
+    "searchName": "union manguera",
+    "image": "https://tecnotools.com.gt/wp-content/uploads/2023/10/PTM477.jpg",
+    "variants": [
+      { "code": "UM", "desc": "-", "price": 522 },
+    ]
+  },
+  {
+    "id": "p134",
+    "title": "Mariposa",
+    "category": "gas",
+    "type": "bronce-trefilado",
+    "brand": "",
+    "searchName": "mariposa",
+    "image": "https://tse3.mm.bing.net/th/id/OIP.QowUIfKRhHwKPhlUpxQtegAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "variants": [
+      { "code": "25.0", "desc": "3 Kg", "price": 1777 },
+      { "code": "24.0", "desc": "10 Kg", "price": 2987 },
     ]
   },
 ];
@@ -1564,6 +1663,7 @@ window.DISCOUNT_CLIENTS = [];
 // window.PRICE_MARKUP = 1.20;
 // window.DISCOUNT_CLIENTS = ['lucas', 'petra', 'lean', 'monzo'];
 
+window.DISTRIFEL_OFFERS
 window.DISTRIFEL_OFFERS = [
   {
     title:         "Flexible de Agua Cobre x 1/2\"",
