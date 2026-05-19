@@ -4365,12 +4365,15 @@ body.past-hero .catalog-section {
 .cart-drawer-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    position: relative;
     padding: var(--space-lg) var(--space-xl);
     background: linear-gradient(to right, var(--color-primary-dark), var(--color-gray-800));
     flex-shrink: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
+.cart-drawer-header > div { text-align: center; }
+.cart-drawer-close { position: absolute; right: var(--space-lg); }
 
 .cart-drawer-title {
     font-family: var(--font-brand);
