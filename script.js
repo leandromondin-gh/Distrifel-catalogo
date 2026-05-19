@@ -719,16 +719,16 @@ async function generatePDF() {
             doc.setFillColor(220, 230, 240);
             doc.rect(0, 46, PW, 0.5, 'F');
 
-            // ── Lista ────────────────────────────────────────
-            const IDX_ORDER = [
-                'regulador','flexible','membrana','llave-gas','canilla',
-                'accesorio','aislante','bronce-roscado','fusion','hidro-bronce',
-                'gabinete','pilar','flotante','fuelle','montura','puerta',
-                'sopapa','reja','tapa','soda-caustica','terraja','tubo','valvula'
-            ];
-            const entries = IDX_ORDER
-                .filter(t => tpMap[t])
-                .map(t => ({ type: t, label: (TYPE_LABELS[t] || t).toUpperCase(), page: tpMap[t] }));
+            // ── Lista — orden alfabético ──────────────────────
+            const entries = Object.keys(tpMap)
+                .map(t => ({ type: t, label: (TYPE_LABELS[t] || t).toUpperCase(), page: tpMap[t] }))
+                .sort((a, b) => a.label.localeCompare(b.label, 'es'));
+
+            // Thumbnail: primer producto de cada tipo
+            const typeThumb = {};
+            for (const p of sorted) {
+                if (!typeThumb[p.type] && imgCache[p.id]) typeThumb[p.type] = imgCache[p.id];
+            }
 
             const ICON_S = 13;
             const ROW_H  = 15;
@@ -763,8 +763,17 @@ async function generatePDF() {
                     doc.rect(cx, cy, COL_W, ROW_H, 'F');
                 }
 
-                // Ícono
-                drawTypeIcon(entry.type, cx + 1, cy + (ROW_H - ICON_S) / 2, ICON_S);
+                // Thumbnail del primer producto de la categoría
+                const ix = cx + 1, iy = cy + (ROW_H - ICON_S) / 2;
+                doc.setFillColor(248, 250, 252);
+                doc.roundedRect(ix, iy, ICON_S, ICON_S, 1.5, 1.5, 'F');
+                doc.setDrawColor(220, 226, 232);
+                doc.setLineWidth(0.2);
+                doc.roundedRect(ix, iy, ICON_S, ICON_S, 1.5, 1.5, 'D');
+                const thumb = typeThumb[entry.type];
+                if (thumb) {
+                    try { doc.addImage(thumb, 'JPEG', ix + 0.5, iy + 0.5, ICON_S - 1, ICON_S - 1); } catch {}
+                }
 
                 // Nombre — dark navy sobre blanco
                 doc.setFont('helvetica', 'bold');
