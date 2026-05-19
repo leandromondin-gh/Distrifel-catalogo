@@ -4711,9 +4711,8 @@ body.past-hero .catalog-section {
     border-radius: 4px;
     background: transparent;
     outline: none;
-    cursor: default;
+    cursor: text;
     font-family: inherit;
-    pointer-events: none;   /* solo editable al hacer focus via JS */
 }
 .cart-item-qty.editing {
     pointer-events: auto;
