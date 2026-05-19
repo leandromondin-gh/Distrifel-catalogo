@@ -915,7 +915,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "puerta",
     "brand": "",
     "searchName": "puerta para gas natural aprobada",
-    "image": "http://www.kamsa.com.ar/images/puertasupergas.gif",
+    "image": "img/p64.png",
     "variants": [
       { "code": "PSG0,90X1,45", "desc": "0.90 X 1.45", "price": 91990 },
     ]
