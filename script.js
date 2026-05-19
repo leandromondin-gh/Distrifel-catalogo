@@ -3536,10 +3536,16 @@ function updateCartUI() {
 
         // Inputs editables de cantidad: solo dígitos, mínimo 1
         itemsList.querySelectorAll('.cart-item-qty').forEach(input => {
+            // Click en el número → activa edición
+            input.addEventListener('click', () => {
+                input.classList.add('editing');
+                input.select();
+            });
             input.addEventListener('input', () => {
                 input.value = input.value.replace(/[^\d]/g, '');
             });
             input.addEventListener('blur', () => {
+                input.classList.remove('editing');
                 const v = parseInt(input.value) || 1;
                 setItemQty(input.dataset.id, v);
             });
