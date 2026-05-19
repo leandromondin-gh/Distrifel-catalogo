@@ -1621,8 +1621,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "aislante sin revestimiento",
     "image": "https://http2.mlstatic.com/D_NQ_NP_919451-MLA76569507983_052024-O.webp",
     "variants": [
-      { "code": "H5S", "desc": "5 mm x 20 Mts", "price": 14360 },
-      { "code": "H10S", "desc": "10 mm x 20 Mts", "price": 24368 },
+      { "code": "H5S", "desc": "5 mm x 20 Mts", "price": 19812 },
+      { "code": "H10S", "desc": "10 mm x 20 Mts", "price": 33645 },
     ]
   },
   {
@@ -1634,8 +1634,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "aislante aluminio puro con solapa y tacc",
     "image": "https://aislacom.com.ar/201-thickbox_default/aislantech-fusion-tacc-doble-cara-aluminio-puro.jpg",
     "variants": [
-      { "code": "H5AAT", "desc": "5 mm x 20 Mts", "price": 52752 },
-      { "code": "H10AAT", "desc": "10 mm x 20 Mts", "price": 65156 },
+      { "code": "H5AAT", "desc": "5 mm x 20 Mts", "price": 57115 },
+      { "code": "H10AAT", "desc": "10 mm x 20 Mts", "price": 70544 },
     ]
   },
   {
