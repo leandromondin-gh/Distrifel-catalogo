@@ -4616,6 +4616,10 @@ body.past-hero .catalog-section {
     margin-bottom: 4px;
 }
 
+@media (max-width: 639px) {
+    .cart-offers-row { display: none; }
+}
+
 .cart-group-offer-banner {
     list-style: none;
     flex: 1;
