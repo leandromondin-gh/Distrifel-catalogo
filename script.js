@@ -3738,28 +3738,53 @@ function formatTimestamp() {
 }
 
 // ============================================================
-// BARRA DE MARGEN DE REVENTA
+// MARGEN DE REVENTA — pill + fila colapsable
 // ============================================================
 (function initMarginBar() {
-    const bar    = document.getElementById('marginBar');
-    const btns   = bar ? bar.querySelectorAll('.margin-btn') : [];
-    const input  = document.getElementById('marginCustomInput');
-    const badge  = document.getElementById('marginActiveBadge');
-    const badgePct = document.getElementById('marginActivePct');
-    if (!bar || !input) return;
+    const toggleBtn  = document.getElementById('marginToggleBtn');
+    const controlRow = document.getElementById('marginControlsRow');
+    const pillLabel  = document.getElementById('marginPillLabel');
+    const btns       = controlRow ? controlRow.querySelectorAll('.margin-btn') : [];
+    const input      = document.getElementById('marginCustomInput');
+    if (!toggleBtn || !controlRow || !input) return;
+
+    let collapseTimer = null;
+
+    function updatePill(pct) {
+        if (pct > 0) {
+            pillLabel.textContent = '+' + pct + '%';
+            toggleBtn.classList.add('is-active');
+        } else {
+            pillLabel.textContent = 'Margen';
+            toggleBtn.classList.remove('is-active');
+        }
+    }
 
     function applyMargin(pct) {
         window.RESELLER_MARGIN = pct;
-        bar.classList.toggle('is-active', pct > 0);
         btns.forEach(b => b.classList.toggle('is-active', parseInt(b.dataset.pct) === pct));
-        if (pct > 0 && badgePct) badgePct.textContent = '+' + pct + '%';
+        updatePill(pct);
         refreshAllPrices();
     }
+
+    function scheduleCollapse(delay) {
+        clearTimeout(collapseTimer);
+        collapseTimer = setTimeout(() => {
+            controlRow.classList.remove('is-open');
+        }, delay);
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        clearTimeout(collapseTimer);
+        controlRow.classList.toggle('is-open');
+        if (controlRow.classList.contains('is-open')) input.focus();
+    });
 
     btns.forEach(btn => {
         btn.addEventListener('click', () => {
             input.value = '';
             applyMargin(parseInt(btn.dataset.pct));
+            scheduleCollapse(700);
         });
     });
 
@@ -3773,6 +3798,13 @@ function formatTimestamp() {
         if (!input.value.trim()) {
             applyMargin(0);
             btns.forEach(b => b.classList.toggle('is-active', parseInt(b.dataset.pct) === 0));
+        }
+        scheduleCollapse(1000);
+    });
+
+    input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+            input.blur();
         }
     });
 })();

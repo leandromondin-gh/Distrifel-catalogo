@@ -5816,43 +5816,82 @@ body[data-mode="corredor"] .nav-corredor svg {
 }
 
 /* ============================================================
-   BARRA DE MARGEN DE REVENTA
+   MARGEN DE REVENTA — integrado en catalog-main-header
    ============================================================ */
-.margin-bar {
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: var(--radius-lg, 10px);
-    margin-bottom: 8px;
-    transition: background 0.2s, border-color 0.2s;
-    overflow: hidden;
+
+/* Reestructura el header como columna para soportar la fila colapsable */
+.catalog-main-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
 }
 
-.margin-bar.is-active {
-    background: #fffbeb;
-    border-color: #f59e0b;
-}
-
-.margin-bar-inner {
+.catalog-header-row {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 8px 14px;
+    gap: var(--space-sm);
+}
+
+/* Pill toggle en el header-right */
+.margin-toggle-pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1.5px solid #e5e7eb;
+    background: transparent;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #9ca3af;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    line-height: 1.4;
+}
+
+.margin-toggle-pill:hover {
+    border-color: #d1d5db;
+    color: #6b7280;
+}
+
+.margin-toggle-pill.is-active {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+}
+
+/* Fila colapsable de controles */
+.margin-controls-row {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.28s ease, padding 0.28s ease, opacity 0.2s ease;
+    opacity: 0;
+    padding: 0 4px;
+}
+
+.margin-controls-row.is-open {
+    max-height: 56px;
+    opacity: 1;
+    padding: 8px 4px 2px;
+    border-top: 1px solid #f3f4f6;
+    margin-top: 8px;
+}
+
+.margin-controls-inner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
-.margin-bar-label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.76rem;
+.margin-controls-label {
+    font-size: 0.73rem;
     font-weight: 600;
-    color: #374151;
+    color: #6b7280;
     white-space: nowrap;
     flex-shrink: 0;
-}
-
-.margin-bar-label svg {
-    color: #9ca3af;
 }
 
 .margin-presets {
@@ -5923,35 +5962,9 @@ body[data-mode="corredor"] .nav-corredor svg {
     -webkit-appearance: none;
 }
 
-.margin-active-badge {
-    display: none;
-    align-items: center;
-    font-size: 0.72rem;
-    color: #92400e;
-    background: #fde68a;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-weight: 500;
-    white-space: nowrap;
-    margin-left: auto;
-}
-
-.margin-active-badge strong {
-    font-weight: 700;
-}
-
-.margin-bar.is-active .margin-active-badge {
-    display: flex;
-}
-
 /* Mobile */
 @media (max-width: 639px) {
-    .margin-bar-inner {
-        padding: 7px 12px;
-        gap: 6px;
-    }
-
-    .margin-bar-label span {
+    .margin-controls-label {
         display: none;
     }
 
@@ -5964,9 +5977,11 @@ body[data-mode="corredor"] .nav-corredor svg {
         width: 38px;
     }
 
-    .margin-active-badge {
-        font-size: 0.69rem;
-        padding: 2px 8px;
-        margin-left: 0;
+    .margin-toggle-pill span {
+        display: none;
+    }
+
+    .margin-toggle-pill {
+        padding: 5px 8px;
     }
 }

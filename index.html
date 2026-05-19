@@ -352,73 +352,75 @@
                 <div class="catalog-main">
                     <div class="catalog-sticky-bar">
 
-                    <!-- ===== BARRA DE MARGEN ===== -->
-                    <div id="marginBar" class="margin-bar">
-                        <div class="margin-bar-inner">
-                            <span class="margin-bar-label">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                                    <line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>
-                                </svg>
-                                <span>Precio de reventa</span>
-                            </span>
-                            <div class="margin-presets">
-                                <button class="margin-btn is-active" data-pct="0">0%</button>
-                                <button class="margin-btn" data-pct="5">+5%</button>
-                                <button class="margin-btn" data-pct="10">+10%</button>
-                                <button class="margin-btn" data-pct="15">+15%</button>
-                                <button class="margin-btn" data-pct="20">+20%</button>
-                            </div>
-                            <div class="margin-custom-wrap">
-                                <input id="marginCustomInput" class="margin-custom-input" type="number" min="0" max="500" placeholder="otro">
-                            </div>
-                            <div class="margin-active-badge" id="marginActiveBadge">
-                                Precios con <strong id="marginActivePct">+5%</strong> de margen
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="catalog-main-header">
-                        <button class="filter-toggle-btn" id="filterToggleBtn" type="button" aria-label="Mostrar u ocultar filtros">
-                            <svg class="filter-toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
-                                <polyline points="15,18 9,12 15,6"/>
-                            </svg>
-                            <span class="filter-toggle-label">Ocultar filtros</span>
-                            <span id="filterCountBadge" class="filter-count-badge"></span>
-                        </button>
-
-                        <div class="search-box header-search">
-                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-                            </svg>
-                            <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos..." autocomplete="off">
-                            <button class="search-clear" id="searchClear" aria-label="Limpiar búsqueda">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        <!-- Fila principal -->
+                        <div class="catalog-header-row">
+                            <button class="filter-toggle-btn" id="filterToggleBtn" type="button" aria-label="Mostrar u ocultar filtros">
+                                <svg class="filter-toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+                                    <polyline points="15,18 9,12 15,6"/>
                                 </svg>
+                                <span class="filter-toggle-label">Ocultar filtros</span>
+                                <span id="filterCountBadge" class="filter-count-badge"></span>
                             </button>
+
+                            <div class="search-box header-search">
+                                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                                </svg>
+                                <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos..." autocomplete="off">
+                                <button class="search-clear" id="searchClear" aria-label="Limpiar búsqueda">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="header-right">
+                                <span class="header-results"><strong id="resultsCount">71</strong> productos</span>
+                                <div class="view-toggle">
+                                <button class="view-btn active" data-view="grid" aria-label="Vista grilla">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <rect x="3" y="3" width="7" height="7" rx="1"/>
+                                        <rect x="14" y="3" width="7" height="7" rx="1"/>
+                                        <rect x="3" y="14" width="7" height="7" rx="1"/>
+                                        <rect x="14" y="14" width="7" height="7" rx="1"/>
+                                    </svg>
+                                </button>
+                                <button class="view-btn" data-view="list" aria-label="Vista lista">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="8" y1="6" x2="21" y2="6"/>
+                                        <line x1="8" y1="12" x2="21" y2="12"/>
+                                        <line x1="8" y1="18" x2="21" y2="18"/>
+                                        <line x1="3" y1="6" x2="3.01" y2="6"/>
+                                        <line x1="3" y1="12" x2="3.01" y2="12"/>
+                                        <line x1="3" y1="18" x2="3.01" y2="18"/>
+                                    </svg>
+                                </button>
+                                </div>
+                                <!-- Pill de margen -->
+                                <button id="marginToggleBtn" class="margin-toggle-pill" title="Calcular precio de reventa">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                                        <line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>
+                                    </svg>
+                                    <span id="marginPillLabel">Margen</span>
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="header-right">
-                            <span class="header-results"><strong id="resultsCount">71</strong> productos</span>
-                            <div class="view-toggle">
-                            <button class="view-btn active" data-view="grid" aria-label="Vista grilla">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <rect x="3" y="3" width="7" height="7" rx="1"/>
-                                    <rect x="14" y="3" width="7" height="7" rx="1"/>
-                                    <rect x="3" y="14" width="7" height="7" rx="1"/>
-                                    <rect x="14" y="14" width="7" height="7" rx="1"/>
-                                </svg>
-                            </button>
-                            <button class="view-btn" data-view="list" aria-label="Vista lista">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="8" y1="6" x2="21" y2="6"/>
-                                    <line x1="8" y1="12" x2="21" y2="12"/>
-                                    <line x1="8" y1="18" x2="21" y2="18"/>
-                                    <line x1="3" y1="6" x2="3.01" y2="6"/>
-                                    <line x1="3" y1="12" x2="3.01" y2="12"/>
-                                    <line x1="3" y1="18" x2="3.01" y2="18"/>
-                                </svg>
-                            </button>
+                        <!-- Fila de controles de margen (colapsable) -->
+                        <div class="margin-controls-row" id="marginControlsRow">
+                            <div class="margin-controls-inner">
+                                <span class="margin-controls-label">Precio de reventa:</span>
+                                <div class="margin-presets">
+                                    <button class="margin-btn is-active" data-pct="0">0%</button>
+                                    <button class="margin-btn" data-pct="5">+5%</button>
+                                    <button class="margin-btn" data-pct="10">+10%</button>
+                                    <button class="margin-btn" data-pct="15">+15%</button>
+                                    <button class="margin-btn" data-pct="20">+20%</button>
+                                </div>
+                                <div class="margin-custom-wrap">
+                                    <input id="marginCustomInput" class="margin-custom-input" type="number" min="0" max="500" placeholder="otro">
+                                </div>
                             </div>
                         </div>
                     </div>
