@@ -4756,16 +4756,19 @@ body.past-hero .catalog-section {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
 }
 
 .cart-footer-buttons {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    width: 100%;
 }
 
 .cart-totals-breakdown {
     margin-bottom: 4px;
+    width: 100%;
 }
 
 .cart-total-row {
