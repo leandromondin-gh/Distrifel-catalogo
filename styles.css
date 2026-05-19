@@ -4763,6 +4763,18 @@ body.past-hero .catalog-section {
     width: 100%;
 }
 
+/* Desktop: botones izquierda, totales derecha */
+@media (min-width: 500px) {
+    .cart-footer-inner {
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 14px;
+    }
+    .cart-footer-buttons   { flex: 0 0 auto; width: 42%; }
+    .cart-totals-breakdown { flex: 1; text-align: right; margin-bottom: 0; }
+    .cart-total-row        { justify-content: flex-end; gap: 16px; }
+}
+
 .cart-footer-buttons {
     display: flex;
     flex-direction: column;
