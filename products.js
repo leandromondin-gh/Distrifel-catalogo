@@ -1970,7 +1970,7 @@ window.DISTRIFEL_GROUP_OFFERS = [
     name:      "OFERTA 01: Flexible de Agua Cobre",
     products:  ["Flexible de Agua Cobre x 1/2\"", "Flexible de Agua Cobre x 3/4\""],
     minQty:    50,
-    discount:  10,
+    discount:  5,
     condition: "50 unidades surtidas entre todas las variantes"
   },
   {
@@ -1978,7 +1978,7 @@ window.DISTRIFEL_GROUP_OFFERS = [
     name:      "OFERTA 02: Flexible de Agua Mallado",
     products:  ["Flexible de Agua Mallado x 1/2\"", "Flexible de Agua Mallado x 3/4\""],
     minQty:    50,
-    discount:  10,
+    discount:  5,
     condition: "50 unidades surtidas entre todas las variantes"
   },
   {
