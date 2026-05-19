@@ -4770,8 +4770,8 @@ body.past-hero .catalog-section {
         align-items: flex-end;
         gap: 14px;
     }
-    .cart-footer-buttons   { flex: 0 0 auto; width: 42%; }
-    .cart-totals-breakdown { flex: 1; text-align: right; margin-bottom: 0; }
+    .cart-footer-buttons   { order: 1; flex: 0 0 42%; }
+    .cart-totals-breakdown { order: 2; flex: 1; text-align: right; margin-bottom: 0; }
     .cart-total-row        { justify-content: flex-end; gap: 16px; }
 }
 
