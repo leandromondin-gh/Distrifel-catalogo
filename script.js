@@ -2190,8 +2190,9 @@ function addToCart(card, btn, qty = 1) {
     } else {
         const ivaRate  = parseFloat(card.dataset.iva) || 21;
         const brand    = card.dataset.brand || '';
-        const imgEl    = card.querySelector('.card-image img, img');
-        const image    = imgEl ? imgEl.src : '';
+        const pid      = card.dataset.pid || '';
+        const product  = (window.DISTRIFEL_PRODUCTS || []).find(p => p.id === pid);
+        const image    = product?.image || '';
         item = { id: itemId, cardKey, name, variant: variantText, price, qty, ivaRate, brand, image };
         cart.items.push(item);
     }

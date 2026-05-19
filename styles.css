@@ -4758,17 +4758,6 @@ body.past-hero .catalog-section {
     gap: 10px;
 }
 
-/* Desktop: totales izquierda + botones derecha */
-@media (min-width: 640px) {
-    .cart-footer-inner {
-        flex-direction: row;
-        align-items: flex-end;
-        gap: 16px;
-    }
-    .cart-totals-breakdown { flex: 1; }
-    .cart-footer-buttons   { flex: 1; }
-}
-
 .cart-footer-buttons {
     display: flex;
     flex-direction: column;
@@ -4826,10 +4815,10 @@ body.past-hero .catalog-section {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 11px 16px;
+    padding: 12px 16px;
     background: #25d366;
     color: white;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 700;
     font-family: var(--font-body);
     border-radius: var(--radius-lg);
@@ -4837,6 +4826,7 @@ body.past-hero .catalog-section {
     cursor: pointer;
     transition: all var(--transition-base);
     width: 100%;
+    white-space: nowrap;
     box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
 }
 
