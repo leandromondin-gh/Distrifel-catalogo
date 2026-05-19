@@ -4750,9 +4750,9 @@ body.past-hero .catalog-section {
 }
 
 .cart-drawer-footer {
-    padding: 12px 16px 14px;
-    border-top: 1px solid var(--color-gray-200);
-    background: white;
+    padding: 14px 16px 16px;
+    border-top: none;
+    background: #111827;
     flex-shrink: 0;
 }
 
@@ -4783,9 +4783,9 @@ body.past-hero .catalog-section {
 }
 
 .cart-iva-row {
-    border-bottom: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
     padding-bottom: 5px;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
 }
 
 .cart-total-final-row {
@@ -4794,13 +4794,13 @@ body.past-hero .catalog-section {
 
 .cart-total-label {
     font-size: 0.82rem;
-    color: var(--color-gray-500);
+    color: rgba(255,255,255,0.55);
     font-weight: 500;
 }
 
 .cart-total-final-row .cart-total-label {
     font-size: 1rem;
-    color: var(--color-gray-900);
+    color: rgba(255,255,255,0.85);
     font-weight: 700;
 }
 
@@ -4808,13 +4808,13 @@ body.past-hero .catalog-section {
     font-family: var(--font-brand);
     font-size: 0.95rem;
     font-weight: 700;
-    color: var(--color-gray-900);
+    color: rgba(255,255,255,0.9);
 }
 
 .cart-total-final-row .cart-total-value {
     font-size: 1.5rem;
     font-weight: 800;
-    color: var(--color-secondary-dark);
+    color: #4a9f8e;
 }
 
 .cart-whatsapp-btn {
@@ -4856,11 +4856,11 @@ body.past-hero .catalog-section {
     gap: 6px;
     padding: 8px 16px;
     background: transparent;
-    color: var(--color-gray-500);
+    color: rgba(255,255,255,0.45);
     font-size: 0.8rem;
     font-family: var(--font-body);
     border-radius: var(--radius-md);
-    border: 1px solid var(--color-gray-300);
+    border: 1px solid rgba(255,255,255,0.2);
     cursor: pointer;
     transition: all var(--transition-fast);
     width: 100%;
