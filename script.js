@@ -2171,8 +2171,8 @@ function addToCart(card, btn, qty = 1) {
     const priceEl = card.querySelector('.price-value');
 
     const variantText = selectedVariant ? selectedVariant.textContent.trim() : null;
-    const priceStr = priceEl ? priceEl.textContent : '0';
-    const price = parseInt(priceStr.replace(/[^\d]/g, '')) || 0;
+    const rawPrice = parseInt(priceEl?.dataset.rawPrice) || 0;
+    const price = rawPrice ? (state.discountActive ? rawPrice : Math.round(rawPrice * PRICE_MARKUP)) : 0;
     if (!price) return;
 
     const cardKey = card.dataset.pid || (card.dataset.name || name).replace(/\s+/g, '-');
