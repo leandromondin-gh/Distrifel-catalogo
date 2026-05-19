@@ -3476,7 +3476,32 @@ function updateCartUI() {
 
     // Render items
     if (itemsList) {
-        const groupBanners = '';
+        const dropIcon = `<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2C8.5 8 5 12.5 5 16a7 7 0 0014 0c0-3.5-3.5-8-7-14z"/></svg>`;
+        const bannerItems = (window.DISTRIFEL_GROUP_OFFERS || []).map(offer => {
+            const total = cart.items
+                .filter(i => offer.products.some(p => p.toLowerCase().trim() === i.name.toLowerCase().trim()))
+                .reduce((s, i) => s + i.qty, 0);
+            if (total === 0) return '';
+            const active = total >= offer.minQty;
+            const pct    = Math.min(100, Math.round(total / offer.minQty * 100));
+            const shortName = offer.name.replace(/^OFERTA \d+:\s*/i, '');
+            const ofertaNum = (offer.name.match(/OFERTA\s+(\d+)/i) || [])[0] || offer.name;
+            return `<div class="cart-group-offer-banner ${active ? 'cgob--active' : 'cgob--pending'}">
+                <div class="cgob-icon">${dropIcon}</div>
+                <div class="cgob-body">
+                    <span class="cgob-label">${ofertaNum}</span>
+                    <span class="cgob-title">${shortName}</span>
+                    <span class="cgob-detail">${active
+                        ? `✓ -${offer.discount}% aplicado`
+                        : `${total}/${offer.minQty} u. · faltan ${offer.minQty - total} para -${offer.discount}%`
+                    }</span>
+                    ${!active ? `<div class="cgob-progress"><div class="cgob-bar" style="width:${pct}%"></div></div>` : ''}
+                </div>
+            </div>`;
+        }).filter(Boolean);
+        const groupBanners = bannerItems.length
+            ? `<li class="cart-offers-row">${bannerItems.join('')}</li>`
+            : '';
 
         itemsList.innerHTML = groupBanners + cart.items.map(item => {
             const discountActive = item.isOffer && item.qty >= item.boxQty;
