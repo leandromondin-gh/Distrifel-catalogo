@@ -1173,12 +1173,14 @@ function checkClientDiscount(name) {
 }
 
 function refreshAllPrices() {
+    const hasMargin = window.RESELLER_MARGIN > 0;
     document.querySelectorAll('.product-card-v2').forEach(card => {
         const priceEl  = card.querySelector('.price-value');
         if (!priceEl) return;
         const raw = parseInt(priceEl.dataset.rawPrice);
         if (!raw) return;
         priceEl.textContent = formatPrice(getDisplayPrice(raw));
+        priceEl.style.color = hasMargin ? '#d97706' : '';
     });
 }
 
