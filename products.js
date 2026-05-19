@@ -965,8 +965,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "aislante aluminizado con solapa y tacc",
     "image": "https://tse2.mm.bing.net/th/id/OIP.5EFlLXosfivZup1k-J96HAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
     "variants": [
-      { "code": "H5MT", "desc": "5 mm x 20 Mts", "price": 21308 },
-      { "code": "H10MT", "desc": "10 mm x 20 Mts", "price": 31040 },
+      { "code": "H5MT", "desc": "5 mm x 20 Mts", "price": 24942 },
+      { "code": "H10MT", "desc": "10 mm x 20 Mts", "price": 36335 },
     ]
   },
   {
