@@ -5814,3 +5814,159 @@ body[data-mode="corredor"] .nav-corredor svg {
         padding-top: 110px;
     }
 }
+
+/* ============================================================
+   BARRA DE MARGEN DE REVENTA
+   ============================================================ */
+.margin-bar {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius-lg, 10px);
+    margin-bottom: 8px;
+    transition: background 0.2s, border-color 0.2s;
+    overflow: hidden;
+}
+
+.margin-bar.is-active {
+    background: #fffbeb;
+    border-color: #f59e0b;
+}
+
+.margin-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    flex-wrap: wrap;
+}
+
+.margin-bar-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #374151;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.margin-bar-label svg {
+    color: #9ca3af;
+}
+
+.margin-presets {
+    display: flex;
+    gap: 4px;
+    flex-wrap: nowrap;
+}
+
+.margin-btn {
+    padding: 4px 11px;
+    border-radius: 20px;
+    border: 1.5px solid #d1d5db;
+    background: #fff;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+.margin-btn:hover {
+    border-color: #9ca3af;
+    color: #374151;
+    background: #f9fafb;
+}
+
+.margin-btn.is-active {
+    background: #f59e0b;
+    border-color: #f59e0b;
+    color: #fff;
+}
+
+.margin-custom-wrap {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #d1d5db;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.margin-custom-wrap::after {
+    content: '%';
+    font-size: 0.74rem;
+    color: #9ca3af;
+    padding-right: 10px;
+    font-weight: 600;
+}
+
+.margin-custom-input {
+    width: 50px;
+    border: none;
+    outline: none;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #374151;
+    padding: 0 2px 0 10px;
+    background: transparent;
+    -moz-appearance: textfield;
+}
+
+.margin-custom-input::-webkit-inner-spin-button,
+.margin-custom-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.margin-active-badge {
+    display: none;
+    align-items: center;
+    font-size: 0.72rem;
+    color: #92400e;
+    background: #fde68a;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-left: auto;
+}
+
+.margin-active-badge strong {
+    font-weight: 700;
+}
+
+.margin-bar.is-active .margin-active-badge {
+    display: flex;
+}
+
+/* Mobile */
+@media (max-width: 639px) {
+    .margin-bar-inner {
+        padding: 7px 12px;
+        gap: 6px;
+    }
+
+    .margin-bar-label span {
+        display: none;
+    }
+
+    .margin-btn {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+
+    .margin-custom-input {
+        width: 38px;
+    }
+
+    .margin-active-badge {
+        font-size: 0.69rem;
+        padding: 2px 8px;
+        margin-left: 0;
+    }
+}

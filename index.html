@@ -351,6 +351,32 @@
                 <!-- ===== MAIN CATALOG ===== -->
                 <div class="catalog-main">
                     <div class="catalog-sticky-bar">
+
+                    <!-- ===== BARRA DE MARGEN ===== -->
+                    <div id="marginBar" class="margin-bar">
+                        <div class="margin-bar-inner">
+                            <span class="margin-bar-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                                    <line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>
+                                </svg>
+                                <span>Precio de reventa</span>
+                            </span>
+                            <div class="margin-presets">
+                                <button class="margin-btn is-active" data-pct="0">0%</button>
+                                <button class="margin-btn" data-pct="5">+5%</button>
+                                <button class="margin-btn" data-pct="10">+10%</button>
+                                <button class="margin-btn" data-pct="15">+15%</button>
+                                <button class="margin-btn" data-pct="20">+20%</button>
+                            </div>
+                            <div class="margin-custom-wrap">
+                                <input id="marginCustomInput" class="margin-custom-input" type="number" min="0" max="500" placeholder="otro">
+                            </div>
+                            <div class="margin-active-badge" id="marginActiveBadge">
+                                Precios con <strong id="marginActivePct">+5%</strong> de margen
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="catalog-main-header">
                         <button class="filter-toggle-btn" id="filterToggleBtn" type="button" aria-label="Mostrar u ocultar filtros">
                             <svg class="filter-toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
