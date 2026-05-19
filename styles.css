@@ -4775,8 +4775,8 @@ body.past-hero .catalog-section {
 @media (min-width: 500px) {
     .cart-footer-inner {
         flex-direction: row;
-        align-items: flex-end;
-        gap: 14px;
+        align-items: center;
+        gap: 28px;
     }
     .cart-footer-buttons   { order: 1; flex: 0 0 42%; }
     .cart-totals-breakdown { order: 2; flex: 1; text-align: right; margin-bottom: 0; }
