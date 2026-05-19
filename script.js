@@ -3784,7 +3784,7 @@ function formatTimestamp() {
         btn.addEventListener('click', () => {
             input.value = '';
             applyMargin(parseInt(btn.dataset.pct));
-            scheduleCollapse(700);
+            scheduleCollapse(1500);
         });
     });
 
@@ -3799,7 +3799,7 @@ function formatTimestamp() {
             applyMargin(0);
             btns.forEach(b => b.classList.toggle('is-active', parseInt(b.dataset.pct) === 0));
         }
-        scheduleCollapse(1000);
+        scheduleCollapse(1500);
     });
 
     input.addEventListener('keydown', e => {
