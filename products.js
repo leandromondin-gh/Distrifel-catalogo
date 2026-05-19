@@ -115,7 +115,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "flexible",
     "brand": "alarsa",
     "searchName": "flexible de gas aprobado extensibles x 3/4\"",
-    "image": "imagenes-productos/producto-1.jpg",
+    "image": "imagenes-productos/producto-7.jpg",
     "variants": [
       { "code": "11002.0", "desc": "20 a 45 cm", "price": 16395 },
       { "code": "11003.0", "desc": "40 a 99 cm", "price": 25862 },
@@ -128,7 +128,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "flexible",
     "brand": "alarsa",
     "searchName": "flexible de gas aprobado no extensibles x 1/2\"",
-    "image": "imagenes-productos/producto-1.jpg",
+    "image": "imagenes-productos/producto-7.jpg",
     "variants": [
       { "code": "11004.0", "desc": "30 cm", "price": 9545 },
       { "code": "11005.0", "desc": "45 cm", "price": 11084 },
@@ -142,7 +142,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "flexible",
     "brand": "alarsa",
     "searchName": "flexible de gas aprobado no extensibles x 3/4\"",
-    "image": "imagenes-productos/producto-1.jpg",
+    "image": "imagenes-productos/producto-7.jpg",
     "variants": [
       { "code": "11007.0", "desc": "30 cm", "price": 12623 },
       { "code": "11008.0", "desc": "45 cm", "price": 14163 },
