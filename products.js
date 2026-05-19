@@ -1609,7 +1609,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "aislante aluminizado doble con solapa y tacc",
     "image": "https://viviendasparaiso.com/storage/materiales/8CdDrGWvQcCdjExzIRYC1aKjlSEbtnu61y1oP4vN.jpg",
     "variants": [
-      { "code": "H10MMT", "desc": "10 mm x 20 Mts", "price": 36627 },
+      { "code": "H10MMT", "desc": "10 mm x 20 Mts", "price": 42875 },
     ]
   },
   {
