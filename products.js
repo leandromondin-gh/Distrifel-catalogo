@@ -319,7 +319,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "flexible",
     "brand": "paz",
     "searchName": "flexible gas natural nuevo",
-    "image": "https://www.canplast.com.ar/img/_2633.jpg",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_770234-MLA83996968144_052025-O.webp",
     "variants": [
       { "code": "63G", "desc": "P/ Reg. 6 mts", "price": 11021 },
     ]
@@ -331,7 +331,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "flexible",
     "brand": "canplast",
     "searchName": "flexible gas natural nuevo",
-    "image": "https://www.canplast.com.ar/img/_2633.jpg",
+    "image": "https://http2.mlstatic.com/D_NQ_NP_770234-MLA83996968144_052025-O.webp",
     "variants": [
       { "code": "PT.14.01.400", "desc": "P/ Reg. 10 mts", "price": 16932 },
     ]
@@ -915,7 +915,7 @@ window.DISTRIFEL_PRODUCTS = [
     "type": "puerta",
     "brand": "",
     "searchName": "puerta para gas natural aprobada",
-    "image": "img/p64.png",
+    "image": "https://tse2.mm.bing.net/th/id/OIP.uOsQLyQb5UQFCXqSyKE6aAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
     "variants": [
       { "code": "PSG0,90X1,45", "desc": "0.90 X 1.45", "price": 91990 },
     ]
