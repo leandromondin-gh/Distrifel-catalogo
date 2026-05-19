@@ -130,34 +130,35 @@ async function loadImgBase64(url, contain = true, targetW = 400, targetH = 300) 
             reader.onload = () => resolve(reader.result);
             reader.readAsDataURL(res);
         });
-        // Dibujar en canvas con contain
         return await new Promise(resolve => {
             const img = new Image();
             img.onload = () => {
-                try {
-                    const c = document.createElement('canvas');
-                    c.width = targetW; c.height = targetH;
-                    const ctx = c.getContext('2d');
-                    ctx.fillStyle = contain ? '#f8fafc' : '#111827';
-                    ctx.fillRect(0, 0, targetW, targetH);
-                    if (contain) {
-                        const scale = Math.min(targetW / img.naturalWidth, targetH / img.naturalHeight);
-                        const sw = img.naturalWidth * scale;
-                        const sh = img.naturalHeight * scale;
-                        ctx.drawImage(img, (targetW - sw) / 2, (targetH - sh) / 2, sw, sh);
-                    } else {
-                        const scale = Math.min(targetW / img.naturalWidth, targetH / img.naturalHeight);
-                        const sw = img.naturalWidth * scale;
-                        const sh = img.naturalHeight * scale;
-                        ctx.drawImage(img, (targetW - sw) / 2, (targetH - sh) / 2, sw, sh);
-                    }
-                    resolve(c.toDataURL('image/jpeg', 0.75));
-                } catch { resolve(null); }
+                try { resolve(drawImgToCanvas(img, contain, targetW, targetH)); }
+                catch { resolve(null); }
             };
             img.onerror = () => resolve(null);
             img.src = base64;
         });
-    } catch { return null; }
+    } catch {}
+
+    // Último recurso: proxy CORS
+    if (isExternal) {
+        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+        return new Promise(resolve => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            const t = setTimeout(() => resolve(null), 8000);
+            img.onload = () => {
+                clearTimeout(t);
+                try { resolve(drawImgToCanvas(img, contain, targetW, targetH)); }
+                catch { resolve(null); }
+            };
+            img.onerror = () => { clearTimeout(t); resolve(null); };
+            img.src = proxyUrl;
+        });
+    }
+
+    return null;
 }
 
 async function generatePDF() {
@@ -337,7 +338,7 @@ async function generatePDF() {
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
             doc.setTextColor(...TEAL);
-            doc.text('Lista 118  •  Actualizada: 13/05/2026', W - M, 19, { align: 'right' });
+            doc.text('Lista 116  •  Actualizada: 19/05/2026', W - M, 19, { align: 'right' });
 
         }
 
