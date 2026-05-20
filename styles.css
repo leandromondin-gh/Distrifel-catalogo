@@ -509,6 +509,17 @@ body.past-hero .nav-home-btn:hover {
     gap: 10px;
     flex: 1;
     min-width: 0;
+    align-items: center;
+    text-align: center;
+}
+
+.offer-slide-banner-overlay .offer-chips--grouped,
+.offer-slide-banner-overlay .offer-chips {
+    justify-content: center;
+}
+
+.offer-slide-banner-overlay .offer-chips-row {
+    justify-content: center;
 }
 .offer-slide-banner-overlay .offer-variant-block:hover {
     box-shadow: none;
@@ -723,6 +734,91 @@ body.past-hero .nav-home-btn:hover {
     font-style: italic;
 }
 
+/* Overlay modo informativo (ofertas de grupo sin agregar) */
+.offer-slide-banner-overlay--info {
+    flex-direction: row;
+    align-items: center;
+    gap: 22px;
+    width: 46%;
+}
+
+.offer-group-info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.offer-group-info-text {
+    font-size: 0.82rem;
+    color: #4b5563;
+    font-weight: 500;
+}
+
+.offer-goto-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: linear-gradient(135deg, var(--color-secondary-dark), var(--color-primary-accent));
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    height: 80px;
+    width: 140px;
+    line-height: 1.2;
+    text-align: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 12px rgba(74,159,142,0.35);
+    flex-shrink: 0;
+}
+.offer-goto-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(74,159,142,0.5);
+}
+.offer-goto-btn svg { stroke: white; flex-shrink: 0; }
+.offer-goto-btn span { font-size: 0.72rem; }
+
+.offer-group-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    margin-top: 2px;
+}
+
+.offer-chips--grouped {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.offer-chips-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.offer-chip-sublabel {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #6b7280;
+    min-width: 50px;
+    flex-shrink: 0;
+}
+
 
 /* Dots */
 .offers-dots {
@@ -913,11 +1009,14 @@ body.past-hero .nav-home-btn:hover {
     .offers-modal-title { font-size: 1.05rem; }
     .offers-modal-subtitle { font-size: 0.68rem; }
 
-    /* Carousel sin padding lateral en mobile */
+    /* Carousel sin padding lateral en mobile — altura fija para evitar saltos entre slides */
     .offers-carousel-wrap { padding: 0; }
+    .offers-carousel { height: 50vh; overflow: hidden; display: flex; align-items: center; }
+    .offers-slide { height: auto; width: 100%; max-height: 100%; overflow-y: auto; }
+    .offers-slide.exiting { height: 100%; }
 
     /* Banner: imagen un poco más alta + overlay pasa a flujo normal */
-    .offer-slide-banner-wrap { min-height: auto; }
+    .offer-slide-banner-wrap { min-height: auto; flex: 1; }
     .offer-slide-banner { max-height: 200px; min-height: 0; }
 
     .offer-slide-banner-overlay {
@@ -929,6 +1028,13 @@ body.past-hero .nav-home-btn:hover {
         gap: 12px;
         box-shadow: none;
         border-top: 1px solid #e5e7eb;
+    }
+
+    .offer-slide-banner-overlay--info {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
     }
 
     /* Chips pueden volver a wrappear en mobile */

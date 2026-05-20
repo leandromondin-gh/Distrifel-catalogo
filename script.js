@@ -1164,7 +1164,8 @@ const state = {
     filters: {
         category: 'all',
         brand: new Set(),
-        type: new Set()
+        type: new Set(),
+        offerGroup: null   // { label, titles: Set<string> }
     },
     discountActive: false
 };
@@ -1410,7 +1411,7 @@ function initFilters() {
 
     const clearAll = () => {
         state.search = '';
-        state.filters = { category: 'all', brand: new Set(), type: new Set() };
+        state.filters = { category: 'all', brand: new Set(), type: new Set(), offerGroup: null };
 
         const searchInput = document.getElementById('searchInput');
         const searchClear = document.getElementById('searchClear');
@@ -1548,15 +1549,16 @@ function filterProducts() {
         const matchesCategory = state.filters.category === 'all' || category === state.filters.category;
         const matchesBrand = state.filters.brand.size === 0 || state.filters.brand.has(brand);
         const matchesType  = state.filters.type.size  === 0 || state.filters.type.has(type);
-        
+        const matchesOfferGroup = !state.filters.offerGroup || state.filters.offerGroup.titles.has(name.toLowerCase().trim());
+
         // Check search
-        const matchesSearch = state.search === '' || 
+        const matchesSearch = state.search === '' ||
             name.includes(state.search) ||
             category.includes(state.search) ||
             brand.includes(state.search) ||
             type.includes(state.search);
-        
-        const isVisible = matchesCategory && matchesBrand && matchesType && matchesSearch;
+
+        const isVisible = matchesCategory && matchesBrand && matchesType && matchesSearch && matchesOfferGroup;
         const wasHidden = product.classList.contains('hidden');
 
         product.classList.toggle('hidden', !isVisible);
@@ -1614,6 +1616,9 @@ function updateActiveFiltersBar() {
         const label = el?.dataset.label || el?.textContent.trim() || t;
         active.push({ key: 'type', value: t, label });
     });
+    if (state.filters.offerGroup) {
+        active.push({ key: 'offerGroup', value: '__offerGroup__', label: `🏷 ${state.filters.offerGroup.label}` });
+    }
     if (state.search) {
         active.push({ key: 'search', value: state.search, label: `"${state.search}"` });
     }
@@ -1636,7 +1641,9 @@ function updateActiveFiltersBar() {
     bar.querySelectorAll('.active-filter-chip').forEach(chip => {
         chip.addEventListener('click', () => {
             const { key, value } = chip.dataset;
-            if (key === 'search') {
+            if (key === 'offerGroup') {
+                state.filters.offerGroup = null;
+            } else if (key === 'search') {
                 state.search = '';
                 const inp = document.getElementById('searchInput');
                 const clr = document.getElementById('searchClear');
@@ -1673,7 +1680,7 @@ function updateActiveFiltersBar() {
     // Limpiar todo
     document.getElementById('clearAllChip')?.addEventListener('click', () => {
         state.search = '';
-        state.filters = { category: 'all', brand: new Set(), type: new Set() };
+        state.filters = { category: 'all', brand: new Set(), type: new Set(), offerGroup: null };
         document.querySelectorAll('.filter-option').forEach(o => o.classList.toggle('active', o.dataset.value === 'all'));
         document.querySelectorAll('.category-chips .chip').forEach(c => c.classList.toggle('active', c.dataset.category === 'all'));
         ['brand', 'type', 'category'].forEach(t => updateAccordionBadge(t, 'all', ''));
@@ -2192,8 +2199,9 @@ function addToCart(card, btn, qty = 1) {
 
     // Detectar si este producto+variante tiene una oferta activa
     const offer = (window.DISTRIFEL_OFFERS || []).find(o =>
+        !o.isGroupOffer &&
         o.title.toLowerCase().trim() === name.toLowerCase().trim() &&
-        o.variant.toLowerCase().trim() === (variantText || '').toLowerCase().trim()
+        (o.variant || '').toLowerCase().trim() === (variantText || '').toLowerCase().trim()
     );
 
     const existing = cart.items.find(i => i.id === itemId);
@@ -3137,28 +3145,70 @@ function setBrandFilter(brand) {
 }
 
 function offerGroupBlockHtml(g, groupIdx, hideAddBtn = false) {
-    const first      = g.items[0].o;
-    const firstFinal = Math.round(first.originalPrice * (1 - first.discount / 100));
+    const first        = g.items[0].o;
+    const isGroupOffer = !!first.isGroupOffer;
+    const firstFinal   = Math.round(first.originalPrice * (1 - first.discount / 100));
 
-    const chips = g.items.map(({ o, idx }, i) => {
-        const final = Math.round(o.originalPrice * (1 - o.discount / 100));
-        return `<span class="offer-chip${i === 0 ? ' selected' : ''}"
-            data-idx="${idx}"
-            data-original="${o.originalPrice}"
-            data-final="${final}"
-            data-boxqty="${o.boxQty}"
-            data-condition="${escapeHtml(o.condition)}">${escapeHtml(o.variant)}</span>`;
-    }).join('');
+    let chipsHtml;
+    if (isGroupOffer && g.items.some(({ o }) => o.subGroup)) {
+        // Chips agrupados en filas por subGroup
+        const subGroups = {}, subOrder = [];
+        g.items.forEach(({ o, idx }, i) => {
+            const sg = o.subGroup || '';
+            if (!subGroups[sg]) { subGroups[sg] = []; subOrder.push(sg); }
+            const final = Math.round(o.originalPrice * (1 - o.discount / 100));
+            subGroups[sg].push({ o, idx, i, final });
+        });
+        chipsHtml = `<div class="offer-chips offer-chips--grouped">${
+            subOrder.map(sg => `<div class="offer-chips-row">
+                <span class="offer-chip-sublabel">${escapeHtml(sg)}</span>
+                ${subGroups[sg].map(({ o, idx, i, final }) =>
+                    `<span class="offer-chip${i === 0 ? ' selected' : ''}"
+                        data-idx="${idx}"
+                        data-original="${o.originalPrice}"
+                        data-final="${final}"
+                        data-boxqty="${o.boxQty}"
+                        data-condition="${escapeHtml(o.condition)}">${escapeHtml(o.variant)}</span>`
+                ).join('')}
+            </div>`).join('')
+        }</div>`;
+    } else {
+        chipsHtml = `<div class="offer-chips">${
+            g.items.map(({ o, idx }, i) => {
+                const final = Math.round(o.originalPrice * (1 - o.discount / 100));
+                return `<span class="offer-chip${i === 0 ? ' selected' : ''}"
+                    data-idx="${idx}"
+                    data-original="${o.originalPrice}"
+                    data-final="${final}"
+                    data-boxqty="${o.boxQty}"
+                    data-condition="${escapeHtml(o.condition)}">${escapeHtml(o.variant)}</span>`;
+            }).join('')
+        }</div>`;
+    }
+
+    const priceSection = isGroupOffer
+        ? `<div class="offer-variant-prices">
+               <span class="offer-variant-original" style="display:none">$ ${first.originalPrice.toLocaleString('es-AR')}</span>
+               <span class="offer-variant-final">$ ${firstFinal.toLocaleString('es-AR')}</span>
+               <span style="font-size:0.72rem;color:#6b7280">/ u.</span>
+           </div>
+           <span class="offer-group-badge">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+               50 u. surtidas = -5%
+           </span>`
+        : `<div class="offer-variant-prices">
+               <span class="offer-variant-original">$ ${first.originalPrice.toLocaleString('es-AR')}</span>
+               <span class="offer-variant-final">$ ${firstFinal.toLocaleString('es-AR')}</span>
+           </div>
+           ${!hideAddBtn ? `<span class="offer-variant-condition">${escapeHtml(first.condition)} · ${first.boxQty} u.</span>` : ''}`;
+
+    const btnLabel = isGroupOffer ? '1 u.' : `${first.boxQty} u.`;
 
     return `
     <div class="offer-variant-block" data-group="${groupIdx}">
         <div class="offer-variant-name">${escapeHtml(g.title)}</div>
-        <div class="offer-chips">${chips}</div>
-        <div class="offer-variant-prices">
-            <span class="offer-variant-original">$ ${first.originalPrice.toLocaleString('es-AR')}</span>
-            <span class="offer-variant-final">$ ${firstFinal.toLocaleString('es-AR')}</span>
-        </div>
-        ${!hideAddBtn ? `<span class="offer-variant-condition">${escapeHtml(first.condition)} · ${first.boxQty} u.</span>` : ''}
+        ${chipsHtml}
+        ${priceSection}
         ${!hideAddBtn ? `
         <button class="offer-add-btn" data-idx="${g.items[0].idx}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12">
@@ -3166,7 +3216,7 @@ function offerGroupBlockHtml(g, groupIdx, hideAddBtn = false) {
                 <line x1="3" y1="6" x2="21" y2="6"/>
                 <path d="M16 10a4 4 0 01-8 0"/>
             </svg>
-            <span>Agregar (${first.boxQty} u.)</span>
+            <span>Agregar (${btnLabel})</span>
         </button>` : ''}
     </div>`;
 }
@@ -3183,12 +3233,13 @@ function initOffersModal() {
 
     const offers = window.DISTRIFEL_OFFERS || [];
 
-    // Agrupar por título de producto
+    // Agrupar por groupTitle (ofertas de grupo) o title (ofertas individuales)
     const groups = [];
     const seen   = {};
     offers.forEach((o, idx) => {
-        if (!seen[o.title]) { seen[o.title] = []; groups.push({ title: o.title, items: seen[o.title] }); }
-        seen[o.title].push({ o, idx });
+        const key = o.groupTitle || o.title;
+        if (!seen[key]) { seen[key] = []; groups.push({ title: key, items: seen[key] }); }
+        seen[key].push({ o, idx });
     });
 
     // Render slides — imagen única + bloques de variante
@@ -3202,16 +3253,31 @@ function initOffersModal() {
         const heroHtml = first.banner
             ? `<div class="offer-slide-banner-wrap${first.darkBanner ? ' offer-slide-banner-wrap--dark' : ''}">
                 <img class="offer-slide-banner" src="${escapeHtml(first.banner)}" alt="${escapeHtml(g.title)}" onerror="this.style.display='none'">
-                <div class="offer-slide-banner-overlay">
-                    ${offerGroupBlockHtml(g, gi, true)}
-                    <button class="offer-add-btn-side" data-idx="${g.items[0].idx}">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
-                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-                            <line x1="3" y1="6" x2="21" y2="6"/>
-                            <path d="M16 10a4 4 0 01-8 0"/>
-                        </svg>
-                        <span>Agregar (${first.boxQty} u.)</span>
-                    </button>
+                <div class="offer-slide-banner-overlay${first.isGroupOffer ? ' offer-slide-banner-overlay--info' : ''}">
+                    ${first.isGroupOffer
+                        ? `<div class="offer-group-info-block">
+                               <div class="offer-variant-name">${escapeHtml(g.title)}</div>
+                               <div class="offer-group-info-text">${escapeHtml(first.infoText || 'Cobre · Mallado — todas las medidas')}</div>
+                               <span class="offer-group-badge">
+                                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                                   ${escapeHtml(first.condition || '50 u. surtidas = -5%')}
+                               </span>
+                           </div>
+                           <button class="offer-goto-btn"
+                               data-offer-ids="${(first.groupOfferIds || []).join(',')}"
+                               data-offer-label="${escapeHtml(g.title)}">
+                               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                               <span>Ver productos</span>
+                           </button>`
+                        : `${offerGroupBlockHtml(g, gi, true)}
+                           <button class="offer-add-btn-side" data-idx="${g.items[0].idx}">
+                               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+                                   <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                                   <line x1="3" y1="6" x2="21" y2="6"/>
+                                   <path d="M16 10a4 4 0 01-8 0"/>
+                               </svg>
+                               <span>Agregar (${first.boxQty} u.)</span>
+                           </button>`}
                 </div>
                </div>`
             : `<div class="offer-slide-hero">
@@ -3311,9 +3377,11 @@ function initOffersModal() {
             const original = parseInt(chip.dataset.original);
             const final    = parseInt(chip.dataset.final);
             const boxQty   = parseInt(chip.dataset.boxqty);
-            block.querySelector('.offer-variant-original').textContent = `$ ${original.toLocaleString('es-AR')}`;
-            block.querySelector('.offer-variant-final').textContent    = `$ ${final.toLocaleString('es-AR')}`;
-            block.querySelector('.offer-variant-condition').textContent = `${chip.dataset.condition} · ${boxQty} u.`;
+            const origEl = block.querySelector('.offer-variant-original');
+            if (origEl) origEl.textContent = `$ ${original.toLocaleString('es-AR')}`;
+            block.querySelector('.offer-variant-final').textContent = `$ ${final.toLocaleString('es-AR')}`;
+            const condEl = block.querySelector('.offer-variant-condition');
+            if (condEl) condEl.textContent = `${chip.dataset.condition} · ${boxQty} u.`;
             if (block.querySelector('.offer-add-btn')) {
                 block.querySelector('.offer-add-btn').dataset.idx = chip.dataset.idx;
                 block.querySelector('.offer-add-btn span').textContent = `Agregar (${boxQty} u.)`;
@@ -3347,14 +3415,17 @@ function initOffersModal() {
         const existing   = cart.items.find(i => i.id === itemId);
         if (existing) {
             existing.qty += qty;
-            existing.price = existing.qty >= offer.boxQty ? finalPrice : offer.originalPrice;
+            if (!offer.isGroupOffer) existing.price = existing.qty >= offer.boxQty ? finalPrice : offer.originalPrice;
+        } else if (offer.isGroupOffer) {
+            cart.items.push({ id: itemId, cardKey: itemId, name: offer.title, variant: null,
+                price: finalPrice, qty, image: offer.image || '' });
         } else {
             cart.items.push({ id: itemId, cardKey: itemId, name: offer.title, variant: offer.variant,
                 price: finalPrice, qty, isOffer: true, originalPrice: offer.originalPrice,
-                discountedPrice: finalPrice, boxQty: offer.boxQty });
+                discountedPrice: finalPrice, boxQty: offer.boxQty, image: offer.image || '' });
         }
         updateCartUI();
-        showToast(offer.title, qty, offer.variant);
+        showToast(offer.title, qty, offer.isGroupOffer ? null : offer.variant);
         bumpCart();
         const span    = addBtn.querySelector('span');
         const svg     = addBtn.querySelector('svg');
@@ -3380,6 +3451,27 @@ function initOffersModal() {
     closeBtn.addEventListener('click', () => { overlay.classList.remove('open'); stopAutoplay(); });
     overlay.addEventListener('click', e => { if (e.target === overlay) { overlay.classList.remove('open'); stopAutoplay(); } });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') { overlay.classList.remove('open'); stopAutoplay(); } });
+
+    // Botón "Ver productos" en slides informativos de oferta de grupo
+    carousel.addEventListener('click', e => {
+        const btn = e.target.closest('.offer-goto-btn');
+        if (!btn) return;
+        overlay.classList.remove('open');
+        stopAutoplay();
+        const offerIds = (btn.dataset.offerIds || '').split(',').filter(Boolean);
+        if (offerIds.length) {
+            const groupOffers = window.DISTRIFEL_GROUP_OFFERS || [];
+            const titles = new Set();
+            offerIds.forEach(id => {
+                const go = groupOffers.find(o => o.id === id);
+                go?.products.forEach(p => titles.add(p.toLowerCase().trim()));
+            });
+            const label = btn.dataset.offerLabel || 'Oferta especial';
+            state.filters.offerGroup = { label, titles };
+            filterProducts();
+        }
+        document.getElementById('catalogo')?.scrollIntoView({ behavior: 'smooth' });
+    });
 }
 
 function initBackToTop() {
@@ -3532,21 +3624,21 @@ function updateCartUI() {
                 : '';
             const badge = groupBadge || offerBadge;
             return `
-            <li class="cart-item" data-id="${item.id}">
+            <li class="cart-item" data-id="${escapeHtml(item.id)}">
                 <div class="cart-item-thumb">
-                    ${item.image ? `<img src="${item.image}" alt="${item.name}" loading="lazy" onerror="this.style.display='none'">` : ''}
+                    ${item.image ? `<img src="${item.image}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.style.display='none'">` : ''}
                 </div>
                 <div class="cart-item-body">
                     <div class="cart-item-top-row">
                         <div class="cart-item-name-row">
-                            <span class="cart-item-name">${item.name}</span>
-                            ${item.variant ? `<span class="cart-item-variant">${item.variant}</span>` : ''}
+                            <span class="cart-item-name">${escapeHtml(item.name)}</span>
+                            ${item.variant ? `<span class="cart-item-variant">${escapeHtml(item.variant)}</span>` : ''}
                         </div>
                         <div class="cart-item-controls">
-                            <button class="cart-qty-btn" data-action="dec" data-id="${item.id}" aria-label="Reducir">−</button>
-                            <input type="number" class="cart-item-qty" inputmode="numeric" min="1" max="999" value="${item.qty}" data-id="${item.id}">
-                            <button class="cart-qty-btn" data-action="inc" data-id="${item.id}" aria-label="Aumentar">+</button>
-                            <button class="cart-remove-btn" data-id="${item.id}" aria-label="Eliminar">
+                            <button class="cart-qty-btn" data-action="dec" data-id="${escapeHtml(item.id)}" aria-label="Reducir">−</button>
+                            <input type="number" class="cart-item-qty" inputmode="numeric" min="1" max="999" value="${item.qty}" data-id="${escapeHtml(item.id)}">
+                            <button class="cart-qty-btn" data-action="inc" data-id="${escapeHtml(item.id)}" aria-label="Aumentar">+</button>
+                            <button class="cart-remove-btn" data-id="${escapeHtml(item.id)}" aria-label="Eliminar">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
                                     <polyline points="3 6 5 6 21 6"/>
                                     <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>

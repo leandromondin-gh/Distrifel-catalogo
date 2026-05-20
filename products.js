@@ -1951,6 +1951,13 @@ window.DISTRIFEL_OFFERS = [
   { title: "Membrana Autoadhesiva", variant: "0,25 cm", image: "img/p24.webp", brand: "smartfix", banner: "banners/Banner-2.png", originalPrice: 52222, discount: 10, boxQty: 2, condition: "caja cerrada" },
   { title: "Membrana Autoadhesiva", variant: "0,30 cm", image: "img/p24.webp", brand: "smartfix", banner: "banners/Banner-2.png", originalPrice: 59480, discount: 10, boxQty: 2, condition: "caja cerrada" },
 
+  { title: "Cobertor de Caños Gris 10 mm", groupTitle: "Cobertor de Caños Gris", variant: "", image: "imagenes-productos/producto-45.jpg", brand: "covertex", banner: "banners/Banner-4.png", originalPrice: 0, discount: 0, boxQty: 1, condition: "5 u. surtidas = -10%", isGroupOffer: true, groupOfferIds: ["oferta-03"], infoText: "10 mm — todas las medidas" },
+
+  { title: "Flexible de Agua Cobre x 1/2\"", groupTitle: "Flexible de Agua", subGroup: "Cobre", variant: "x 1/2\"", image: "imagenes-productos/producto-1.jpg", brand: "alarsa", banner: "banners/Banner-3.png", originalPrice: 7630, discount: 0, boxQty: 1, condition: "50 u. surtidas = -5%", isGroupOffer: true, groupOfferIds: ["oferta-01", "oferta-02"] },
+  { title: "Flexible de Agua Cobre x 3/4\"", groupTitle: "Flexible de Agua", subGroup: "Cobre", variant: "x 3/4\"", image: "imagenes-productos/producto-2.jpg", brand: "alarsa", banner: "banners/Banner-3.png", originalPrice: 10087, discount: 0, boxQty: 1, condition: "50 u. surtidas = -5%", isGroupOffer: true, groupOfferIds: ["oferta-01", "oferta-02"] },
+  { title: "Flexible de Agua Mallado x 1/2\"", groupTitle: "Flexible de Agua", subGroup: "Mallado", variant: "x 1/2\"", image: "imagenes-productos/producto-3.jpg", brand: "alarsa", banner: "banners/Banner-3.png", originalPrice: 2538, discount: 0, boxQty: 1, condition: "50 u. surtidas = -5%", isGroupOffer: true, groupOfferIds: ["oferta-01", "oferta-02"] },
+  { title: "Flexible de Agua Mallado x 3/4\"", groupTitle: "Flexible de Agua", subGroup: "Mallado", variant: "x 3/4\"", image: "imagenes-productos/producto-4.jpg", brand: "alarsa", banner: "banners/Banner-3.png", originalPrice: 4750, discount: 0, boxQty: 1, condition: "50 u. surtidas = -5%", isGroupOffer: true, groupOfferIds: ["oferta-01", "oferta-02"] },
+
 ];
 
 // ─────────────────────────────────────────────────────────────────
