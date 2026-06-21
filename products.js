@@ -1,4 +1,4 @@
-// Generado desde "Lista de precios-12.xlsx" — Version-Final
+// Generado desde "Lista de precios-13.xlsx" — Version-Final
 // Para actualizar: editar el Excel y correr el script de conversión
 window.DISTRIFEL_PRODUCTS = [
   {
@@ -10,12 +10,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de agua cobre x 1/2\"",
     "image": "imagenes-productos/producto-1.jpg",
     "variants": [
-      { "code": "15020.0", "desc": "20 cm", "price": 4492 },
-      { "code": "15025.0", "desc": "25 cm", "price": 4843 },
-      { "code": "15030.0", "desc": "30 cm", "price": 5206 },
-      { "code": "15035.0", "desc": "35 cm", "price": 5466 },
-      { "code": "15040.0", "desc": "40 cm", "price": 6358 },
-      { "code": "15050.0", "desc": "50 cm", "price": 7130 },
+      { "code": "15020.0", "desc": "20 cm", "price": 4627 },
+      { "code": "15025.0", "desc": "25 cm", "price": 4988 },
+      { "code": "15030.0", "desc": "30 cm", "price": 5362 },
+      { "code": "15035.0", "desc": "35 cm", "price": 5630 },
+      { "code": "15040.0", "desc": "40 cm", "price": 6549 },
+      { "code": "15050.0", "desc": "50 cm", "price": 7344 },
     ]
   },
   {
@@ -27,12 +27,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de agua cobre x 3/4\"",
     "image": "imagenes-productos/producto-2.jpg",
     "variants": [
-      { "code": "16020.0", "desc": "20 cm", "price": 6538 },
-      { "code": "16025.0", "desc": "25 cm", "price": 6850 },
-      { "code": "16030.0", "desc": "30 cm", "price": 7213 },
-      { "code": "16035.0", "desc": "35 cm", "price": 7918 },
-      { "code": "16040.0", "desc": "40 cm", "price": 8406 },
-      { "code": "16050.0", "desc": "50 cm", "price": 9825 },
+      { "code": "16020.0", "desc": "20 cm", "price": 6734 },
+      { "code": "16025.0", "desc": "25 cm", "price": 7055 },
+      { "code": "16030.0", "desc": "30 cm", "price": 7430 },
+      { "code": "16035.0", "desc": "35 cm", "price": 8155 },
+      { "code": "16040.0", "desc": "40 cm", "price": 8658 },
+      { "code": "16050.0", "desc": "50 cm", "price": 10120 },
     ]
   },
   {
@@ -104,8 +104,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de gas aprobado extensibles x 1/2\"",
     "image": "imagenes-productos/producto-1.jpg",
     "variants": [
-      { "code": "11000.0", "desc": "20 a 45 cm", "price": 9995 },
-      { "code": "11001.0", "desc": "40 a 105 cm", "price": 16667 },
+      { "code": "11000.0", "desc": "20 a 45 cm", "price": 10295 },
+      { "code": "11001.0", "desc": "40 a 105 cm", "price": 17167 },
     ]
   },
   {
@@ -117,8 +117,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de gas aprobado extensibles x 3/4\"",
     "image": "imagenes-productos/producto-7.jpg",
     "variants": [
-      { "code": "11002.0", "desc": "20 a 45 cm", "price": 16395 },
-      { "code": "11003.0", "desc": "40 a 99 cm", "price": 25862 },
+      { "code": "11002.0", "desc": "20 a 45 cm", "price": 1441 },
+      { "code": "11003.0", "desc": "40 a 99 cm", "price": 2137 },
     ]
   },
   {
@@ -130,9 +130,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de gas aprobado no extensibles x 1/2\"",
     "image": "imagenes-productos/producto-7.jpg",
     "variants": [
-      { "code": "11004.0", "desc": "30 cm", "price": 9545 },
-      { "code": "11005.0", "desc": "45 cm", "price": 11084 },
-      { "code": "11006.0", "desc": "60 cm", "price": 12007 },
+      { "code": "11004.0", "desc": "30 cm", "price": 3550 },
+      { "code": "11005.0", "desc": "45 cm", "price": 6098 },
+      { "code": "11006.0", "desc": "60 cm", "price": 9057 },
     ]
   },
   {
@@ -144,9 +144,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de gas aprobado no extensibles x 3/4\"",
     "image": "imagenes-productos/producto-7.jpg",
     "variants": [
-      { "code": "11007.0", "desc": "30 cm", "price": 12623 },
-      { "code": "11008.0", "desc": "45 cm", "price": 14163 },
-      { "code": "11009.0", "desc": "60 cm", "price": 14932 },
+      { "code": "11007.0", "desc": "30 cm", "price": 14075 },
+      { "code": "11008.0", "desc": "45 cm", "price": 14588 },
+      { "code": "11009.0", "desc": "60 cm", "price": 15380 },
     ]
   },
   {
@@ -158,8 +158,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de gas aprobado medidor con pilar",
     "image": "imagenes-productos/producto-11.jpg",
     "variants": [
-      { "code": "11012.0", "desc": "1 1/4", "price": 23091 },
-      { "code": "11013.0", "desc": "1 1/8", "price": 23091 },
+      { "code": "11012.0", "desc": "1 1/4", "price": 23784 },
+      { "code": "11013.0", "desc": "1 1/8", "price": 23784 },
     ]
   },
   {
@@ -171,17 +171,17 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de gas no aprobado x 1/2",
     "image": "imagenes-productos/producto-12.webp",
     "variants": [
-      { "code": "C30", "desc": "30 cm", "price": 2339 },
-      { "code": "C40", "desc": "40 cm", "price": 2453 },
-      { "code": "C50", "desc": "50 cm", "price": 2567 },
-      { "code": "C60", "desc": "60 cm", "price": 2681 },
-      { "code": "C80", "desc": "80 cm", "price": 2909 },
-      { "code": "C100", "desc": "100 cm", "price": 3137 },
-      { "code": "C110", "desc": "110 cm", "price": 3251 },
-      { "code": "C120", "desc": "120 cm", "price": 3365 },
-      { "code": "C130", "desc": "130 cm", "price": 3479 },
-      { "code": "C140", "desc": "140 cm", "price": 4506 },
-      { "code": "C150", "desc": "150 cm", "price": 3707 },
+      { "code": "C30", "desc": "30 cm", "price": 2 },
+      { "code": "C40", "desc": "40 cm", "price": 2 },
+      { "code": "C50", "desc": "50 cm", "price": 2 },
+      { "code": "C60", "desc": "60 cm", "price": 2 },
+      { "code": "C80", "desc": "80 cm", "price": 2 },
+      { "code": "C100", "desc": "100 cm", "price": 3 },
+      { "code": "C110", "desc": "110 cm", "price": 3 },
+      { "code": "C120", "desc": "120 cm", "price": 3 },
+      { "code": "C130", "desc": "130 cm", "price": 3 },
+      { "code": "C140", "desc": "140 cm", "price": 4 },
+      { "code": "C150", "desc": "150 cm", "price": 3 },
     ]
   },
   {
@@ -194,7 +194,7 @@ window.DISTRIFEL_PRODUCTS = [
     "image": "imagenes-productos/producto-13.png",
     "variants": [
       { "code": "SC1", "desc": "1/2 kg", "price": 800 },
-      { "code": "SC12", "desc": "1 kg", "price": 1020 },
+      { "code": "SC12", "desc": "1 kg", "price": 1 },
     ]
   },
   {
@@ -206,10 +206,10 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "reguladores gas natural",
     "image": "imagenes-productos/producto-14.jpg",
     "variants": [
-      { "code": "PT.13B6", "desc": "6 Mts", "price": 58673 },
-      { "code": "PT.13B10", "desc": "10 mts", "price": 64384 },
-      { "code": "PT.13B12", "desc": "12 mts", "price": 71488 },
-      { "code": "PT.13B16", "desc": "16 mts", "price": 107231 },
+      { "code": "PT.13B6", "desc": "6 Mts", "price": 58 },
+      { "code": "PT.13B10", "desc": "10 mts", "price": 64 },
+      { "code": "PT.13B12", "desc": "12 mts", "price": 71 },
+      { "code": "PT.13B16", "desc": "16 mts", "price": 107 },
     ]
   },
   {
@@ -221,15 +221,15 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "reguladores gas natural",
     "image": "imagenes-productos/producto-15.jpg",
     "variants": [
-      { "code": "620.0", "desc": "6 Mts", "price": 51174 },
-      { "code": "619.0", "desc": "10 Mts", "price": 46112 },
-      { "code": "600.0", "desc": "16 Mts", "price": 112156 },
-      { "code": "418.0", "desc": "25 Mts", "price": 137787 },
-      { "code": "PLA25N", "desc": "25 Mts NUEVO", "price": 107400 },
-      { "code": "492.0", "desc": "40 Mts", "price": 212437 },
-      { "code": "614.0", "desc": "50 Mts", "price": 324325 },
-      { "code": "612.0", "desc": "75 Mts", "price": 348637 },
-      { "code": "613.0", "desc": "100 Mts", "price": 388537 },
+      { "code": "620.0", "desc": "6 Mts", "price": 52710 },
+      { "code": "619.0", "desc": "10 Mts", "price": 47495 },
+      { "code": "600.0", "desc": "16 Mts", "price": 115520 },
+      { "code": "418.0", "desc": "25 Mts", "price": 141920 },
+      { "code": "PLA25N", "desc": "25 Mts NUEVO", "price": 110622 },
+      { "code": "492.0", "desc": "40 Mts", "price": 218810 },
+      { "code": "614.0", "desc": "50 Mts", "price": 334055 },
+      { "code": "612.0", "desc": "75 Mts", "price": 359096 },
+      { "code": "613.0", "desc": "100 Mts", "price": 400193 },
     ]
   },
   {
@@ -282,7 +282,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "reguladores gas envasado",
     "image": "imagenes-productos/producto-19.webp",
     "variants": [
-      { "code": "25.0", "desc": "2 Flexibles", "price": 69943 },
+      { "code": "25.0", "desc": "2 Flexibles", "price": 1777 },
     ]
   },
   {
@@ -296,7 +296,7 @@ window.DISTRIFEL_PRODUCTS = [
     "variants": [
       { "code": "34.0", "desc": "0,80 Mts", "price": 8711 },
       { "code": "134.0", "desc": "1.50 Mts", "price": 9400 },
-      { "code": "234.0", "desc": "2.00 Mts", "price": 9856 },
+      { "code": "234.0", "desc": "2.00 Mts", "price": 4592 },
     ]
   },
   {
@@ -333,7 +333,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible gas natural nuevo",
     "image": "imagenes-productos/producto-23.webp",
     "variants": [
-      { "code": "PT.14.01.400", "desc": "P/ Reg. 10 mts", "price": 16932 },
+      { "code": "PT.14.01.400", "desc": "P/ Reg. 10 mts", "price": 16 },
     ]
   },
   {
@@ -393,8 +393,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "adaptador rigido 3/4 - remplaza flex.",
     "image": "imagenes-productos/producto-28.jpg",
     "variants": [
-      { "code": "PT.10.04", "desc": "Macho - Hembra", "price": 6960 },
-      { "code": "PT.10.01", "desc": "Macho - Macho", "price": 5080 },
+      { "code": "PT.10.04", "desc": "Macho - Hembra", "price": 6 },
+      { "code": "PT.10.01", "desc": "Macho - Macho", "price": 5 },
     ]
   },
   {
@@ -406,8 +406,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "pilar para medidor",
     "image": "imagenes-productos/producto-29.jpg",
     "variants": [
-      { "code": "10000.0", "desc": "1 1/4", "price": 3410 },
-      { "code": "PT.07.01", "desc": "1 1/8", "price": 3668 },
+      { "code": "10000.0", "desc": "1 1/4", "price": 3 },
+      { "code": "PT.07.01", "desc": "1 1/8", "price": 3 },
     ]
   },
   {
@@ -434,10 +434,10 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "cinta anticorrosiva",
     "image": "imagenes-productos/producto-31.jpg",
     "variants": [
-      { "code": "PTANT0001", "desc": "5 cm x 10 Mts", "price": 5340 },
-      { "code": "PTANT0005", "desc": "5 cm x 25 Mts", "price": 15256 },
-      { "code": "PTANT0006", "desc": "10 cm x 25 Mts", "price": 26700 },
-      { "code": "PTANT0007", "desc": "15 cm x 25 Mts", "price": 40048 },
+      { "code": "PTANT0001", "desc": "5 cm x 10 Mts", "price": 5 },
+      { "code": "PTANT0005", "desc": "5 cm x 25 Mts", "price": 15 },
+      { "code": "PTANT0006", "desc": "10 cm x 25 Mts", "price": 26 },
+      { "code": "PTANT0007", "desc": "15 cm x 25 Mts", "price": 40 },
     ]
   },
   {
@@ -475,9 +475,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "imprimador",
     "image": "imagenes-productos/producto-34.jpg",
     "variants": [
-      { "code": "PTAIM0001", "desc": "250 ML", "price": 11401 },
-      { "code": "PTAIM0002", "desc": "1 Lts", "price": 27612 },
-      { "code": "PTAIM0003", "desc": "4 Lts", "price": 105669 },
+      { "code": "PTAIM0001", "desc": "250 ML", "price": 11 },
+      { "code": "PTAIM0002", "desc": "1 Lts", "price": 27 },
+      { "code": "PTAIM0003", "desc": "4 Lts", "price": 105 },
     ]
   },
   {
@@ -489,9 +489,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "llave de gas domiciliarias c/campana",
     "image": "imagenes-productos/producto-35.webp",
     "variants": [
-      { "code": "5012.0", "desc": "1/2", "price": 15670 },
-      { "code": "5015.0", "desc": "3/4", "price": 18704 },
-      { "code": "5027.0", "desc": "1", "price": 44236 },
+      { "code": "5012.0", "desc": "1/2", "price": 16454 },
+      { "code": "5015.0", "desc": "3/4", "price": 19640 },
+      { "code": "5027.0", "desc": "1", "price": 46448 },
     ]
   },
   {
@@ -503,12 +503,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "llave de gas domiciliarias bronce",
     "image": "imagenes-productos/producto-36.jpg",
     "variants": [
-      { "code": "5010.0", "desc": "1/2", "price": 13246 },
-      { "code": "5013.0", "desc": "3/4", "price": 16919 },
-      { "code": "5016.0", "desc": "1", "price": 39529 },
-      { "code": "5018.0", "desc": "1 1/4", "price": 65598 },
-      { "code": "5024.0", "desc": "1 1/2", "price": 111956 },
-      { "code": "5026.0", "desc": "2", "price": 187220 },
+      { "code": "5010.0", "desc": "1/2", "price": 13908 },
+      { "code": "5013.0", "desc": "3/4", "price": 17765 },
+      { "code": "5016.0", "desc": "1", "price": 41505 },
+      { "code": "5018.0", "desc": "1 1/4", "price": 68878 },
+      { "code": "5024.0", "desc": "1 1/2", "price": 117554 },
+      { "code": "5026.0", "desc": "2", "price": 196581 },
     ]
   },
   {
@@ -520,9 +520,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "llave de gas domiciliarias cromo",
     "image": "imagenes-productos/producto-37.webp",
     "variants": [
-      { "code": "5011.0", "desc": "1/2", "price": 14410 },
-      { "code": "5014.0", "desc": "3/4", "price": 18023 },
-      { "code": "5017.0", "desc": "1", "price": 44236 },
+      { "code": "5011.0", "desc": "1/2", "price": 15120 },
+      { "code": "5014.0", "desc": "3/4", "price": 18924 },
+      { "code": "5017.0", "desc": "1", "price": 46448 },
     ]
   },
   {
@@ -534,10 +534,10 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "llave de gas candado",
     "image": "imagenes-productos/producto-38.jpg",
     "variants": [
-      { "code": "5005.0", "desc": "LLAVE CANDADO H-H 3/4", "price": 18789 },
-      { "code": "5006.0", "desc": "LLAVE CANDADO M-H 3/4", "price": 18790 },
-      { "code": "5007.0", "desc": "LLAVE CANDADO H-H 1", "price": 32565 },
-      { "code": "5008.0", "desc": "LLAVE CANDADO M-H 1", "price": 32566 },
+      { "code": "5005.0", "desc": "LLAVE CANDADO H-H 3/4", "price": 20669 },
+      { "code": "5006.0", "desc": "LLAVE CANDADO M-H 3/4", "price": 20669 },
+      { "code": "5007.0", "desc": "LLAVE CANDADO H-H 1", "price": 35821 },
+      { "code": "5008.0", "desc": "LLAVE CANDADO M-H 1", "price": 35821 },
     ]
   },
   {
@@ -549,12 +549,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "llave esfericas 4 bar",
     "image": "imagenes-productos/producto-39.png",
     "variants": [
-      { "code": "5000.0", "desc": "1/2", "price": 12075 },
-      { "code": "5001.0", "desc": "3/4", "price": 12650 },
-      { "code": "5002.0", "desc": "1", "price": 28637 },
-      { "code": "5003.0", "desc": "1 1/4", "price": 55892 },
-      { "code": "5004.0", "desc": "1 1/2", "price": 89193 },
-      { "code": "5009.0", "desc": "2", "price": 115385 },
+      { "code": "5000.0", "desc": "1/2", "price": 12 },
+      { "code": "5001.0", "desc": "3/4", "price": 12 },
+      { "code": "5002.0", "desc": "1", "price": 28 },
+      { "code": "5003.0", "desc": "1 1/4", "price": 55 },
+      { "code": "5004.0", "desc": "1 1/2", "price": 89 },
+      { "code": "5009.0", "desc": "2", "price": 115 },
     ]
   },
   {
@@ -566,14 +566,14 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "llave esfericas 4 bar p/total",
     "image": "imagenes-productos/producto-40.png",
     "variants": [
-      { "code": "5038.0", "desc": "1/2", "price": 21994 },
-      { "code": "5039.0", "desc": "3/4", "price": 24924 },
-      { "code": "5040.0", "desc": "1", "price": 50568 },
-      { "code": "5041.0", "desc": "1 1/4", "price": 93469 },
-      { "code": "5042.0", "desc": "1 1/2", "price": 128488 },
-      { "code": "5043.0", "desc": "2", "price": 195498 },
-      { "code": "5044.0", "desc": "2 1/2", "price": 467074 },
-      { "code": "5045.0", "desc": "3", "price": 679575 },
+      { "code": "5038.0", "desc": "1/2", "price": 21 },
+      { "code": "5039.0", "desc": "3/4", "price": 24 },
+      { "code": "5040.0", "desc": "1", "price": 50 },
+      { "code": "5041.0", "desc": "1 1/4", "price": 93 },
+      { "code": "5042.0", "desc": "1 1/2", "price": 128 },
+      { "code": "5043.0", "desc": "2", "price": 195 },
+      { "code": "5044.0", "desc": "2 1/2", "price": 467 },
+      { "code": "5045.0", "desc": "3", "price": 679 },
       { "code": "5046.0", "desc": "4", "price": 1387962 },
     ]
   },
@@ -586,15 +586,15 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "valvulas esferica de agua",
     "image": "imagenes-productos/producto-41.jpg",
     "variants": [
-      { "code": "12000.0", "desc": "1/2 \"", "price": 5096 },
-      { "code": "12001.0", "desc": "3/4 \"", "price": 7502 },
-      { "code": "12002.0", "desc": "1 \"", "price": 12424 },
-      { "code": "12003.0", "desc": "1 1/4 \"", "price": 20823 },
-      { "code": "12004.0", "desc": "1 1/2 \"", "price": 26212 },
-      { "code": "12005.0", "desc": "2 \"", "price": 42136 },
-      { "code": "12006.0", "desc": "2 1/2 \"", "price": 97870 },
-      { "code": "12007.0", "desc": "3 \"", "price": 148514 },
-      { "code": "12008.0", "desc": "4 \"", "price": 259122 },
+      { "code": "12000.0", "desc": "1/2 \"", "price": 5249 },
+      { "code": "12001.0", "desc": "3/4 \"", "price": 7727 },
+      { "code": "12002.0", "desc": "1 \"", "price": 11372 },
+      { "code": "12003.0", "desc": "1 1/4 \"", "price": 19061 },
+      { "code": "12004.0", "desc": "1 1/2 \"", "price": 23995 },
+      { "code": "12005.0", "desc": "2 \"", "price": 43400 },
+      { "code": "12006.0", "desc": "2 1/2 \"", "price": 100806 },
+      { "code": "12007.0", "desc": "3 \"", "price": 152970 },
+      { "code": "12008.0", "desc": "4 \"", "price": 266896 },
       { "code": "10000101.0", "desc": "1/2”", "price": 2235 },
     ]
   },
@@ -620,7 +620,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "juego de manija - campana - tornillo",
     "image": "imagenes-productos/producto-43.webp",
     "variants": [
-      { "code": "5029.0", "desc": "1/2 Y 3/4", "price": 3508 },
+      { "code": "5029.0", "desc": "1/2 Y 3/4", "price": 3 },
     ]
   },
   {
@@ -683,8 +683,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canilla esfericas mariposa laton",
     "image": "imagenes-productos/producto-47.jpg",
     "variants": [
-      { "code": "215012.0", "desc": "1/2", "price": 3110 },
-      { "code": "215034.0", "desc": "3/4", "price": 4660 },
+      { "code": "215012.0", "desc": "1/2", "price": 3 },
+      { "code": "215034.0", "desc": "3/4", "price": 4 },
     ]
   },
   {
@@ -696,8 +696,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canilla esfericas mariposa plastico",
     "image": "imagenes-productos/producto-48.png",
     "variants": [
-      { "code": "38002301M", "desc": "1/2", "price": 1955 },
-      { "code": "38002302M", "desc": "3/4", "price": 2556 },
+      { "code": "38002301M", "desc": "1/2", "price": 1 },
+      { "code": "38002302M", "desc": "3/4", "price": 2 },
     ]
   },
   {
@@ -848,7 +848,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "terraja estrella",
     "image": "imagenes-productos/producto-59.webp",
     "variants": [
-      { "code": "35226002.0", "desc": "Terraja estrella", "price": 15197 },
+      { "code": "35226002.0", "desc": "Terraja estrella", "price": 33029 },
     ]
   },
   {
@@ -978,7 +978,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canilla de bronce cromada c/ pico",
     "image": "imagenes-productos/producto-69.jpg",
     "variants": [
-      { "code": "2033934.0", "desc": "3/4", "price": 14605 },
+      { "code": "2033934.0", "desc": "3/4", "price": 14 },
     ]
   },
   {
@@ -990,7 +990,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canilla esferica forjada palanca roja",
     "image": "imagenes-productos/producto-70.webp",
     "variants": [
-      { "code": "21101.0", "desc": "1", "price": 13862 },
+      { "code": "21101.0", "desc": "1", "price": 13 },
     ]
   },
   {
@@ -1002,7 +1002,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canila para riego palanca",
     "image": "imagenes-productos/producto-71.webp",
     "variants": [
-      { "code": "215012.0", "desc": "1/2", "price": 3400 },
+      { "code": "215012.0", "desc": "1/2", "price": 3 },
     ]
   },
   {
@@ -1014,8 +1014,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "valvula esclusa paso total",
     "image": "imagenes-productos/producto-72.webp",
     "variants": [
-      { "code": "154021.0", "desc": "1", "price": 10567 },
-      { "code": "15402114.0", "desc": "1 1/4", "price": 17724 },
+      { "code": "154021.0", "desc": "1", "price": 10 },
+      { "code": "15402114.0", "desc": "1 1/4", "price": 17 },
     ]
   },
   {
@@ -1027,8 +1027,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "valvula esferica media union m-h mariposa",
     "image": "imagenes-productos/producto-73.jpg",
     "variants": [
-      { "code": "1736612.0", "desc": "1/2", "price": 8728 },
-      { "code": "1736634.0", "desc": "3/4", "price": 14005 },
+      { "code": "1736612.0", "desc": "1/2", "price": 8 },
+      { "code": "1736634.0", "desc": "3/4", "price": 14 },
     ]
   },
   {
@@ -1054,9 +1054,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "codo c/ inserto metalico hembra",
     "image": "imagenes-productos/producto-75.webp",
     "variants": [
-      { "code": "7290201.0", "desc": "20 x 1/2", "price": 1434 },
-      { "code": "7290251.0", "desc": "25 x 1/2", "price": 1852 },
-      { "code": "7290252.0", "desc": "25 x 3/4", "price": 2152 },
+      { "code": "7290201.0", "desc": "20 x 1/2", "price": 1 },
+      { "code": "7290251.0", "desc": "25 x 1/2", "price": 1 },
+      { "code": "7290252.0", "desc": "25 x 3/4", "price": 2 },
     ]
   },
   {
@@ -1068,9 +1068,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "cupla c/ inserto metalico hembra",
     "image": "imagenes-productos/producto-76.jpg",
     "variants": [
-      { "code": "72270201.0", "desc": "20 x 1/2", "price": 1294 },
-      { "code": "722702038.0", "desc": "20 x 3/8", "price": 1237 },
-      { "code": "72270251.0", "desc": "25 x 12", "price": 1554 },
+      { "code": "72270201.0", "desc": "20 x 1/2", "price": 1 },
+      { "code": "722702038.0", "desc": "20 x 3/8", "price": 1 },
+      { "code": "72270251.0", "desc": "25 x 12", "price": 1 },
     ]
   },
   {
@@ -1108,8 +1108,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "llave paso compacta cbezal poliamida",
     "image": "imagenes-productos/producto-79.webp",
     "variants": [
-      { "code": "7260020.0", "desc": "20", "price": 5922 },
-      { "code": "7260025.0", "desc": "25", "price": 6416 },
+      { "code": "7260020.0", "desc": "20", "price": 5 },
+      { "code": "7260025.0", "desc": "25", "price": 6 },
     ]
   },
   {
@@ -1122,7 +1122,7 @@ window.DISTRIFEL_PRODUCTS = [
     "image": "imagenes-productos/producto-80.webp",
     "variants": [
       { "code": "725020.0", "desc": "20", "price": 832 },
-      { "code": "725025.0", "desc": "25", "price": 1143 },
+      { "code": "725025.0", "desc": "25", "price": 1 },
     ]
   },
   {
@@ -1147,7 +1147,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tee c/ inserto metalico hembra",
     "image": "imagenes-productos/producto-82.jpg",
     "variants": [
-      { "code": "72130201.0", "desc": "20 x 1/2", "price": 1703 },
+      { "code": "72130201.0", "desc": "20 x 1/2", "price": 1 },
     ]
   },
   {
@@ -1173,8 +1173,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tubos agua caliente duraflow",
     "image": "imagenes-productos/producto-84.webp",
     "variants": [
-      { "code": "72220.0", "desc": "20 x 2.8", "price": 3565 },
-      { "code": "72225.0", "desc": "25 x 3.5", "price": 5431 },
+      { "code": "72220.0", "desc": "20 x 2.8", "price": 3 },
+      { "code": "72225.0", "desc": "25 x 3.5", "price": 5 },
     ]
   },
   {
@@ -1186,7 +1186,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tubos agua fria ecoflow",
     "image": "imagenes-productos/producto-85.webp",
     "variants": [
-      { "code": "722320.0", "desc": "32 x 3.0", "price": 6764 },
+      { "code": "722320.0", "desc": "32 x 3.0", "price": 6 },
     ]
   },
   {
@@ -1199,7 +1199,7 @@ window.DISTRIFEL_PRODUCTS = [
     "image": "imagenes-productos/producto-86.jpg",
     "variants": [
       { "code": "7234020.0", "desc": "20", "price": 772 },
-      { "code": "7234034.0", "desc": "25", "price": 1085 },
+      { "code": "7234034.0", "desc": "25", "price": 1 },
     ]
   },
   {
@@ -1211,8 +1211,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "valvula ppr fusión esfera plastica",
     "image": "imagenes-productos/producto-87.webp",
     "variants": [
-      { "code": "570020.0", "desc": "20", "price": 1595 },
-      { "code": "570025.0", "desc": "25", "price": 2446 },
+      { "code": "570020.0", "desc": "20", "price": 1 },
+      { "code": "570025.0", "desc": "25", "price": 2 },
     ]
   },
   {
@@ -1224,12 +1224,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "codo h-h",
     "image": "imagenes-productos/producto-88.jpg",
     "variants": [
-      { "code": "1102.0", "desc": "1/2", "price": 2375 },
-      { "code": "1103.0", "desc": "3/4", "price": 3388 },
-      { "code": "1104.0", "desc": "1", "price": 5850 },
-      { "code": "1105.0", "desc": "1 1/4", "price": 10542 },
-      { "code": "1106.0", "desc": "1 1/2", "price": 18386 },
-      { "code": "1107.0", "desc": "2", "price": 25730 },
+      { "code": "1102.0", "desc": "1/2", "price": 2446 },
+      { "code": "1103.0", "desc": "3/4", "price": 3490 },
+      { "code": "1104.0", "desc": "1", "price": 6025 },
+      { "code": "1105.0", "desc": "1 1/4", "price": 10858 },
+      { "code": "1106.0", "desc": "1 1/2", "price": 18937 },
+      { "code": "1107.0", "desc": "2", "price": 26502 },
     ]
   },
   {
@@ -1241,12 +1241,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tee",
     "image": "imagenes-productos/producto-89.jpg",
     "variants": [
-      { "code": "1002.0", "desc": "1/2", "price": 2618 },
-      { "code": "1003.0", "desc": "3/4", "price": 4472 },
-      { "code": "1004.0", "desc": "1", "price": 6814 },
-      { "code": "1005.0", "desc": "1 1/4", "price": 12066 },
-      { "code": "1006.0", "desc": "1 1/2", "price": 14789 },
-      { "code": "1007.0", "desc": "2", "price": 25256 },
+      { "code": "1002.0", "desc": "1/2", "price": 2696 },
+      { "code": "1003.0", "desc": "3/4", "price": 4606 },
+      { "code": "1004.0", "desc": "1", "price": 7018 },
+      { "code": "1005.0", "desc": "1 1/4", "price": 12428 },
+      { "code": "1006.0", "desc": "1 1/2", "price": 15232 },
+      { "code": "1007.0", "desc": "2", "price": 26014 },
     ]
   },
   {
@@ -1258,12 +1258,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "rosca c/ tuerca",
     "image": "imagenes-productos/producto-90.jpg",
     "variants": [
-      { "code": "1302.0", "desc": "1/2", "price": 1374 },
-      { "code": "1303.0", "desc": "3/4", "price": 1983 },
-      { "code": "1304.0", "desc": "1", "price": 3211 },
-      { "code": "1305.0", "desc": "1 1/4", "price": 5521 },
-      { "code": "1306.0", "desc": "1 1/2", "price": 6545 },
-      { "code": "1307.0", "desc": "2", "price": 11267 },
+      { "code": "1302.0", "desc": "1/2", "price": 1415 },
+      { "code": "1303.0", "desc": "3/4", "price": 2043 },
+      { "code": "1304.0", "desc": "1", "price": 3307 },
+      { "code": "1305.0", "desc": "1 1/4", "price": 5686 },
+      { "code": "1306.0", "desc": "1 1/2", "price": 6741 },
+      { "code": "1307.0", "desc": "2", "price": 11605 },
     ]
   },
   {
@@ -1275,12 +1275,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "union doble",
     "image": "imagenes-productos/producto-91.jpg",
     "variants": [
-      { "code": "1802.0", "desc": "1/2", "price": 6760 },
-      { "code": "1803.0", "desc": "3/4", "price": 9193 },
-      { "code": "1804.0", "desc": "1", "price": 13594 },
-      { "code": "1805.0", "desc": "1 1/4", "price": 30927 },
-      { "code": "1806.0", "desc": "1 1/2", "price": 47489 },
-      { "code": "1807.0", "desc": "2", "price": 72745 },
+      { "code": "1802.0", "desc": "1/2", "price": 6963 },
+      { "code": "1803.0", "desc": "3/4", "price": 9469 },
+      { "code": "1804.0", "desc": "1", "price": 14002 },
+      { "code": "1805.0", "desc": "1 1/4", "price": 31855 },
+      { "code": "1806.0", "desc": "1 1/2", "price": 48914 },
+      { "code": "1807.0", "desc": "2", "price": 74927 },
     ]
   },
   {
@@ -1292,12 +1292,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "codo m-h",
     "image": "imagenes-productos/producto-92.jpg",
     "variants": [
-      { "code": "1202.0", "desc": "1/2", "price": 2225 },
-      { "code": "1203.0", "desc": "3/4", "price": 3325 },
-      { "code": "1204.0", "desc": "1", "price": 6126 },
-      { "code": "1205.0", "desc": "1 1/4", "price": 10242 },
-      { "code": "1206.0", "desc": "1 1/2", "price": 18062 },
-      { "code": "1207.0", "desc": "2", "price": 25593 },
+      { "code": "1202.0", "desc": "1/2", "price": 2292 },
+      { "code": "1203.0", "desc": "3/4", "price": 3425 },
+      { "code": "1204.0", "desc": "1", "price": 6310 },
+      { "code": "1205.0", "desc": "1 1/4", "price": 10550 },
+      { "code": "1206.0", "desc": "1 1/2", "price": 18604 },
+      { "code": "1207.0", "desc": "2", "price": 26361 },
     ]
   },
   {
@@ -1309,12 +1309,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "bridas",
     "image": "imagenes-productos/producto-93.jpg",
     "variants": [
-      { "code": "1702.0", "desc": "1/2", "price": 3019 },
-      { "code": "1703.0", "desc": "3/4", "price": 4021 },
-      { "code": "1704.0", "desc": "1", "price": 5756 },
-      { "code": "1705.0", "desc": "1 1/4", "price": 9193 },
-      { "code": "1706.0", "desc": "1 1/2", "price": 10717 },
-      { "code": "1707.0", "desc": "2", "price": 13990 },
+      { "code": "1702.0", "desc": "1/2", "price": 3110 },
+      { "code": "1703.0", "desc": "3/4", "price": 4142 },
+      { "code": "1704.0", "desc": "1", "price": 5929 },
+      { "code": "1705.0", "desc": "1 1/4", "price": 9469 },
+      { "code": "1706.0", "desc": "1 1/2", "price": 11038 },
+      { "code": "1707.0", "desc": "2", "price": 14410 },
     ]
   },
   {
@@ -1326,12 +1326,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tapon",
     "image": "imagenes-productos/producto-94.jpg",
     "variants": [
-      { "code": "11002.0", "desc": "1/2", "price": 1399 },
-      { "code": "11003.0", "desc": "3/4", "price": 2075 },
-      { "code": "11004.0", "desc": "1", "price": 3446 },
-      { "code": "11005.0", "desc": "1 1/4", "price": 5920 },
-      { "code": "11006.0", "desc": "1 1/2", "price": 8793 },
-      { "code": "11007.0", "desc": "2", "price": 13665 },
+      { "code": "11002.0", "desc": "1/2", "price": 1441 },
+      { "code": "11003.0", "desc": "3/4", "price": 2137 },
+      { "code": "11004.0", "desc": "1", "price": 3550 },
+      { "code": "11005.0", "desc": "1 1/4", "price": 6098 },
+      { "code": "11006.0", "desc": "1 1/2", "price": 9057 },
+      { "code": "11007.0", "desc": "2", "price": 14075 },
     ]
   },
   {
@@ -1343,12 +1343,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "cuplas",
     "image": "imagenes-productos/producto-95.jpg",
     "variants": [
-      { "code": "1402.0", "desc": "1/2", "price": 1759 },
-      { "code": "1403.0", "desc": "3/4", "price": 2325 },
-      { "code": "1404.0", "desc": "1", "price": 3583 },
-      { "code": "1405.0", "desc": "1 1/4", "price": 5121 },
-      { "code": "1406.0", "desc": "1 1/2", "price": 7195 },
-      { "code": "1407.0", "desc": "2", "price": 12316 },
+      { "code": "1402.0", "desc": "1/2", "price": 1812 },
+      { "code": "1403.0", "desc": "3/4", "price": 2395 },
+      { "code": "1404.0", "desc": "1", "price": 3690 },
+      { "code": "1405.0", "desc": "1 1/4", "price": 5275 },
+      { "code": "1406.0", "desc": "1 1/2", "price": 7411 },
+      { "code": "1407.0", "desc": "2", "price": 12685 },
     ]
   },
   {
@@ -1360,12 +1360,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "buje reducción",
     "image": "imagenes-productos/producto-96.jpg",
     "variants": [
-      { "code": "12202.0", "desc": "3/4 X 1/2", "price": 1255 },
-      { "code": "12204.0", "desc": "1 X 3/4", "price": 2232 },
-      { "code": "12203.0", "desc": "1 X 1/2", "price": 2548 },
-      { "code": "12207.0", "desc": "1 1/4 X 1", "price": 3672 },
-      { "code": "12211.0", "desc": "1 1/2 X 1 1/4", "price": 4646 },
-      { "code": "12216.0", "desc": "2 X 1 1/2", "price": 6795 },
+      { "code": "12202.0", "desc": "3/4 X 1/2", "price": 1 },
+      { "code": "12204.0", "desc": "1 X 3/4", "price": 2 },
+      { "code": "12203.0", "desc": "1 X 1/2", "price": 2625 },
+      { "code": "12207.0", "desc": "1 1/4 X 1", "price": 3782 },
+      { "code": "12211.0", "desc": "1 1/2 X 1 1/4", "price": 4785 },
+      { "code": "12216.0", "desc": "2 X 1 1/2", "price": 7000 },
     ]
   },
   {
@@ -1377,12 +1377,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "cupla reducción",
     "image": "imagenes-productos/producto-97.jpg",
     "variants": [
-      { "code": "12302.0", "desc": "3/4 X 1/2", "price": 2473 },
-      { "code": "12304.0", "desc": "1 X 3/4", "price": 3273 },
-      { "code": "12303.0", "desc": "1 X 1/2", "price": 3273 },
-      { "code": "12307.0", "desc": "1 1/4 X 1", "price": 5762 },
-      { "code": "12311.0", "desc": "1 1/2 X 1 1/4", "price": 8180 },
-      { "code": "12316.0", "desc": "2 X 1 1/2", "price": 13858 },
+      { "code": "12302.0", "desc": "3/4 X 1/2", "price": 2549 },
+      { "code": "12304.0", "desc": "1 X 3/4", "price": 3372 },
+      { "code": "12303.0", "desc": "1 X 1/2", "price": 3372 },
+      { "code": "12307.0", "desc": "1 1/4 X 1", "price": 5935 },
+      { "code": "12311.0", "desc": "1 1/2 X 1 1/4", "price": 8425 },
+      { "code": "12316.0", "desc": "2 X 1 1/2", "price": 14274 },
     ]
   },
   {
@@ -1394,12 +1394,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tee reducción",
     "image": "imagenes-productos/producto-98.jpg",
     "variants": [
-      { "code": "12402.0", "desc": "3/4 X 1/2", "price": 3997 },
-      { "code": "12403.0", "desc": "1 X 1/2", "price": 6395 },
-      { "code": "12404.0", "desc": "1 X 3/4", "price": 6395 },
-      { "code": "12407.0", "desc": "1 1/4 X 1", "price": 9993 },
-      { "code": "12411.0", "desc": "1 1/2 X 1 1/4", "price": 14639 },
-      { "code": "12416.0", "desc": "2 X 1 1/2", "price": 24931 },
+      { "code": "12402.0", "desc": "3/4 X 1/2", "price": 4117 },
+      { "code": "12403.0", "desc": "1 X 1/2", "price": 6587 },
+      { "code": "12404.0", "desc": "1 X 3/4", "price": 6587 },
+      { "code": "12407.0", "desc": "1 1/4 X 1", "price": 10293 },
+      { "code": "12411.0", "desc": "1 1/2 X 1 1/4", "price": 15078 },
+      { "code": "12416.0", "desc": "2 X 1 1/2", "price": 25679 },
     ]
   },
   {
@@ -1411,12 +1411,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "codo reducción",
     "image": "imagenes-productos/producto-99.jpg",
     "variants": [
-      { "code": "12602.0", "desc": "3/4 X 1/2", "price": 3347 },
-      { "code": "12604.0", "desc": "1 X 3/4", "price": 7744 },
-      { "code": "12603.0", "desc": "1 X 1/2", "price": 7744 },
-      { "code": "12607.0", "desc": "1 1/4 X 1", "price": 10542 },
-      { "code": "12611.0", "desc": "1 1/2 X 1 1/4", "price": 18386 },
-      { "code": "12616.0", "desc": "2 X 1 1/2", "price": 25730 },
+      { "code": "12602.0", "desc": "3/4 X 1/2", "price": 3447 },
+      { "code": "12604.0", "desc": "1 X 3/4", "price": 7976 },
+      { "code": "12603.0", "desc": "1 X 1/2", "price": 7976 },
+      { "code": "12607.0", "desc": "1 1/4 X 1", "price": 10858 },
+      { "code": "12611.0", "desc": "1 1/2 X 1 1/4", "price": 18938 },
+      { "code": "12616.0", "desc": "2 X 1 1/2", "price": 26502 },
     ]
   },
   {
@@ -1428,8 +1428,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "rosca c/ tuerca reducción",
     "image": "imagenes-productos/producto-100.jpg",
     "variants": [
-      { "code": "12502.0", "desc": "3/4 X 1/2", "price": 1857 },
-      { "code": "12504.0", "desc": "1 X 3/4", "price": 2554 },
+      { "code": "12502.0", "desc": "3/4 X 1/2", "price": 1913 },
+      { "code": "12504.0", "desc": "1 X 3/4", "price": 2630 },
     ]
   },
   {
@@ -1441,12 +1441,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "niple de 1/2",
     "image": "imagenes-productos/producto-101.jpg",
     "variants": [
-      { "code": "11302.0", "desc": "X 5", "price": 2323 },
-      { "code": "11402.0", "desc": "X 8", "price": 3922 },
-      { "code": "11502.0", "desc": "X 10", "price": 4646 },
-      { "code": "11602.0", "desc": "X 12", "price": 6145 },
-      { "code": "11702.0", "desc": "X 15", "price": 7470 },
-      { "code": "11802.0", "desc": "X 20", "price": 9593 },
+      { "code": "11302.0", "desc": "X 5", "price": 2393 },
+      { "code": "11402.0", "desc": "X 8", "price": 4040 },
+      { "code": "11502.0", "desc": "X 10", "price": 4785 },
+      { "code": "11602.0", "desc": "X 12", "price": 6330 },
+      { "code": "11702.0", "desc": "X 15", "price": 7694 },
+      { "code": "11802.0", "desc": "X 20", "price": 9881 },
     ]
   },
   {
@@ -1458,12 +1458,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "niple de 3/4",
     "image": "imagenes-productos/producto-102.jpg",
     "variants": [
-      { "code": "11303.0", "desc": "X 5", "price": 3522 },
-      { "code": "11403.0", "desc": "X 8", "price": 4721 },
-      { "code": "11503.0", "desc": "X 10", "price": 4872 },
-      { "code": "11603.0", "desc": "X 12", "price": 8069 },
-      { "code": "11703.0", "desc": "X 15", "price": 10142 },
-      { "code": "11803.0", "desc": "X 20", "price": 13040 },
+      { "code": "11303.0", "desc": "X 5", "price": 3628 },
+      { "code": "11403.0", "desc": "X 8", "price": 4863 },
+      { "code": "11503.0", "desc": "X 10", "price": 5018 },
+      { "code": "11603.0", "desc": "X 12", "price": 8311 },
+      { "code": "11703.0", "desc": "X 15", "price": 10446 },
+      { "code": "11803.0", "desc": "X 20", "price": 13431 },
     ]
   },
   {
@@ -1475,12 +1475,12 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "niples de 1",
     "image": "imagenes-productos/producto-103.jpg",
     "variants": [
-      { "code": "11304.0", "desc": "X 5", "price": 4646 },
-      { "code": "11404.0", "desc": "X 8", "price": 7344 },
-      { "code": "11504.0", "desc": "X 10", "price": 9043 },
-      { "code": "11604.0", "desc": "X 12", "price": 10941 },
-      { "code": "11704.0", "desc": "X 15", "price": 13590 },
-      { "code": "11804.0", "desc": "X 20", "price": 19171 },
+      { "code": "11304.0", "desc": "X 5", "price": 4785 },
+      { "code": "11404.0", "desc": "X 8", "price": 7564 },
+      { "code": "11504.0", "desc": "X 10", "price": 9314 },
+      { "code": "11604.0", "desc": "X 12", "price": 11269 },
+      { "code": "11704.0", "desc": "X 15", "price": 13998 },
+      { "code": "11804.0", "desc": "X 20", "price": 19746 },
     ]
   },
   {
@@ -1492,9 +1492,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "niples conexión de 1/2",
     "image": "imagenes-productos/producto-104.jpg",
     "variants": [
-      { "code": "11902.0", "desc": "X 10", "price": 5271 },
-      { "code": "12002.0", "desc": "X 15", "price": 11041 },
-      { "code": "12102.0", "desc": "X 20", "price": 10542 },
+      { "code": "11902.0", "desc": "X 10", "price": 5429 },
+      { "code": "12002.0", "desc": "X 15", "price": 11372 },
+      { "code": "12102.0", "desc": "X 20", "price": 10858 },
     ]
   },
   {
@@ -1506,9 +1506,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "niples conexión de 3/4",
     "image": "imagenes-productos/producto-105.jpg",
     "variants": [
-      { "code": "11903.0", "desc": "X 10", "price": 7344 },
-      { "code": "12003.0", "desc": "X 15", "price": 18506 },
-      { "code": "12103.0", "desc": "X 20", "price": 15913 },
+      { "code": "11903.0", "desc": "X 10", "price": 7564 },
+      { "code": "12003.0", "desc": "X 15", "price": 19061 },
+      { "code": "12103.0", "desc": "X 20", "price": 16390 },
     ]
   },
   {
@@ -1520,9 +1520,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "niples conexión de 1",
     "image": "imagenes-productos/producto-106.jpg",
     "variants": [
-      { "code": "11904.0", "desc": "X 10", "price": 10068 },
-      { "code": "12004.0", "desc": "X 15", "price": 23296 },
-      { "code": "12104.0", "desc": "X 20", "price": 19835 },
+      { "code": "11904.0", "desc": "X 10", "price": 10370 },
+      { "code": "12004.0", "desc": "X 15", "price": 23995 },
+      { "code": "12104.0", "desc": "X 20", "price": 20430 },
     ]
   },
   {
@@ -1534,10 +1534,10 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tee normal",
     "image": "imagenes-productos/producto-107.jpg",
     "variants": [
-      { "code": "201.0", "desc": "13", "price": 2298 },
-      { "code": "202.0", "desc": "19", "price": 3595 },
-      { "code": "203.0", "desc": "25", "price": 7691 },
-      { "code": "204.0", "desc": "32", "price": 12788 },
+      { "code": "201.0", "desc": "13", "price": 2367 },
+      { "code": "202.0", "desc": "19", "price": 3703 },
+      { "code": "203.0", "desc": "25", "price": 7922 },
+      { "code": "204.0", "desc": "32", "price": 13172 },
     ]
   },
   {
@@ -1549,10 +1549,10 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "codo normal",
     "image": "imagenes-productos/producto-108.jpg",
     "variants": [
-      { "code": "101.0", "desc": "13", "price": 1503 },
-      { "code": "102.0", "desc": "19", "price": 3212 },
-      { "code": "103.0", "desc": "25", "price": 6438 },
-      { "code": "104.0", "desc": "32", "price": 8398 },
+      { "code": "101.0", "desc": "13", "price": 1548 },
+      { "code": "102.0", "desc": "19", "price": 3308 },
+      { "code": "103.0", "desc": "25", "price": 6631 },
+      { "code": "104.0", "desc": "32", "price": 8650 },
     ]
   },
   {
@@ -1564,10 +1564,10 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "unión normal",
     "image": "imagenes-productos/producto-109.jpg",
     "variants": [
-      { "code": "301.0", "desc": "13", "price": 1385 },
-      { "code": "302.0", "desc": "19", "price": 2298 },
-      { "code": "303.0", "desc": "25", "price": 3595 },
-      { "code": "304.0", "desc": "32", "price": 6895 },
+      { "code": "301.0", "desc": "13", "price": 1426 },
+      { "code": "302.0", "desc": "19", "price": 2367 },
+      { "code": "303.0", "desc": "25", "price": 3703 },
+      { "code": "304.0", "desc": "32", "price": 7102 },
     ]
   },
   {
@@ -1579,10 +1579,10 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tubo m. normal",
     "image": "imagenes-productos/producto-110.jpg",
     "variants": [
-      { "code": "401.0", "desc": "13", "price": 1296 },
-      { "code": "402.0", "desc": "19", "price": 2386 },
-      { "code": "403.0", "desc": "25", "price": 4685 },
-      { "code": "404.0", "desc": "32", "price": 7396 },
+      { "code": "401.0", "desc": "13", "price": 1335 },
+      { "code": "402.0", "desc": "19", "price": 2458 },
+      { "code": "403.0", "desc": "25", "price": 4826 },
+      { "code": "404.0", "desc": "32", "price": 7618 },
     ]
   },
   {
@@ -1594,10 +1594,10 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tubo hembra normal",
     "image": "imagenes-productos/producto-111.jpg",
     "variants": [
-      { "code": "501.0", "desc": "13", "price": 1591 },
-      { "code": "502.0", "desc": "19", "price": 2505 },
-      { "code": "503.0", "desc": "25", "price": 4892 },
-      { "code": "504.0", "desc": "32", "price": 7102 },
+      { "code": "501.0", "desc": "13", "price": 16390 },
+      { "code": "502.0", "desc": "19", "price": 2 },
+      { "code": "503.0", "desc": "25", "price": 5039 },
+      { "code": "504.0", "desc": "32", "price": 7315 },
     ]
   },
   {
@@ -1672,7 +1672,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "malla advertencia",
     "image": "imagenes-productos/producto-117.png",
     "variants": [
-      { "code": "187.0", "desc": "15 cm x 100 mts", "price": 70650 },
+      { "code": "187.0", "desc": "15 cm x 100 mts", "price": 70625 },
       { "code": "188.0", "desc": "30 cm x 100 mts", "price": 141250 },
     ]
   },
@@ -1710,7 +1710,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de regulador",
     "image": "imagenes-productos/producto-120.png",
     "variants": [
-      { "code": "21000.0", "desc": "3/4", "price": 22522 },
+      { "code": "21000.0", "desc": "3/4", "price": 23198 },
     ]
   },
   {
