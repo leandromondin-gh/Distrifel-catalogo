@@ -264,6 +264,16 @@ async function generatePDF() {
         const TABLE_X = DIVIDER_X + 5;
         const TABLE_W = W - TABLE_X - M;
 
+        // ── Constantes 2 columnas ──
+        const COL_GAP2    = 5;
+        const COL_W2      = (W - M * 2 - COL_GAP2) / 2;   // ~90.5 mm
+        const IMG2        = 20;
+        const LEFT_W2     = 38;                             // img(20) + gap(3) + brand(15)
+        const DIV_X2_REL  = LEFT_W2 + 3;                   // 41 mm desde inicio de col
+        const TBL_X2_REL  = DIV_X2_REL + 3;               // 44 mm desde inicio de col
+        const TABLE_W2    = COL_W2 - TBL_X2_REL;          // ~46 mm
+        const VAR_ROW2    = 7;                              // alto fila variante (era 9)
+
         // Colores
         const NAVY      = [17, 24, 39];
         const TEAL      = [74, 159, 142];
@@ -283,6 +293,12 @@ async function generatePDF() {
             return Math.max(IMG_SIZE + 16, 19 + displayRows * VAR_ROW + 6);
         }
 
+        function calcRowH2(p) {
+            const variants = p.variants || [];
+            const displayRows = variants.length > 1 ? Math.ceil(variants.length / 2) : variants.length;
+            return Math.max(IMG2 + 18, 23 + displayRows * VAR_ROW2 + 6);
+        }
+
         // Páginas por tipo — el contenido arranca en pág 3 (portada=1, índice=2)
         // (se calcula aquí, después de que CONTENT_TOP/CONTENT_BOT/IMG_SIZE ya están definidos)
         const typePageMap = computeTypePages(sorted, 3);
@@ -291,16 +307,20 @@ async function generatePDF() {
         function computeTypePages(productList, startPage) {
             const map = {}, SH = 11, SP = 6;
             let page = startPage, y = CONTENT_TOP, lastType = null;
-            for (const p of productList) {
-                const rh = calcRowH(p);
-                if (p.type !== lastType) {
+            let i = 0;
+            while (i < productList.length) {
+                const p1 = productList[i];
+                const p2 = (i + 1 < productList.length && productList[i + 1].type === p1.type) ? productList[i + 1] : null;
+                const rh = Math.max(calcRowH2(p1), p2 ? calcRowH2(p2) : 0);
+                if (p1.type !== lastType) {
                     if (lastType !== null && y + SP + SH + 8 + rh > CONTENT_BOT) { page++; y = CONTENT_TOP; }
-                    if (!(p.type in map)) map[p.type] = page;
+                    if (!(p1.type in map)) map[p1.type] = page;
                     y += SP + SH + 8;
-                    lastType = p.type;
+                    lastType = p1.type;
                 }
                 if (y + rh > CONTENT_BOT) { page++; y = CONTENT_TOP; }
                 y += rh + 2;
+                i += p2 ? 2 : 1;
             }
             return map;
         }
@@ -1010,6 +1030,141 @@ async function generatePDF() {
             doc.line(M, yPos + rowH, W - M, yPos + rowH);
         }
 
+        // ── Helper: dibujar producto en una columna (layout 2-col) ──
+        function drawProductCol(p, yPos, colIdx) {
+            const variants = p.variants || [];
+            const rowH = calcRowH2(p);
+            const CX = M + colIdx * (COL_W2 + COL_GAP2);
+
+            // Fondo blanco
+            doc.setFillColor(...WHITE);
+            doc.rect(CX, yPos, COL_W2, rowH, 'F');
+
+            // Título
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.setTextColor(...DARK);
+            const titleLines2 = doc.splitTextToSize(p.title || '', LEFT_W2);
+            doc.text(titleLines2.slice(0, 2), CX, yPos + 7);
+
+            // Imagen
+            const imgY2 = yPos + 14;
+            doc.setFillColor(248, 250, 252);
+            doc.roundedRect(CX, imgY2, IMG2, IMG2, 1.5, 1.5, 'F');
+            doc.setDrawColor(220, 226, 232);
+            doc.setLineWidth(0.2);
+            doc.roundedRect(CX, imgY2, IMG2, IMG2, 1.5, 1.5, 'D');
+            const img64 = imgCache[p.id];
+            if (img64) {
+                try { doc.addImage(img64, 'JPEG', CX + 1, imgY2 + 1, IMG2 - 2, IMG2 - 2); } catch {}
+            }
+
+            // Logo de marca
+            const brandB64c = (window.BRAND_LOGOS_B64 && p.brand) ? window.BRAND_LOGOS_B64[p.brand] : null;
+            const bAreaX = CX + IMG2 + 2;
+            const bAreaW = LEFT_W2 - IMG2 - 2;
+            const ls2 = LOGO_SIZES[p.brand] || { w: 22, h: 9 };
+            const scale2 = Math.min(bAreaW / ls2.w, 1);
+            const lw2 = ls2.w * scale2, lh2 = ls2.h * scale2;
+            const lx2 = bAreaX + (bAreaW - lw2) / 2;
+            const ly2 = imgY2 + (IMG2 - lh2) / 2;
+            if (brandB64c) {
+                const bFmt2 = brandB64c.startsWith('data:image/png') ? 'PNG' : brandB64c.startsWith('data:image/webp') ? 'WEBP' : 'JPEG';
+                try { doc.addImage(brandB64c, bFmt2, lx2, ly2, lw2, lh2); } catch {}
+            } else if (p.brand) {
+                const bn2 = (window.BRAND_NAMES && window.BRAND_NAMES[p.brand]) || p.brand;
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(7);
+                doc.setTextColor(...TEAL);
+                doc.text(bn2.toUpperCase(), bAreaX + bAreaW / 2, imgY2 + IMG2 / 2 + 1, { align: 'center' });
+            }
+
+            // Línea divisoria vertical
+            const divX2 = CX + DIV_X2_REL;
+            doc.setDrawColor(...GRAY_LINE);
+            doc.setLineWidth(0.3);
+            doc.line(divX2, yPos + 2, divX2, yPos + rowH - 2);
+
+            // Header tabla
+            const tblX2 = CX + TBL_X2_REL;
+            const TBL_HDR_Y = yPos + 14;   // alineado con el inicio de la imagen
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(7);
+            doc.setTextColor(...TEAL);
+            doc.text('OPCIONES', tblX2 + 1, TBL_HDR_Y);
+            doc.text('PRECIO', tblX2 + TABLE_W2 - 1, TBL_HDR_Y, { align: 'right' });
+            doc.setFillColor(...TEAL);
+            doc.rect(tblX2, TBL_HDR_Y + 1.5, TABLE_W2, 0.4, 'F');
+
+            const VAR_START_Y = TBL_HDR_Y + 3;
+
+            // Filas de variantes (siempre 2 sub-cols si hay más de 1)
+            const use2Sub = variants.length > 1;
+            if (use2Sub) {
+                const half2 = Math.ceil(variants.length / 2);
+                const subW2 = TABLE_W2 / 2 - 0.5;
+                variants.forEach((v, vi) => {
+                    const sc = vi < half2 ? 0 : 1;
+                    const sr = vi < half2 ? vi : vi - half2;
+                    const sx = tblX2 + sc * (subW2 + 1);
+                    doc.setFillColor(...(sr % 2 === 0 ? [241, 245, 249] : [255, 255, 255]));
+                    doc.rect(sx, VAR_START_Y + sr * VAR_ROW2, subW2, VAR_ROW2, 'F');
+                    const vLbl = doc.splitTextToSize(v.desc || '-', subW2 - 16)[0] || (v.desc || '-');
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(7.5);
+                    doc.setTextColor(...DARK);
+                    doc.text(vLbl, sx + 1, VAR_START_Y + sr * VAR_ROW2 + 4.8);
+                    if (v.price === 0) {
+                        doc.setTextColor(...GRAY);
+                        doc.text('S/S', sx + subW2 - 1, VAR_START_Y + sr * VAR_ROW2 + 4.8, { align: 'right' });
+                    } else {
+                        doc.setFont('helvetica', 'bold');
+                        doc.setTextColor(...TEAL);
+                        doc.text(formatPrice(v.price), sx + subW2 - 1, VAR_START_Y + sr * VAR_ROW2 + 4.8, { align: 'right' });
+                    }
+                });
+                doc.setDrawColor(210, 220, 228);
+                doc.setLineWidth(0.2);
+                const divSubX = tblX2 + subW2 + 0.5;
+                doc.line(divSubX, VAR_START_Y, divSubX, VAR_START_Y + Math.ceil(variants.length / 2) * VAR_ROW2);
+            } else {
+                variants.forEach((v, vi) => {
+                    doc.setFillColor(...(vi % 2 === 0 ? [241, 245, 249] : [255, 255, 255]));
+                    doc.rect(tblX2, VAR_START_Y + vi * VAR_ROW2, TABLE_W2, VAR_ROW2, 'F');
+                    const vLbl = doc.splitTextToSize(v.desc || '-', TABLE_W2 - 22)[0] || (v.desc || '-');
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(7.5);
+                    doc.setTextColor(...DARK);
+                    doc.text(vLbl, tblX2 + 1, VAR_START_Y + vi * VAR_ROW2 + 4.8);
+                    if (v.price === 0) {
+                        doc.setTextColor(...GRAY);
+                        doc.text('Sin stock', tblX2 + TABLE_W2 - 1, VAR_START_Y + vi * VAR_ROW2 + 4.8, { align: 'right' });
+                    } else {
+                        doc.setFont('helvetica', 'bold');
+                        doc.setTextColor(...TEAL);
+                        doc.text(formatPrice(v.price), tblX2 + TABLE_W2 - 1, VAR_START_Y + vi * VAR_ROW2 + 4.8, { align: 'right' });
+                    }
+                });
+            }
+
+            // Badge IVA diferencial
+            if (p.iva && p.iva !== 21) {
+                doc.setFillColor(254, 240, 138);
+                doc.setDrawColor(234, 179, 8);
+                doc.setLineWidth(0.2);
+                doc.roundedRect(CX + COL_W2 - 19, yPos + 1.5, 18, 5, 1, 1, 'FD');
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(5.5);
+                doc.setTextColor(120, 90, 0);
+                doc.text(`IVA ${p.iva}%`, CX + COL_W2 - 10, yPos + 5.5, { align: 'center' });
+            }
+
+            // Línea inferior
+            doc.setDrawColor(...GRAY_LINE);
+            doc.setLineWidth(0.3);
+            doc.line(CX, yPos + rowH, CX + COL_W2, yPos + rowH);
+        }
+
         // ── Paginación ──
         let pageNum = 1;
 
@@ -1111,13 +1266,15 @@ async function generatePDF() {
         const SEP_H = 11;
         const SEP_PAD = 6;
 
-        for (const p of sorted) {
-            const rowH = calcRowH(p);
+        let pi = 0;
+        while (pi < sorted.length) {
+            const p1 = sorted[pi];
+            const p2 = (pi + 1 < sorted.length && sorted[pi + 1].type === p1.type) ? sorted[pi + 1] : null;
+            const rowH = Math.max(calcRowH2(p1), p2 ? calcRowH2(p2) : 0);
 
-            // Separador de tipo — nueva página solo si separador + producto no entran
-            if (p.type !== lastType) {
-                const sepLabel = (TYPE_LABELS[p.type] || p.type).toUpperCase();
-
+            // Separador de tipo
+            if (p1.type !== lastType) {
+                const sepLabel = (TYPE_LABELS[p1.type] || p1.type).toUpperCase();
                 if (lastType !== null && y + SEP_PAD + SEP_H + 8 + rowH > CONTENT_BOT) {
                     pageNum++;
                     doc.addPage();
@@ -1125,14 +1282,13 @@ async function generatePDF() {
                     addPageFooter(pageNum);
                     y = CONTENT_TOP;
                 }
-
                 y += SEP_PAD;
                 drawTypeSeparator(sepLabel, y);
                 y += SEP_H + 8;
-                lastType = p.type;
+                lastType = p1.type;
             }
 
-            // Si el producto no cabe: nueva página
+            // Nueva página si no cabe el par
             if (y + rowH > CONTENT_BOT) {
                 pageNum++;
                 doc.addPage();
@@ -1141,8 +1297,11 @@ async function generatePDF() {
                 y = CONTENT_TOP;
             }
 
-            drawProductRow(p, y);
+            drawProductCol(p1, y, 0);
+            if (p2) drawProductCol(p2, y, 1);
+
             y += rowH + 2;
+            pi += p2 ? 2 : 1;
         }
 
         // ── Guardar ──
