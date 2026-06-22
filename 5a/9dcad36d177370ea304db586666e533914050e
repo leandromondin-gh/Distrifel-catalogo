@@ -1,0 +1,21 @@
+script.js
+  s_c75e617219270e::t_f349630592a2f0 298
+  s_c75e617219270e::t_b3839bc8280557 1093-1111
+  s_c75e617219270e::t_6527e2757ff0e0 2764
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "5a9dcad36d177370ea304db586666e533914050e",
+  "prompts": {},
+  "sessions": {
+    "s_c75e617219270e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2ec53607-158c-4e15-b537-51e8510a7422",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "leandromondin-gh <mondin.leandro@gmail.com>"
+    }
+  }
+}
