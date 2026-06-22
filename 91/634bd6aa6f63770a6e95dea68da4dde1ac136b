@@ -1,0 +1,19 @@
+products.js
+  s_c75e617219270e::t_9f36e393321622 174-184,197,209-212,336,396-397,409-410,437-440,478-480,552-557,569-576,623,686-687,699-700,981,993,1005,1017-1018,1030-1031,1057-1059,1071-1073,1111-1112,1125,1150,1176-1177,1189,1202,1214-1215,1363-1364,1598
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "91634bd6aa6f63770a6e95dea68da4dde1ac136b",
+  "prompts": {},
+  "sessions": {
+    "s_c75e617219270e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2ec53607-158c-4e15-b537-51e8510a7422",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "leandromondin-gh <mondin.leandro@gmail.com>"
+    }
+  }
+}
