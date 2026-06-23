@@ -282,7 +282,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "reguladores gas envasado",
     "image": "imagenes-productos/producto-19.webp",
     "variants": [
-      { "code": "25.0", "desc": "2 Flexibles", "price": 1777 },
+      { "code": "25.0", "desc": "2 Flexibles", "price": 69943 },
     ]
   },
   {
