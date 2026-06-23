@@ -1,0 +1,14 @@
+products.js
+  h_79606dd30f63ff 285
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "349808393ec224ae44b85f11b0d1054d8348060f",
+  "prompts": {},
+  "humans": {
+    "h_79606dd30f63ff": {
+      "author": "leandromondin-gh <mondin.leandro@gmail.com>"
+    }
+  }
+}
