@@ -1,4 +1,4 @@
-// Generado desde "Lista de precios-13.xlsx" — Version-Final
+// Generado desde "Lista de precios-14.xlsx" — Version-Final
 // Para actualizar: editar el Excel y correr el script de conversión
 window.DISTRIFEL_PRODUCTS = [
   {
@@ -78,8 +78,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de agua monocomando hembra",
     "image": "imagenes-productos/producto-5.webp",
     "variants": [
-      { "code": "393.0", "desc": "40 cm. Pico Corto", "price": 1751 },
-      { "code": "397.0", "desc": "40 cm. Pico Largo", "price": 2090 },
+      { "code": "393.0", "desc": "40 cm. Pico Corto", "price": 2005 },
+      { "code": "397.0", "desc": "40 cm. Pico Largo", "price": 2394 },
     ]
   },
   {
@@ -171,17 +171,17 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de gas no aprobado x 1/2",
     "image": "imagenes-productos/producto-12.webp",
     "variants": [
-      { "code": "C30", "desc": "30 cm", "price": 2339 },
-      { "code": "C40", "desc": "40 cm", "price": 2453 },
-      { "code": "C50", "desc": "50 cm", "price": 2567 },
-      { "code": "C60", "desc": "60 cm", "price": 2681 },
-      { "code": "C80", "desc": "80 cm", "price": 2909 },
-      { "code": "C100", "desc": "100 cm", "price": 3137 },
-      { "code": "C110", "desc": "110 cm", "price": 3251 },
-      { "code": "C120", "desc": "120 cm", "price": 3365 },
-      { "code": "C130", "desc": "130 cm", "price": 3479 },
-      { "code": "C140", "desc": "140 cm", "price": 4506 },
-      { "code": "C150", "desc": "150 cm", "price": 3707 },
+      { "code": "C30", "desc": "30 cm", "price": 2280 },
+      { "code": "C40", "desc": "40 cm", "price": 2390 },
+      { "code": "C50", "desc": "50 cm", "price": 2500 },
+      { "code": "C60", "desc": "60 cm", "price": 2611 },
+      { "code": "C80", "desc": "80 cm", "price": 2381 },
+      { "code": "C100", "desc": "100 cm", "price": 3097 },
+      { "code": "C110", "desc": "110 cm", "price": 0 },
+      { "code": "C120", "desc": "120 cm", "price": 3475 },
+      { "code": "C130", "desc": "130 cm", "price": 0 },
+      { "code": "C140", "desc": "140 cm", "price": 0 },
+      { "code": "C150", "desc": "150 cm", "price": 4041 },
     ]
   },
   {
@@ -420,9 +420,9 @@ window.DISTRIFEL_PRODUCTS = [
     "image": "imagenes-productos/producto-30.webp",
     "variants": [
       { "code": "PTAME0255", "desc": "0,10 cm", "price": 20890 },
-      { "code": "PTAME0262", "desc": "0,15 cm", "price": 31333 },
-      { "code": "PTAME0278", "desc": "0,25 cm", "price": 52222 },
-      { "code": "PTAME001", "desc": "0,30 cm", "price": 59480 },
+      { "code": "PTAME0262", "desc": "0,15 cm", "price": 31334 },
+      { "code": "PTAME0278", "desc": "0,25 cm", "price": 52224 },
+      { "code": "PTAME001", "desc": "0,30 cm", "price": 62669 },
     ]
   },
   {
@@ -462,8 +462,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "petrolato",
     "image": "imagenes-productos/producto-33.jpg",
     "variants": [
-      { "code": "PTANT0014", "desc": "0,05 cm x 10 Mts", "price": 10378 },
-      { "code": "PTANT0015", "desc": "0,10 cm x 10 Mts", "price": 20755 },
+      { "code": "PTANT0014", "desc": "0,05 cm x 10 Mts", "price": 21041 },
+      { "code": "PTANT0015", "desc": "0,10 cm x 10 Mts", "price": 42080 },
     ]
   },
   {
@@ -475,9 +475,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "imprimador",
     "image": "imagenes-productos/producto-34.jpg",
     "variants": [
-      { "code": "PTAIM0001", "desc": "250 ML", "price": 11401 },
-      { "code": "PTAIM0002", "desc": "1 Lts", "price": 27612 },
-      { "code": "PTAIM0003", "desc": "4 Lts", "price": 105669 },
+      { "code": "PTAIM0001", "desc": "250 ML", "price": 18767 },
+      { "code": "PTAIM0002", "desc": "1 Lts", "price": 36662 },
+      { "code": "PTAIM0003", "desc": "4 Lts", "price": 215219 },
     ]
   },
   {
@@ -534,10 +534,10 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "llave de gas candado",
     "image": "imagenes-productos/producto-38.jpg",
     "variants": [
-      { "code": "5005.0", "desc": "LLAVE CANDADO H-H 3/4", "price": 20669 },
-      { "code": "5006.0", "desc": "LLAVE CANDADO M-H 3/4", "price": 20669 },
+      { "code": "5005.0", "desc": "LLAVE CANDADO H-H 3/4", "price": 18789 },
+      { "code": "5006.0", "desc": "LLAVE CANDADO M-H 3/4", "price": 18789 },
       { "code": "5007.0", "desc": "LLAVE CANDADO H-H 1", "price": 35821 },
-      { "code": "5008.0", "desc": "LLAVE CANDADO M-H 1", "price": 35821 },
+      { "code": "5008.0", "desc": "LLAVE CANDADO M-H 1", "price": 32565 },
     ]
   },
   {
@@ -683,8 +683,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canilla esfericas mariposa laton",
     "image": "imagenes-productos/producto-47.jpg",
     "variants": [
-      { "code": "215012.0", "desc": "1/2", "price": 3400 },
-      { "code": "215034.0", "desc": "3/4", "price": 4660 },
+      { "code": "215012.0", "desc": "1/2", "price": 3465 },
+      { "code": "215034.0", "desc": "3/4", "price": 8693 },
     ]
   },
   {
@@ -696,8 +696,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canilla esfericas mariposa plastico",
     "image": "imagenes-productos/producto-48.png",
     "variants": [
-      { "code": "38002301M", "desc": "1/2", "price": 1955 },
-      { "code": "38002302M", "desc": "3/4", "price": 2556 },
+      { "code": "38002301M", "desc": "1/2", "price": 2051 },
+      { "code": "38002302M", "desc": "3/4", "price": 2681 },
     ]
   },
   {
@@ -978,7 +978,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canilla de bronce cromada c/ pico",
     "image": "imagenes-productos/producto-69.jpg",
     "variants": [
-      { "code": "2033934.0", "desc": "3/4", "price": 14605 },
+      { "code": "2033934.0", "desc": "3/4", "price": 14886 },
     ]
   },
   {
@@ -990,7 +990,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canilla esferica forjada palanca roja",
     "image": "imagenes-productos/producto-70.webp",
     "variants": [
-      { "code": "21101.0", "desc": "1", "price": 13862 },
+      { "code": "21101.0", "desc": "1", "price": 14129 },
     ]
   },
   {
@@ -1002,7 +1002,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "canila para riego palanca",
     "image": "imagenes-productos/producto-71.webp",
     "variants": [
-      { "code": "215012.0", "desc": "1/2", "price": 3400 },
+      { "code": "215012.0", "desc": "1/2", "price": 3465 },
     ]
   },
   {
@@ -1014,8 +1014,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "valvula esclusa paso total",
     "image": "imagenes-productos/producto-72.webp",
     "variants": [
-      { "code": "154021.0", "desc": "1", "price": 10567 },
-      { "code": "15402114.0", "desc": "1 1/4", "price": 17724 },
+      { "code": "154021.0", "desc": "1", "price": 10770 },
+      { "code": "15402114.0", "desc": "1 1/4", "price": 18065 },
     ]
   },
   {
@@ -1040,9 +1040,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "codo 90º",
     "image": "imagenes-productos/producto-74.jpg",
     "variants": [
-      { "code": "729020.0", "desc": "20", "price": 185 },
-      { "code": "729025.0", "desc": "25", "price": 293 },
-      { "code": "729032.0", "desc": "32", "price": 504 },
+      { "code": "729020.0", "desc": "20", "price": 189 },
+      { "code": "729025.0", "desc": "25", "price": 299 },
+      { "code": "729032.0", "desc": "32", "price": 514 },
     ]
   },
   {
@@ -1054,9 +1054,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "codo c/ inserto metalico hembra",
     "image": "imagenes-productos/producto-75.webp",
     "variants": [
-      { "code": "7290201.0", "desc": "20 x 1/2", "price": 1434 },
-      { "code": "7290251.0", "desc": "25 x 1/2", "price": 1852 },
-      { "code": "7290252.0", "desc": "25 x 3/4", "price": 2152 },
+      { "code": "7290201.0", "desc": "20 x 1/2", "price": 1462 },
+      { "code": "7290251.0", "desc": "25 x 1/2", "price": 1889 },
+      { "code": "7290252.0", "desc": "25 x 3/4", "price": 2195 },
     ]
   },
   {
@@ -1068,9 +1068,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "cupla c/ inserto metalico hembra",
     "image": "imagenes-productos/producto-76.jpg",
     "variants": [
-      { "code": "72270201.0", "desc": "20 x 1/2", "price": 1294 },
-      { "code": "722702038.0", "desc": "20 x 3/8", "price": 1237 },
-      { "code": "72270251.0", "desc": "25 x 12", "price": 1554 },
+      { "code": "72270201.0", "desc": "20 x 1/2", "price": 1319 },
+      { "code": "722702038.0", "desc": "20 x 3/8", "price": 1261 },
+      { "code": "72270251.0", "desc": "25 x 12", "price": 1605 },
     ]
   },
   {
@@ -1082,7 +1082,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "cupla reduccion",
     "image": "imagenes-productos/producto-77.jpg",
     "variants": [
-      { "code": "722702520.0", "desc": "1 1/4", "price": 232 },
+      { "code": "722702520.0", "desc": "1 1/4", "price": 236 },
     ]
   },
   {
@@ -1094,9 +1094,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "cupla",
     "image": "imagenes-productos/producto-78.jpg",
     "variants": [
-      { "code": "7227020.0", "desc": "20", "price": 129 },
-      { "code": "7227025.0", "desc": "25", "price": 212 },
-      { "code": "7227032.0", "desc": "32", "price": 298 },
+      { "code": "7227020.0", "desc": "20", "price": 131 },
+      { "code": "7227025.0", "desc": "25", "price": 216 },
+      { "code": "7227032.0", "desc": "32", "price": 304 },
     ]
   },
   {
@@ -1108,8 +1108,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "llave paso compacta cbezal poliamida",
     "image": "imagenes-productos/producto-79.webp",
     "variants": [
-      { "code": "7260020.0", "desc": "20", "price": 5922 },
-      { "code": "7260025.0", "desc": "25", "price": 6416 },
+      { "code": "7260020.0", "desc": "20", "price": 6040 },
+      { "code": "7260025.0", "desc": "25", "price": 6544 },
     ]
   },
   {
@@ -1121,8 +1121,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "sobrepaso",
     "image": "imagenes-productos/producto-80.webp",
     "variants": [
-      { "code": "725020.0", "desc": "20", "price": 832 },
-      { "code": "725025.0", "desc": "25", "price": 1143 },
+      { "code": "725020.0", "desc": "20", "price": 848 },
+      { "code": "725025.0", "desc": "25", "price": 1166 },
     ]
   },
   {
@@ -1134,8 +1134,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tapa",
     "image": "imagenes-productos/producto-81.jpg",
     "variants": [
-      { "code": "7230120.0", "desc": "20", "price": 129 },
-      { "code": "7230125.0", "desc": "25", "price": 192 },
+      { "code": "7230120.0", "desc": "20", "price": 131 },
+      { "code": "7230125.0", "desc": "25", "price": 196 },
     ]
   },
   {
@@ -1147,7 +1147,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tee c/ inserto metalico hembra",
     "image": "imagenes-productos/producto-82.jpg",
     "variants": [
-      { "code": "72130201.0", "desc": "20 x 1/2", "price": 1703 },
+      { "code": "72130201.0", "desc": "20 x 1/2", "price": 1737 },
     ]
   },
   {
@@ -1159,9 +1159,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tee",
     "image": "imagenes-productos/producto-83.jpg",
     "variants": [
-      { "code": "7213020.0", "desc": "20", "price": 242 },
-      { "code": "7213025.0", "desc": "25", "price": 413 },
-      { "code": "7213032.0", "desc": "32", "price": 647 },
+      { "code": "7213020.0", "desc": "20", "price": 247 },
+      { "code": "7213025.0", "desc": "25", "price": 421 },
+      { "code": "7213032.0", "desc": "32", "price": 660 },
     ]
   },
   {
@@ -1173,8 +1173,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tubos agua caliente duraflow",
     "image": "imagenes-productos/producto-84.webp",
     "variants": [
-      { "code": "72220.0", "desc": "20 x 2.8", "price": 3565 },
-      { "code": "72225.0", "desc": "25 x 3.5", "price": 5431 },
+      { "code": "72220.0", "desc": "20 x 2.8", "price": 3634 },
+      { "code": "72225.0", "desc": "25 x 3.5", "price": 5535 },
     ]
   },
   {
@@ -1186,7 +1186,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "tubos agua fria ecoflow",
     "image": "imagenes-productos/producto-85.webp",
     "variants": [
-      { "code": "722320.0", "desc": "32 x 3.0", "price": 6764 },
+      { "code": "722320.0", "desc": "32 x 3.0", "price": 6894 },
     ]
   },
   {
@@ -1198,8 +1198,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "union doble fusion - fusión",
     "image": "imagenes-productos/producto-86.jpg",
     "variants": [
-      { "code": "7234020.0", "desc": "20", "price": 772 },
-      { "code": "7234034.0", "desc": "25", "price": 1085 },
+      { "code": "7234020.0", "desc": "20", "price": 787 },
+      { "code": "7234034.0", "desc": "25", "price": 1106 },
     ]
   },
   {
@@ -1211,8 +1211,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "valvula ppr fusión esfera plastica",
     "image": "imagenes-productos/producto-87.webp",
     "variants": [
-      { "code": "570020.0", "desc": "20", "price": 1595 },
-      { "code": "570025.0", "desc": "25", "price": 2446 },
+      { "code": "570020.0", "desc": "20", "price": 1627 },
+      { "code": "570025.0", "desc": "25", "price": 2495 },
     ]
   },
   {
@@ -1685,7 +1685,7 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "kit flexible conex. radiador y calef.",
     "image": "imagenes-productos/producto-118.jpg",
     "variants": [
-      { "code": "13000.0", "desc": "8 cm a 12 cm", "price": 19924 },
+      { "code": "13000.0", "desc": "8 cm a 12 cm", "price": 20521 },
     ]
   },
   {
@@ -1697,8 +1697,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de calefactor",
     "image": "imagenes-productos/producto-119.webp",
     "variants": [
-      { "code": "11010.0", "desc": "1/4- 1/2 de 20 A 30 cm", "price": 10467 },
-      { "code": "11011.0", "desc": "1/4 - 1/2 de 30 A 50 cm", "price": 12192 },
+      { "code": "11010.0", "desc": "1/4- 1/2 de 20 A 30 cm", "price": 10781 },
+      { "code": "11011.0", "desc": "1/4 - 1/2 de 30 A 50 cm", "price": 12558 },
     ]
   },
   {
