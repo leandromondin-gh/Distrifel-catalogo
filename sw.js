@@ -1,5 +1,5 @@
-// v3: bump cache — Lista 118 actualizada 01/07/2026
-const CACHE_NAME = 'distrifel-v3';
+// v4: bump cache — fix títulos largos PDF
+const CACHE_NAME = 'distrifel-v4';
 const ASSETS = [
     './',
     './index.html',
