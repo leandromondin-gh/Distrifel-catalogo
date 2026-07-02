@@ -357,7 +357,7 @@ async function generatePDF() {
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
             doc.setTextColor(...TEAL);
-            doc.text('Lista 116  •  Actualizada: 19/05/2026', W - M, 19, { align: 'right' });
+            doc.text('Lista 118  •  Actualizada: 01/07/2026', W - M, 19, { align: 'right' });
 
         }
 
@@ -1201,7 +1201,7 @@ async function generatePDF() {
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(13);
             doc.setTextColor(156, 163, 175);
-            doc.text('Lista 118  •  Actualizada: 13/05/2026', PW / 2, centerY + 63, { align: 'center' });
+            doc.text('Lista 118  •  Actualizada: 01/07/2026', PW / 2, centerY + 63, { align: 'center' });
 
             // ── Contacto al pie ──
             doc.setFillColor(12, 18, 28);
