@@ -296,7 +296,7 @@ window.DISTRIFEL_PRODUCTS = [
     "variants": [
       { "code": "34.0", "desc": "0,80 Mts", "price": 8711 },
       { "code": "134.0", "desc": "1.50 Mts", "price": 9400 },
-      { "code": "234.0", "desc": "2.00 Mts", "price": 4592 },
+      { "code": "234.0", "desc": "2.00 Mts", "price": 9856 },
     ]
   },
   {
