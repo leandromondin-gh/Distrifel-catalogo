@@ -475,9 +475,9 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "imprimador",
     "image": "imagenes-productos/producto-34.jpg",
     "variants": [
-      { "code": "PTAIM0001", "desc": "250 ML", "price": 18767 },
-      { "code": "PTAIM0002", "desc": "1 Lts", "price": 36662 },
-      { "code": "PTAIM0003", "desc": "4 Lts", "price": 215219 },
+      { "code": "PTAIM0001", "desc": "250 ML", "price": 11401 },
+      { "code": "PTAIM0002", "desc": "1 Lts", "price": 27612 },
+      { "code": "PTAIM0003", "desc": "4 Lts", "price": 105669 },
     ]
   },
   {
