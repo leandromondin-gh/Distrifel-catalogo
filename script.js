@@ -898,9 +898,14 @@ async function generatePDF() {
 
             // Título — arriba del todo, ancho completo del panel izquierdo
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(11);
             doc.setTextColor(...DARK);
-            const titleLines2 = doc.splitTextToSize(p.title || '', LEFT_W);
+            let titleLines2, titleFontSize = 11;
+            for (const fs of [11, 10, 9, 8]) {
+                doc.setFontSize(fs);
+                titleLines2 = doc.splitTextToSize(p.title || '', LEFT_W);
+                titleFontSize = fs;
+                if (titleLines2.length <= 2) break;
+            }
             doc.text(titleLines2.slice(0, 2), M, yPos + 9);
 
             // Panel izquierdo: imagen con borde sutil (debajo del título)
@@ -1034,9 +1039,14 @@ async function generatePDF() {
 
             // Título
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(9);
             doc.setTextColor(...DARK);
-            const titleLines2 = doc.splitTextToSize(p.title || '', LEFT_W2);
+            let titleLines2, titleFontSize = 9;
+            for (const fs of [9, 8, 7]) {
+                doc.setFontSize(fs);
+                titleLines2 = doc.splitTextToSize(p.title || '', LEFT_W2);
+                titleFontSize = fs;
+                if (titleLines2.length <= 2) break;
+            }
             doc.text(titleLines2.slice(0, 2), CX, yPos + 7);
 
             // Imagen
