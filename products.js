@@ -117,8 +117,8 @@ window.DISTRIFEL_PRODUCTS = [
     "searchName": "flexible de gas aprobado extensibles x 3/4\"",
     "image": "imagenes-productos/flexible-gas-aprobado.webp",
     "variants": [
-      { "code": "11002.0", "desc": "20 a 45 cm", "price": 1441 },
-      { "code": "11003.0", "desc": "40 a 99 cm", "price": 2137 },
+      { "code": "11002.0", "desc": "20 a 45 cm", "price": 16887 },
+      { "code": "11003.0", "desc": "40 a 99 cm", "price": 26638 },
     ]
   },
   {
