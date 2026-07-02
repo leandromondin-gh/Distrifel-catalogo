@@ -1,5 +1,5 @@
-// v2: switched to network-first strategy to avoid serving stale content
-const CACHE_NAME = 'distrifel-v2';
+// v3: bump cache — Lista 118 actualizada 01/07/2026
+const CACHE_NAME = 'distrifel-v3';
 const ASSETS = [
     './',
     './index.html',
