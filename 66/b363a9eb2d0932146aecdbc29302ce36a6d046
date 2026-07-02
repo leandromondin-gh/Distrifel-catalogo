@@ -1,0 +1,19 @@
+sw.js
+  s_0c438bd3351c15::t_62935d3f0be442 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "66b363a9eb2d0932146aecdbc29302ce36a6d046",
+  "prompts": {},
+  "sessions": {
+    "s_0c438bd3351c15": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5639fd4a-5950-48c4-8cb3-b7818a5d0c3e",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "leandromondin-gh <mondin.leandro@gmail.com>"
+    }
+  }
+}
